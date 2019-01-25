@@ -1,0 +1,12 @@
+@media (min-width: 600px) {
+    section{
+        display: flex;
+        width: 48%;
+        flex-direction: column;
+        margin-bottom: 2.5%;
+    }
+
+    .taskLists{
+        position: relative;
+    }
+}
