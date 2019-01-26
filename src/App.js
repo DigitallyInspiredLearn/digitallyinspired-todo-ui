@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Header} from "./header/Header";
 import {Dashboard} from "./dashboard/Dashboard";
 import {Sider} from "./sider/Sider";
+import {NullLenghtDashboard} from "./dashboard/NullLenghtDashboard";
 import './index.css'
 
 const toDoList =[
@@ -52,22 +53,7 @@ const toDoList =[
             },
         ]
     },
-    {
-        idList: 9,
-        title: 'Мелочи',
-        tasks: [
-            {
-                id:100,
-                selected: false,
-                name:'доработать мелочи'
-            },
-            {
-                id:400,
-                selected: false,
-                name:'красиво оформить код'
-            },
-        ]
-    },
+    
 ];
 
 class App extends Component {
@@ -98,16 +84,26 @@ class App extends Component {
         });
     };
 
+    defaultValueFromTitle =(e,newTitleName,id) =>{
+
+        let value = newTitleName===''? newTitleName='New Title' +id+'':newTitleName;
+        this.setState({
+            data: this.state.data.map(i =>
+                i.idList === id ? {...i, title: value} : i)
+        });
+
+    };
+
     updateDisplayFlex = () => {
         this.setState({
             displayStyle: 'flex',
-            animation: 'move 1s'
+            animation: 'move 1s',
         })
     };
 
     updateDisplayNone = () => {
         this.setState({
-            displayStyle: 'none'
+            displayStyle: 'none',
         })
     };
 
@@ -116,7 +112,17 @@ class App extends Component {
             data: this.state.data.map(i =>
                 i.idList === idList?{...i,tasks: i.tasks.map(e => e.id===idTask?{...e,name:newName}:e)}:i
             )
-        })
+        });
+    };
+
+    defaultValueFromTask =(e,newNameTask,idList,idTask) =>{
+
+            let value = newNameTask===''? newNameTask='to-do':newNameTask;
+            this.setState({
+                data: this.state.data.map(i =>
+                    i.idList === idList?{...i,tasks: i.tasks.map(e => e.id===idTask?{...e,name:value}:e)}:i
+                )
+            })
     };
 
     updateSelectedTask = (idList, idTask, selectedValue) => {
@@ -138,6 +144,7 @@ class App extends Component {
         return rand;
     };
 
+
     addNewTask = (event,nameTask,idList,idTask) =>{
         if(nameTask===''){}
         else {
@@ -154,32 +161,40 @@ class App extends Component {
     };
 
     addNewDashboard = (title,idDashboard,taskName,idTask) =>{
-        this.state.data.push({idList:idDashboard,title:title,tasks:[{id:idTask,selected:false,name:taskName}]});
+        let titleValue= title==='' ? title='New Title Dashboard'+idDashboard:title;
+        let taskValue = taskName==='' ? taskName='new do-to'+idTask:taskName;
+        this.state.data.push({idList:idDashboard,title:titleValue,tasks:[{id:idTask,selected:false,name:taskValue}]});
         this.setState(
             this.state.data
         );
     };
+
     render() {
     return (
       <div className="App">
           <Header/>
           <div id="content">
               <main>
-                  {this.state.data.map(i => (
-                      <Dashboard
-                          idList={i.idList}
-                          key={i.idList}
-                          title={i.title}
-                          tasks={i.tasks}
-                          deleteDashboard={this.deleteDashboard}
-                          updateDashboardTitle={this.updateDashboardTitle}
-                          deleteTask={this.deleteTask}
-                          updateNameTask={this.updateNameTask}
-                          updateSelectedTask={this.updateSelectedTask}
-                          addNewTask={this.addNewTask}
-                          randomInteger={this.randomInteger}
-                      />
-                  ))}
+                  {
+                      this.state.data.length ===0 ? <NullLenghtDashboard/>
+                         :this.state.data.map(i => (
+                             <Dashboard
+                                 idList={i.idList}
+                                 key={i.idList}
+                                 title={i.title}
+                                 tasks={i.tasks}
+                                 deleteDashboard={this.deleteDashboard}
+                                 updateDashboardTitle={this.updateDashboardTitle}
+                                 deleteTask={this.deleteTask}
+                                 updateNameTask={this.updateNameTask}
+                                 updateSelectedTask={this.updateSelectedTask}
+                                 addNewTask={this.addNewTask}
+                                 randomInteger={this.randomInteger}
+                                 defaultValueFromTitle={this.defaultValueFromTitle}
+                                 defaultValueFromTask={this.defaultValueFromTask}
+                             />
+                         ))
+                  }
               </main>
               <div className="addNewArticleButton" onClick={this.updateDisplayFlex}>+</div>
           </div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './css/dashboardStyle.css'
 import './css/dashboardStyleForComp.css'
 import {Task} from "../task/Task";
+import {NullLenghtTasks} from "../task/NullLenghtTasks";
 
 export class Dashboard extends Component {
     state = {
@@ -12,27 +13,6 @@ export class Dashboard extends Component {
         this.setState({
             valueNewTask : e.target.value
         })
-    };
-
-    // changeValue = (e) =>{
-    //     this.setState({
-    //         value : e.target.value
-    //     })
-    // };
-    //
-    handlerEnterDown =(e) =>{
-        if (e.key === 'Enter') {
-            e.target.blur();
-            return e.target.value===''? e.target.value='New Title':e.target.value;
-        }
-    };
-
-    deleteValueInAddingInput = (e) =>{
-        if (e.key === 'Enter') {
-            e.target.blur();
-            this.setState({
-                valueNewTask:this.state.valueNewTask=e.target.value=''})
-        }
     };
 
     handlerOnBlur = (e) =>{
@@ -50,10 +30,10 @@ export class Dashboard extends Component {
                         className="titleName"
                         onChange={(e) => {
                             this.props.updateDashboardTitle(this.props.idList, e.target.value);
-                            // this.changeValue(e)
                            }
                         }
-                        onKeyPress={this.handlerEnterDown}
+                        onBlur={(e) => this.props.defaultValueFromTitle(e,e.target.value,this.props.idList)}
+                        onKeyDown={(e) =>e.key === 'Enter'?e.target.blur():-1}
                     />
                     <div
                         className="deleteBoadr fa fa-trash fa-2x"
@@ -62,18 +42,20 @@ export class Dashboard extends Component {
                 </article>
                 <div className="taskLists">
                     {
-                        this.props.tasks.map(i => (
-                            <Task
-                                idTask={i.id}
-                                key={i.id}
-                                selected={i.selected}
-                                nameTask={i.name}
-                                idList={this.props.idList}
-                                deleteTask={this.props.deleteTask}
-                                updateNameTask={this.props.updateNameTask}
-                                updateSelectedTask={this.props.updateSelectedTask}
-                            />
-                        ))
+                        this.props.tasks.length ===0 ? <NullLenghtTasks/>
+                            : this.props.tasks.map(i => (
+                                <Task
+                                    idTask={i.id}
+                                    key={i.id}
+                                    selected={i.selected}
+                                    nameTask={i.name}
+                                    idList={this.props.idList}
+                                    deleteTask={this.props.deleteTask}
+                                    updateNameTask={this.props.updateNameTask}
+                                    updateSelectedTask={this.props.updateSelectedTask}
+                                    defaultValueFromTask={this.props.defaultValueFromTask}
+                                />
+                            ))
                     }
                 </div>
                 <input
@@ -89,7 +71,6 @@ export class Dashboard extends Component {
                             this.props.idList,
                             this.props.randomInteger(1,1000000)
                         );
-                        this.deleteValueInAddingInput(e)
                     }}
                     onBlur={e => this.handlerOnBlur(e)}
                 />

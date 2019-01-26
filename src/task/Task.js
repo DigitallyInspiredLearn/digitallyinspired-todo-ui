@@ -18,15 +18,6 @@ export class Task extends Component{
         })
     };
 
-
-    handlerEnterDown =(e) =>{
-        if (e.key === 'Enter') {
-            e.target.blur();
-            this.state.value=e.target.value===''? e.target.value='new task name':e.target.value
-
-        }
-    };
-
      render(){
          const displayStyle = {display: this.state.displayStyle};
         return(
@@ -52,11 +43,14 @@ export class Task extends Component{
                             this.props.updateNameTask(
                                 this.props.idList,
                                 this.props.idTask,
-                                e.target.value
+                                e.target.value,
                             );
                         }
                         }
-                        onKeyPress={this.handlerEnterDown}
+                        onBlur={(e) => this.props.defaultValueFromTask(e,e.target.value,this.props.idList,
+                            this.props.idTask)
+                        }
+                        onKeyDown={(e) =>e.key === 'Enter'?e.target.blur():-1}
                     />
                 </div>
                 <label
