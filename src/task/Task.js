@@ -3,7 +3,8 @@ import './css/taskStyle.css'
 
 export class Task extends Component{
     state={
-        displayStyle:'none'
+        displayStyle:'none',
+        value: ''
     };
 
     updateDisplayFlex = () => {
@@ -17,9 +18,12 @@ export class Task extends Component{
         })
     };
 
+
     handlerEnterDown =(e) =>{
         if (e.key === 'Enter') {
             e.target.blur();
+            this.state.value=e.target.value===''? e.target.value='new task name':e.target.value
+
         }
     };
 
@@ -44,12 +48,15 @@ export class Task extends Component{
                         value={this.props.nameTask}
                         className="taskName"
                         style={{width: "100%",textOverflow:" ellipsis"}}
-                        // onChange={(e) => this.props.updateNameTask(
-                        //     this.props.idList,
-                        //     this.props.idTask,
-                        //     e.target.value
-                        // )}
-                        // onKeyPress={this.handlerEnterDown}
+                        onChange={(e) => {
+                            this.props.updateNameTask(
+                                this.props.idList,
+                                this.props.idTask,
+                                e.target.value
+                            );
+                        }
+                        }
+                        onKeyPress={this.handlerEnterDown}
                     />
                 </div>
                 <label

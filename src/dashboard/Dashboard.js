@@ -5,20 +5,41 @@ import {Task} from "../task/Task";
 
 export class Dashboard extends Component {
     state = {
-        value: '',
+        valueNewTask: '',
+        value:''
     };
-    changeValue = (e) =>{
+    changeValueNewTask = (e) =>{
         this.setState({
-            value : e.target.value
+            valueNewTask : e.target.value
         })
     };
 
+    // changeValue = (e) =>{
+    //     this.setState({
+    //         value : e.target.value
+    //     })
+    // };
+    //
     handlerEnterDown =(e) =>{
         if (e.key === 'Enter') {
             e.target.blur();
+            return e.target.value===''? e.target.value='New Title':e.target.value;
         }
     };
 
+    deleteValueInAddingInput = (e) =>{
+        if (e.key === 'Enter') {
+            e.target.blur();
+            this.setState({
+                valueNewTask:this.state.valueNewTask=e.target.value=''})
+        }
+    };
+
+    handlerOnBlur = (e) =>{
+        e.target.blur();
+            this.setState({
+                valueNewTask:this.state.valueNewTask=e.target.value=''})
+    };
     render() {
         return (
             <section id={this.props.idList}>
@@ -27,7 +48,11 @@ export class Dashboard extends Component {
                         type="text"
                         value={this.props.title}
                         className="titleName"
-                        onChange={(e) => this.props.updateDashboardTitle(this.props.idList, e.target.value,e)}
+                        onChange={(e) => {
+                            this.props.updateDashboardTitle(this.props.idList, e.target.value);
+                            // this.changeValue(e)
+                           }
+                        }
                         onKeyPress={this.handlerEnterDown}
                     />
                     <div
@@ -55,9 +80,18 @@ export class Dashboard extends Component {
                     className="addNewTask"
                     placeholder="add to-do"
                     style={{outline: "none"}}
-                    value={this.state.value}
-                    onChange={this.changeValue}
-                    // onKeyPress={(e) =>this.props.addNewTask(e,this.state.value,this.props.idList,this.props.randomInteger(1,1000000))}
+                    value={this.state.valueNewTask}
+                    onChange={this.changeValueNewTask}
+                    onKeyPress={(e) =>{
+                        this.props.addNewTask(
+                            e,
+                            this.state.valueNewTask,
+                            this.props.idList,
+                            this.props.randomInteger(1,1000000)
+                        );
+                        this.deleteValueInAddingInput(e)
+                    }}
+                    onBlur={e => this.handlerOnBlur(e)}
                 />
             </section>
         );

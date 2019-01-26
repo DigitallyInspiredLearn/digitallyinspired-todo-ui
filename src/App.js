@@ -21,7 +21,7 @@ const toDoList =[
             },
             {
                 id:4,
-                selected: false,
+                selected: true,
                 name:'addDashboard'
             },
         ]
@@ -32,7 +32,7 @@ const toDoList =[
         tasks: [
             {
                 id:6,
-                selected: false,
+                selected: true,
                 name:'add task1'
             },
             {
@@ -42,7 +42,7 @@ const toDoList =[
             },
             {
                 id:8,
-                selected: false ,
+                selected: true ,
                 name:'update task3'
             },
             {
@@ -54,17 +54,17 @@ const toDoList =[
     },
     {
         idList: 9,
-        title: 'Title list3',
+        title: 'Мелочи',
         tasks: [
             {
                 id:100,
-                selected: true,
-                name:'когда нажимает ентер-убираем фокус'
+                selected: false,
+                name:'доработать мелочи'
             },
             {
-                id:10,
+                id:400,
                 selected: false,
-                name:'else dashboards.lenght===0||tasks.lenght===0 - you don\'t have ...'
+                name:'красиво оформить код'
             },
         ]
     },
@@ -91,7 +91,7 @@ class App extends Component {
         })
     };
 
-    updateDashboardTitle = (id, newValue,event) => {
+    updateDashboardTitle = (id, newValue) => {
         this.setState({
             data: this.state.data.map(i =>
                 i.idList === id ? {...i, title: newValue} : i)
@@ -114,7 +114,7 @@ class App extends Component {
     updateNameTask = (idList, idTask, newName) => {
         this.setState({
             data: this.state.data.map(i =>
-                i.idList === idList?{...i, tasks: i.tasks.push({id:idTask,selected:false,name:newName})}:i
+                i.idList === idList?{...i,tasks: i.tasks.map(e => e.id===idTask?{...e,name:newName}:e)}:i
             )
         })
     };
@@ -138,17 +138,27 @@ class App extends Component {
         return rand;
     };
 
-    // addNewTask = (event,nameTask,idList,idTask) =>{
-    //     if (event.key === 'Enter') {
-    //         event.target.blur();
-    //         this.setState({
-    //             data: this.state.data.map(i =>
-    //                 i.idList === idList?
-    //             )
-    //         });
-    //         console.log(this.state.data)
-    //     }
-    // };
+    addNewTask = (event,nameTask,idList,idTask) =>{
+        if(nameTask===''){}
+        else {
+            if (event.key === 'Enter') {
+                event.target.blur();
+                this.state.data.map(i =>
+                    i.idList === idList?i.tasks.push({id:idTask,selected:false,name:nameTask}):-1
+                );
+                this.setState(
+                    this.state.data
+                );
+            }
+        }
+    };
+
+    addNewDashboard = (title,idDashboard,taskName,idTask) =>{
+        this.state.data.push({idList:idDashboard,title:title,tasks:[{id:idTask,selected:false,name:taskName}]});
+        this.setState(
+            this.state.data
+        );
+    };
     render() {
     return (
       <div className="App">
@@ -166,7 +176,7 @@ class App extends Component {
                           deleteTask={this.deleteTask}
                           updateNameTask={this.updateNameTask}
                           updateSelectedTask={this.updateSelectedTask}
-                          // addNewTask={this.addNewTask}
+                          addNewTask={this.addNewTask}
                           randomInteger={this.randomInteger}
                       />
                   ))}
@@ -178,6 +188,7 @@ class App extends Component {
               animation = {this.state.animation}
               updateDisplayNone = {this.updateDisplayNone}
               randomInteger={this.randomInteger}
+              addNewDashboard={this.addNewDashboard}
           />
       </div>
     );
