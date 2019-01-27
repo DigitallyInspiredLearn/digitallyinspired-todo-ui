@@ -1,0 +1,43 @@
+/*Box*/
+.box {
+    display: flex;
+    flex-direction: column;
+    font-family: Open Sans;
+    width: 45%;
+    height: auto;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 50px;
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .box {
+        width: 80%;
+    }
+}
+
+input[type=text] {
+    border: white;
+    margin: 0px 0 10px 0;
+    outline: none;
+}
+
+.title {
+    font-family: Open Sans;
+    border: white;
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: 0px 0 10px 0;
+    cursor: pointer;
+}
+
+.sp img {
+    width: 40px;
+    height: 50px;
+    float: right;
+    cursor: pointer;
+}
