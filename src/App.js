@@ -48,12 +48,11 @@ class Root extends Component {
     data: toDoList
   };
 
-  addDashboard = () => {
+  addDashboard = (title, task) => {
 
-    let title = document.getElementById('add-title').value;
-    let task = document.getElementById('add-task').value;
-    
     if (title !== "" && task !== "") {
+      console.log(title)
+      console.log(task)
       let newDashboard = {
         dashboard_id: generateId(),
         title: title,
@@ -78,11 +77,13 @@ class Root extends Component {
    this.setState(
       this.state.data
    );
-
-    //this.state.data.push(newDashboard)
+   
+      /*this.setState({
+        data: [...this.state.data, newDashboard]
+      });
+      */
     console.log(this.state.data)
     }
-
   }
 
   deleteDashboard = (box_id) => {

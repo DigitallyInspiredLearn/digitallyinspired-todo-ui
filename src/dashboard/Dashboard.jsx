@@ -15,16 +15,19 @@ export class Dashboard extends Component {
         })
     };
 
-    
-
     render() {
         return (
         <div className="block-item" id={this.props.dashboard_id}>
             <div 
                 className="trash-icon"
                 onClick={()=> this.props.deleteDashboard(this.props.dashboard_id)}
-            >
-                <img src={trash} width="19px" height="19px" alt="trash"/>
+                >
+                <img 
+                    src={trash} 
+                    width="19px" 
+                    height="19px" 
+                    alt="trash"
+                />
             </div><br/>
             <input 
                 className="item-name" 

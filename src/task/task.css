@@ -60,7 +60,7 @@ input[type=checkbox]:checked:after {
     transform: rotate(45deg);
     position: absolute;
     top: 1px;
-    left: 6px;
+    left: 7px;
 }
 
 input[type=checkbox]:checked + input {

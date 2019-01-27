@@ -1,16 +1,27 @@
-#block-add {
-    width: 580px;
-    min-height: 700px;
-    z-index: 100;
-    position: absolute;
-    right: 0;
-    top: 0;
-    background-color: white;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: flex-start;
+.block-add {
+  width: 580px;
+  min-height: 700px;
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+
+  position: fixed;
+  opacity: 1;
+  transition: 0.6s;
+  transform: translate(100%, 0); 
+}
+
+.block-add.current {
   
-  }
+  opacity: 1;
+  transform: translate(0%, 0); 
+}
   
   #x-mark {
     align-self: flex-end;
