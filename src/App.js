@@ -91,6 +91,8 @@ class Root extends Component {
       data: this.state.data.filter(i => i.dashboard_id !== box_id)
     });
     console.log(this.state.data);
+
+    
   };
 
   changeDashboardTitle = (box_id, newValue) => {
