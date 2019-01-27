@@ -53,6 +53,7 @@ class Root extends Component {
     if (title !== "" && task !== "") {
       console.log(title)
       console.log(task)
+
       let newDashboard = {
         dashboard_id: generateId(),
         title: title,
@@ -73,15 +74,15 @@ class Root extends Component {
       })
     });
     */
-   this.state.data.push(newDashboard);
-   this.setState(
-      this.state.data
-   );
+    /*this.state.data.push(newDashboard);
+    this.setState(
+        this.state.data
+    );*/
    
-      /*this.setState({
+      this.setState({
         data: [...this.state.data, newDashboard]
       });
-      */
+
     console.log(this.state.data)
     }
   }
@@ -127,7 +128,6 @@ class Root extends Component {
         )
       });
 
-      
       console.log(this.state.data)
     }
 
