@@ -1,0 +1,66 @@
+
+.block-item {
+    background: white;
+    padding: 26px;
+    width: 530px;
+    height: auto;
+    margin-bottom: 25px;
+    border-radius: 7px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .block-item {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .block-item {
+      width: 70%;
+    }
+  }
+  
+  .item-name {
+    font-family:'Open Sans', Arial, sans-serif;
+    width: 500px;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    display: inline-block;
+    margin-top: -10px;
+    outline: none;
+    border: none;
+  }
+  
+  .item-name:focus {
+    border-bottom: 1px solid black;
+  }
+  
+  .add-task {
+    width: 500px;
+  }
+  
+  .add-todo {
+    font-size: 20px;
+    color: #808080;
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+  
+  .add-todo:focus {
+   border-bottom: 1px solid #808080;
+  }
+  
+  .trash-icon {
+    display: inline-block;
+    margin-left: 523px;
+    margin-top: -10px;
+    cursor: pointer;
+  }
+
+  .tasks {
+    margin-top: 10px;
+  }

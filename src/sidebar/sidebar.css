@@ -1,0 +1,66 @@
+#block-add {
+    width: 580px;
+    min-height: 700px;
+    z-index: 100;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: white;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+  
+  }
+  
+  #x-mark {
+    align-self: flex-end;
+    margin-top: 40px;
+    margin-right: 40px;
+    cursor: pointer;
+  }
+  
+  #add-title {
+    margin-top: 20px;
+    border: none;
+    width: 550px;
+    height: 25px;
+    margin-left: 20px;
+    outline: none;
+    font-size: 23px;
+    font-weight: bold;
+    color: #808080;
+  }
+  
+  #add-task {
+    margin-top: 20px;
+    border: none;
+    width: 550px;
+    height: 25px;
+    margin-left: 20px;
+    outline: none;
+    font-size: 20px;
+    color: #808080;
+  }
+  
+  #add-title:focus {
+    border-bottom: 1px solid black;
+  }
+  
+  #add-task:focus {
+    border-bottom: 1px solid black;
+  }
+  
+  #button-add {
+    position: absolute;
+    bottom: 0;
+    width: 580px;
+    height: 60px;
+    color: white;
+    background-color: black;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    line-height: 60px;
+  }
