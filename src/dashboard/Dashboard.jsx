@@ -25,13 +25,13 @@ export class Dashboard extends Component {
                 {
                     this.props.data.tasks.map(nameTask => {
                         return <Task
-                            id = {nameTask.id}
-                            name = {nameTask.name}
-                            selected = {nameTask.selected}
+                            id={nameTask.id}
+                            name={nameTask.name}
+                            selected={nameTask.selected}
                             key={nameTask.id}
                             deleteTask={this.props.deleteTask}
                             idBox={this.props.data.idList}
-                            toggleActive = {this.props.toggleActive}
+                            toggleActive={this.props.toggleActive}
                         />
                     })
                 }
@@ -39,8 +39,7 @@ export class Dashboard extends Component {
                     className="addToDo"
                     type="text"
                     placeholder="Add to-do"
-                    onKeyPress={event =>
-                    {
+                    onKeyPress={event => {
                         if (event.key === 'Enter') {
                             this.props.addTask(this.props.data.idList, event.target.value);
                             event.target.value = "";

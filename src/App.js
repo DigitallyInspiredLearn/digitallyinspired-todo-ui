@@ -18,7 +18,7 @@ class Root extends Component {
                 tasks: [
                     {
                         id: generateId(),
-                        selected: false,
+                        selected: true,
                         name: 'Task1'
                     },
                     {
@@ -45,7 +45,7 @@ class Root extends Component {
                 ]
             }
         ],
-        display: "none"
+        display: false
     };
 
     deleteDashboard = (id) => {
@@ -86,27 +86,7 @@ class Root extends Component {
                 data: this.state.data.map(item =>
                     item.idList === idBox ? {...item, tasks: [...item.tasks, newTask]} : item)
             });
-    };
-
-    toggleActive = (e, idTask) => {
-        e.target.classList.toggle("active");
-        console.log(idTask);
-    };
-
-    showSidebar = () => {
-        this.setState(
-            {
-                display: "block"
-            }
-        )
-    };
-
-    closeSidebar = () => {
-        this.setState(
-            {
-                display: "none"
-            }
-        )
+        console.log(this.state.data)
     };
 
     addNewDashboard = (newTitle, newTask) => {
@@ -124,9 +104,41 @@ class Root extends Component {
             {
                 data: [...this.state.data, newDashboard]
             }
+        );
+        console.log(this.state.data)
+    };
+
+    toggleActive = (e, idTask) => {
+        e.target.classList.toggle("active");
+        let it = [];
+        console.log(idTask);
+        this.setState({
+            data: this.state.data.map(item => {
+                item.tasks.map(nameTask => nameTask.id === idTask ? {
+                    ...nameTask,
+                    selected: !nameTask.selected
+                } : nameTask);
+                return item
+            })
+        });
+        console.log(it)
+    };
+
+    showSidebar = () => {
+        this.setState(
+            {
+                display: true
+            }
         )
     };
 
+    closeSidebar = () => {
+        this.setState(
+            {
+                display: false
+            }
+        )
+    };
 
     render() {
         return (
@@ -153,12 +165,11 @@ class Root extends Component {
                     addNewDashboard={this.addNewDashboard}
                 />
                 <div className="plus">
-                    <a id="myBtn">
-                        <img
-                            src={plus}
-                            onClick={() => this.showSidebar()}
-                        />
-                    </a>
+                    <img
+                        id="myBtn"
+                        src={plus}
+                        onClick={() => this.showSidebar()}
+                    />
                 </div>
             </div>
         );

@@ -28,8 +28,7 @@ export class Sidebar extends Component {
         return (
             <div
                 id="myModal"
-                className="modal"
-                style={{display: this.props.display}}
+                className={this.props.display ? "modal active" : "modal"}
             >
                 <div className="modal-content">
                     <span

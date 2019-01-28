@@ -1,15 +1,21 @@
 import React, {Component} from 'react';
-import del from "../../image/delete.PNG";
 import '../tasks/Task.css'
+import del from "../../image/delete.PNG";
 
-export class Task extends Component{
+export class Task extends Component {
     render() {
         return (
-            <div className="form" id="form">
-                <div className="tas" id={this.props.id}>
+            <div
+                className="form"
+                id="form"
+            >
+                <div
+                    className="tas"
+                    id={this.props.id}
+                >
                     <div
                         id={this.props.id}
-                        className={this.props.selected ? "active" : "checkbox"}
+                        className={this.props.selected ? "checkbox active" : "checkbox"}
                         onClick={(e) => this.props.toggleActive(e, this.props.id)}
                     >
                     </div>
