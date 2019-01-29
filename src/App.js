@@ -23,15 +23,11 @@ const getFromStorage = () => {
      JSON.parse(localStorage.getItem('arr')) == null ? localStorage.setItem('arr',JSON.stringify(toDoList)) :
      JSON.parse(localStorage.getItem('arr'))
   )
-
-
 };
 
 const generateId = () => {
   return Math.floor(Math.random() * 1000000);
 };
-
-
 
 class Root extends Component {
 
@@ -71,11 +67,6 @@ class Root extends Component {
         data: [...this.state.data, newDashboard]
       }, () => this.saveStorage(this.state.data));
       
-      /*this.setState({
-        data: this.state.data.map(item => item = item.push(newDashboard))
-      });
-      */
-
     console.log(this.state.data)
     
     }
@@ -93,7 +84,6 @@ class Root extends Component {
       data: this.state.data.map(i => 
         i.dashboard_id === box_id ? { ...i, title: newValue } : i)
     }, () => this.saveStorage(this.state.data))
-    //console.log(box_id,newValue);
   };
 
   addTask = (box_id, e) => {
