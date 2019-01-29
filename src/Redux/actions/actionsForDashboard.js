@@ -9,7 +9,7 @@ export const PRINT_ALL_DASHBOARD = 'PRINT_ALL_DASHBOARD';
 export const VisibilityFilters = {
     SHOW_ALL: 'SHOW_ALL',
 };
-
+//futction creater -функциии которые возвращают готовый обьенкт с action
 export const setVisibilityFilter = filter => {
     return { type: PRINT_ALL_DASHBOARD, filter }
 };

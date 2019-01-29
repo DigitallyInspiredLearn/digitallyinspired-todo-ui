@@ -8,8 +8,8 @@ export const addTask = (idDashboard, nameTask, idTask, selected) =>{
     return { type: ADD_TASK, idDashboard, nameTask ,idTask, selected}
 };
 
-export const updateCheckbox = (idDashboard, idTask)  => {
-    return { type: UPDATE_CHECKBOX, idDashboard, idTask }
+export const updateCheckbox = (idDashboard, idTask,selected)  => {
+    return { type: UPDATE_CHECKBOX, idDashboard, idTask, selected }
 };
 
 export const updateTaskName = (idDashboard, idTask,newTaskName) => {

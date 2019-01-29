@@ -14,20 +14,37 @@ import {
     UPDATE_TASK_NAME,
 } from "../actions/actionsForTask";
 
-const initialState = {
+export   const initialState = {
     visibilityFilter: VisibilityFilters.SHOW_ALL,
     toDoBoard: [
         {
-        idList: 999,
-        title: 'Title list',
-        tasks: [
-            {
-                id:4,
-                selected: false,
-                name:'I want to do it'
-            }
-        ]
-    }
+            idList: 999,
+            title: 'Title list',
+            tasks: [
+                {
+                    id:4,
+                    selected: true,
+                    name:'Delete List,update title & selected'
+                }
+            ]
+        },
+        {
+            idList: 9,
+            title: 'Title list2',
+            tasks: [
+                {
+                    id:47,
+                    selected: false,
+                    name:'add list/task, delete task, update task'
+                }
+            ]
+        },
+        {
+            idList: 79,
+            title: 'Title list3',
+            tasks: [
+            ]
+        },
     ]
 };
 
@@ -58,6 +75,7 @@ const Dashboards = (state = initialState, action) => {
         case DELETE_DASHBOARD:
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.filter(e =>{
+                    console.log(e.idList,action.id);
                     return e.idList!==action.id;
                 })
             });
@@ -94,7 +112,7 @@ const Dashboards = (state = initialState, action) => {
                 toDoBoard: state.toDoBoard.map(i =>
                     i.idList === action.idDashboard ?
                         {...i, tasks: i.tasks.map(e => e.id === action.idTask ?
-                                {...e,selected:!action.selected}
+                                {...e,selected: !action.selected}
                                 : e)
                         } : i
                 )
@@ -115,8 +133,8 @@ const Dashboards = (state = initialState, action) => {
     }
 };
 
-const todoApp = combineReducers({
-    visibilityFilter,
-    Dashboards,
+export const todoApp = combineReducers({
+    print: visibilityFilter,
+    functionality: Dashboards,
 });
-export default todoApp;
+

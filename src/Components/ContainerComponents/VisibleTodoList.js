@@ -1,30 +1,51 @@
 import { connect } from 'react-redux'
-import {DashboardList} from "../PresentationalComponents/dashboard/css/DashboardList";
-import {VisibilityFilters} from "../../Redux/actions/actionsForDashboard";
-import {updateTitleDashboard,
+import {DashboardList} from "../PresentationalComponents/dashboard/DashboardList";
+import {
+    updateTitleDashboard,
     deleteDashboard,
 } from "../../Redux/actions/actionsForDashboard";
+import {Component} from "react";
+import React from "react";
+import {
+    addTask,
+    deleteTask,
+    updateCheckbox,
+    updateTaskName
+} from "../../Redux/actions/actionsForTask";
 
-const getVisibleTodos = (toDoList, filter) => {
-    switch (filter) {
-        case VisibilityFilters.SHOW_ALL:
-            return toDoList;
-        default:
-            throw new Error('Unknown filter: ' + filter)
+
+export class VisibleTodoList extends Component {
+    render(){
+        return(
+            <DashboardList
+                updateTitleDashboard={this.props.updateTitleDashboard}
+                deleteDashboard={this.props.deleteDashboard}
+                toDoBoard={this.props.toDoBoard}
+                deleteTask={this.props.deleteTask}
+                addTask={this.props.addTask}
+                updateCheckbox={this.props.updateCheckbox}
+                updateTaskName={this.props.updateTaskName}
+            />
+        )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return{
+        toDoBoard: state.functionality.toDoBoard
     }
 };
 
-
-const mapStateToProps = state => ({
-    toDoBoard: getVisibleTodos(state.toDoBoard, state.visibilityFilter)
-});
-console.log(mapStateToProps);
-const mapDispatchToProps = dispatch => ({
-    updateTitleDashboard: (id,newTitle) => dispatch(updateTitleDashboard(id,newTitle)),
-    deleteDashboard: id => dispatch(deleteDashboard(id)),
-});
+const mapDispatchToProps = {
+    updateTitleDashboard: updateTitleDashboard,
+    deleteDashboard: deleteDashboard,
+    deleteTask: deleteTask,
+    addTask: addTask,
+    updateCheckbox: updateCheckbox,
+    updateTaskName: updateTaskName,
+};
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DashboardList)
+)(VisibleTodoList)

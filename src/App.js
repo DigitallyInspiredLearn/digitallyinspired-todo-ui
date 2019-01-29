@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {Header} from "./Components/PresentationalComponents/header/Header";
 import VisibleTodoList from './Components/ContainerComponents/VisibleTodoList'
+import VisibleSider from './Components/ContainerComponents/VisibleSider'
+import {AddNewDashboard} from './Components/AddNewDashboard'
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <div className="App">
@@ -10,9 +12,9 @@ class App extends Component {
           <div id="content">
               <VisibleTodoList />
           </div>
+          <AddNewDashboard/>
+          {/*<VisibleSider/>*/}
       </div>
     );
   }
 }
-
-export default App;
