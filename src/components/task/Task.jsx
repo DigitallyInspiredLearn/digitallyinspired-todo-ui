@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import trash from '../img/trash.png';
+import trash from '../../img/trash.png';
 import './task.css';
 
 export class Task extends Component{

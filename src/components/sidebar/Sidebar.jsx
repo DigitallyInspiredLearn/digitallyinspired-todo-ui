@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import plus from '../img/plus.png';
-import cross from '../img/cross-out-mark.png';
+import plus from '../../img/plus.png';
+import cross from '../../img/cross-out-mark.png';
 import './sidebar.css';
 
 export class Sidebar extends Component {

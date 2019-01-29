@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import trash from '../img/trash.png';
+import trash from '../../img/trash.png';
 import './dashboard.css';
 import {Task} from '../task/Task';
 
 export class Dashboard extends Component {
 
-    state = {
-        value: this.props.title
-    };
-
-    changeValue = (e) => {
-        this.setState({
-            value: e.target.value
-        })
-    };
-
     render() {
+        const dispatch = this.props.dispatch;
         return (
         <div className="block-item" id={this.props.dashboard_id}>
             <div 
@@ -31,7 +22,7 @@ export class Dashboard extends Component {
             </div><br/>
             <input 
                 className="item-name" 
-                value={this.state.value} 
+                value={this.props.title} 
                 onChange={this.changeValue}
                 onBlur={(e) => this.props.changeDashboardTitle(this.props.dashboard_id,e.target.value)}
             />
