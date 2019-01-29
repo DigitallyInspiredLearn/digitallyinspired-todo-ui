@@ -8,12 +8,12 @@ export class Task extends Component{
         isChecked: this.props.selected,
     }  
 
-    
-    
-    toggleChange = () => {
+    toggleChange = (e) => {
       this.setState({
         isChecked: !this.state.isChecked,
       });
+      
+      this.props.changeTaskSelected(this.props.dashboard_id,this.props.task_id,e.target.checked)
     }
 
     changeValue = (e) => {
@@ -26,7 +26,7 @@ export class Task extends Component{
         return (
             <div 
                 className = "task" 
-                task_id = {this.props.box_id}
+                id = {this.props.task_id}
                 >
                 <input 
                     type = "checkbox"  

@@ -68,22 +68,19 @@ class Root extends Component {
 
     console.log(newDashboard)
 
-    /*this.setState({
-      data: this.state.data.map(item => {
-         console.log(item)
-      })
-    });
-    */
-    /*this.state.data.push(newDashboard);
-    this.setState(
-        this.state.data
-    );*/
+    
    
       this.setState({
         data: [...this.state.data, newDashboard]
       });
+      
+      /*this.setState({
+        data: this.state.data.map(item => item = item.push(newDashboard))
+      });
+      */
 
     console.log(this.state.data)
+    
     }
   }
 
@@ -91,10 +88,7 @@ class Root extends Component {
     console.log(box_id);
     this.setState({
       data: this.state.data.filter(i => i.dashboard_id !== box_id)
-    });
-    console.log(this.state.data);
-
-    
+    }); 
   };
 
   changeDashboardTitle = (box_id, newValue) => {
@@ -137,21 +131,56 @@ class Root extends Component {
 
   changeTask = (box_id, task_id, newValue) => {
     this.setState({
-      data: this.state.data.map(i => {
-        if (i.dashboard_id === box_id) {
-          i.tasks.map(task => {
+      data: this.state.data.map(item => {
+        if (item.dashboard_id === box_id) {
+          item.tasks = item.tasks.map(task => {
             if (task.task_id === task_id) {
               return {...task, name: newValue}
             }
             return task;
           })
         }
-        return i;
+        return item;
       })
     })
     
-    console.log(task_id,newValue);
+    console.log(this.state.data);
+    
   };
+
+  changeTaskSelected = (box_id, task_id, value) => {
+    console.log(box_id)
+    console.log(task_id)
+    console.log(value)
+
+    this.setState({
+      data: this.state.data.map(item => {
+        if (item.dashboard_id === box_id) {
+          item.tasks = item.tasks.map(task => {
+            if (task.task_id === task_id) {
+              return {...task, selected: value}
+            }
+            return task;
+          })
+        }
+        return item;
+      })
+    });
+    
+
+    /*this.setState({
+            data: this.state.data.map(item => {
+                item.tasks = item.tasks.map(task => task.task_id === task_id ? {
+                    ...task, selected: !task.selected
+                } 
+                : task);
+                return item
+            })
+    });
+    */
+  
+    console.log(this.state.data)
+  }
 
   deleteTask = (box_id, task_id) => {
     this.setState({
@@ -162,7 +191,7 @@ class Root extends Component {
           return i;
       })
     });  
-  }
+  };
 
 
   render() {
@@ -181,6 +210,7 @@ class Root extends Component {
                   changeDashboardTitle = {this.changeDashboardTitle}
                   addTask = {this.addTask}
                   changeTask = {this.changeTask}
+                  changeTaskSelected = {this.changeTaskSelected}
                   deleteTask = {this.deleteTask}
                 />           
                 ))}

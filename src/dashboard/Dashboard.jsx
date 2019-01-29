@@ -45,6 +45,7 @@ export class Dashboard extends Component {
                     selected={task.selected} 
                     deleteTask = {this.props.deleteTask}
                     changeTask = {this.props.changeTask}
+                    changeTaskSelected = {this.props.changeTaskSelected}
                     dashboard_id = {this.props.dashboard_id}
                 />
               )}
