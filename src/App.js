@@ -5,68 +5,52 @@ import {Sider} from "./sider/Sider";
 import {NullLenghtDashboard} from "./dashboard/NullLenghtDashboard";
 import './index.css'
 
-const toDoList =[
-    {
-        idList:1,
-        title: 'Dashboard',
-        tasks: [
-            {
-                id:2,
-                selected: true,
-                name:'delete Dashboard'
-            },
-            {
-                id:3,
-                selected: true,
-                name:'updateDashboarTitle'
-            },
-            {
-                id:4,
-                selected: true,
-                name:'addDashboard'
-            },
-        ]
-    },
-    {
-        idList: 5,
-        title: 'Task',
-        tasks: [
-            {
-                id:6,
-                selected: true,
-                name:'add task1'
-            },
-            {
-                id:7,
-                selected: true,
-                name:' delete task2'
-            },
-            {
-                id:8,
-                selected: true ,
-                name:'update task3'
-            },
-            {
-                id:80,
-                selected: true ,
-                name:'update selected'
-            },
-        ]
-    },
-    
-];
-
+let getStorage = () => {
+    let toDoBoard = [
+        {
+            idList: 999,
+            title: 'Что осталось',
+            tasks: [
+                {
+                    id:4,
+                    selected: false,
+                    name:'Сделать в сайдере добавление нескольких тасок'
+                },
+                {
+                    id:24,
+                    selected: true,
+                    name:'Сделать LocaleStorage'
+                },
+                {
+                    id:14,
+                    selected: false,
+                    name:'Отрефакторить код'
+                }
+            ]
+        }
+    ];
+    return  JSON.parse(localStorage.getItem("toDoData"))===null?
+        localStorage.setItem("toDoData", JSON.stringify(toDoBoard))
+        : JSON.parse(localStorage.getItem("toDoData"));
+};
+const saveUpdatingStorege = (toDoBoard) =>{
+    localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
+};
 class App extends Component {
+
+    constructor(props){
+        super(props)
+    }
     state = {
-        data: toDoList,
+        data: getStorage(),
         displayStyle: 'none',
         animation: '',
     };
 
     deleteDashboard = (id) => {
         this.setState({
-            data: this.state.data.filter(i => i.idList !== id)
-        });
+            data: this.state.data.filter(i => i.idList !== id),
+        },() => saveUpdatingStorege(this.state.data))
     };
 
     deleteTask = (idList, idTask) => {
@@ -74,19 +58,20 @@ class App extends Component {
             data: this.state.data.map(i =>
                 i.idList === idList?{...i, tasks: i.tasks.filter(e => e.id !== idTask)}:i
             )
-        })
+        }, () => saveUpdatingStorege(this.state.data));
+        console.log(this.state.data)
     };
 
     updateDashboardTitle = (id, newValue) => {
         this.setState({
             data: this.state.data.map(i =>
                 i.idList === id ? {...i, title: newValue} : i)
-        });
+        },() => saveUpdatingStorege(this.state.data));
     };
 
     defaultValueFromTitle =(e,newTitleName,id) =>{
 
-        let value = newTitleName===''? newTitleName='New Title' +id+'':newTitleName;
+        let value = newTitleName===''? newTitleName='New Title'+'':newTitleName;
         this.setState({
             data: this.state.data.map(i =>
                 i.idList === id ? {...i, title: value} : i)
@@ -112,7 +97,7 @@ class App extends Component {
             data: this.state.data.map(i =>
                 i.idList === idList?{...i,tasks: i.tasks.map(e => e.id===idTask?{...e,name:newName}:e)}:i
             )
-        });
+        },() => saveUpdatingStorege(this.state.data));
     };
 
     defaultValueFromTask =(e,newNameTask,idList,idTask) =>{
@@ -130,7 +115,7 @@ class App extends Component {
             data: this.state.data.map(i =>
                 i.idList === idList?{...i, tasks: i.tasks.map(e =>e.id === idTask? {...e,selected:!selectedValue}:e)}:i
             )
-        })
+        },() => saveUpdatingStorege(this.state.data))
     };
 
     randomInteger = (min, max) => {
@@ -154,7 +139,7 @@ class App extends Component {
                     i.idList === idList?i.tasks.push({id:idTask,selected:false,name:nameTask}):-1
                 );
                 this.setState(
-                    this.state.data
+                    this.state.data,() => saveUpdatingStorege(this.state.data)
                 );
             }
         }
@@ -165,7 +150,7 @@ class App extends Component {
         let taskValue = taskName==='' ? taskName='new do-to'+idTask:taskName;
         this.state.data.push({idList:idDashboard,title:titleValue,tasks:[{id:idTask,selected:false,name:taskValue}]});
         this.setState(
-            this.state.data
+            this.state.data,() => saveUpdatingStorege(this.state.data)
         );
     };
 
