@@ -1,9 +1,7 @@
-import { VisibilityFilters } from '../actions/actionsForDashboard'
 import {
     ADD_DASHBOARD,
     DELETE_DASHBOARD,
     UPDATE_TITLE_DASHBOARD,
-    PRINT_ALL_DASHBOARD,
 } from "../actions/actionsForDashboard";
 import { combineReducers } from 'redux'
 
@@ -14,12 +12,12 @@ import {
     UPDATE_TASK_NAME,
 } from "../actions/actionsForTask";
 
-export   const initialState = {
-    visibilityFilter: VisibilityFilters.SHOW_ALL,
+export  const initialState = {
+
     toDoBoard: [
         {
             idList: 999,
-            title: 'Title list',
+            title: 'Title',
             tasks: [
                 {
                     id:4,
@@ -48,93 +46,94 @@ export   const initialState = {
     ]
 };
 
-const { SHOW_ALL } = VisibilityFilters;
-
-const visibilityFilter = (state = SHOW_ALL, action) => {
-    switch (action.type) {
-        case PRINT_ALL_DASHBOARD:
-            return action.filter;
-        default:
-            return state
-    }
-};
-
-const Dashboards = (state = initialState, action) => {
+const SiderReduser = (state = initialState, action) => {
     switch (action.type) {
         case ADD_DASHBOARD:
             return Object.assign({}, state, {
                 toDoBoard: [
                     ...state.toDoBoard,
                     {
-                        idList : action.id,
-                        title: action.title,
-                        tasks: action.tasks,
+                        idList: action.payload.id,
+                        title: action.payload.title,
+                        tasks: action.payload.tasks,
+                    }
+                ]
+            });
+        default:
+            return state;
+    }
+};
+
+const DashboardsReduser = (state = initialState, action) => {
+    switch (action.type) {
+        case ADD_DASHBOARD:
+            return Object.assign({}, state, {
+                toDoBoard: [
+                    ...state.toDoBoard,
+                    {
+                        idList : action.payload.id,
+                        title: action.payload.title,
+                        tasks: action.payload.tasks,
                     }
                 ]
             });
         case DELETE_DASHBOARD:
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.filter(e =>{
-                    console.log(e.idList,action.id);
-                    return e.idList!==action.id;
+                    console.log(e.idList,action.payload.id);
+                    return e.idList!==action.payload.id;
                 })
             });
         case UPDATE_TITLE_DASHBOARD:
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(e =>{
-                    if(e.idList===action.id){
-                        return {...e,title: action.newTitle}
+                    if(e.idList===action.payload.id){
+                        return {...e,title: action.payload.newTitle}
                     }
                     return e;
                 })
             });
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         case ADD_TASK:
             return Object.assign({}, state, {
-                toDoBoard: state.toDoBoard.map(e =>{
-                    if(e.idList===action.idDashboard){
-                        return 1;
-                    }
-                    return 1;
+                toDoBoard: state.toDoBoard.map(i =>
+                    i.idList === action.payload.idDashboard ?
+                        {...i, tasks: [...i.tasks,{id:action.payload.idTask, selected:false, name:action.payload.nameTask }]} :i)
                 }
-            )
-        });
+            );
+
         case DELETE_TASK:
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(i =>
-                    i.idList === action.idDashboard ?
-                        { ...i, tasks : i.tasks.filter(e => e.id !== action.idTask) }
-                        : i
-                )
+                    i.idList === action.payload.idDashboard ?
+                        { ...i, tasks : i.tasks.filter(e => e.id !== action.payload.idTask) }
+                        : i)
             });
         case UPDATE_CHECKBOX:
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(i =>
-                    i.idList === action.idDashboard ?
-                        {...i, tasks: i.tasks.map(e => e.id === action.idTask ?
-                                {...e,selected: !action.selected}
+                    i.idList === action.payload.idDashboard ?
+                        {...i, tasks: i.tasks.map(e => e.id === action.payload.idTask ?
+                                {...e,selected: !action.payload.selected}
                                 : e)
-                        } : i
-                )
+                        } : i)
             });
         case UPDATE_TASK_NAME:
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(i =>
-                    i.idList === action.idDashboard ?
-                        {...i, tasks: i.tasks.map(e => e.id===action.idTask ?
-                                {...e,name:action.newTaskName }
+                    i.idList === action.payload.idDashboard ?
+                        {...i, tasks: i.tasks.map(e => e.id===action.payload.idTask ?
+                                {...e,name:action.payload.newTaskName }
                                 :e)
-                        } : i
-                )
+                        } : i )
             });
-
         default:
             return state;
     }
 };
 
-export const todoApp = combineReducers({
-    print: visibilityFilter,
-    functionality: Dashboards,
+export const reducer = combineReducers({
+    sider : SiderReduser,
+    functionality : DashboardsReduser,
 });
 

@@ -25,7 +25,8 @@
 
 .deleteTask{
     color:gray;
-    margin-top: 6px
+    margin-top: 2px;
+    z-index: 5;
 }
 .taskDiv{
     display: flex;

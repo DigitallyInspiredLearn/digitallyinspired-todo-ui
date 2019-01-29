@@ -14,48 +14,73 @@ export class DashboardList extends Component {
         this.addNewTask = this.addNewTask.bind(this);
     }
 
-    delDashboard = (id) =>{
+    delDashboard = (id) => {
         this.props.deleteDashboard(id)
     };
 
-    updateTitle = (id,newTitle) => {
-        this.props.updateTitleDashboard(id,newTitle)
+    updateTitle = (id, newTitle) => {
+        this.props.updateTitleDashboard(id, newTitle)
     };
 
     delTask = (idList, idTask) => {
         this.props.deleteTask(idList, idTask)
     };
 
-    onChangeCheckbox = (idList,idTask, selected) => {
-        this.props.updateCheckbox(idList,idTask, selected)
+    onChangeCheckbox = (idList, idTask, selected) => {
+        this.props.updateCheckbox(idList, idTask, selected)
     };
 
-    onChangeNameTask = (idList,idTask, newName) => {
-        this.props.updateTaskName(idList,idTask, newName)
+    onChangeNameTask = (idList, idTask, newName) => {
+        this.props.updateTaskName(idList, idTask, newName)
     };
 
-    addNewTask = (idDashboard, nameTask, idTask, selected) =>{
-        this.props.addTask(idDashboard, nameTask, idTask, selected)
+    addNewTask = (idDashboard, nameTask, idTask ) =>{
+        this.props.addTask(idDashboard, nameTask, idTask )
+    };
+
+    defaultValueFromTitle =( e, newTitleName, id ) => {
+
+        let value = newTitleName === '' ? newTitleName = 'New Title': newTitleName;
+        this.props.updateTitleDashboard(id, value)
+    };
+
+    defaultValueFromTask = (newNameTask, idList, idTask) => {
+        let value = newNameTask === '' ? newNameTask = 'to-do' : newNameTask;
+        this.props.updateTaskName(idList, idTask, value)
+    };
+
+    randomInteger = (min, max) => {
+        let rand = min - 0.5 + Math.random() * (max - min + 1);
+        rand = Math.round(rand);
+
+        this.props.toDoBoard.forEach( e => {
+            e.idList === rand ? this.randomInteger(min, max) : e.tasks.forEach(i =>
+                i.id === rand ? this.randomInteger(min, max) : rand)
+        });
+        return rand;
     };
 
     render(){
         return(
             <main>
                 {
-                    this.props.toDoBoard.length === 0?
-                        <NullLenghtDashboard/>:
-                        this.props.toDoBoard.map(i =>
+                    this.props.toDoBoard.length === 0 ?
+                        <NullLenghtDashboard/> :
+                        this.props.toDoBoard.map( i =>
                             <Dashboard
-                                idList = {i.idList}
-                                key={i.idList}
-                                title={i.title}
-                                tasks={i.tasks}
-                                delDashboard={this.delDashboard}
-                                updateTitle={this.updateTitle}
-                                delTask={this.delTask}
-                                onChangeCheckbox={this.onChangeCheckbox}
-                                onChangeNameTask={this.onChangeNameTask}
-                                addNewTask={this.addNewTask}
+                                idList = { i.idList }
+                                key = { i.idList }
+                                title = { i.title }
+                                tasks = { i.tasks }
+                                delDashboard = { this.delDashboard }
+                                updateTitle = { this.updateTitle }
+                                delTask = { this.delTask }
+                                onChangeCheckbox = { this.onChangeCheckbox }
+                                onChangeNameTask = { this.onChangeNameTask }
+                                addNewTask = { this.addNewTask }
+                                defaultValueFromTitle = { this.defaultValueFromTitle }
+                                randomInteger = { this.randomInteger }
+                                defaultValueFromTask = {this.defaultValueFromTask }
                             />
                         )
                 }

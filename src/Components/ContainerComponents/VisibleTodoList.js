@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import {DashboardList} from "../PresentationalComponents/dashboard/DashboardList";
+import { DashboardList } from "../PresentationalComponents/dashboard/DashboardList";
 import {
     updateTitleDashboard,
     deleteDashboard,
 } from "../../Redux/actions/actionsForDashboard";
-import {Component} from "react";
+import { Component } from "react";
 import React from "react";
 import {
     addTask,
@@ -13,25 +13,24 @@ import {
     updateTaskName
 } from "../../Redux/actions/actionsForTask";
 
-
 export class VisibleTodoList extends Component {
-    render(){
+    render() {
         return(
             <DashboardList
-                updateTitleDashboard={this.props.updateTitleDashboard}
-                deleteDashboard={this.props.deleteDashboard}
-                toDoBoard={this.props.toDoBoard}
-                deleteTask={this.props.deleteTask}
-                addTask={this.props.addTask}
-                updateCheckbox={this.props.updateCheckbox}
-                updateTaskName={this.props.updateTaskName}
+                updateTitleDashboard= { this.props.updateTitleDashboard }
+                deleteDashboard= { this.props.deleteDashboard }
+                toDoBoard= { this.props.toDoBoard }
+                deleteTask= { this.props.deleteTask }
+                addTask= { this.props.addTask }
+                updateCheckbox= { this.props.updateCheckbox }
+                updateTaskName= { this.props.updateTaskName }
             />
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         toDoBoard: state.functionality.toDoBoard
     }
 };
