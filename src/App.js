@@ -4,39 +4,34 @@ import {Header} from './header/Header';
 import {Dashboard} from './dashboard/Dashboard';
 import {Sidebar} from './sidebar/Sidebar';
 
+const getFromStorage = () => {
+  let toDoList = [
+    {
+      dashboard_id: generateId(),
+      title: "title01",
+      tasks: [
+        {
+          task_id: generateId(),
+          selected: true,
+          name: "task01",
+        },
+      ]
+    }
+  ]
+
+  return (
+     JSON.parse(localStorage.getItem('arr')) == null ? localStorage.setItem('arr',JSON.stringify(toDoList)) :
+     JSON.parse(localStorage.getItem('arr'))
+  )
+
+
+};
+
 const generateId = () => {
   return Math.floor(Math.random() * 1000000);
 };
 
-const toDoList = [
-  {
-    dashboard_id: generateId(),
-    title: "title01",
-    tasks: [
-      {
-        task_id: generateId(),
-        selected: true,
-        name: "task01",
-      },
-      {
-        task_id: generateId(),
-        selected: false,
-        name: "task02",
-      }
-    ],
-  },
-  {
-    dashboard_id: generateId(),
-    title: "title02",
-    tasks: [
-      {
-        task_id: generateId(),
-        selected: true,
-        name: "task11",
-      }
-    ],
-  }
-];
+
 
 class Root extends Component {
 
@@ -45,8 +40,12 @@ class Root extends Component {
   };
 
   state = {
-    data: toDoList
+    data: getFromStorage()
   };
+
+  saveStorage = (array) => {
+    localStorage.setItem('arr', JSON.stringify(array));
+  }
 
   addDashboard = (title, task) => {
 
@@ -70,7 +69,7 @@ class Root extends Component {
    
       this.setState({
         data: [...this.state.data, newDashboard]
-      });
+      }, () => this.saveStorage(this.state.data));
       
       /*this.setState({
         data: this.state.data.map(item => item = item.push(newDashboard))
@@ -86,14 +85,14 @@ class Root extends Component {
     console.log(box_id);
     this.setState({
       data: this.state.data.filter(i => i.dashboard_id !== box_id)
-    }); 
+    }, () => this.saveStorage(this.state.data)); 
   };
 
   changeDashboardTitle = (box_id, newValue) => {
     this.setState({
       data: this.state.data.map(i => 
         i.dashboard_id === box_id ? { ...i, title: newValue } : i)
-    }, ()=> console.log(this.state.data))
+    }, () => this.saveStorage(this.state.data))
     //console.log(box_id,newValue);
   };
 
@@ -118,7 +117,7 @@ class Root extends Component {
               }
             : item
         )
-      });
+      }, () => this.saveStorage(this.state.data));
 
       console.log(this.state.data)
     }
@@ -139,7 +138,7 @@ class Root extends Component {
         }
         return item;
       })
-    })
+    }, () => this.saveStorage(this.state.data))
     
     console.log(this.state.data);
     
@@ -162,20 +161,8 @@ class Root extends Component {
         }
         return item;
       })
-    });
-    
-
-    /*this.setState({
-            data: this.state.data.map(item => {
-                item.tasks = item.tasks.map(task => task.task_id === task_id ? {
-                    ...task, selected: !task.selected
-                } 
-                : task);
-                return item
-            })
-    });
-    */
-  
+    }, () => this.saveStorage(this.state.data));
+      
     console.log(this.state.data)
   }
 
@@ -187,7 +174,7 @@ class Root extends Component {
           }
           return i;
       })
-    });  
+    }, () => this.saveStorage(this.state.data));  
   };
 
 
