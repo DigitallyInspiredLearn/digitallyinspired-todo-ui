@@ -67,8 +67,6 @@ class Root extends Component {
       }
 
     console.log(newDashboard)
-
-    
    
       this.setState({
         data: [...this.state.data, newDashboard]
@@ -95,8 +93,8 @@ class Root extends Component {
     this.setState({
       data: this.state.data.map(i => 
         i.dashboard_id === box_id ? { ...i, title: newValue } : i)
-    })
-    console.log(box_id,newValue);
+    }, ()=> console.log(this.state.data))
+    //console.log(box_id,newValue);
   };
 
   addTask = (box_id, e) => {
@@ -126,7 +124,6 @@ class Root extends Component {
     }
 
     e.target.value = "";
-
   };
 
   changeTask = (box_id, task_id, newValue) => {
