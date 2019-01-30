@@ -56,38 +56,41 @@ export const actions = {
          idTask) => ({idDashboard, idTask})),
     };
 
-export  const initialState = {
-
-    toDoBoard: [
+let getStorage = () => {
+    let toDoBoard = [
         {
             idList: 999,
-            title: 'Title',
+            title: 'Что осталось',
             tasks: [
                 {
                     id:4,
                     selected: true,
-                    name:'Delete List,update title & selected'
-                }
-            ]
-        },
-        {
-            idList: 9,
-            title: 'Title list2',
-            tasks: [
+                    name:'duck and smartComponents'
+                },
                 {
-                    id:47,
+                    id:24,
                     selected: false,
-                    name:'add list/task, delete task, update task'
+                    name:'Сделать LocaleStorage'
+                },
+                {
+                    id:14,
+                    selected: false,
+                    name:'Отрефакторить код'
                 }
             ]
-        },
-        {
-            idList: 79,
-            title: 'Title list3',
-            tasks: [
-            ]
-        },
-    ]
+        }
+    ];
+    return  JSON.parse(localStorage.getItem("toDoData"))===null?
+        localStorage.setItem("toDoData", JSON.stringify(toDoBoard))
+        : JSON.parse(localStorage.getItem("toDoData"));
+};
+
+// const saveUpdatingStorege = (toDoBoard) =>{
+//     localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
+// };
+
+export  const initialState = {
+    toDoBoard: getStorage()
 };
 
 export const  reducer = handleActions({
@@ -128,7 +131,7 @@ export const  reducer = handleActions({
             })
         });
     },
-//not access work
+// access work
     [ADD_TASK]:(state, action) => {
         return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(i =>
@@ -144,18 +147,18 @@ export const  reducer = handleActions({
             }
         );
     },
-//not access work
+// access work
     [DELETE_TASK]: (state, action) =>{
-        Object.assign({}, state, {
+        return Object.assign({}, state, {
             toDoBoard: state.toDoBoard.map(i =>
                 i.idList === action.payload.idDashboard ?
                     { ...i, tasks : i.tasks.filter(e => e.id !== action.payload.idTask) }
                     : i)
         });
     },
-//not access work
+// access work
     [UPDATE_CHECKBOX]: (state, action) =>{
-        Object.assign({}, state, {
+        return Object.assign({}, state, {
             toDoBoard: state.toDoBoard.map(i =>
                 i.idList === action.payload.idDashboard ?
                     {...i, tasks: i.tasks.map(e => e.id === action.payload.idTask ?
@@ -164,16 +167,18 @@ export const  reducer = handleActions({
                     } : i)
         });
     },
-//not access work
-    [UPDATE_TASK_NAME]: (state, action) =>{
-        Object.assign({}, state, {
+// access work
+    [UPDATE_TASK_NAME ]: (state, action) => {
+        return {...state,
             toDoBoard: state.toDoBoard.map(i =>
                 i.idList === action.payload.idDashboard ?
-                    {...i, tasks: i.tasks.map(e => e.id===action.payload.idTask ?
-                            {...e,name:action.payload.newTaskName }
-                            :e)
-                    } : i )
-        });
+                    {...i, tasks: i.tasks.map(e =>
+                            e.id===action.payload.idTask ?
+                                {...e,name:action.payload.newTaskName
+                                } :e)
+                    } : i
+            )
+        }
     },
 
-},initialState);
+}, initialState );

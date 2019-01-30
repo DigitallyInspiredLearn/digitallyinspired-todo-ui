@@ -8,7 +8,9 @@ export class Task extends Component{
         this.state = {
             displayStyle: 'none',
             value: ''
-        }
+        };
+        this.updateDisplayFlex = this.updateDisplayFlex.bind(this);
+        this.updateDisplayNone = this.updateDisplayNone.bind(this);
     }
 
     updateDisplayFlex = () => {

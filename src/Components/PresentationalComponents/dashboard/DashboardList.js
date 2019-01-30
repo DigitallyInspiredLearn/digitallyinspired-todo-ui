@@ -12,27 +12,19 @@ export class DashboardList extends Component {
         this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
         this.onChangeNameTask = this.onChangeNameTask.bind(this);
         this.addNewTask = this.addNewTask.bind(this);
+
     }
 
-    delDashboard = (id) => {
-        this.props.deleteDashboard(id)
-    };
 
-    updateTitle = (id, newTitle) => {
-        this.props.updateTitleDashboard(id, newTitle)
-    };
+    delDashboard = (id) => this.props.deleteDashboard(id);
 
-    delTask = (idList, idTask) => {
-        this.props.deleteTask(idList, idTask)
-    };
+    updateTitle = (id, newTitle) => this.props.updateTitleDashboard(id, newTitle);
 
-    onChangeCheckbox = (idList, idTask, selected) => {
-        this.props.updateCheckbox(idList, idTask, selected)
-    };
+    delTask = (idList, idTask) => this.props.deleteTask(idList, idTask);
 
-    onChangeNameTask = (idList, idTask, newName) => {
-        this.props.updateTaskName(idList, idTask, newName)
-    };
+    onChangeCheckbox = (idList, idTask, selected) => this.props.updateCheckbox(idList, idTask, selected);
+
+    onChangeNameTask = (idList, idTask, newName) => this.props.updateTaskName(idList, idTask, newName);
 
     addNewTask = (idDashboard, nameTask, idTask ) =>{
         this.props.addTask(idDashboard, nameTask, idTask )
@@ -70,11 +62,13 @@ export class DashboardList extends Component {
                                 defaultValueFromTitle = { this.defaultValueFromTitle }
                                 randomInteger = { this.props.randomInteger }
                                 defaultValueFromTask = {this.defaultValueFromTask }
-                                data={ this.props.toDoBoard }
+                                toDoBoard={ this.props.toDoBoard }
                             />
                         )
                 }
             </main>
+
         )
     }
+
 }

@@ -7,8 +7,11 @@ import './index.css';
 import ReactDOM from 'react-dom';
 import {reducer} from './Components/duck'
 
-const store = createStore(reducer);
 
+const store = createStore(reducer);
+// store.subscribe(()=>
+//     localStorage.setItem('toDoData',JSON.stringify(this.props.toDoBoard.getState()))
+// );
 ReactDOM.render(
     <Provider store={ store }>
         <App />

@@ -1,12 +1,8 @@
 import { connect } from 'react-redux'
 import { DashboardList } from "../PresentationalComponents/dashboard/DashboardList";
-import {actions} from "../duck";
+import { actions } from "../duck";
 
-const mapStateToProps = (state) => {
-    return {
-        toDoBoard: state.toDoBoard
-    }
-};
+const mapStateToProps = ( state ) => ( { toDoBoard : state.toDoBoard } );
 
 const mapDispatchToProps = {
     updateTitleDashboard: actions.updateTitleDashboard,

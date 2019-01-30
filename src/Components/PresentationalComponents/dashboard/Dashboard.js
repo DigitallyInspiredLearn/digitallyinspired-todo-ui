@@ -82,7 +82,7 @@ export class Dashboard extends Component {
                                 this.props.addNewTask(
                                     this.props.idList,
                                     this.state.valueNewTask,
-                                    this.props.randomInteger(1,1000000, this.props.data),
+                                    this.props.randomInteger(1,1000000, this.props.toDoBoard),
                                 );
                             }
                         }
