@@ -1,0 +1,40 @@
+/*Header*/
+.logo {
+    height: 3rem;
+    margin-right: 0.5rem;
+}
+
+
+.App-header {
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    width:87%;
+    height: 150px;
+    padding: 2rem 0 2rem 0;
+    margin-left: 165px;
+}
+
+
+.app-title {
+    font-weight: 700;
+    font-size: 4rem;
+    font-family: "Open Sans";
+}
+
+.app-title-line {
+    height: 0.4rem;
+    margin: 0 0.5rem 0 0.5rem;
+    background: #000000;
+    flex: 1;
+}
+
+@media screen and (max-width: 600px) {
+    .App-header {
+        margin-left: 50px;
+        justify-content: center;
+    }
+
+}
+
