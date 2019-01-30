@@ -5,13 +5,15 @@ import { App } from './App'
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 import ReactDOM from 'react-dom';
-import {reducer} from './Components/duck'
-
+import {actions, reducer} from './Components/duck'
 
 const store = createStore(reducer);
-// store.subscribe(()=>
-//     localStorage.setItem('toDoData',JSON.stringify(this.props.toDoBoard.getState()))
-// );
+
+// const  saveUpdatingStorege = (toDoBoard) =>{
+//     localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
+// };
+// store.subscribe(()=> saveUpdatingStorege(store.getState()));
+
 ReactDOM.render(
     <Provider store={ store }>
         <App />

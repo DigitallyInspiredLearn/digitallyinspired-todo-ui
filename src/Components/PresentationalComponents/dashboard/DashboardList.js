@@ -14,9 +14,13 @@ export class DashboardList extends Component {
         this.addNewTask = this.addNewTask.bind(this);
 
     }
+    saveUpdatingStorege = (toDoBoard) =>{
+        localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
+    };
 
-
-    delDashboard = (id) => this.props.deleteDashboard(id);
+    delDashboard = (id) => {
+        this.props.deleteDashboard(id);
+    };
 
     updateTitle = (id, newTitle) => this.props.updateTitleDashboard(id, newTitle);
 

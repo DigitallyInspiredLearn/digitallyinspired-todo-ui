@@ -85,14 +85,15 @@ let getStorage = () => {
         : JSON.parse(localStorage.getItem("toDoData"));
 };
 
-// const saveUpdatingStorege = (toDoBoard) =>{
-//     localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
-// };
+
 
 export  const initialState = {
     toDoBoard: getStorage()
 };
 
+// const  saveUpdatingStorege = (toDoBoard) =>{
+//     localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
+// };
 export const  reducer = handleActions({
 //access work
     [ADD_DASHBOARD]: (state, action) => {
