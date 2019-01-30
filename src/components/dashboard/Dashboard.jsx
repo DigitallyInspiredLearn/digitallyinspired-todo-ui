@@ -6,12 +6,11 @@ import {Task} from '../task/Task';
 export class Dashboard extends Component {
 
     render() {
-        const dispatch = this.props.dispatch;
         return (
         <div className="block-item" id={this.props.dashboard_id}>
             <div 
                 className="trash-icon"
-                onClick={()=> this.props.deleteDashboard(this.props.dashboard_id)}
+                onClick={() => this.props.deleteDashboard(this.props.dashboard_id)}
                 >
                 <img 
                     src={trash} 
@@ -22,9 +21,8 @@ export class Dashboard extends Component {
             </div><br/>
             <input 
                 className="item-name" 
-                value={this.props.title} 
-                onChange={this.changeValue}
-                onBlur={(e) => this.props.changeDashboardTitle(this.props.dashboard_id,e.target.value)}
+                value={this.props.title}
+                onChange={(e) => this.props.changeDashboardTitle(this.props.dashboard_id,e.target.value)}
             />
                           
             <div className="tasks">
@@ -35,7 +33,7 @@ export class Dashboard extends Component {
                     name={task.name}
                     selected={task.selected} 
                     deleteTask = {this.props.deleteTask}
-                    changeTask = {this.props.changeTask}
+                    changeTaskName = {this.props.changeTaskName}
                     changeTaskSelected = {this.props.changeTaskSelected}
                     dashboard_id = {this.props.dashboard_id}
                 />

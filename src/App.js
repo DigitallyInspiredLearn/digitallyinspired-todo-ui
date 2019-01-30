@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { createStore, bindActionCreators } from 'redux'
-import { deleteDashboard } from './store/actions'
 import './App.css';
 import {Header} from './components/header/Header';
-import {Dashboard} from './components/dashboard/Dashboard';
+import Main from './components/main/Main'
 import {Sidebar} from './components/sidebar/Sidebar';
 
-
+/*
 const generateId = () => {
   return Math.floor(Math.random() * 1000000);
 };
@@ -32,9 +29,11 @@ const getFromStorage = () => {
      JSON.parse(localStorage.getItem('arr'))
   )
 };
-
+*/
 
 class App extends Component {
+
+  /*
 
   generateId = () => {
     return Math.floor(Math.random() * 1000000);
@@ -77,13 +76,13 @@ class App extends Component {
     }
   }
 
-  /*deleteDashboard = (box_id) => {
+  deleteDashboard = (box_id) => {
     console.log(box_id);
     this.setState({
       data: this.state.data.filter(i => i.dashboard_id !== box_id)
     }, () => this.saveStorage(this.state.data)); 
   };
-  */
+  
 
   changeDashboardTitle = (box_id, newValue) => {
     this.setState({
@@ -173,33 +172,16 @@ class App extends Component {
     }, () => this.saveStorage(this.state.data));  
   };
 
+  */
+
 
   render() {
-    const dispatch = this.props.dispatch;
-    console.log(this.props);
+    
     
     return (
       <div id="block-main">
           <Header/>
-          <div id="block-content">
-              {this.state.data.map(i => (
-
-                <Dashboard 
-                  key = {i.dashboard_id}
-                  dashboard_id = {i.dashboard_id} 
-                  title = {i.title} 
-                  tasks = {i.tasks} 
-                  //deleteDashboard = {this.deleteDashboard}
-                  changeDashboardTitle = {this.changeDashboardTitle}
-                  addTask = {this.addTask}
-                  changeTask = {this.changeTask}
-                  changeTaskSelected = {this.changeTaskSelected}
-                  deleteTask = {this.deleteTask}
-                />           
-                ))}
-            
-                         
-          </div>
+          <Main/>
              
         
         <Sidebar 
@@ -210,7 +192,7 @@ class App extends Component {
   }
 }
 
-const putStateToProps = (state) => {
+/*const putStateToProps = (state) => {
   return {
     dashboard_id: state.dashboard_id,
     title: state.title,
@@ -230,6 +212,8 @@ const putActionsToProps = (dispatch) => {
   }
 }
 
-export default connect(putStateToProps, putActionsToProps)(App);
 
-//export default App;
+*/
+
+
+ export default App;

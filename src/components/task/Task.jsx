@@ -4,23 +4,8 @@ import './task.css';
 
 export class Task extends Component{
     state = {
-        value: this.props.name,
         isChecked: this.props.selected,
     }  
-
-    toggleChange = (e) => {
-      this.setState({
-        isChecked: !this.state.isChecked,
-      });
-      
-      this.props.changeTaskSelected(this.props.dashboard_id,this.props.task_id,e.target.checked)
-    }
-
-    changeValue = (e) => {
-        this.setState({
-            value: e.target.value
-        })
-    };
 
     render(){
         return (
@@ -30,23 +15,22 @@ export class Task extends Component{
                 >
                 <input 
                     type = "checkbox"  
-                    checked = {this.state.isChecked}
-                    onChange = {this.toggleChange} 
+                    checked = {this.props.selected}
+                    onChange = {(e) => this.props.changeTaskSelected(this.props.dashboard_id,this.props.task_id,e.target.checked)} 
                 />
                 
                 <input 
                     className="task-name" 
                     type="text" 
-                    value={this.state.value}
-                    disabled = {this.state.isChecked === true ? "disabled" : ""} 
-                    onChange = {this.changeValue}
-                    onBlur={(e)=> this.props.changeTask(this.props.dashboard_id,this.props.task_id,e.target.value)}
+                    value={this.props.name}
+                    disabled = {this.props.selected === true ? "disabled" : ""} 
+                    onChange={(e) => this.props.changeTaskName(this.props.dashboard_id, this.props.task_id, e.target.value)}
                 />
 
                 <br/>
                 <div 
                     className = "delete-task" 
-                    onClick = {()=> this.props.deleteTask(this.props.dashboard_id, this.props.task_id)}
+                    onClick = {() => this.props.deleteTask(this.props.dashboard_id, this.props.task_id)}
                     >
                     <img 
                     src = {trash} 
