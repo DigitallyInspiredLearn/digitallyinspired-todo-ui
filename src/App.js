@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Header} from "./Components/PresentationalComponents/header/Header";
-import VisibleTodoList from './Components/ContainerComponents/VisibleTodoList'
-import VisibleSider from './Components/ContainerComponents/VisibleSidebar'
+import VisibleTodoList from './Components/SmartComponents/VisibleTodoList'
+import VisibleSider from './Components/SmartComponents/VisibleSidebar'
 
 export class App extends Component {
 

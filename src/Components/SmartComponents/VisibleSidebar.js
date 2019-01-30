@@ -1,0 +1,18 @@
+import { connect } from 'react-redux'
+import { Sidebar } from "../PresentationalComponents/sider/Sidebar";
+import { actions } from "../duck";
+
+const mapStateToProps = (state) => {
+    return {
+        toDoBoard: state.toDoBoard
+    }
+};
+
+const mapDispatchToProps = {
+    addNewDashboard : actions.addNewDashboard
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Sidebar)

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
-// import {InputTask} from "./InputTask";
 
 export class Sidebar extends Component{
 
@@ -9,10 +8,28 @@ export class Sidebar extends Component{
         super(props);
         this.state = {
             titleName:'',
-            taskName:'',
+            taskName:'',displayStyle: 'none',
+            animation: '',
+            bool: false
         };
         this.addBoard = this.addBoard.bind(this);
+        this.updateDisplaySidebar = this.updateDisplaySidebar.bind(this)
     }
+
+    updateDisplaySidebar = () => {
+        this.state.bool === false ?
+            this.setState({
+                displayStyle: 'flex',
+                animation: 'move 1s',
+            })
+            :this.setState({
+                displayStyle: 'none',
+                animation: '',
+            });
+        this.setState({
+            bool:!this.state.bool
+        })
+    };
 
     addBoard = (title, idBoard, taskName, idTask) => {
         let titleValue= title==='' ? title='New Title Dashboard':title;
@@ -37,20 +54,22 @@ export class Sidebar extends Component{
 
     render(){
         return(
+            [
+                <div className="addNewArticleButton" onClick={this.updateDisplaySidebar}>+</div>,
             <div id="sider"
-                 style={{display:this.props.displayStyle}}
+                 style={{display:this.state.displayStyle}}
             >
                 <div
                     id="fon"
                      onClick= { e => {
-                         this.props.updateDisplaySidebar();
+                         this.updateDisplaySidebar();
                          this.handlerOnClisk(e)
                      }}
                 />
-                <aside id="addingArticle" style= {{ animation:this.props.animation }} >
+                <aside id="addingArticle" style= {{ animation:this.state.animation }} >
                     <h4 className="window-close"
                         onClick= { e => {
-                            this.props.updateDisplaySidebar();
+                            this.updateDisplaySidebar();
                             this.handlerOnClisk(e)
                         }}
                     >✕</h4>
@@ -79,7 +98,7 @@ export class Sidebar extends Component{
                         className="addListBtn"
                         type="submit"
                         onClick={(e)=>{
-                            this.props.updateDisplaySidebar();
+                            this.updateDisplaySidebar();
                             this.addBoard(
                                 this.state.titleName,
                                 this.props.randomInteger(1,1000000, this.props.toDoBoard),
@@ -91,6 +110,8 @@ export class Sidebar extends Component{
                     >Add</button>
                 </aside>
             </div>
+                ,
+                ]
         )
     }
 }

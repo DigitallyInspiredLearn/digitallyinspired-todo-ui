@@ -47,7 +47,7 @@ export class DashboardList extends Component {
     defaultValueFromTask = (newNameTask, idList, idTask) => {
         let value = newNameTask === '' ? newNameTask = 'to-do' : newNameTask;
         this.props.updateTaskName(idList, idTask, value)
-    }
+    };
 
     render(){
         return(
