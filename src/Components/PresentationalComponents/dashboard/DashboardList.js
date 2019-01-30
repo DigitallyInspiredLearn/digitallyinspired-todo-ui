@@ -47,18 +47,7 @@ export class DashboardList extends Component {
     defaultValueFromTask = (newNameTask, idList, idTask) => {
         let value = newNameTask === '' ? newNameTask = 'to-do' : newNameTask;
         this.props.updateTaskName(idList, idTask, value)
-    };
-
-    randomInteger = (min, max) => {
-        let rand = min - 0.5 + Math.random() * (max - min + 1);
-        rand = Math.round(rand);
-
-        this.props.toDoBoard.forEach( e => {
-            e.idList === rand ? this.randomInteger(min, max) : e.tasks.forEach(i =>
-                i.id === rand ? this.randomInteger(min, max) : rand)
-        });
-        return rand;
-    };
+    }
 
     render(){
         return(
@@ -79,8 +68,9 @@ export class DashboardList extends Component {
                                 onChangeNameTask = { this.onChangeNameTask }
                                 addNewTask = { this.addNewTask }
                                 defaultValueFromTitle = { this.defaultValueFromTitle }
-                                randomInteger = { this.randomInteger }
+                                randomInteger = { this.props.randomInteger }
                                 defaultValueFromTask = {this.defaultValueFromTask }
+                                data={ this.props.toDoBoard }
                             />
                         )
                 }

@@ -2,7 +2,7 @@ import {
     ADD_DASHBOARD,
     DELETE_DASHBOARD,
     UPDATE_TITLE_DASHBOARD,
-} from "../actions/actionsForDashboard";
+} from "../actions/actionsForDashboardAndSider";
 import { combineReducers } from 'redux'
 
 import {
@@ -46,24 +46,6 @@ export  const initialState = {
     ]
 };
 
-const SiderReduser = (state = initialState, action) => {
-    switch (action.type) {
-        case ADD_DASHBOARD:
-            return Object.assign({}, state, {
-                toDoBoard: [
-                    ...state.toDoBoard,
-                    {
-                        idList: action.payload.id,
-                        title: action.payload.title,
-                        tasks: action.payload.tasks,
-                    }
-                ]
-            });
-        default:
-            return state;
-    }
-};
-
 const DashboardsReduser = (state = initialState, action) => {
     switch (action.type) {
         case ADD_DASHBOARD:
@@ -71,9 +53,13 @@ const DashboardsReduser = (state = initialState, action) => {
                 toDoBoard: [
                     ...state.toDoBoard,
                     {
-                        idList : action.payload.id,
+                        idList: action.payload.idBoard,
                         title: action.payload.title,
-                        tasks: action.payload.tasks,
+                        tasks: [{
+                            name: action.payload.taskName,
+                            id:action.payload.idTask,
+                            selected: false,
+                        }]
                     }
                 ]
             });
@@ -98,7 +84,12 @@ const DashboardsReduser = (state = initialState, action) => {
             return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(i =>
                     i.idList === action.payload.idDashboard ?
-                        {...i, tasks: [...i.tasks,{id:action.payload.idTask, selected:false, name:action.payload.nameTask }]} :i)
+                        {...i, tasks:
+                                [...i.tasks,
+                                    {id:action.payload.idTask,
+                                        selected:false,
+                                        name:action.payload.nameTask
+                                    }]} :i)
                 }
             );
 
@@ -133,7 +124,7 @@ const DashboardsReduser = (state = initialState, action) => {
 };
 
 export const reducer = combineReducers({
-    sider : SiderReduser,
+
     functionality : DashboardsReduser,
 });
 

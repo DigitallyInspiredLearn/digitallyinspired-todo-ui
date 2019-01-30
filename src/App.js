@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
 import {Header} from "./Components/PresentationalComponents/header/Header";
 import VisibleTodoList from './Components/ContainerComponents/VisibleTodoList'
-import VisibleSider from './Components/ContainerComponents/VisibleSider'
-import {BtnAddingNewDashboard} from "./Components/PresentationalComponents/sider/BtnAddingNewDashboard";
+import VisibleSider from './Components/ContainerComponents/VisibleSidebar'
 
 export class App extends Component {
 
-    updateDisplayFlex = () => {
-        this.setState({
-            displayStyle: 'flex',
-            animation: 'move 1s',
-        })
+    randomInteger = (min, max, arr) => {
+        let rand = min - 0.5 + Math.random() * (max - min + 1);
+        rand = Math.round(rand);
+
+       arr.forEach( e => {
+            e.idList === rand ? this.randomInteger(min, max, arr) : e.tasks.forEach(i =>
+                i.id === rand ? this.randomInteger(min, max, arr) : rand)
+        });
+        return rand;
     };
 
-    updateDisplayNone = () => {
-        this.setState({
-            displayStyle: 'none',
-        })
-    };
     render() {
     return (
       <div className="App">
           <Header/>
           <div id="content">
-              <VisibleTodoList/>
+              <VisibleTodoList randomInteger= { this.randomInteger } />
           </div>
-          <BtnAddingNewDashboard/>
-          <VisibleSider />
+          <VisibleSider randomInteger= { this.randomInteger } />
       </div>
     );
   }

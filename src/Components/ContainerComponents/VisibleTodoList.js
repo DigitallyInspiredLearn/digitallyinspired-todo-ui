@@ -3,7 +3,7 @@ import { DashboardList } from "../PresentationalComponents/dashboard/DashboardLi
 import {
     updateTitleDashboard,
     deleteDashboard,
-} from "../../Redux/actions/actionsForDashboard";
+} from "../../Redux/actions/actionsForDashboardAndSider";
 import { Component } from "react";
 import React from "react";
 import {
@@ -24,6 +24,7 @@ export class VisibleTodoList extends Component {
                 addTask= { this.props.addTask }
                 updateCheckbox= { this.props.updateCheckbox }
                 updateTaskName= { this.props.updateTaskName }
+                randomInteger= { this.props.randomInteger }
             />
         )
     }
