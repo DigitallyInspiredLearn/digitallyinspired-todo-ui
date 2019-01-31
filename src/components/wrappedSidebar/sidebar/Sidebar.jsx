@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import plus from '../../img/plus.png';
-import cross from '../../img/cross-out-mark.png';
+import plus from '../../../img/plus.png';
+import cross from '../../../img/cross-out-mark.png';
 import './sidebar.css';
 
 export class Sidebar extends Component {
@@ -36,6 +36,7 @@ export class Sidebar extends Component {
     }
 
     render(){
+        console.log(this.props)
         return (
         <div>   
             <div 
@@ -67,7 +68,8 @@ export class Sidebar extends Component {
                     type = "text" 
                     id = "add-title" 
                     placeholder = "Add title" 
-                    onChange = {(e) => this.inputTask(e)}
+                    value = {this.props.title}
+                    onChange = {(e) => this.props.addInputTitle(e.target.value)}
                 />
                 <input 
                     type = "text" 
@@ -77,7 +79,7 @@ export class Sidebar extends Component {
                 />
                 <div 
                     id="button-add" 
-                    onClick={() => {this.props.addDashboard(this.state.title, this.state.task); this.hideSidebar()}}
+                    //onClick={() => {this.props.addDashboard(this.state.title, this.state.task); this.hideSidebar()}}
                     >
                     Add
                 </div>

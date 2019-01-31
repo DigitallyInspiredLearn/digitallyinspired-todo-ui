@@ -2,7 +2,11 @@ import { DELETE_DASHBOARD,
     CHANGE_DASHBOARD_TITLE, 
     DELETE_TASK, ADD_TASK, 
     CHANGE_TASK_NAME, 
-    CHANGE_TASK_SELECTED
+    CHANGE_TASK_SELECTED,
+    ADD_INPUT_TITLE,
+    ADD_DASHBOARD,
+    SHOW_SIDEBAR,
+    HIDE_SIDEBAR
 } from '../index'
 
 
@@ -69,6 +73,16 @@ export const changeTaskSelected = (dashboard_id, task_id, value) => {
             dashboard_id: dashboard_id,
             task_id: task_id,
             selected: value
+        }
+    }
+}
+
+export const addInputTitle = (title) => {
+    console.log("ACTION_ADD_INPUT_TITLE "+title)
+    return {
+        type: ADD_INPUT_TITLE,
+        payload: {
+            title: title,
         }
     }
 }

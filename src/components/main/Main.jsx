@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Main.css';
-import {Dashboard} from '../../components/dashboard/Dashboard';
+import { Dashboard } from '../../components/dashboard/Dashboard';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteDashboard, changeDashboardTitle, deleteTask, addTask, changeTaskName, changeTaskSelected } from '../../store/actions';
