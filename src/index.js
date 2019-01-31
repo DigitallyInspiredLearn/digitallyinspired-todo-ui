@@ -2,23 +2,30 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { App } from './App'
-import * as serviceWorker from './serviceWorker';
 import './index.css';
 import ReactDOM from 'react-dom';
-import {actions, reducer} from './Components/duck'
+import { reducer} from './duck'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const store = createStore(reducer);
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-// const  saveUpdatingStorege = (toDoBoard) =>{
-//     localStorage.setItem('toDoData',JSON.stringify(toDoBoard));
-// };
-// store.subscribe(()=> saveUpdatingStorege(store.getState()));
+
+const persistConfig = {
+    key: 'toDoBoard',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const store = createStore(persistedReducer);
+const persistor = persistStore(store);
 
 ReactDOM.render(
     <Provider store={ store }>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 );
-
-serviceWorker.unregister();
