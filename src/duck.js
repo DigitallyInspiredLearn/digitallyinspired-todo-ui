@@ -25,28 +25,30 @@ let toDoBoard = [
         title: 'Что осталось',
         tasks: [
             {
-                id:4,
+                id: 4,
                 selected: true,
-                name:'duck and smartComponents'
+                name: 'duck and smartComponents'
             },
             {
-                id:24,
+                id: 24,
                 selected: false,
-                name:'Сделать LocaleStorage'
+                name: 'Сделать LocaleStorage'
             },
             {
-                id:14,
+                id: 14,
                 selected: false,
-                name:'Отрефакторить код'
+                name: 'Отрефакторить код'
             }
         ]
     }
 ];
-export  const initialState = {
+export const initialState = {
     toDoBoard
+
+
 };
 
-export const  reducer = handleActions({
+export const reducer = handleActions({
 
     [ADD_DASHBOARD]: (state, action) => {
         return Object.assign({}, state, {
@@ -57,7 +59,7 @@ export const  reducer = handleActions({
                     title: action.payload.title,
                     tasks: [{
                         name: action.payload.taskName,
-                        id:action.payload.idTask,
+                        id: action.payload.idTask,
                         selected: false,
                     }]
                 }
@@ -67,71 +69,77 @@ export const  reducer = handleActions({
 
     [DELETE_DASHBOARD]: (state, action) => {
         return Object.assign({}, state, {
-            toDoBoard: state.toDoBoard.filter(e =>{
-                console.log(e.idList,action.payload.id);
-                return e.idList!==action.payload.id;
+            toDoBoard: state.toDoBoard.filter(e => {
+                console.log(e.idList, action.payload.id);
+                return e.idList !== action.payload.id;
             })
         })
     },
 
     [UPDATE_TITLE_DASHBOARD]: (state, action) => {
         return Object.assign({}, state, {
-            toDoBoard: state.toDoBoard.map(e =>{
-                if(e.idList===action.payload.id){
-                    return {...e,title: action.payload.newTitle}
+            toDoBoard: state.toDoBoard.map(e => {
+                if (e.idList === action.payload.id) {
+                    return {...e, title: action.payload.newTitle}
                 }
                 return e;
             })
         });
     },
 
-    [ADD_TASK]:(state, action) => {
+    [ADD_TASK]: (state, action) => {
         return Object.assign({}, state, {
                 toDoBoard: state.toDoBoard.map(i =>
                     i.idList === action.payload.idDashboard ?
-                        {...i, tasks:
+                        {
+                            ...i, tasks:
                                 [...i.tasks,
-                                    {id:action.payload.idTask,
-                                        selected:false,
-                                        name:action.payload.nameTask
+                                    {
+                                        id: action.payload.idTask,
+                                        selected: false,
+                                        name: action.payload.nameTask
                                     }
-                                    ]
-                        } :i)
+                                ]
+                        } : i)
             }
         );
     },
 
-    [DELETE_TASK]: (state, action) =>{
+    [DELETE_TASK]: (state, action) => {
         return Object.assign({}, state, {
             toDoBoard: state.toDoBoard.map(i =>
                 i.idList === action.payload.idDashboard ?
-                    { ...i, tasks : i.tasks.filter(e => e.id !== action.payload.idTask) }
+                    {...i, tasks: i.tasks.filter(e => e.id !== action.payload.idTask)}
                     : i)
         });
     },
 
-    [UPDATE_CHECKBOX]: (state, action) =>{
+    [UPDATE_CHECKBOX]: (state, action) => {
         return Object.assign({}, state, {
             toDoBoard: state.toDoBoard.map(i =>
                 i.idList === action.payload.idDashboard ?
-                    {...i, tasks: i.tasks.map(e => e.id === action.payload.idTask ?
-                            {...e,selected: !action.payload.selected}
+                    {
+                        ...i, tasks: i.tasks.map(e => e.id === action.payload.idTask ?
+                            {...e, selected: !action.payload.selected}
                             : e)
                     } : i)
         });
     },
 
-    [UPDATE_TASK_NAME ]: (state, action) => {
-        return {...state,
+    [UPDATE_TASK_NAME]: (state, action) => {
+        return {
+            ...state,
             toDoBoard: state.toDoBoard.map(i =>
                 i.idList === action.payload.idDashboard ?
-                    {...i, tasks: i.tasks.map(e =>
-                            e.id===action.payload.idTask ?
-                                {...e,name:action.payload.newTaskName
-                                } :e)
+                    {
+                        ...i, tasks: i.tasks.map(e =>
+                            e.id === action.payload.idTask ?
+                                {
+                                    ...e, name: action.payload.newTaskName
+                                } : e)
                     } : i
             )
         }
     },
 
-}, initialState );
+}, initialState);

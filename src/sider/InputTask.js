@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-export class InputTask extends Component{
-    render(){
+export class InputTask extends Component {
+    render() {
 
-        return(
+        return (
             <input
                 type="text"
                 placeholder=" Add to-do"
