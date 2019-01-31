@@ -7,7 +7,7 @@ import { deleteDashboard, changeDashboardTitle, deleteTask, addTask, changeTaskN
 
 class Main extends Component {
     render(){
-        console.log(this.props);
+        //console.log(this.props);
         return (
             <div id="block-content">
                 {this.props.data.map(item => {

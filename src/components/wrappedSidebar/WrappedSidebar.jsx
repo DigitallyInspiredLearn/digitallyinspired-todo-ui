@@ -1,32 +1,25 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Sidebar } from './sidebar/Sidebar';
-import  {addInputTitle, addDashboard, showSidebar, hideSidebar } from '../../store/actions';
-
-export class WrappedSidebar extends Component {
-    render(){
-        console.log(this.props)
-        return (
-            <Sidebar
-                title = {this.props.title}
-                task = {this.props.task}
-                addInputTitle = {this.props.addInputTitle}
-            />
-        );
-    }
-}
+import  { Sidebar }  from './sidebar/Sidebar';
+import  {addInputTitle, addInputTask, addDashboard, showSidebar, hideSidebar } from '../../store/actions';
 
 const mapStateToProps = (state) => {
     return {
-      data: state.sidebar.data,
+      title: state.sidebar.inputTitle,
+      task: state.sidebar.inputTask,
+      className: state.sidebar.className
     };    
 };
 
 const mapActionsToProps = (dispatch) => {
     return {
-        addInputTitle: bindActionCreators(addInputTitle, dispatch)
+        showSidebar: bindActionCreators(showSidebar, dispatch),
+        hideSidebar: bindActionCreators(hideSidebar, dispatch),
+        addInputTitle: bindActionCreators(addInputTitle, dispatch),
+        addInputTask: bindActionCreators(addInputTask, dispatch),
+        addDashboard: bindActionCreators(addDashboard, dispatch)
     };
 }
   
-export default connect(mapStateToProps, mapActionsToProps)(WrappedSidebar);
+export default connect(mapStateToProps, mapActionsToProps)(Sidebar);

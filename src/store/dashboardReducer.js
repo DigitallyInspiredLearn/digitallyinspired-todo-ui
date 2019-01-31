@@ -5,7 +5,8 @@ import {
     DELETE_TASK, 
     ADD_TASK, 
     CHANGE_TASK_NAME,
-    CHANGE_TASK_SELECTED
+    CHANGE_TASK_SELECTED,
+    ADD_DASHBOARD
 } from '../index'
 
 const generateId = () => {
@@ -119,6 +120,26 @@ export const dashboardReducer = (state = initialState, action) => {
                   }
                   return item;
                 })
+              }
+        }
+
+        case ADD_DASHBOARD: {
+            let newDashboard = {
+                dashboard_id: generateId(),
+                title: action.payload.title,
+                tasks: [
+                  {
+                    task_id: generateId(),
+                    selected: false,
+                    name: action.payload.task,
+                  }
+                ],
+            }
+        
+            console.log(newDashboard)
+           
+              return {
+                data: [...state.data, newDashboard]
               }
         }
         default:

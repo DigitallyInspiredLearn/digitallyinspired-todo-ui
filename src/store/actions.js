@@ -3,10 +3,11 @@ import { DELETE_DASHBOARD,
     DELETE_TASK, ADD_TASK, 
     CHANGE_TASK_NAME, 
     CHANGE_TASK_SELECTED,
-    ADD_INPUT_TITLE,
-    ADD_DASHBOARD,
     SHOW_SIDEBAR,
-    HIDE_SIDEBAR
+    HIDE_SIDEBAR,
+    ADD_INPUT_TITLE,
+    ADD_INPUT_TASK,
+    ADD_DASHBOARD
 } from '../index'
 
 
@@ -77,12 +78,45 @@ export const changeTaskSelected = (dashboard_id, task_id, value) => {
     }
 }
 
+export const showSidebar = (className) => {
+    console.log("ACTION_SHOW_SIDEBAR"+className)
+    return {
+        type: SHOW_SIDEBAR,
+        payload: className
+    }
+}
+
+export const hideSidebar = (className) => {
+    console.log("ACTION_HIDE_SIDEBAR"+className)
+    return {
+        type: HIDE_SIDEBAR,
+        payload: className
+    }
+}
+
 export const addInputTitle = (title) => {
-    console.log("ACTION_ADD_INPUT_TITLE "+title)
+    console.log("ACTION_ADD_INPUT_TITLE: "+title)
     return {
         type: ADD_INPUT_TITLE,
+        payload: title
+    }
+}
+
+export const addInputTask = (task) => {
+    console.log("ACTION_ADD_INPUT_TASK: "+task)
+    return {
+        type: ADD_INPUT_TASK,
+        payload: task
+    }
+}
+
+export const addDashboard = (title, task) => {
+    console.log("ACTION_ADD_DASHBOARD: TITLE"+title+"TASK: "+task)
+    return {
+        type: ADD_DASHBOARD,
         payload: {
             title: title,
+            task: task
         }
     }
 }
