@@ -1,17 +1,8 @@
-import { Dashboard } from "./Dashboard";
-import {
-    deleteDashboard,
-    deleteTask,
-    changeTitle,
-    addTask,
-    toggleActive
-}
-from '../store/dashboard/actionsDashboard';
-import { connect } from 'react-redux'
-import { Component } from "react";
+import {Dashboard} from "./Dashboard";
+import {Component} from "react";
 import React from "react";
 
-class DashboardList extends Component {
+export class DashboardList extends Component {
 
     render() {
         return (
@@ -37,23 +28,3 @@ class DashboardList extends Component {
         );
     }
 }
-
-
-//export const App = Root;
-
-const mapStateToProps = state => {
-    return {
-        data: state.dashboard.data
-    }
-};
-
-const mapDispatchToProps =
-    {
-        deleteDashboard: deleteDashboard,
-        deleteTask: deleteTask,
-        changeTitle: changeTitle,
-        addTask: addTask,
-        toggleActive: toggleActive,
-    };
-
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardList);

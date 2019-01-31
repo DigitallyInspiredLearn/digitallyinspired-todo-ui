@@ -5,10 +5,6 @@ import del from "../../image/delete.PNG";
 export class Task extends Component {
     render() {
         return (
-            <div
-                className="form"
-                id="form"
-            >
                 <div
                     className="tas"
                     id={this.props.id}
@@ -16,7 +12,7 @@ export class Task extends Component {
                     <div
                         id={this.props.id}
                         className={this.props.selected ? "checkbox active" : "checkbox"}
-                        onClick={(e) => this.props.toggleActive(e, this.props.id)}
+                        onClick={(e) => this.props.toggleActive({e: e, idTask: this.props.id, idBox: this.props.idBox})}
                     >
                     </div>
                     <label className="label">{this.props.name}</label>
@@ -24,11 +20,10 @@ export class Task extends Component {
                         className="deleteTask"
                         src={del}
                         alt="Delete"
-                        onClick={() => this.props.deleteTask(this.props.idBox, this.props.id)}
+                        onClick={() => this.props.deleteTask({ idBox: this.props.idBox, idTask: this.props.id })}
                     />
                     <br/>
                 </div>
-            </div>
         );
     }
 }

@@ -15,13 +15,6 @@
     display: block;
 }
 
-.form {
-    font-family: Open Sans;
-    font-size: 26px;
-    padding: 10px;
-    color: gray;
-}
-
 .checkbox.active + label {
     text-decoration: line-through;
 }
@@ -31,15 +24,6 @@
     width: 85%;
 }
 
-.addToDo {
-    font-family: Open Sans;
-    font-size: 26px;
-    padding: 10px;
-    color: gray;
-    border: white;
-    cursor: pointer;
-    width: 95%;
-}
 
 .checkbox.active {
     border: 3px solid black;

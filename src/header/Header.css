@@ -9,11 +9,10 @@
     background-color: #F5F5F5;
     display: flex;
     align-items: center;
-    align-self: center;
-    width:87%;
+    width:100%;
     height: 150px;
     padding: 2rem 0 2rem 0;
-    margin-left: 165px;
+    margin: 20px auto;
 }
 
 
@@ -32,7 +31,7 @@
 
 @media screen and (max-width: 600px) {
     .App-header {
-        margin-left: 50px;
+        margin: 0 auto;
         justify-content: center;
     }
 

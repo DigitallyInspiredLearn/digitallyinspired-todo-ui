@@ -21,8 +21,13 @@ export class Dashboard extends Component {
                     type="text"
                     className="title"
                     value={this.props.title}
-                    onChange={(e) => this.props.changeTitle(this.props.idList, e.target.value)}
+                    onChange={(e) => this.props.changeTitle({id: this.props.idList, newValue: e.target.value})}
                 />
+
+                <div
+                    className="form"
+                    id="form"
+                >
 
                 {
                 this.props.tasks.map(nameTask => {
@@ -38,13 +43,14 @@ export class Dashboard extends Component {
 
                 })
                 }
+                </div>
                 <input
                     className="addToDo"
                     type="text"
                     placeholder="Add to-do"
                     onKeyPress={event => {
                         if (event.key === 'Enter') {
-                            this.props.addTask(this.props.idList, event.target.value);
+                            this.props.addTask({idBox: this.props.idList, newValue: event.target.value});
                             event.target.value = "";
                         }
                     }

@@ -15,26 +15,11 @@
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: -100px 10%;
+  margin: -100px auto;
   width: 90%;
   padding-top: 50px;
 }
 
-
-/*Plus*/
-.plus {
-  display: flex;
-  height: 100px;
-  flex-direction: row;
-  justify-content: flex-end;
-  margin-top: 150px;
-  cursor: pointer;
-}
-
-.plus img {
-  width: 100px;
-  height: 100px;
-}
 
 @media screen and (max-width: 600px) {
   .main_block {
@@ -48,13 +33,7 @@
 
   }
 
-  .plus {
-    display: block;
-    position: fixed;
-    margin-top: 220px;
-    margin-left: 50px;
 
-  }
 }
 
 

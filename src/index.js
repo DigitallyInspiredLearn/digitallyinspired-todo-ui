@@ -3,21 +3,36 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Provider from "react-redux/es/components/Provider";
-import { combineReducers, createStore } from "redux";
-//import {rootReducer} from "./store/reducers";
+import { createStore } from "redux";
 import App from "./App";
-import { sidebarReducer } from "./store/sidebar/reducerSidebar";
-import { dashboardReducer } from "./store/dashboard/reducerDashboard";
+import { reducer } from "./store/duck";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const rootReducer = combineReducers({
-    sidebar: sidebarReducer,
-    dashboard: dashboardReducer
-});
+const persistConfig = {
+    key: 'dashboard',
+    storage,
+};
 
-const store = createStore(rootReducer);
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+// export default () => {
+//     let store = createStore(persistedReducer)
+//     let persistor = persistStore(store)
+//     return { store, persistor }
+// }
+
+
+
+const store = createStore(persistedReducer);
+let persistor = persistStore(store);
 
 ReactDOM.render(
     <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
         <App/>
+        </PersistGate>
+
     </Provider>, document.getElementById('root'));
 serviceWorker.unregister();
