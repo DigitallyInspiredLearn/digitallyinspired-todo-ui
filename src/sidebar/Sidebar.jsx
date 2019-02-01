@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import plus from '../../../img/plus.png';
-import cross from '../../../img/cross-out-mark.png';
+import plus from '../img/plus.png';
+import cross from '../img/cross-out-mark.png';
 import './sidebar.css';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-//import  { Sidebar }  from './sidebar/Sidebar';
- import  {addInputTitle, addInputTask, addDashboard, showSidebar, hideSidebar } from '../../../store/actions'
+import { actions } from '../store/duck';
 
 class Sidebar extends Component {
 
@@ -53,7 +51,14 @@ class Sidebar extends Component {
                 />
                 <div 
                     id="button-add" 
-                    onClick={() => {this.props.addDashboard(this.props.title, this.props.task); this.props.hideSidebar()}}
+                    onClick={() => {this.props.addDashboard({
+                                            addTitle: this.props.title,
+                                            addTask: this.props.task
+                                        });
+                                        this.props.addInputTitle("");
+                                        this.props.addInputTask("");
+                                        this.props.hideSidebar()}
+                                    }
                     >
                     Add
                 </div>
@@ -65,20 +70,19 @@ class Sidebar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      title: state.sidebar.inputTitle,
-      task: state.sidebar.inputTask,
-      className: state.sidebar.className
+      title: state.inputTitle,
+      task: state.inputTask,
+      className: state.className
     };    
 };
 
-const mapActionsToProps = (dispatch) => {
-    return {
-        showSidebar: bindActionCreators(showSidebar, dispatch),
-        hideSidebar: bindActionCreators(hideSidebar, dispatch),
-        addInputTitle: bindActionCreators(addInputTitle, dispatch),
-        addInputTask: bindActionCreators(addInputTask, dispatch),
-        addDashboard: bindActionCreators(addDashboard, dispatch)
-    };
+const mapActionsToProps = {
+
+    showSidebar: actions.showSidebar,
+    hideSidebar: actions.hideSidebar,
+    addInputTitle: actions.addInputTitle,
+    addInputTask: actions.addInputTask,
+    addDashboard: actions.addDashboard
 }
   
 export default connect(mapStateToProps, mapActionsToProps)(Sidebar);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import trash from '../../img/trash.png';
+import trash from '../../../img/trash.png';
 import './dashboard.css';
-import {Task} from '../task/Task';
+import { Task } from '../../../task/Task';
 
 export class Dashboard extends Component {
 
@@ -22,7 +22,7 @@ export class Dashboard extends Component {
             <input 
                 className="item-name" 
                 value={this.props.title}
-                onChange={(e) => this.props.changeDashboardTitle(this.props.dashboard_id,e.target.value)}
+                onChange={(e) => this.props.changeDashboardTitle({id: this.props.dashboard_id, newTitle: e.target.value})}
             />
                           
             <div className="tasks">
@@ -43,7 +43,7 @@ export class Dashboard extends Component {
             <input 
                 className="add-todo" 
                 placeholder="Add to-do" 
-                onBlur = {(e) => this.props.addTask(this.props.dashboard_id, e)}
+                onBlur = {(e) => {this.props.addTask({id: this.props.dashboard_id, task: e.target.value}); e.target.value=""}}
             />
         </div> 
         );

@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import trash from '../../img/trash.png';
+import trash from '../img/trash.png';
 import './task.css';
 
 export class Task extends Component{
-    state = {
-        isChecked: this.props.selected,
-    }  
-
     render(){
         return (
             <div 
@@ -16,7 +12,7 @@ export class Task extends Component{
                 <input 
                     type = "checkbox"  
                     checked = {this.props.selected}
-                    onChange = {(e) => this.props.changeTaskSelected(this.props.dashboard_id,this.props.task_id,e.target.checked)} 
+                    onChange = {(e) => this.props.changeTaskSelected({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, selected: e.target.checked})} 
                 />
                 
                 <input 
@@ -24,13 +20,13 @@ export class Task extends Component{
                     type="text" 
                     value={this.props.name}
                     disabled = {this.props.selected === true ? "disabled" : ""} 
-                    onChange={(e) => this.props.changeTaskName(this.props.dashboard_id, this.props.task_id, e.target.value)}
+                    onChange={(e) => this.props.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})}
                 />
 
                 <br/>
                 <div 
                     className = "delete-task" 
-                    onClick = {() => this.props.deleteTask(this.props.dashboard_id, this.props.task_id)}
+                    onClick = {() => this.props.deleteTask({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id})}
                     >
                     <img 
                     src = {trash} 

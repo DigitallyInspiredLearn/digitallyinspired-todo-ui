@@ -5,25 +5,26 @@ import App from './App';
 import { createStore } from 'redux'
 import {Provider} from 'react-redux'
 import * as serviceWorker from './serviceWorker';
-import { rootReducer } from './store/reducers';
-import {reducer} from './store/duck'
- 
-export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
-export const CHANGE_DASHBOARD_TITLE = 'CHANGE_DASHBOARD_TITLE';
-export const DELETE_TASK = 'DELETE_TASK';
-export const ADD_TASK = 'ADD_TASK';
-export const CHANGE_TASK_NAME = 'CHANGE_TASK_NAME';
-export const CHANGE_TASK_SELECTED = 'CHANGE_TASK_SELECTED';
-export const ADD_INPUT_TITLE = 'ADD_INPUT_TITLE';
-export const ADD_INPUT_TASK = 'ADD_INPUT_TASK';
-export const ADD_DASHBOARD = 'ADD_DASHBOARD';
-export const SHOW_SIDEBAR = 'SHOW_SIDEBAR';
-export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
+//import { rootReducer } from './store/reducers';
+import { reducer } from './store/duck'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const store = createStore(rootReducer);
+const persistConfig = {
+    key: 'dashboard',
+    storage,
+};
 
-ReactDOM.render(<Provider store={store}>
-    <App/>
-</Provider>, document.getElementById('root'));
+const persistedReducer = persistReducer(persistConfig, reducer);
+const store = createStore(persistedReducer);
+let persistor = persistStore(store);
 
+ReactDOM.render(
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+        <App/>
+        </PersistGate>
+
+    </Provider>, document.getElementById('root'));
 serviceWorker.unregister();
