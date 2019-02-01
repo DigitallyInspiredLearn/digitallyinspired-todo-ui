@@ -42,7 +42,7 @@ const mapDispatchToProps = {
     changeDashboardTitle: actions.changeDashboardTitle,
     addTask: actions.addTask,
     changeTaskName: actions.changeTaskName,
-    schangeTaskSelected: actions.changeTaskSelected
+    changeTaskSelected: actions.changeTaskSelected
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

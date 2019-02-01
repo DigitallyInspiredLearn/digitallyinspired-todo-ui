@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
-
+import { taskLatest, takeEvery } from 'redux-saga/effects';
+import {generateId} from '.././helper'
 export const CHANGE_DASHBOARD_TITLE = 'CHANGE_DASHBOARD_TITLE';
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
@@ -13,10 +14,6 @@ export const INPUT_TASK_TEXT = 'INPUT_TASK_TEXT';
 export const SHOW_SIDEBAR = 'SHOW_SIDEBAR';
 export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
 
-
-const generateId = () => {
-    return Math.floor(Math.random() * 100000);
-};
 
 export const actions = {
     deleteDashboard: createAction(DELETE_DASHBOARD),
@@ -33,7 +30,7 @@ export const actions = {
     addInputTask: createAction(INPUT_TASK_TEXT)
 };
 
-const initialState = {
+export const initialState = {
     data: [
         {
             dashboard_id: generateId(),
@@ -177,3 +174,11 @@ export const reducer = handleActions({
         return {...state, inputTask: action.payload}
     }
 }, initialState);
+
+function* func() {
+    console.log("saga!");
+}
+
+export function* saga() {
+    yield takeEvery(DELETE_TASK, func);
+}
