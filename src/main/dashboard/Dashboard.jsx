@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import trash from '../../../img/trash.png';
+import trash from '../../img/trash.png';
 import './dashboard.css';
-import { Task } from '../../../task/Task';
+import { Task } from '../../task/Task';
 
 export class Dashboard extends Component {
 

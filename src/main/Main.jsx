@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import './Main.css';
 import { Dashboard } from './dashboard/Dashboard';
 import { connect } from 'react-redux';
-import { actions } from '../../store/duck';
+import { actions } from '../store/duck';
 
 class Main extends Component {
     render(){
+        console.log("=== dashboard props ===")
         console.log(this.props);
         return (
             <div id="block-content">
@@ -41,7 +42,7 @@ const mapDispatchToProps = {
     changeDashboardTitle: actions.changeDashboardTitle,
     addTask: actions.addTask,
     changeTaskName: actions.changeTaskName,
-    changeTaskSelected: actions.changeTaskSelected
+    schangeTaskSelected: actions.changeTaskSelected
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

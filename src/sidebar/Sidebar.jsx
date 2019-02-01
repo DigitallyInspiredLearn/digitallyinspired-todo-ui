@@ -8,7 +8,8 @@ import { actions } from '../store/duck';
 class Sidebar extends Component {
 
     render(){
-        console.log(this.props)
+        console.log("==sidebar props===")
+        console.log(this.props);
         return (
         <div>   
             <div 
