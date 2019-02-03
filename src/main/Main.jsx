@@ -6,8 +6,8 @@ import { actions } from '../store/duck';
 
 class Main extends Component {
     render(){
-        console.log("=== dashboard props ===")
-        console.log(this.props);
+        // console.log("=== Main props ===")
+        // console.log(this.props);
         return (
             <div id="block-content">
                 {this.props.data.map(item => {

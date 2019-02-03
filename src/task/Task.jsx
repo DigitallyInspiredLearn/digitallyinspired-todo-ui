@@ -4,6 +4,8 @@ import './task.css';
 
 export class Task extends Component{
     render(){
+        // console.log("=== task props ===")
+        // console.log(this.props)
         return (
             <div 
                 className = "task" 
@@ -16,11 +18,18 @@ export class Task extends Component{
                 />
                 
                 <input 
-                    className="task-name" 
-                    type="text" 
-                    value={this.props.name}
+                    className = "task-name" 
+                    type = "text" 
+                    value = {this.props.name}
                     disabled = {this.props.selected === true ? "disabled" : ""} 
-                    onChange={(e) => this.props.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})}
+                    onChange = {(e) => this.props.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})}
+                    /*onKeyPress = {(e) => {
+                        if(e.key === 'Enter') {
+                            this.props.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})
+                        }
+                        }
+                    }
+                    */
                 />
 
                 <br/>

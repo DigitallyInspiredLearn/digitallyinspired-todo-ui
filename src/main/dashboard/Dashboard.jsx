@@ -6,6 +6,8 @@ import { Task } from '../../task/Task';
 export class Dashboard extends Component {
 
     render() {
+        // console.log("=== Dashboard props ===")
+        // console.log(this.props);
         return (
         <div className="block-item" id={this.props.dashboard_id}>
             <div 
@@ -29,9 +31,9 @@ export class Dashboard extends Component {
               {this.props.tasks.map(task => 
                 <Task 
                     key = {task.task_id}
-                    task_id={task.task_id}
-                    name={task.name}
-                    selected={task.selected} 
+                    task_id = {task.task_id}
+                    name = {task.name}
+                    selected = {task.selected} 
                     deleteTask = {this.props.deleteTask}
                     changeTaskName = {this.props.changeTaskName}
                     changeTaskSelected = {this.props.changeTaskSelected}
@@ -43,7 +45,21 @@ export class Dashboard extends Component {
             <input 
                 className="add-todo" 
                 placeholder="Add to-do" 
-                onBlur = {(e) => {this.props.addTask({id: this.props.dashboard_id, task: e.target.value}); e.target.value=""}}
+                onBlur = {(e) => {
+                        if(e.target.value !== ''){
+                            this.props.addTask({id: this.props.dashboard_id, task: e.target.value}); 
+                            e.target.value="" 
+                        }
+                    }
+                }
+                onKeyPress = {(e) => {
+                        if (e.key === 'Enter' && e.target.value !== '') {
+                            this.props.addTask({id: this.props.dashboard_id, task: e.target.value});
+                            e.target.value = "";
+                        }
+                    }
+                }
+                
             />
         </div> 
         );

@@ -34,40 +34,40 @@ export const initialState = {
     data: [
         {
             dashboard_id: generateId(),
-            title: 'Dashboard 1',
+            title: 'Board 1',
             tasks: [
                 {
                     task_id: generateId(),
                     selected: true,
-                    name: 'Task1'
+                    name: 'task 01'
                 },
                 {
                     task_id: generateId(),
                     selected: false,
-                    name: 'Task2'
+                    name: 'task 02'
                 }
             ]
         },
         {
             dashboard_id: generateId(),
-            title: 'Dashboard 2',
+            title: 'Board 2',
             tasks: [
                 {
                     task_id: generateId(),
-                    selected: true,
-                    name: 'Task3'
+                    selected: false,
+                    name: 'task 11'
                 },
                 {
                     task_id: generateId(),
-                    selected: false,
-                    name: 'Task4'
+                    selected: true,
+                    name: 'task 12'
                 }
             ]
         }
     ],
     inputTitle: '',
     inputTask: '',
-    className: "block-add"
+    className: 'block-add'
 };
 
 export const reducer = handleActions({
@@ -77,13 +77,14 @@ export const reducer = handleActions({
     },
 
     [CHANGE_DASHBOARD_TITLE]: (state, action) => {
-        return { data: state.data.map(i => 
+        return { ...state, data: state.data.map(i => 
             i.dashboard_id === action.payload.id ? { ...i, title: action.payload.newTitle } : i)
         }
     },
 
     [ADD_TASK]: (state, action) => {
-        let newTask = {
+        let newTask =
+            {
                 task_id: generateId(),
                 selected: false,
                 name: action.payload.task
@@ -95,8 +96,7 @@ export const reducer = handleActions({
     },
 
     [CHANGE_TASK_NAME]: (state, action) => {
-        return {
-            data: state.data.map(item => {
+        return {...state, data: state.data.map(item => {
               if (item.dashboard_id === action.payload.dashboard_id) {
                 item.tasks = item.tasks.map(task => {
                   if (task.task_id === action.payload.task_id) {
@@ -111,10 +111,9 @@ export const reducer = handleActions({
     },
 
     [DELETE_TASK]: (state, action) => {
-        return {
-            ...state, data: state.data.map(item => {
+        return { ...state, data: state.data.map(item => {
                 if (item.dashboard_id === action.payload.dashboard_id) {
-                    return {...item, tasks: item.tasks.filter(itemTask => itemTask.task_id !== action.payload.task_id)}
+                    return {...item, tasks: item.tasks.filter(task => task.task_id !== action.payload.task_id)}
                 }
                 return item
             })
@@ -122,8 +121,7 @@ export const reducer = handleActions({
     },
 
     [CHANGE_TASK_SELECTED]: (state, action) => {
-        return {
-            data: state.data.map(item => {
+        return {...state, data: state.data.map(item => {
               if (item.dashboard_id === action.payload.dashboard_id) {
                 item.tasks = item.tasks.map(task => {
                   if (task.task_id === action.payload.task_id) {
@@ -134,6 +132,7 @@ export const reducer = handleActions({
               }
               return item;
             })
+            
           }
     },
 
