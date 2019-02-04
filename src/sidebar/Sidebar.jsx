@@ -52,7 +52,7 @@ class Sidebar extends Component {
                 />
                 <div 
                     id="button-add" 
-                    onClick={() => {this.props.addDashboard({
+                    onClick={() => {this.props.addList({
                                             addTitle: this.props.title,
                                             addTask: this.props.task
                                         });
@@ -84,7 +84,8 @@ const mapActionsToProps = {
     hideSidebar: actions.hideSidebar,
     addInputTitle: actions.addInputTitle,
     addInputTask: actions.addInputTask,
-    addDashboard: actions.addDashboard
+    addDashboard: actions.addDashboard,
+    addList: actions.addList
 }
   
 export default connect(mapStateToProps, mapActionsToProps)(Sidebar);

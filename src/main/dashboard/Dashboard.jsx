@@ -6,8 +6,8 @@ import { Task } from '../../task/Task';
 export class Dashboard extends Component {
 
     render() {
-        // console.log("=== Dashboard props ===")
-        // console.log(this.props);
+        console.log("=== Dashboard props ===")
+        console.log(this.props);
         return (
         <div className="block-item" id={this.props.dashboard_id}>
             <div 

@@ -47,6 +47,7 @@ const mapDispatchToProps = {
     deleteDashboard: actions.deleteDashboard,
     deleteTask: actions.deleteTask,
     changeDashboardTitle: actions.changeDashboardTitle,
+    addList: actions.addList,
     addTask: actions.addTask,
     changeTaskName: actions.changeTaskName,
     changeTaskSelected: actions.changeTaskSelected
