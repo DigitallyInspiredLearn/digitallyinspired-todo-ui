@@ -4,10 +4,16 @@ import { Dashboard } from './dashboard/Dashboard';
 import { connect } from 'react-redux';
 import { actions } from '../store/duck';
 
+
 class Main extends Component {
+
+    componentWillMount() {
+        this.props.fetchList();
+    }
     render(){
         // console.log("=== Main props ===")
         // console.log(this.props);
+
         return (
             <div id="block-content">
                 {this.props.data.map(item => {
@@ -37,6 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
 
+    fetchList: actions.fetchList,
     deleteDashboard: actions.deleteDashboard,
     deleteTask: actions.deleteTask,
     changeDashboardTitle: actions.changeDashboardTitle,

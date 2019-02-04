@@ -1,6 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
-import { taskLatest, takeEvery } from 'redux-saga/effects';
-import {generateId} from '.././helper'
+import { takeEvery, call, put, takeLatest } from 'redux-saga/effects';
+//import  axios from 'axios'; 
+import { generateId } from '.././helper'
+import { getList } from '../api/lists'
+
+export const FETCH_LIST = 'FETCH_LIST';
+export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS';
 export const CHANGE_DASHBOARD_TITLE = 'CHANGE_DASHBOARD_TITLE';
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
@@ -16,6 +21,8 @@ export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
 
 
 export const actions = {
+    fetchList: createAction(FETCH_LIST),
+    fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
     deleteDashboard: createAction(DELETE_DASHBOARD),
     changeDashboardTitle: createAction(CHANGE_DASHBOARD_TITLE),
     addTask: createAction(ADD_TASK),
@@ -71,6 +78,10 @@ export const initialState = {
 };
 
 export const reducer = handleActions({
+
+    [FETCH_LIST_SUCCESS]: (state, action) => {
+        return {...state, data: action.payload}
+    },
 
     [DELETE_DASHBOARD]: (state, action) => {
         return {...state, data: state.data.filter(item => item.dashboard_id !== action.payload)}
@@ -174,10 +185,14 @@ export const reducer = handleActions({
     }
 }, initialState);
 
-function* func() {
-    console.log("saga!");
+function* func_getList() {
+    console.log("getList");
+    const response = yield call(getList);
+    console.log(response.data)
+    yield put(actions.fetchListSuccess(response.data));
 }
 
 export function* saga() {
-    yield takeEvery(DELETE_TASK, func);
+    yield takeLatest(FETCH_LIST, func_getList);
+    //yield takeEvery(DELETE_TASK, func);
 }
