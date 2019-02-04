@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
-import {randomInteger} from "../helper";
+import {randomInteger} from "../../helper";
 
 export class Sidebar extends Component {
 
@@ -14,8 +14,6 @@ export class Sidebar extends Component {
             animation: '',
             bool: false
         };
-        this.addBoard = this.addBoard.bind(this);
-        this.updateDisplaySidebar = this.updateDisplaySidebar.bind(this)
     }
 
     updateDisplaySidebar = () => {
@@ -36,7 +34,7 @@ export class Sidebar extends Component {
     addBoard = (title, idBoard, taskName, idTask) => {
         let titleValue = title === '' ? title = 'New Title Dashboard' : title;
         let taskValue = taskName === '' ? taskName = 'new do-to' : taskName;
-        this.props.addNewDashboard({title: titleValue, idBoard: idBoard, taskName: taskValue, idTask: idTask});
+        this.props.addNewDashboard({title: titleValue, tasks: [{ id: '1', name: taskValue, selected: false}]});
     };
 
     changeValueTitleName = (e) => this.setState({

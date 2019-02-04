@@ -5,30 +5,9 @@ import {randomInteger} from "../../helper";
 
 export class DashboardList extends Component {
 
-    constructor(props) {
-        super(props);
-        this.delDashboard = this.delDashboard.bind(this);
-        this.updateTitle = this.updateTitle.bind(this);
-        this.delTask = this.delTask.bind(this);
-        this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
-        this.onChangeNameTask = this.onChangeNameTask.bind(this);
-        this.addNewTask = this.addNewTask.bind(this);
+    componentDidMount() {
+        this.props.fetchDashboard()
     }
-
-    delDashboard = (id) => this.props.deleteDashboard({id: id});
-
-    delTask = (idList, idTask) => this.props.deleteTask({idDashboard: idList, idTask: idTask});
-
-    addNewTask = (idDashboard, nameTask, idTask) =>
-        this.props.addTask({idDashboard: idDashboard, nameTask: nameTask, idTask: idTask});
-
-    onChangeCheckbox = (idList, idTask, selected) =>
-        this.props.updateCheckbox({idDashboard: idList, idTask: idTask, selected: selected});
-
-    updateTitle = (id, newTitle) => this.props.updateTitleDashboard({id: id, newTitle: newTitle});
-
-    onChangeNameTask = (idList, idTask, newName) =>
-        this.props.updateTaskName({idDashboard: idList, idTask: idTask, newTaskName: newName});
 
     defaultValueFromTitle = (e, newTitleName, id) => {
 
@@ -53,12 +32,12 @@ export class DashboardList extends Component {
                                 key={i.idList}
                                 title={i.title}
                                 tasks={i.tasks}
-                                delDashboard={this.delDashboard}
-                                updateTitle={this.updateTitle}
-                                delTask={this.delTask}
-                                onChangeCheckbox={this.onChangeCheckbox}
-                                onChangeNameTask={this.onChangeNameTask}
-                                addNewTask={this.addNewTask}
+                                delDashboard={this.props.deleteDashboard}
+                                updateTitle={this.props.updateTitleDashboard}
+                                delTask={this.props.deleteTask}
+                                onChangeCheckbox={this.props.updateCheckbox}
+                                onChangeNameTask={this.props.updateTaskName}
+                                addNewTask={this.props.addTask}
                                 defaultValueFromTitle={this.defaultValueFromTitle}
                                 randomInteger={randomInteger}
                                 defaultValueFromTask={this.defaultValueFromTask}

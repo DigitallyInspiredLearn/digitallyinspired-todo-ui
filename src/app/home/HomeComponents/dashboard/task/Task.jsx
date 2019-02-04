@@ -45,11 +45,11 @@ export class Task extends Component {
                     <div
                         className={this.props.selected === false ? 'unselected' : 'fa fa-check-square'}
                         style={{zIndex: 5}}
-                        onClick={() => this.props.onChangeCheckbox(
-                            this.props.idList,
-                            this.props.idTask,
-                            this.props.selected
-                        )}
+                        onClick={() => this.props.onChangeCheckbox({
+                            idDashboard: this.props.idList,
+                            idTask: this.props.idTask,
+                            selected: this.props.selected
+                        })}
                     />
                     <input
                         type="text"
@@ -57,10 +57,11 @@ export class Task extends Component {
                         className="taskName"
                         style={{width: "100%", textOverflow: "ellipsis", zIndex: 5}}
                         onChange={(e) => {
-                            this.props.onChangeNameTask(
-                                this.props.idList,
-                                this.props.idTask,
-                                e.target.value,
+                            this.props.onChangeNameTask({
+                                    idDashboard: this.props.idList,
+                                    idTask:  this.props.idTask,
+                                    newTaskName: e.target.value
+                            }
                             );
                         }}
                         onKeyDown={(e) => e.key === 'Enter' ? e.target.blur() : -1}
@@ -73,7 +74,7 @@ export class Task extends Component {
                     <label
                         className="deleteTask fa fa-trash"
                         style={displayStyle}
-                        onClick={() => this.props.delTask(this.props.idList, this.props.idTask)}
+                        onClick={() => this.props.delTask({idDashboard: this.props.idList, idTask: this.props.idTask})}
                     />
                 </div>
             </div>

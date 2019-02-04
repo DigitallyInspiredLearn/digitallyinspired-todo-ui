@@ -36,7 +36,7 @@ export class Dashboard extends Component {
                         value={this.props.title}
                         className="titleName"
                         onInput={(e) => {
-                            this.props.updateTitle(this.props.idList, e.target.value);
+                            this.props.updateTitle({id: this.props.idList, newTitle: e.target.value});
                         }}
                         onBlur={(e) => this.props.defaultValueFromTitle(
                             e,
@@ -47,7 +47,7 @@ export class Dashboard extends Component {
                     />
                     <div
                         className="deleteBoadr fa fa-trash fa-2x"
-                        onClick={() => this.props.delDashboard(this.props.idList)}
+                        onClick={() => this.props.delDashboard( {id:this.props.idList})}
                     />
                 </article>
                 <div className="taskLists">
@@ -79,10 +79,10 @@ export class Dashboard extends Component {
                         } else {
                             if (e.key === 'Enter') {
                                 e.target.blur();
-                                this.props.addNewTask(
-                                    this.props.idList,
-                                    this.state.valueNewTask,
-                                    this.props.randomInteger(1, 1000000, this.props.toDoBoard),
+                                this.props.addNewTask({
+                                        idDashboard: this.props.idList,
+                                        nameTask: this.state.valueNewTask,
+                                        idTask: this.props.randomInteger(1, 1000000, this.props.toDoBoard)}
                                 );
                             }
                         }

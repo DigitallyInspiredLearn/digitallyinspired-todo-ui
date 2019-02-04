@@ -1,31 +1,24 @@
 import React from 'react'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
 import {App} from './app/App'
 import './index.css';
 import ReactDOM from 'react-dom';
 import {reducer} from './app/home/duck'
-import {PersistGate} from 'redux-persist/integration/react'
+import createSagaMiddleware from 'redux-saga'
+import {saga} from "./app/home/duck";
+import {applyMiddleware, createStore} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
+// import {AvtorizationPage} from "./app/avtorization/avtorization";
 
-import {persistStore, persistReducer} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 
+const sagaMiddleware = createSagaMiddleware();
 
-const persistConfig = {
-    key: 'toDoBoard',
-    storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, reducer);
-
-const store = createStore(persistedReducer);
-const persistor = persistStore(store);
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+sagaMiddleware.run(saga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <App/>
-        </PersistGate>
+        <App/>
     </Provider>,
     document.getElementById('root')
 );

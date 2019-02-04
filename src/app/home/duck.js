@@ -1,4 +1,9 @@
 import {createAction, handleActions} from 'redux-actions'
+import {takeEvery, call, put, select} from 'redux-saga/effects'
+import {getList, deleteList, addDashboard, updateList} from "./axios";
+
+export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
+export const FETCH_DASHBOARD_SUCCESS = 'FETCH_DASHBOARD_SUCCESS';
 
 export const ADD_DASHBOARD = 'ADD_DASHBOARD ';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
@@ -10,6 +15,8 @@ export const UPDATE_TASK_NAME = 'UPDATE_TASK_NAME';
 export const DELETE_TASK = 'DELETE_TASK';
 
 export const actions = {
+    fetchDashboard: createAction(FETCH_DASHBOARD),
+    fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
     addNewDashboard: createAction(ADD_DASHBOARD),
     deleteDashboard: createAction(DELETE_DASHBOARD),
     updateTitleDashboard: createAction(UPDATE_TITLE_DASHBOARD),
@@ -19,36 +26,15 @@ export const actions = {
     updateCheckbox: createAction(UPDATE_CHECKBOX),
     updateTaskName: createAction(UPDATE_TASK_NAME),
 };
-let toDoBoard = [
-    {
-        idList: 999,
-        title: 'Что осталось',
-        tasks: [
-            {
-                id: 4,
-                selected: true,
-                name: 'duck and smartComponents'
-            },
-            {
-                id: 24,
-                selected: false,
-                name: 'Сделать LocaleStorage'
-            },
-            {
-                id: 14,
-                selected: false,
-                name: 'Отрефакторить код'
-            }
-        ]
-    }
-];
-export const initialState = {
-    toDoBoard
 
-
+const initialState = {
+    toDoBoard: []
 };
-
 export const reducer = handleActions({
+
+    [FETCH_DASHBOARD_SUCCESS]: (state, action) => {
+        return {...state, toDoBoard: action.payload}
+    },
 
     [ADD_DASHBOARD]: (state, action) => {
         return Object.assign({}, state, {
@@ -143,3 +129,32 @@ export const reducer = handleActions({
     },
 
 }, initialState);
+
+function* getDashboard() {
+    const responce = yield call(getList);
+    yield put(actions.fetchDashboardSuccess(responce.data))
+}
+
+function* deleteDashboard(action) {
+    yield call(deleteList,action.payload.id);
+    yield call(getDashboard)
+}
+
+function* updTitle(action) {
+    const todo = yield  select(state => state.toDoBoard);
+    const list = todo.find(i => i.idList===action.payload.id);
+    yield call(updateList, action.payload.id, {...list, title: action.payload.newTitle});
+    yield call(getDashboard)
+}
+
+function* addList(action) {
+    yield call(addDashboard,  action.payload );
+    yield call(getDashboard)
+}
+
+export function* saga() {
+    yield takeEvery(FETCH_DASHBOARD, getDashboard);
+    yield takeEvery(DELETE_DASHBOARD, deleteDashboard);
+    yield takeEvery(ADD_DASHBOARD,addList);
+    yield takeEvery(UPDATE_TITLE_DASHBOARD,updTitle);
+}
