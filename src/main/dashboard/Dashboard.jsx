@@ -1,26 +1,44 @@
 import React, { Component } from 'react';
 import trash from '../../img/trash.png';
+import info from '../../img/info.png';
 import './dashboard.css';
 import { Task } from '../../task/Task';
+import { Link } from 'react-router-dom';
 
 export class Dashboard extends Component {
 
     render() {
-        console.log("=== Dashboard props ===")
-        console.log(this.props);
+        // console.log("=== Dashboard props ===")
+        // console.log(this.props);
         return (
         <div className="block-item" id={this.props.dashboard_id}>
-            <div 
-                className="trash-icon"
-                onClick={() => this.props.deleteDashboard(this.props.dashboard_id)}
-                >
-                <img 
-                    src={trash} 
-                    width="19px" 
-                    height="19px" 
-                    alt="trash"
-                />
-            </div><br/>
+            <div className="images">
+                <Link to = {`/${this.props.dashboard_id}`}
+                    >
+                    <div 
+                        className = "info-icon">
+                        
+                        <img 
+                            src = {info}
+                            width = "21px"
+                            height = "21px"
+                            alt = "info"
+                        />
+                    </div>
+                </Link>
+                <div 
+                    className="trash-icon"
+                    onClick={() => this.props.deleteDashboard(this.props.dashboard_id)}
+                    >
+                    <img 
+                        src={trash} 
+                        width="19px" 
+                        height="20px" 
+                        alt="trash"
+                    />
+                </div>
+            </div>
+            <br/>
             <input 
                 className="item-name" 
                 value={this.props.title}

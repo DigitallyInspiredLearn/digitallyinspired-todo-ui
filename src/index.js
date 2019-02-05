@@ -14,25 +14,26 @@ import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import { initialState } from './store/duck'
 import {saga} from './store/duck'
+import { BrowserRouter } from 'react-router-dom'
 
-const persistConfig = {
-    key: 'dashboard',
-    storage,
-};
+//  const persistConfig = {
+//      key: 'dashboard',
+//      storage,
+//  };
 
 const sagaMiddleware = createSagaMiddleware();
 
-const persistedReducer = persistReducer(persistConfig, reducer);
-const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-const persistor = persistStore(store);
+//const persistedReducer = persistReducer(persistConfig, reducer);
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+//const persistor = persistStore(store);
 
 sagaMiddleware.run(saga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-        <App/>
-        </PersistGate>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
 
     </Provider>, document.getElementById('root'));
 serviceWorker.unregister();

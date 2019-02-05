@@ -1,10 +1,12 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeEvery, call, put, takeLatest } from 'redux-saga/effects';
 import { generateId } from '.././helper'
-import { getList, addList } from '../api/lists'
+import { getList, addList, deleteList, updateList, getListById } from '../api/lists'
 
 export const FETCH_LIST = 'FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS';
+export const FETCH_BOARD = 'FETCH_BOARD';
+export const FETCH_BOARD_SUCCESS = 'FETCH_BOARD_SUCCESS';
 export const CHANGE_DASHBOARD_TITLE = 'CHANGE_DASHBOARD_TITLE';
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
@@ -12,9 +14,7 @@ export const DELETE_TASK = 'DELETE_TASK';
 export const CHANGE_TASK_NAME = 'CHANGE_TASK_NAME';
 export const CHANGE_TASK_SELECTED = 'CHANGE_TASK_SELECTED';
 export const ADD_LIST = 'ADD_LIST';
-export const ADD_LIST_SUCCESS = 'ADD_LIST_SUCCESS';
 export const DELETE_LIST = 'DELETE_LIST';
-export const DELETE_LIST_SUCCESS = 'DELETE_LIST_SUCCESS';
 export const ADD_DASHBOARD = 'ADD_DASHBOARD';
 
 export const INPUT_TITLE_TEXT = 'INPUT_TITLE_TEXT';
@@ -25,10 +25,12 @@ export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
 export const actions = {
     fetchList: createAction(FETCH_LIST),
     fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
+    fetchBoard: createAction(FETCH_BOARD),
+    fetchBoardSuccess: createAction(FETCH_BOARD_SUCCESS),
     deleteDashboard: createAction(DELETE_DASHBOARD),
     changeDashboardTitle: createAction(CHANGE_DASHBOARD_TITLE),
     addList: createAction(ADD_LIST),
-    addListSuccess: createAction(ADD_LIST_SUCCESS),
+    deleteList: createAction(DELETE_LIST),
     addTask: createAction(ADD_TASK),
     changeTaskName: createAction(CHANGE_TASK_NAME),
     deleteTask: createAction(DELETE_TASK),
@@ -87,7 +89,7 @@ export const reducer = handleActions({
         return {...state, data: action.payload}
     },
 
-    [ADD_LIST_SUCCESS]: (state, action) => {
+    [FETCH_BOARD_SUCCESS]: (state, action) => {
         return {...state, data: action.payload}
     },
 
@@ -157,22 +159,20 @@ export const reducer = handleActions({
      [ADD_DASHBOARD]: (state, action) => {
 
          let newDashboard = {
-             dashboard_id: generateId(),
              title: action.payload.addTitle,
              tasks: [
                  {
-                     task_id: generateId(),
+                     task_id: 'a',
                      selected: false,
-                     name: action.payload.addTask,
                  }
              ],
          }
 
-         console.log(newDashboard)
+        //console.log(newDashboard)
     
-         return {
+        return {
              data: [...state.data, newDashboard]
-         }
+        }
      },
 
 
@@ -200,16 +200,43 @@ function* func_getList() {
     yield put(actions.fetchListSuccess(response.data));
 }
 
-function* func_addList(){
+function* func_addList(action){
     console.log("addList");
-    yield call(addList);
+    yield call(addList, action.payload.addTitle, action.payload.addTask);
     const response = yield call(getList);
     console.log(response);
-    yield put(actions.addListSuccess(response.data));
+    yield put(actions.fetchListSuccess(response.data));
+}
+
+function* func_deleteList(action){
+    console.log("deleteList");
+    console.log(action.payload)
+    yield call(deleteList, action.payload);
+    const response = yield call(getList);
+    console.log(response);
+    yield put(actions.fetchListSuccess(response.data));
+}
+
+function* func_updateList(action){
+    console.log("updateList")
+    console.log(action)
+    yield call(updateList, action.payload.id, action.payload.newTitle);
+    const response = yield call(getList);
+    console.log(response);
+    yield put(actions.fetchListSuccess(response.data));
+}
+
+function* func_getBoard(action){
+    console.log("getBoard");
+    console.log(action)
+    const response = yield call(getListById, action.payload);
+    console.log(response.data)
 }
 
 export function* saga() {
     yield takeLatest(FETCH_LIST, func_getList);
-    yield takeLatest(ADD_LIST, func_addList);
-    yield takeLatest()
+    yield takeLatest(ADD_DASHBOARD, func_addList);
+    yield takeLatest(DELETE_DASHBOARD, func_deleteList);
+    yield takeLatest(CHANGE_DASHBOARD_TITLE, func_updateList);
+    yield takeLatest(FETCH_BOARD, func_getBoard);
 }

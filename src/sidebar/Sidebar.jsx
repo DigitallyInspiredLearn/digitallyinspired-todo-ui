@@ -52,13 +52,13 @@ class Sidebar extends Component {
                 />
                 <div 
                     id="button-add" 
-                    onClick={() => {this.props.addList({
+                    onClick={() => {this.props.addDashboard({
                                             addTitle: this.props.title,
                                             addTask: this.props.task
                                         });
                                         this.props.addInputTitle('');
                                         this.props.addInputTask('');
-                                        this.props.hideSidebar()
+                                        this.props.hideSidebar();
                                     }
                         }
                     >

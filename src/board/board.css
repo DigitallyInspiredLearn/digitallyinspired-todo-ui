@@ -1,30 +1,31 @@
 
-.block-item {
+.board {
     background: white;
     padding: 26px;
-    width: 530px;
+    width: 730px;
     height: auto;
-    margin-bottom: 25px;
+    margin-top: 25px;
+    margin: 0 auto;
     border-radius: 7px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
   }
   
   @media screen and (max-width: 600px) {
-    .block-item {
+    .board {
       width: 100%;
     }
   }
   
   @media screen and (max-width: 992px) {
-    .block-item {
+    .board {
       width: 70%;
     }
   }
   
-  .item-name {
+  .board-name {
     font-family:'Open Sans', Arial, sans-serif;
-    width: 500px;
-    font-size: 24px;
+    width: 700px;
+    font-size: 30px;
     font-weight: bold;
     color: black;
     display: inline-block;
@@ -33,16 +34,13 @@
     border: none;
   }
   
-  .item-name:focus {
+  .board-name:focus {
     border-bottom: 1px solid black;
   }
   
-  .add-task {
-    width: 500px;
-  }
-  
-  .add-todo {
-    font-size: 20px;
+  .board-add-todo {
+    font-size: 25px;
+    width: 700px;
     color: #808080;
     display: inline-block;
     margin-top: 10px;
@@ -51,24 +49,24 @@
     border: none;
   }
   
-  .add-todo:focus {
+  .board-add-todo:focus {
    border-bottom: 1px solid #808080;
   }
 
-  .images {
-    padding-left: 470px;
+  .board-images {
+    padding-left: 700px;
   }
   
-  .images div {
+  .board-images div {
     display: inline-block;
     cursor: pointer;
   }
 
-  .info-icon {
+  .board-info-icon {
     margin-right: 5px;
   }
 
 
-  .tasks {
+  .board-tasks {
     margin-top: 10px;
   }

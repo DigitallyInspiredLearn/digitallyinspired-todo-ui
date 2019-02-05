@@ -3,7 +3,8 @@ import './Main.css';
 import { Dashboard } from './dashboard/Dashboard';
 import { connect } from 'react-redux';
 import { actions } from '../store/duck';
-
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 class Main extends Component {
 
@@ -11,8 +12,8 @@ class Main extends Component {
         this.props.fetchList();
     }
     render(){
-        // console.log("=== Main props ===")
-        // console.log(this.props);
+         console.log("=== Main props ===")
+         console.log(this.props);
 
         return (
             <div id="block-content">
@@ -23,6 +24,7 @@ class Main extends Component {
                             title = {item.title} 
                             tasks = {item.tasks}
                             deleteDashboard = {this.props.deleteDashboard}
+                            deleteList = {this.props.deleteList}
                             changeDashboardTitle = {this.props.changeDashboardTitle}
                             deleteTask = {this.props.deleteTask}
                             changeTaskName = {this.props.changeTaskName}
@@ -45,6 +47,7 @@ const mapDispatchToProps = {
 
     fetchList: actions.fetchList,
     deleteDashboard: actions.deleteDashboard,
+    deleteList: actions.deleteList,
     deleteTask: actions.deleteTask,
     changeDashboardTitle: actions.changeDashboardTitle,
     addList: actions.addList,
@@ -53,4 +56,11 @@ const mapDispatchToProps = {
     changeTaskSelected: actions.changeTaskSelected
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default compose(
+    withRouter,
+    connect(
+        mapStateToProps, 
+        mapDispatchToProps
+    )
+)
+(Main);
