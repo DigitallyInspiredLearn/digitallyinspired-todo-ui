@@ -5,14 +5,13 @@ import {actions} from "../duck";
 const mapStateToProps = (state) => ({toDoBoard: state.toDoBoard});
 
 const mapDispatchToProps = {
-
+    fetchDashboard: actions.fetchDashboard,
     updateTitleDashboard: actions.updateTitleDashboard,
     deleteDashboard: actions.deleteDashboard,
     deleteTask: actions.deleteTask,
     addTask: actions.addTask,
     updateCheckbox: actions.updateCheckbox,
     updateTaskName: actions.updateTaskName,
-    fetchDashboard: actions.fetchDashboard
 };
 
 export default connect(

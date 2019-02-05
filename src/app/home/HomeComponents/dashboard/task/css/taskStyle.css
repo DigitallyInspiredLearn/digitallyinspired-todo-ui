@@ -30,6 +30,8 @@
 }
 .taskDiv{
     display: flex;
+    width: 100%;
+    flex-direction: row;
 }
 
 .fa-check-square,.unselected{
@@ -50,8 +52,12 @@
 
 .taskName{
     font-size: 15px;
+    width: 100%;
+    text-overflow: ellipsis;
+    z-index: 5
 }
 
 .taskName:focus{
     outline: none;
 }
+

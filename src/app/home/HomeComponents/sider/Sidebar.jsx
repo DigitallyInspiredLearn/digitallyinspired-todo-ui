@@ -34,7 +34,7 @@ export class Sidebar extends Component {
     addBoard = (title, idBoard, taskName, idTask) => {
         let titleValue = title === '' ? title = 'New Title Dashboard' : title;
         let taskValue = taskName === '' ? taskName = 'new do-to' : taskName;
-        this.props.addNewDashboard({title: titleValue, tasks: [{ id: '1', name: taskValue, selected: false}]});
+        this.props.addNewDashboard({title: titleValue, tasks: [{id: `${idTask}`, name: taskValue, selected: false}]});
     };
 
     changeValueTitleName = (e) => this.setState({
@@ -53,12 +53,9 @@ export class Sidebar extends Component {
     };
 
     render() {
-        return (
-            [
+        return ([
                 <div className="addNewArticleButton" onClick={this.updateDisplaySidebar}>+</div>,
-                <div id="sider"
-                     style={{display: this.state.displayStyle}}
-                >
+                <div id="sidebar" style={{display: this.state.displayStyle}}>
                     <div
                         id="fon"
                         onClick={e => {
@@ -80,16 +77,12 @@ export class Sidebar extends Component {
                             value={this.state.titleName}
                             onChange={this.changeValueTitleName}
                         />
-                        <div
-                            className="taskList"
-                            style={{display: "flex", flexDirection: "column"}}
-                        >
+                        <div className="taskList">
                             <input
                                 type="text"
                                 placeholder=" Add to-do"
                                 className="newTask"
                                 id="mainInput"
-                                style={{outline: "none"}}
                                 value={this.state.taskName}
                                 onInput={this.changeValueTaskName}
                             />
@@ -111,7 +104,6 @@ export class Sidebar extends Component {
                         </button>
                     </aside>
                 </div>
-                ,
             ]
         )
     }

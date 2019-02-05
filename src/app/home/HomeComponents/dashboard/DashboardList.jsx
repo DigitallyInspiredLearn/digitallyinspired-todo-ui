@@ -5,12 +5,9 @@ import {randomInteger} from "../../helper";
 
 export class DashboardList extends Component {
 
-    componentDidMount() {
-        this.props.fetchDashboard()
-    }
+    componentDidMount = () => this.props.fetchDashboard();
 
     defaultValueFromTitle = (e, newTitleName, id) => {
-
         let value = newTitleName === '' ? newTitleName = 'New Title' : newTitleName;
         this.props.updateTitleDashboard({id: id, newTitle: value})
     };

@@ -136,6 +136,7 @@ function* getDashboard() {
 }
 
 function* deleteDashboard(action) {
+
     yield call(deleteList,action.payload.id);
     yield call(getDashboard)
 }

@@ -8,20 +8,28 @@
         right: 0;
     }
 }
+#mainInput{
+    outline: none
+}
 
 div>div,#fon,#inputs,#addingArticle{
     display: flex;
 }
 
-#sider,#fon,#addingArticle,.addListBtn{
+#sidebar,#fon,#addingArticle,.addListBtn{
     width: 100%;
     z-index: 20;
 }
 
-#sider,.window-close,.addListBtn{
+.taskList{
+    display: flex;
+    flex-direction: column
+}
+
+#sidebar,.window-close,.addListBtn{
     position: absolute;
 }
-#sider{
+#sidebar{
     height: 100%;
     display: none;
 }

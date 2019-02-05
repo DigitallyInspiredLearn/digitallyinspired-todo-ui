@@ -6,24 +6,18 @@ export class Task extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayStyle: 'none',
-            value: ''
+            displayStyle: 'none'
         };
-        this.updateDisplayFlex = this.updateDisplayFlex.bind(this);
-        this.updateDisplayNone = this.updateDisplayNone.bind(this);
     }
 
-    updateDisplayFlex = () => {
-        this.setState({
-            displayStyle: 'flex'
-        })
-    };
+    updateDisplayFlex = () => this.setState({
+        displayStyle: 'flex'
+    });
 
-    updateDisplayNone = () => {
-        this.setState({
-            displayStyle: 'none'
-        })
-    };
+    updateDisplayNone = () => this.setState({
+        displayStyle: 'none'
+    });
+
 
     render() {
         const displayStyle = {display: this.state.displayStyle};
@@ -35,13 +29,7 @@ export class Task extends Component {
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
             >
-                <div
-                    className="taskDiv"
-                    style={{
-                        display: "flex",
-                        width: "100%",
-                        flexDirection: "row"
-                    }}>
+                <div className="taskDiv">
                     <div
                         className={this.props.selected === false ? 'unselected' : 'fa fa-check-square'}
                         style={{zIndex: 5}}
@@ -55,15 +43,12 @@ export class Task extends Component {
                         type="text"
                         value={this.props.nameTask}
                         className="taskName"
-                        style={{width: "100%", textOverflow: "ellipsis", zIndex: 5}}
-                        onChange={(e) => {
-                            this.props.onChangeNameTask({
-                                    idDashboard: this.props.idList,
-                                    idTask:  this.props.idTask,
-                                    newTaskName: e.target.value
+                        onChange={(e) => this.props.onChangeNameTask({
+                                idDashboard: this.props.idList,
+                                idTask: this.props.idTask,
+                                newTaskName: e.target.value
                             }
-                            );
-                        }}
+                        )}
                         onKeyDown={(e) => e.key === 'Enter' ? e.target.blur() : -1}
                         onBlur={(e) => this.props.defaultValueFromTask(
                             e.target.value,
@@ -74,7 +59,12 @@ export class Task extends Component {
                     <label
                         className="deleteTask fa fa-trash"
                         style={displayStyle}
-                        onClick={() => this.props.delTask({idDashboard: this.props.idList, idTask: this.props.idTask})}
+                        onClick={() =>
+                            this.props.delTask({
+                                idDashboard: this.props.idList,
+                                idTask: this.props.idTask
+                            })
+                        }
                     />
                 </div>
             </div>

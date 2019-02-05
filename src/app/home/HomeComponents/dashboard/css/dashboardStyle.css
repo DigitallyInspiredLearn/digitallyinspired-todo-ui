@@ -1,69 +1,74 @@
-section,article{
+section, article {
     display: flex;
     position: relative;
 }
 
-article:before,.addNewTask{
+article:before, .addNewTask {
     position: absolute;
 }
 
-section{
+section {
     flex-direction: column;
     background-color: white;
     margin: 5px;
     border-radius: 5px;
     padding: 5px;
-    overflow: auto;
-    height: 350px;
+    min-height: 300px;
+    height: auto;
 }
 
-article{
+article {
     flex-direction: row;
     justify-content: space-between;
     height: 60px;
 }
 
-article:before{
+article:before {
     bottom: 0;
     content: "";
     height: 2px;
     width: 0;
     background-color: grey;
     transition: width 0.2s ease-in-out;
-    z-index:1;
+    z-index: 1;
 }
 
-article:hover:before{
+article:hover:before {
     width: 94%;
 }
 
-.titleName{
+.titleName {
     font-size: 23px;
     color: black;
     font-weight: bold;
-    border: 0  ;
+    border: 0;
     margin: 8px 5px;
     width: 93%;
     text-overflow: ellipsis;
 }
 
-.titleName:focus{
+.titleName:focus {
     outline: none;
 }
 
-.deleteBoadr{
+.deleteBoadr, .download {
     color: gray;
     margin: 5px;
     z-index: 2;
 }
 
-.taskLists{
+.download {
+    margin: 7px;
+    position: relative;
+}
+
+.taskLists {
     margin-bottom: 20px;
     margin-right: 3px;
     overflow: inherit;
 }
 
-.addNewTask{
+.addNewTask {
     right: 5px;
     left: 10px;
     bottom: 5px;
