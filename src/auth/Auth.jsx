@@ -8,7 +8,7 @@ export class Auth extends Component {
                 <div 
                     className="item1"
                     >
-                    Header
+                    
                 </div> 
                 <div 
                     className="item2"
@@ -40,7 +40,7 @@ export class Auth extends Component {
                 <div 
                     className="item3"
                     >
-                    Footer
+                    
                 </div>
             </div>
         )

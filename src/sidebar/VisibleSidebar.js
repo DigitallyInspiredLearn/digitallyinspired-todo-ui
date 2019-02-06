@@ -30,5 +30,4 @@ export default compose(
         mapStateToProps, 
         mapDispatchToProps
     )
-)
-(Sidebar);
+)(Sidebar);

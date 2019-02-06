@@ -27,5 +27,4 @@ export default compose(
         mapStateToProps, 
         mapDispatchToProps
     )
-)
-(Board);
+)(Board);

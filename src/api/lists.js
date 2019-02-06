@@ -8,18 +8,8 @@ export const getListById = (id) => {
     return axios.get(`/list/${id}`)
 }
 
-export const addList = (title, name) => {
-    return axios.post('/list', {
-        dashboard_id: 'w',
-        title: title,
-        tasks: [
-            {
-                task_id: 'e',
-                name: name,
-                selected: false
-            }
-        ]
-      })
+export const addList = (newDashboard) => {
+    return axios.post('/list', newDashboard)
 }
 
 export const deleteList = (id) => {

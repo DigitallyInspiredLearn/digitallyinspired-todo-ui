@@ -31,5 +31,4 @@ export default compose(
         mapStateToProps, 
         mapDispatchToProps
     )
-)
-(DashboardList);
+)(DashboardList);

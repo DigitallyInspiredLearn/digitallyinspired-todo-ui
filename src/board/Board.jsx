@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import trash from '../img/trash.png';
-import info from '../img/info.png';
 import './board.css';
 import { Task } from '../task/Task';
 import { Link } from 'react-router-dom';
@@ -10,9 +9,10 @@ export class Board extends Component {
     componentWillMount() {
         this.props.actions.fetchBoard(this.props.match.params.id);
     }
+
     render() {
-        console.log("=== Mylist props ===")
-        console.log(this.props)
+        // console.log("=== Mylist props ===")
+        // console.log(this.props)
         return (
         <div className="board" id={this.props.dashboard_id}>
             <div className="board-images">

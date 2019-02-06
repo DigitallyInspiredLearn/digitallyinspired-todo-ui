@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { takeEvery, call, put,select, takeLatest } from 'redux-saga/effects';
+import { call, put,select, takeLatest } from 'redux-saga/effects';
 import { generateId } from '.././helper'
 import { getList, addList, deleteList, updateList, getListById } from '../api/lists'
 
@@ -130,7 +130,7 @@ export const reducer = handleActions({
              title: action.payload.addTitle,
              tasks: [
                  {
-                     task_id: 'a',
+                     name: action.payload.addTask,
                      selected: false,
                  }
              ],
@@ -170,7 +170,19 @@ function* func_getList() {
 
 function* func_addList(action){
     console.log("addList");
-    yield call(addList, action.payload.addTitle, action.payload.addTask);
+
+    let newDashboard = {
+        title: action.payload.addTitle,
+        tasks: [
+            {
+                task_id: '',
+                name: action.payload.addTask,
+                selected: false,
+            }
+        ],
+    }
+    console.log(newDashboard)
+    yield call(addList, newDashboard);
     yield call(func_getList);
 }
 
@@ -183,9 +195,9 @@ function* func_deleteList(action){
 
 
 function* func_updateList(action){
-    const todo = yield select(state => state.data);
-    console.log(todo)
-    const list = todo.find(i => i.dashboard_id===action.payload.id);
+    const array = yield select(state => state.data);
+    console.log(array)
+    const list = array.find(item => item.dashboard_id === action.payload.id);
     console.log(list)
     yield call(updateList, action.payload.id, {...list, title: action.payload.newTitle});
     //yield call(func_getList)
