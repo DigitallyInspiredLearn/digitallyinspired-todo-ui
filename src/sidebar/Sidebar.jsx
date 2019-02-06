@@ -52,12 +52,12 @@ export class Sidebar extends Component {
                                             newTask: this.props.task,
                                             selected: false
                                         });
+                                        this.props.actions.closeSidebar();
                                         this.props.actions.changeTitles("");
                                         this.props.actions.changeTask("");
                                     }
                                     }
                                 >
-
                                     Add
                                 </div>
                             </div>

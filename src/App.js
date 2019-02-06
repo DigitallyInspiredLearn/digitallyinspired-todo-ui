@@ -3,7 +3,7 @@ import './App.css';
 import {Header} from "./header/Header";
 import VisibleDashboard from './dashboard/VisibleDashboard'
 import VisibleOneList from './oneList/VisibleOneList'
-import { Redirect, Switch, Route } from 'react-router-dom'
+import {Redirect, Switch, Route} from 'react-router-dom'
 import {Authorization} from "./authorization/login";
 
 class App extends Component {

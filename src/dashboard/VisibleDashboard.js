@@ -1,7 +1,7 @@
 import {actions} from "../duck";
 import {connect} from "react-redux";
 import {DashboardList} from "./DashboardList";
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {compose} from 'redux'
 import bindActionCreators from "redux/src/bindActionCreators";
 
@@ -22,11 +22,11 @@ const mapDispatchToProps = (dispatch) => (
             changeTitle: actions.changeTitle,
             addTask: actions.addTask,
             toggleActive: actions.toggleActive
-        },dispatch)
+        }, dispatch)
     });
 
 
 export default compose(
     withRouter,
     connect(mapStateToProps, mapDispatchToProps))
-    (DashboardList);
+(DashboardList);

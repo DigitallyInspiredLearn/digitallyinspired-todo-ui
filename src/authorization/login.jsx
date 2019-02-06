@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './login.css';
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 export class Authorization extends Component {
     render() {
-        return(
+        return (
             <div className='fonAuth'>
                 <div className='Authorization'>
                     <h4>Добро пожаловать!</h4>

@@ -1,30 +1,55 @@
-/*Box*/
-.box {
+.boxList {
     display: flex;
     flex-direction: column;
     font-family: Open Sans;
     width: 45%;
     height: auto;
-    background: white;
+    background: linear-gradient(to top, #201E1E, white);
     padding: 10px;
     border-radius: 10px;
     line-height: 50px;
     margin-top: 25px;
     margin-left: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
     margin-bottom: 50px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
+.mainTitle {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin: -50px auto 0 auto;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background: linear-gradient(to right, #807B7B, #DCDCDC);
+}
 
-.form {
+.mainTitle h1 {
+    font-size: 40px;
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+.formList {
     font-family: Open Sans;
-    font-size: 22px;
+    font-size: 26px;
     padding: 10px;
-    color: gray;
-    height: 350px;
+    color: black;
+    height: 400px;
     overflow: auto;
 }
 
+@media screen and (max-width: 600px) {
+    .boxList {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
 
 input[type=text] {
     border: white;
@@ -39,11 +64,14 @@ input[type=text] {
     font-weight: bolder;
     margin: 0px 0 10px 10px;
     cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
     background-image: linear-gradient(#FE5568 50%, #FE5568 50%), linear-gradient(silver 50%, silver 50%);
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: 0 2px, 100% 2px;
     color: black;
+    padding-left: 10px;
     padding-bottom: 1px;
     transition: .5s ease-in-out;
 }
@@ -62,6 +90,9 @@ input[type=text] {
     padding: 10px;
     color: gray;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    opacity: 0.6;
     width: 95%;
     background-image: linear-gradient(#FE5568 50%, #FE5568 50%), linear-gradient(silver 50%, silver 50%);
     background-position: center bottom;
@@ -76,6 +107,7 @@ input[type=text] {
     background-size: 100% 2px, 100% 2px;
     color: #1E3A52;
 }
+
 .infoDashboard {
     width: 28px;
     height: 28px;
@@ -84,11 +116,49 @@ input[type=text] {
     float: right;
     cursor: pointer;
 }
+.imgList {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 100px;
+    border-radius: 20px;
+}
+.imgList img {
+    width: 90%;
+}
+
+.butMain {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: #201E1E;
+    transition: 0.2s;
+    width: 50%;
+    margin: 25px 150px;
+}
+.butMain:hover { background: #3C3434; }
+.butMain:active {
+    background: #212020;
+
+}
 
 
 @media screen and (max-width: 600px) {
-    .box {
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+    .boxList {
         width: 80%;
         margin: 10px auto;
+    }
+    .imgList {
+        width: 92%;
+        margin: 10px 50px;
+    }
+    .butMain {
+        margin: 25px 100px;
     }
 }

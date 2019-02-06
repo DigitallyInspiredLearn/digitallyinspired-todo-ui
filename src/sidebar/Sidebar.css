@@ -80,10 +80,10 @@
 
 @media screen and (max-width: 600px) {
     .modal-content {
-        width: 55%;
+        width: 60%;
     }
     .addBut {
-        width: 55%;
+        width: 60%;
     }
     .close {
         font-size: 40px;
@@ -92,8 +92,8 @@
     .plus {
         display: block;
         position: fixed;
-        top: 550px;
-        left: 20px;
+        top: 700px;
+        left: 10px;
 
     }
 }

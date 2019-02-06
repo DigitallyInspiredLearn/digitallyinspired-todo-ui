@@ -1,6 +1,6 @@
-import { actions } from "../duck";
-import { Sidebar } from "./Sidebar";
-import { connect } from "react-redux";
+import {actions} from "../duck";
+import {Sidebar} from "./Sidebar";
+import {connect} from "react-redux";
 import bindActionCreators from "redux/src/bindActionCreators";
 import {compose} from 'redux';
 import {withRouter} from "react-router-dom";
@@ -26,6 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default compose(
     withRouter,
     connect(mapStateToProps, mapDispatchToProps))
-    (Sidebar);
+(Sidebar);
 
 

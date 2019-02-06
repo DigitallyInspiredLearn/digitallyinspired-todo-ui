@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../dashboard/Dashboard.css'
 import info from '../image/info.png'
 import {Task} from "./tasks/Task";
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 export class Dashboard extends Component {
