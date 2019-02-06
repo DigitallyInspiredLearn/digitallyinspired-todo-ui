@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 export const getList = () => {
-   return axios.get('http://localhost:4000/list')
+   return axios.get('/list')
 }
 
 export const getListById = (id) => {
-    return axios.get(`http://localhost:4000/list/${id}`)
+    return axios.get(`/list/${id}`)
 }
 
 export const addList = (title, name) => {
-    return axios.post('http://localhost:4000/list', {
+    return axios.post('/list', {
         dashboard_id: 'w',
         title: title,
         tasks: [
@@ -23,20 +23,10 @@ export const addList = (title, name) => {
 }
 
 export const deleteList = (id) => {
-    axios.delete(`http://localhost:4000/list/${id}`)
+    axios.delete(`/list/${id}`)
 }
 
-export const updateList = (id, title) => {
-    return axios.post(`http://localhost:4000/list/${id}`, {
-        dashboard_id: 'w',
-        title: title,
-        tasks: [
-            {
-                task_id: 'e',
-                name: "name",
-                selected: false
-            }
-        ]
-      })
+export const updateList = (id, val) => {
+    return axios.put(`/list/${id}`, val)
 }
 

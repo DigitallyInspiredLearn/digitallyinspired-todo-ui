@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { takeEvery, call, put, takeLatest } from 'redux-saga/effects';
+import { takeEvery, call, put,select, takeLatest } from 'redux-saga/effects';
 import { generateId } from '.././helper'
 import { getList, addList, deleteList, updateList, getListById } from '../api/lists'
 
@@ -44,40 +44,8 @@ export const actions = {
 };
 
 export const initialState = {
-    data: [
-        // {
-        //     dashboard_id: generateId(),
-        //     title: 'Board 1',
-        //     tasks: [
-        //         {
-        //             task_id: generateId(),
-        //             selected: true,
-        //             name: 'task 01'
-        //         },
-        //         {
-        //             task_id: generateId(),
-        //             selected: false,
-        //             name: 'task 02'
-        //         }
-        //     ]
-        // },
-        // {
-        //     dashboard_id: generateId(),
-        //     title: 'Board 2',
-        //     tasks: [
-        //         {
-        //             task_id: generateId(),
-        //             selected: false,
-        //             name: 'task 11'
-        //         },
-        //         {
-        //             task_id: generateId(),
-        //             selected: true,
-        //             name: 'task 12'
-        //         }
-        //     ]
-        // }
-    ],
+    data: [],
+    oneList: {},
     inputTitle: '',
     inputTask: '',
     className: 'block-add'
@@ -90,7 +58,7 @@ export const reducer = handleActions({
     },
 
     [FETCH_BOARD_SUCCESS]: (state, action) => {
-        return {...state, data: action.payload}
+        return {...state, oneList: action.payload}
     },
 
     [DELETE_DASHBOARD]: (state, action) => {
@@ -203,34 +171,32 @@ function* func_getList() {
 function* func_addList(action){
     console.log("addList");
     yield call(addList, action.payload.addTitle, action.payload.addTask);
-    const response = yield call(getList);
-    console.log(response);
-    yield put(actions.fetchListSuccess(response.data));
+    yield call(func_getList);
 }
 
 function* func_deleteList(action){
     console.log("deleteList");
     console.log(action.payload)
     yield call(deleteList, action.payload);
-    const response = yield call(getList);
-    console.log(response);
-    yield put(actions.fetchListSuccess(response.data));
+    //yield call(func_getList)
 }
 
+
 function* func_updateList(action){
-    console.log("updateList")
-    console.log(action)
-    yield call(updateList, action.payload.id, action.payload.newTitle);
-    const response = yield call(getList);
-    console.log(response);
-    yield put(actions.fetchListSuccess(response.data));
+    const todo = yield select(state => state.data);
+    console.log(todo)
+    const list = todo.find(i => i.dashboard_id===action.payload.id);
+    console.log(list)
+    yield call(updateList, action.payload.id, {...list, title: action.payload.newTitle});
+    //yield call(func_getList)
 }
 
 function* func_getBoard(action){
     console.log("getBoard");
     console.log(action)
     const response = yield call(getListById, action.payload);
-    console.log(response.data)
+    //console.log(response.data)
+    yield put(actions.fetchBoardSuccess(response.data));
 }
 
 export function* saga() {

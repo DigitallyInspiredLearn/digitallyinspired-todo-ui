@@ -3,58 +3,58 @@ import trash from '../img/trash.png';
 import info from '../img/info.png';
 import './board.css';
 import { Task } from '../task/Task';
-import { connect } from 'react-redux';
-import { actions } from './board_duck';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 
 export class Board extends Component {
 
     componentWillMount() {
-        this.props.fetchBoard(this.props.match.params.id);
+        this.props.actions.fetchBoard(this.props.match.params.id);
     }
     render() {
-         console.log("=== Board props ===")
-         console.log(this.props.match.params.id);
+        console.log("=== Mylist props ===")
+        console.log(this.props)
         return (
         <div className="board" id={this.props.dashboard_id}>
             <div className="board-images">
-            
+                <Link to = '/list'>
                 <div 
                     className="trash-icon"
-                    onClick={() => this.props.deleteDashboard(this.props.dashboard_id)}
+                    
                     >
+                    
                     <img 
                         src={trash} 
                         width="25px" 
                         height="25px" 
                         alt="trash"
+                        onClick={() => {this.props.actions.deleteDashboard(this.props.match.params.id); } }
                     />
+                    
+                    
                 </div>
+                </Link>
             </div>
             <br/>
             <input 
                 className="board-name" 
-                value= "title"
+                value= {this.props.oneList.title}
                 //onChange={(e) => this.props.changeDashboardTitle({id: this.props.dashboard_id, newTitle: e.target.value})}
             />
                           
             <div className="board-tasks">
-              {/* {this.props.tasks.map(task => 
+              
+                
+                
+            {this.props.oneList.tasks && this.props.oneList.tasks.map(task => 
                 <Task 
                     key = {task.task_id}
                     task_id = {task.task_id}
                     name = {task.name}
                     selected = {task.selected} 
-                    deleteTask = {this.props.deleteTask}
-                    changeTaskName = {this.props.changeTaskName}
-                    changeTaskSelected = {this.props.changeTaskSelected}
-                    dashboard_id = {this.props.dashboard_id}
+                    actions = {this.props.actions}
+                    dashboard_id = {this.props.match.params.id}
                 />
-              )} */
-              <Task
-                  name = "description"
-              />}
+              )}
             </div>
 
             <input 
@@ -81,22 +81,3 @@ export class Board extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        data: state.data
-    }
-};
-
-const mapDispatchToProps = {
-
-    fetchBoard: actions.fetchBoard,
-};
-
-export default compose(
-    withRouter,
-    connect(
-        mapStateToProps, 
-        mapDispatchToProps
-    )
-)
-(Board);

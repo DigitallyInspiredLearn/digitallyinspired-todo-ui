@@ -2,19 +2,18 @@ import React, {Component} from 'react';
 import plus from '../img/plus.png';
 import cross from '../img/cross-out-mark.png';
 import './sidebar.css';
-import { connect } from 'react-redux';
-import { actions } from '../store/duck';
 
-class Sidebar extends Component {
+
+export class Sidebar extends Component {
 
     render(){
-        // console.log("== sidebar props ===")
-        // console.log(this.props);
+         console.log("== sidebar props ===")
+         console.log(this.props);
         return (
         <div>   
             <div 
                 id = "plus" 
-                onClick = {this.props.showSidebar}
+                onClick = {this.props.actions.showSidebar}
                 >
                 <img 
                     src = {plus} 
@@ -28,7 +27,7 @@ class Sidebar extends Component {
                 >
                 <div 
                     id = "x-mark" 
-                    onClick = {this.props.hideSidebar}
+                    onClick = {this.props.actions.hideSidebar}
                     >
                     <img 
                         src = {cross} 
@@ -42,23 +41,23 @@ class Sidebar extends Component {
                     id = "add-title" 
                     placeholder = "Add title" 
                     value = {this.props.title}
-                    onChange = {(e) => this.props.addInputTitle(e.target.value)}
+                    onChange = {(e) => this.props.actions.addInputTitle(e.target.value)}
                 />
                 <input 
                     type = "text" 
                     id = "add-task" 
                     placeholder = "Add to-do" 
-                    onChange = {(e) => this.props.addInputTask(e.target.value)}
+                    onChange = {(e) => this.props.actions.addInputTask(e.target.value)}
                 />
                 <div 
                     id="button-add" 
-                    onClick={() => {this.props.addDashboard({
+                    onClick={() => {this.props.actions.addDashboard({
                                             addTitle: this.props.title,
                                             addTask: this.props.task
                                         });
-                                        this.props.addInputTitle('');
-                                        this.props.addInputTask('');
-                                        this.props.hideSidebar();
+                                        this.props.actions.addInputTitle("");
+                                        this.props.actions.addInputTask("");
+                                        this.props.actions.hideSidebar();
                                     }
                         }
                     >
@@ -69,23 +68,3 @@ class Sidebar extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-      title: state.inputTitle,
-      task: state.inputTask,
-      className: state.className
-    };    
-};
-
-const mapActionsToProps = {
-
-    showSidebar: actions.showSidebar,
-    hideSidebar: actions.hideSidebar,
-    addInputTitle: actions.addInputTitle,
-    addInputTask: actions.addInputTask,
-    addDashboard: actions.addDashboard,
-    addList: actions.addList
-}
-  
-export default connect(mapStateToProps, mapActionsToProps)(Sidebar);

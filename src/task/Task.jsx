@@ -4,8 +4,8 @@ import './task.css';
 
 export class Task extends Component{
     render(){
-        // console.log("=== task props ===")
-        // console.log(this.props)
+        //  console.log("=== task props ===")
+        //  console.log(this.props)
         return (
             <div 
                 className = "task" 
@@ -14,7 +14,7 @@ export class Task extends Component{
                 <input 
                     type = "checkbox"  
                     checked = {this.props.selected}
-                    onChange = {(e) => this.props.changeTaskSelected({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, selected: e.target.checked})} 
+                    onChange = {(e) => this.props.actions.changeTaskSelected({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, selected: e.target.checked})} 
                 />
                 
                 <input 
@@ -22,7 +22,7 @@ export class Task extends Component{
                     type = "text" 
                     value = {this.props.name}
                     disabled = {this.props.selected === true ? "disabled" : ""} 
-                    onChange = {(e) => this.props.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})}
+                    onChange = {(e) => this.props.actions.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})}
                     /*onKeyPress = {(e) => {
                         if(e.key === 'Enter') {
                             this.props.changeTaskName({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id, name: e.target.value})
@@ -35,7 +35,7 @@ export class Task extends Component{
                 <br/>
                 <div 
                     className = "delete-task" 
-                    onClick = {() => this.props.deleteTask({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id})}
+                    onClick = {() => this.props.actions.deleteTask({dashboard_id: this.props.dashboard_id, task_id: this.props.task_id})}
                     >
                     <img 
                     src = {trash} 

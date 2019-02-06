@@ -15,17 +15,11 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { initialState } from './store/duck'
 import {saga} from './store/duck'
 import { BrowserRouter } from 'react-router-dom'
-
-//  const persistConfig = {
-//      key: 'dashboard',
-//      storage,
-//  };
+import './config/axios'
 
 const sagaMiddleware = createSagaMiddleware();
 
-//const persistedReducer = persistReducer(persistConfig, reducer);
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-//const persistor = persistStore(store);
 
 sagaMiddleware.run(saga);
 
