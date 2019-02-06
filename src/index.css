@@ -1,7 +1,7 @@
 *{
   box-sizing: border-box;
   word-break: keep-all;
-  font-family: "Arial";
+  font-family: "Arial", serif;
 }
 
 body,main{
@@ -30,7 +30,7 @@ body{
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   background-size:60px 60px;
   height: auto;
   min-height: 99vh;

@@ -3,12 +3,12 @@ import {Provider} from 'react-redux'
 import {App} from './app/App'
 import './index.css';
 import ReactDOM from 'react-dom';
-import {reducer} from './app/home/duck'
+import {reducer} from './app/duck'
 import createSagaMiddleware from 'redux-saga'
-import {saga} from "./app/home/duck";
+import {saga} from "./app/duck";
 import {applyMiddleware, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
-// import {AvtorizationPage} from "./app/avtorization/avtorization";
+import {BrowserRouter} from 'react-router-dom'
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -18,7 +18,9 @@ sagaMiddleware.run(saga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );

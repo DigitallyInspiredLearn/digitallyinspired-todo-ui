@@ -1,0 +1,140 @@
+.description,.container, .right{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.container-fluid{
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 5px;
+}
+
+.right, .description{
+    margin-bottom: 5px;
+    width: auto;
+    height: auto;
+}
+.description{
+    margin:  5px;
+}
+.description,form, .href{
+    background: white;
+    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.form-control{
+    outline:none;
+    padding: 5px;
+    width: 100%;
+    margin: 10px;
+}
+
+.enterEmail,.enterPass{
+    position: relative;
+}
+
+.enterEmail:before, .enterPass:before {
+    position: absolute;
+    z-index:1;
+    display: flex;
+    bottom: 0;
+    content: "";
+    opacity: 0.8;
+    border-bottom: 2px solid grey;
+    transition:  width 0.2s ease-in-out;
+    width: 0;
+}
+
+.enterEmail:hover:before, .enterPass:hover:before{
+    width: 99%;
+}
+
+form{
+    margin: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h2{
+    width: auto ;
+    margin:15px auto ;
+}
+
+button {
+    color: white;
+    background: black;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: none;
+
+}
+
+.todo{
+    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    margin: 5px;
+    width: 97%;
+    border-radius: 5px;
+}
+
+.href{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0  5px ;
+    padding: 15px;
+}
+.forgetPass{
+    margin-bottom: 15px;
+}
+.forgetPass, .registration{
+    color: black;
+    background-color: whitesmoke;
+    margin-top: 0;
+    width: auto;
+}
+
+.forgetPass:hover, .registration:hover{
+    color: white;
+    background: black;
+    border-radius: 5px;
+}
+.bg{
+    display: none;
+}
+@media (min-width: 600px) {
+
+.container-fluid{
+    margin-left: 37px;
+    flex-direction: row;
+    margin-top: 30px;
+}
+
+.right{
+    width: 30%;
+}
+
+.description{
+    margin-right: 40px;
+    padding: 15px;
+    width: 67%;
+    height: auto;
+    min-height: 85vh;
+}
+
+.bg{
+    display: flex;
+    height: 70vh;
+    border-radius: 5px;
+    margin:10px 5px 0 5px;
+    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    background: repeating-radial-gradient(closest-side at 25px 35px, white 15%, whitesmoke 40%);
+    background-size:6px 6px;
+    opacity: 0.8;
+}
+
+}
