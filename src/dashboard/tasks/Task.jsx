@@ -16,10 +16,9 @@ export class Task extends Component {
                     >
                     </div>
                     <label className="label">{this.props.name}</label>
-                    <img
-                        className="deleteTask"
-                        src={del}
-                        alt="Delete"
+                    <div
+                        id='DelTask'
+                        className="fa fa-trash"
                         onClick={() => this.props.deleteTask({ idBox: this.props.idBox, idTask: this.props.id })}
                     />
                     <br/>

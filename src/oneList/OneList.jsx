@@ -1,39 +1,27 @@
 import React, {Component} from 'react';
 import '../dashboard/Dashboard.css'
-import info from '../image/info.png'
-import {Task} from "./tasks/Task";
-import { Link } from 'react-router-dom'
+import {Task} from "../dashboard/tasks/Task";
 
 
-export class Dashboard extends Component {
-
+export class OneList extends Component {
     render() {
+        console.log(this.props);
         return (
             <div className="box" id={this.props.idList}>
                     <span className="sp">
                                   <div
                                       className="fa fa-trash fa-2x"
                                       id={this.props.idList}
-                                      onClick={() => this.props.deleteDashboard(this.props.idList)}
+                                      onClick={() => this.props.actions.deleteDashboard(this.props.idList)}
                                   />
-
-                        <Link to={`/${this.props.idList}`}>
-                            <img
-                                id={this.props.idList}
-                                src={info}
-                                className='infoDashboard'
-                                alt='Inform'
-                                onClick={() => this.props.infoAboutList(this.props.idList)}
-                            />
-                        </Link>
                                   </span>
 
                 <input
                     id={this.props.idList}
                     type="text"
                     className="title"
-                    value={this.props.title}
-                    onChange={(e) => this.props.changeTitle({id: this.props.idList, newValue: e.target.value})}
+                    value={this.props.data.title}
+                    onChange={(e) => this.props.actions.changeTitle({id: this.props.idList, newValue: e.target.value})}
                 />
 
                 <div
@@ -41,15 +29,15 @@ export class Dashboard extends Component {
                     id="form"
                 >
                     {
-                        this.props.tasks.map(nameTask => {
+                        this.props.data.tasks && this.props.data.tasks.map(nameTask => {
                             return <Task
                                 id={nameTask.id}
                                 name={nameTask.name}
                                 selected={nameTask.selected}
                                 key={nameTask.id}
-                                deleteTask={this.props.deleteTask}
+                                deleteTask={this.props.actions.deleteTask}
                                 idBox={this.props.idList}
-                                toggleActive={this.props.toggleActive}
+                                toggleActive={this.props.actions.toggleActive}
                             />
 
                         })
@@ -61,7 +49,7 @@ export class Dashboard extends Component {
                     placeholder="Add to-do"
                     onKeyPress={event => {
                         if (event.key === 'Enter') {
-                            this.props.addTask({idBox: this.props.idList, newValue: event.target.value});
+                            this.props.actions.addTask({idBox: this.props.idList, newValue: event.target.value});
                             event.target.value = "";
                         }
                     }

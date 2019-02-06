@@ -1,9 +1,9 @@
 /*Удаление тем*/
-.deleteTask {
+#DelTask {
     height: 35px;
     cursor: pointer;
     display: none;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .tas {
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.tas:hover .deleteTask {
+.tas:hover #DelTask {
     display: block;
 }
 

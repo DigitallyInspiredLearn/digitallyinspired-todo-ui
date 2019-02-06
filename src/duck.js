@@ -1,11 +1,19 @@
-import { createAction, handleActions } from 'redux-actions';
+import {createAction, handleActions} from 'redux-actions';
+import {takeEvery, call, put} from 'redux-saga/effects';
+import {getList, addBox, deleteBox, getOneList} from "./store/lists";
 
+
+export const FETCH_LIST = 'FETCH_LIST';
+export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS';
 export const DASHBOARD_TITLE = 'DASHBOARD_TITLE';
 export const ADD_TO_D0 = 'ADD_TO_D0';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
 export const DELETE_TASK = 'DELETE_TASK';
 export const TOGGLE_ACTIVE_CHECK = 'TOGGLE_ACTIVE_CHECK';
 export const ADD_NEW_DASHBOARD = 'ADD_NEW_DASHBOARD';
+export const INFO_ABOUT_LIST = 'INFO_ABOUT_LIST';
+export const FETCH_ONE_LIST = 'FETCH_ONE_LIST';
+
 
 export const NEW_DASHBOARD_TITLE_TEXT = 'NEW_DASHBOARD_TITLE_TEXT';
 export const NEW_DASHBOARD_TASK_TEXT = 'NEW_DASHBOARD_TASK_TEXT';
@@ -18,6 +26,14 @@ const generateId = () => {
 };
 
 export const actions = {
+    fetchList: createAction(FETCH_LIST),
+
+    fetchOneList: createAction(FETCH_ONE_LIST),
+
+    fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
+
+    infoAboutList:  createAction(INFO_ABOUT_LIST),
+
     deleteDashboard: createAction(DELETE_DASHBOARD),
 
     deleteTask: createAction(DELETE_TASK),
@@ -41,45 +57,24 @@ export const actions = {
 
 const initialState = {
     data: [
-        {
-            idList: generateId(),
-            title: 'Dashboard 1',
-            tasks: [
-                {
-                    id: generateId(),
-                    selected: true,
-                    name: 'Task1'
-                },
-                {
-                    id: generateId(),
-                    selected: false,
-                    name: 'Task2'
-                }
-            ]
-        },
-        {
-            idList: generateId(),
-            title: 'Dashboard 2',
-            tasks: [
-                {
-                    id: generateId(),
-                    selected: true,
-                    name: 'Task3'
-                },
-                {
-                    id: generateId(),
-                    selected: false,
-                    name: 'Task4'
-                }
-            ]
-        }
     ],
+    myList: {},
     inputTitle: '',
     inputTask: '',
     display: false
 };
 
 export const reducer = handleActions({
+    [FETCH_LIST_SUCCESS]: (state, action) => {
+        console.log(action.payload);
+        return {...state, data: action.payload}
+    },
+
+    [FETCH_ONE_LIST]: (state, action) => {
+        console.log(action.payload);
+        return {...state, myList: action.payload}
+    },
+
     [DELETE_DASHBOARD]: (state, action) => {
         return {...state, data: state.data.filter(item => item.idList !== action.payload)}
     },
@@ -105,7 +100,6 @@ export const reducer = handleActions({
     [ADD_TO_D0]: (state, action) => {
         let newTask =
             {
-                id: generateId(),
                 selected: false,
                 name: action.payload.newValue
             };
@@ -117,31 +111,33 @@ export const reducer = handleActions({
 
     [TOGGLE_ACTIVE_CHECK]: (state, action) => {
         action.payload.e.target.classList.toggle("active");
-        return {...state,
+        return {
+            ...state,
             data: state.data.map(item =>
                 item.idList === action.payload.idBox ?
-                {...item, tasks:
-                    item.tasks.map(nameTask =>
-                        nameTask.id === action.payload.idTask ?
-                            {
-                                ...nameTask,
-                                selected: !nameTask.selected
-                            } : nameTask)
-                }:item)
+                    {
+                        ...item, tasks:
+                            item.tasks.map(nameTask =>
+                                nameTask.id === action.payload.idTask ?
+                                    {
+                                        ...nameTask,
+                                        selected: !nameTask.selected
+                                    } : nameTask)
+                    } : item)
         }
     },
 
     [ADD_NEW_DASHBOARD]: (state, action) => {
         let newDashboard = {
-            idList: generateId(),
             title: action.payload.newTitle,
             tasks: [
                 {
-                    id: generateId(),
-                    selected: false,
+                    id: String(generateId()),
+                    selected: action.payload.selected,
                     name: action.payload.newTask
                 }]
         };
+
         return {...state, data: [...state.data, newDashboard]}
     },
 
@@ -161,3 +157,40 @@ export const reducer = handleActions({
         return {...state, inputTask: action.payload}
     }
 }, initialState);
+
+function* func() {
+    const response = yield call(getList);
+    console.log(response);
+    yield put(actions.fetchListSuccess(response.data));
+}
+
+
+function* addDashboard(action) {
+    yield call(addBox, {
+        title: action.payload.newTitle,
+        tasks: [
+            {
+                id: String(generateId()),
+                name: action.payload.newTask,
+                selected: action.payload.selected
+            }]
+    });
+}
+
+function* deleteList(action) {
+    yield call(deleteBox, action.payload);
+    //yield call(func);
+}
+
+function* infoList(action) {
+    const response = yield call(getOneList, action.payload);
+    console.log(response);
+    yield put(actions.fetchOneList(response.data));
+}
+
+export function* saga() {
+    yield takeEvery('FETCH_LIST', func);
+    yield takeEvery('ADD_NEW_DASHBOARD', addDashboard);
+    yield takeEvery('DELETE_DASHBOARD', deleteList);
+    yield takeEvery('INFO_ABOUT_LIST', infoList)
+}

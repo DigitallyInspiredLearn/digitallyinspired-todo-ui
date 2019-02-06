@@ -10,7 +10,7 @@ export class Sidebar extends Component {
                     id="myBtn"
                     src={plus}
                     alt="Plus"
-                    onClick={() => this.props.showSidebar(true)}
+                    onClick={() => this.props.actions.showSidebar(true)}
                 />
             </div>,
                 <div
@@ -20,7 +20,7 @@ export class Sidebar extends Component {
                     <div className="modal-content">
                     <span
                         className="close"
-                        onClick={() => this.props.closeSidebar(false)}
+                        onClick={() => this.props.actions.closeSidebar(false)}
                     >
                         &times;
                     </span>
@@ -31,7 +31,7 @@ export class Sidebar extends Component {
                                     placeholder="Add title"
                                     id="newTitle"
                                     value={this.props.title}
-                                    onChange={(e) => this.props.changeTitles(e.target.value)}
+                                    onChange={(e) => this.props.actions.changeTitles(e.target.value)}
                                     style={{fontSize: "24px"}}
                                 />
                                 <input
@@ -39,19 +39,21 @@ export class Sidebar extends Component {
                                     placeholder="Add to-do"
                                     id="task"
                                     value={this.props.task}
-                                    onChange={(e) => this.props.changeTask(e.target.value)}
+                                    onChange={(e) => this.props.actions.changeTask(e.target.value)}
                                 />
                             </div>
                             <div className="addBut">
                                 <div
                                     id="addBut"
                                     onClick={() => {
-                                        this.props.addNewDashboard({
+                                        this.props.actions.addNewDashboard({
                                             newTitle: this.props.title,
-                                            newTask: this.props.task
+                                            idTask: '',
+                                            newTask: this.props.task,
+                                            selected: false
                                         });
-                                        this.props.changeTitles("");
-                                        this.props.changeTask("");
+                                        this.props.actions.changeTitles("");
+                                        this.props.actions.changeTask("");
                                     }
                                     }
                                 >

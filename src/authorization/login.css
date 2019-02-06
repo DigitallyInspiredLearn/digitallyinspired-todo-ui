@@ -1,0 +1,70 @@
+.fonAuth {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../image/fon.jpeg");
+    border-radius: 10px;
+    margin-top: -70px;
+}
+.Authorization {
+    display: flex;
+    flex-direction: column;
+    font-family: Open Sans;
+    align-self: center;
+    width: 50%;
+    height: auto;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    line-height: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    margin-top: 50px;
+    margin-bottom: -50px;
+}
+
+
+h4 {
+    align-self: center;
+}
+
+.signIn{
+    color: #fff;
+    text-decoration: none;
+    user-select: none;
+    background: black;
+    outline: none;
+    width: 55%;
+    margin-left: 150px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    height: 50px;
+    font-size: 18px;
+
+}
+.signIn:hover { background: #2A0909; }
+.signIn:active { background: #2A0909; }
+
+
+.logPas {
+    background-image: linear-gradient(#FE5568 50%, #FE5568 50%), linear-gradient(silver 50%, silver 50%);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 0 2px, 100% 2px;
+    color: #1E3A52;
+    padding-bottom: 1px;
+    transition: .5s ease-in-out;
+}
+.logPas:hover {
+    background-size: 100% 2px, 100% 2px;
+    color: #FE5568;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .signIn {
+        margin-left: 70px;
+    }
+}
+
