@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import plus from '../img/plus.png';
-import cross from '../img/cross-out-mark.png';
+import plus from '../../../img/plus.png';
+import cross from '../../../img/cross-out-mark.png';
 import './sidebar.css';
 
 
@@ -55,7 +55,7 @@ export class Sidebar extends Component {
                                             addTitle: this.props.title,
                                             addTask: this.props.task
                                         });
-                                        this.props.actions.addInputTitle("");
+                                        //this.props.actions.addInputTitle("");
                                         this.props.actions.addInputTask("");
                                         this.props.actions.hideSidebar();
                                     }

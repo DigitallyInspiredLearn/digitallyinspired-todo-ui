@@ -1,7 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
-import { call, put,select, takeLatest } from 'redux-saga/effects';
+import { call, put,select, takeLatest, takeEvery } from 'redux-saga/effects';
 import { generateId } from '.././helper'
 import { getList, addList, deleteList, updateList, getListById } from '../api/lists'
+const uuid = require('uuid');
 
 export const FETCH_LIST = 'FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS';
@@ -66,23 +67,24 @@ export const reducer = handleActions({
     },
 
     [CHANGE_DASHBOARD_TITLE]: (state, action) => {
+        console.log(action)
         return { ...state, data: state.data.map(i => 
             i.dashboard_id === action.payload.id ? { ...i, title: action.payload.newTitle } : i)
         }
     },
 
-    [ADD_TASK]: (state, action) => {
-        let newTask =
-            {
-                task_id: generateId(),
-                selected: false,
-                name: action.payload.task
-            };
-        return {
-            ...state, data: state.data.map(item =>
-                item.dashboard_id === action.payload.id ? {...item, tasks: [...item.tasks, newTask]} : item)
-        }
-    },
+    // [ADD_TASK]: (state, action) => {
+    //     let newTask =
+    //         {
+    //             task_id: generateId(),
+    //             selected: false,
+    //             name: action.payload.task
+    //         };
+    //     return {
+    //         ...state, data: state.data.map(item =>
+    //             item.dashboard_id === action.payload.id ? {...item, tasks: [...item.tasks, newTask]} : item)
+    //     }
+    // },
 
     [CHANGE_TASK_NAME]: (state, action) => {
         return {...state, data: state.data.map(item => {
@@ -99,15 +101,15 @@ export const reducer = handleActions({
         };
     },
 
-    [DELETE_TASK]: (state, action) => {
-        return { ...state, data: state.data.map(item => {
-                if (item.dashboard_id === action.payload.dashboard_id) {
-                    return {...item, tasks: item.tasks.filter(task => task.task_id !== action.payload.task_id)}
-                }
-                return item
-            })
-        }
-    },
+    // [DELETE_TASK]: (state, action) => {
+    //     return { ...state, data: state.data.map(item => {
+    //             if (item.dashboard_id === action.payload.dashboard_id) {
+    //                 return {...item, tasks: item.tasks.filter(task => task.task_id !== action.payload.task_id)}
+    //             }
+    //             return item
+    //         })
+    //     }
+    // },
 
     [CHANGE_TASK_SELECTED]: (state, action) => {
         return {...state, data: state.data.map(item => {
@@ -135,10 +137,8 @@ export const reducer = handleActions({
                  }
              ],
          }
-
-        //console.log(newDashboard)
-    
-        return {
+  
+        return {...state,
              data: [...state.data, newDashboard]
         }
      },
@@ -188,26 +188,74 @@ function* func_addList(action){
 
 function* func_deleteList(action){
     console.log("deleteList");
-    console.log(action.payload)
+    console.log(action)
     yield call(deleteList, action.payload);
-    //yield call(func_getList)
 }
 
+function* func_addTask(action){
+    console.log("addTask");
+    console.log(action)
+    const array = yield select(state => state.data);
+    console.log(array)
+    const list = array.find(item => item.dashboard_id === action.payload.id);
+    console.log(list)
+    let newTask =
+            {
+                task_id: uuid(),
+                selected: false,
+                name: action.payload.task
+            };
+    console.log(newTask)
+    yield call(updateList, action.payload.id, {...list, tasks: [...list.tasks, newTask] });
+    yield call(func_getList);
+}
 
-function* func_updateList(action){
+function* func_updateTitle(action){
+    console.log("updTitle");
+    console.log(action)
     const array = yield select(state => state.data);
     console.log(array)
     const list = array.find(item => item.dashboard_id === action.payload.id);
     console.log(list)
     yield call(updateList, action.payload.id, {...list, title: action.payload.newTitle});
-    //yield call(func_getList)
 }
+
+function* func_updateTaskName(action){
+    console.log("updTaskName");
+    console.log(action)
+    const array = yield select(state => state.data);
+    console.log(array)
+    const list = array.find(item => item.dashboard_id === action.payload.dashboard_id);
+    console.log(list)
+    //const task = list.tasks.find(i => i.task_id === action.payload.task_id);
+    //console.log(task)
+    yield call(updateList, action.payload.dashboard_id, {...list, name: action.payload.name});
+}
+
+function* func_updateTaskSelected(action){
+    console.log("updTaskSelected");
+    console.log(action)
+    const array = yield select(state => state.data);
+    console.log(array)
+    const list = array.find(item => item.dashboard_id === action.payload.dashboard_id);
+    console.log(list)
+    yield call(updateList, action.payload.dashboard_id, {...list, selected: action.payload.selected});
+}
+
+function* func_deleteTask(action){
+    console.log("deleteTask");
+    console.log(action)
+    const array = yield select(state => state.data);
+    const list = array.find(item => item.dashboard_id === action.payload.dashboard_id);
+    yield call(updateList, action.payload.dashboard_id, {...list, tasks: list.tasks.filter(task => task.task_id !== action.payload.task_id)});
+    yield call (func_getList)
+}
+
 
 function* func_getBoard(action){
     console.log("getBoard");
     console.log(action)
     const response = yield call(getListById, action.payload);
-    //console.log(response.data)
     yield put(actions.fetchBoardSuccess(response.data));
 }
 
@@ -215,6 +263,10 @@ export function* saga() {
     yield takeLatest(FETCH_LIST, func_getList);
     yield takeLatest(ADD_DASHBOARD, func_addList);
     yield takeLatest(DELETE_DASHBOARD, func_deleteList);
-    yield takeLatest(CHANGE_DASHBOARD_TITLE, func_updateList);
+    yield takeLatest(CHANGE_DASHBOARD_TITLE, func_updateTitle);
+    yield takeLatest(ADD_TASK, func_addTask);
+    yield takeLatest(CHANGE_TASK_NAME, func_updateTaskName);
+    yield takeLatest(CHANGE_TASK_SELECTED, func_updateTaskSelected);
+    yield takeLatest(DELETE_TASK, func_deleteTask);
     yield takeLatest(FETCH_BOARD, func_getBoard);
 }

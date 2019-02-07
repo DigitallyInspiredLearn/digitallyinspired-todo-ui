@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './dashboardList.css';
 import { Dashboard } from './Dashboard';
-import VisibleSidebar from '../sidebar/VisibleSidebar';
+import VisibleSidebar from '../dashboard/sidebar/VisibleSidebar';
 
 export class DashboardList extends Component {
 

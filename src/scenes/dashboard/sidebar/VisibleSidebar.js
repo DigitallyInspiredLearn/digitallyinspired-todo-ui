@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { actions } from '../store/duck';
+import { actions } from '../../../store/duck';
 import { compose, bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom';
 import { Sidebar } from './Sidebar'

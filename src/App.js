@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Header } from './header/Header';
-import VisibleDashboard from './dashboard/VisibleDashboard'
-import VisibleBoard from './board/VisibleBoard';
-import { Auth } from './auth/Auth'
+import { Header } from './scenes/header/Header';
+import VisibleDashboard from './scenes/dashboard/VisibleDashboard'
+import VisibleBoard from './scenes/board/VisibleBoard';
+import { Auth } from './scenes/auth/Auth'
 import { Switch, Route, Redirect }  from 'react-router-dom'
 
 class App extends Component {

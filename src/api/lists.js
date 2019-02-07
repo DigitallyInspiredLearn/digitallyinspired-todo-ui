@@ -16,7 +16,8 @@ export const deleteList = (id) => {
     axios.delete(`/list/${id}`)
 }
 
-export const updateList = (id, val) => {
-    return axios.put(`/list/${id}`, val)
+export const updateList = (id, object) => {
+    console.log(object)
+    return axios.put(`/list/${id}`, object)
 }
 

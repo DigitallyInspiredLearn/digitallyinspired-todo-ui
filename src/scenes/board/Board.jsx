@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import trash from '../img/trash.png';
+import trash from '../../img/trash.png';
 import './board.css';
 import { Task } from '../task/Task';
 import { Link } from 'react-router-dom';
@@ -11,12 +11,12 @@ export class Board extends Component {
     }
 
     render() {
-        // console.log("=== Mylist props ===")
-        // console.log(this.props)
+         console.log("=== Mylist props ===")
+         console.log(this.props)
         return (
         <div className="board" id={this.props.dashboard_id}>
             <div className="board-images">
-                <Link to = '/list'>
+                
                 <div 
                     className="trash-icon"
                     
@@ -32,13 +32,13 @@ export class Board extends Component {
                     
                     
                 </div>
-                </Link>
+                
             </div>
             <br/>
             <input 
                 className="board-name" 
                 value= {this.props.oneList.title}
-                //onChange={(e) => this.props.changeDashboardTitle({id: this.props.dashboard_id, newTitle: e.target.value})}
+                onChange={(e) => this.props.actions.changeDashboardTitle({id: this.props.match.params.id, newTitle: e.target.value})}
             />
                           
             <div className="board-tasks">
@@ -69,7 +69,7 @@ export class Board extends Component {
                 // }
                 // onKeyPress = {(e) => {
                 //         if (e.key === 'Enter' && e.target.value !== '') {
-                //             this.props.addTask({id: this.props.dashboard_id, task: e.target.value});
+                //             this.props.actions.addTask({id: this.props.dashboard_id, task: e.target.value});
                 //             e.target.value = "";
                 //         }
                 //     }

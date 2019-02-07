@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import trash from '../img/trash.png';
-import info from '../img/info.png';
+import trash from '../../img/trash.png';
+import info from '../../img/info.png';
 import './dashboard.css';
 import { Task } from '../task/Task';
 import { Link } from 'react-router-dom';

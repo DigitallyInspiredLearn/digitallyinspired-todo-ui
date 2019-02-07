@@ -1,4 +1,4 @@
-import { actions } from "../store/duck";
+import { actions } from "../../store/duck";
 import { connect } from "react-redux";
 import { DashboardList } from "./DashboardList";
 import { withRouter } from 'react-router-dom';
