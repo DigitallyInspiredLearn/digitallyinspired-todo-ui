@@ -14,7 +14,9 @@ section {
     border-radius: 5px;
     padding: 5px;
     height: 300px;
-   overflow: auto;
+    overflow: auto;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
+
 }
 
 article {
@@ -57,7 +59,7 @@ article:hover:before {
     z-index: 2;
 }
 
-.linkList{
+.linkList {
     margin: 8px;
 }
 
