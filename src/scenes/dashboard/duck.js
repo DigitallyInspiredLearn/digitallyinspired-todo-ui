@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createAction, handleActions } from 'redux-actions';
 import {
     takeEvery, call, put, select, takeLatest, delay,
@@ -150,9 +151,9 @@ function* addTask(action) {
 }
 
 function* addList(action) {
-    // console.log(action);
-    yield call(addDashboard, action.payload);
-    yield call(getDashboard);
+    console.log(action);
+    // yield call(addDashboard, action.payload);
+    // yield call(getDashboard);
 }
 
 function* update(action) {

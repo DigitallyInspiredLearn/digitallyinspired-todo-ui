@@ -1,16 +1,17 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
 import randomInteger from '../../../config/helper';
+const uuid = require('uuid');
 
 class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             titleName: '',
-            taskName: '',
-            taskArray: [{taskName: ''}],
             displayStyle: 'none',
+            tasks: [{ id: uuid(), body: '', isComplete: false }],
             animation: '',
             bool: false,
         };
@@ -31,16 +32,18 @@ class Sidebar extends Component {
         });
     };
 
-    addBoard = (title, idBoard, taskName, idTask) => {
+    addBoard = (title, tasks) => {
         const titleValue = title === '' ? 'New Title Dashboard' : title;
-        const taskValue = taskName === '' ? 'new do-to' : taskName;
+        //const taskValue = body === '' ? 'new do-to' : body;
+        //const tasks = this.state.tasks;
+        console.log(title)
+        console.log(tasks)
+        const newDashboard = {
+            
+        };
         this.props.addNewDashboard({
-            title: titleValue,
-            tasks: [{
-                id: `${idTask}`,
-                name: taskValue,
-                selected: false,
-            }],
+            todoListName: titleValue,
+            tasks: tasks,
         });
     };
 
@@ -48,15 +51,33 @@ class Sidebar extends Component {
         titleName: e.target.value,
     });
 
-    changeValueTaskName = e => this.setState({
-        taskName: e.target.value,
-    });
+    changeValuebody = i => e => {
+
+        const newTaskHolders = this.state.tasks.map((task, sidx) => {
+            if (i !== sidx) return task;
+            return { ...task, body: e.target.value };
+          });
+      
+        this.setState({ tasks: newTaskHolders });
+    }
 
     handlerOnClick = (e) => {
         e.target.blur();
         this.setState({
-            titleName: e.target.value = '',
-            taskName: e.target.value = '',
+            titleName: '',
+            tasks: [{ id: uuid(), body: '', isComplete: false }],
+        });
+    };
+
+    handleAddShareholder = () => {
+        this.setState({
+          tasks: this.state.tasks.concat([{ id: uuid(), body: '', isComplete: false }])
+        });
+    };
+
+    handleRemoveShareholder = idx => () => {
+        this.setState({
+          tasks: this.state.tasks.filter((s, sidx) => idx !== sidx)
         });
     };
 
@@ -84,20 +105,37 @@ class Sidebar extends Component {
                         <input
                             type="text"
                             placeholder="Add title"
-                            id="newTitle"
-                            defaultValue={this.state.titleName}
+                            className="inputTitle"
+                            value={this.state.titleName}
                             onChange={this.changeValueTitleName}
                         />
                         <div className="taskList">
-                            <input
-                                type="text"
-                                placeholder=" Add to-do"
-                                className="newTask"
-                                id="mainInput"
-                                defaultValue={this.state.taskName}
-                                onInput={this.changeValueTaskName}
-                            />
+                            {this.state.tasks.map((task, i) => (
+                                <div className="addTask">
+                                    <input
+                                        type="text"
+                                        className="inputTask"
+                                        placeholder={`Add to-do #${i + 1}`}
+                                        value={task.body}
+                                        onChange={this.changeValuebody(i)}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={this.handleRemoveShareholder(i)}
+                                        className="small"
+                                        >
+                                        -
+                                    </button>
+                                </div>
+                            ))}
                         </div>
+                        <button
+                            type="button"
+                            onClick={this.handleAddShareholder}
+                            className="btn"
+                            >
+                            Add Shareholder
+                        </button>
                         <button
                             className="addListBtn"
                             type="submit"
@@ -105,9 +143,7 @@ class Sidebar extends Component {
                                 this.updateDisplaySidebar();
                                 this.addBoard(
                                     this.state.titleName,
-                                    `${randomInteger(1, 100000, this.props.toDoBoard)}`,
-                                    this.state.taskName,
-                                    `${randomInteger(1, 100000, this.props.toDoBoard)}`,
+                                    this.state.tasks,
                                 );
                                 this.handlerOnClick(e);
                             }}
