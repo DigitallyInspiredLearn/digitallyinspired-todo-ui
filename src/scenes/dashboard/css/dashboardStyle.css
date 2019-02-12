@@ -1,0 +1,78 @@
+section, article {
+    display: flex;
+    position: relative;
+}
+
+article:before, .addNewTask {
+    position: absolute;
+}
+
+section {
+    flex-direction: column;
+    background-color: white;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    height: 300px;
+    overflow: auto;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
+
+}
+
+article {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+}
+
+article:before {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    width: 0;
+    background-color: grey;
+    transition: width 0.2s ease-in-out;
+    z-index: 1;
+}
+
+article:hover:before {
+    width: 94%;
+}
+
+.titleName {
+    font-size: 23px;
+    color: black;
+    font-weight: bold;
+    border: 0;
+    margin: 8px 5px;
+    width: 93%;
+    text-overflow: ellipsis;
+}
+
+.titleName:focus {
+    outline: none;
+}
+
+.deleteBoadr, .linkList {
+    color: gray;
+    margin: 5px;
+    z-index: 2;
+}
+
+.linkList {
+    margin: 8px;
+}
+
+.taskLists {
+    margin-bottom: 20px;
+    margin-right: 3px;
+    overflow: inherit;
+}
+
+.addNewTask {
+    right: 5px;
+    left: 10px;
+    bottom: 5px;
+    width: 96%;
+    font-size: 16px;
+}

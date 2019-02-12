@@ -1,0 +1,81 @@
+@keyframes move {
+    0%{
+        right: -100%;
+    }
+    100%{
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+}
+#mainInput{
+    outline: none
+}
+
+div>div,#fon,#inputs,#addingArticle{
+    display: flex;
+}
+
+#sidebar,#fon,#addingArticle,.addListBtn{
+    width: 100%;
+    z-index: 20;
+}
+
+.taskList{
+    display: flex;
+    flex-direction: column
+}
+
+#sidebar,.window-close,.addListBtn{
+    position: absolute;
+}
+#sidebar{
+    height: 100%;
+    display: none;
+}
+
+#fon{
+    background-color: #888888;
+    opacity: 0.8;
+    height: 100%;
+}
+
+#addingArticle{
+    background-color: white;
+    padding:  0  5px  0 5px;
+    height: 101vh;
+    margin: auto;
+    position: fixed;
+    top: -5px;
+    left: auto;
+    right: 0;
+    flex-direction: column;
+}
+
+.window-close{
+    right: 5px;
+    cursor: pointer;
+}
+
+input[placeholder="Add title"],input[placeholder="Add to-do"]{
+    z-index: 21;
+    outline: none;
+}
+input[placeholder="Add title"]{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+#newTitle:focus,#newTask:focus{
+    border-bottom: #888888 solid 1px;
+}
+
+.addListBtn{
+    background-color: black;
+    color: white;
+    margin: 0 -5px;
+    border-color: black;
+    bottom: 0;
+    padding: 7px;
+}
