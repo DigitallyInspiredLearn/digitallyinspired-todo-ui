@@ -152,8 +152,8 @@ function* addTask(action) {
 
 function* addList(action) {
     console.log(action);
-    // yield call(addDashboard, action.payload);
-    // yield call(getDashboard);
+    yield call(addDashboard, action.payload);
+    yield call(getDashboard);
 }
 
 function* update(action) {
