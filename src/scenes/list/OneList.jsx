@@ -34,15 +34,16 @@ class OneList extends Component {
     componentWillMount = () => this.props.actions.fetchList(this.props.match.params.id);
 
     render() {
+        console.log(this.props);
         return (
             <div id="list">
                 <div id="header">
                     <input
                         type="text"
-                        value={this.props.data.title}
+                        value={this.props.data.todoListName}
                         className="titleName"
                         onChange={e => this.props.actionsBoard.updateTitleDashboard({
-                            id: this.props.data.idList,
+                            id: this.props.data.id,
                             newTitle: e.target.value,
                         })
                         }
@@ -84,8 +85,8 @@ class OneList extends Component {
                                         idTask={i.id}
                                         idList={this.props.match.params.id}
                                         key={i.id}
-                                        selected={i.selected}
-                                        nameTask={i.name}
+                                        selected={i.isComplete}
+                                        nameTask={i.body}
                                         actions={this.props.actionsBoard}
                                         fetchList={this.props.actions.fetchList}
                                     />
