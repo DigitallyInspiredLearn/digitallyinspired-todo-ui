@@ -29,7 +29,7 @@ const toDoList = [
 app.get("/api/todolists", (req, res) => res.json(toDoList));
 
 app.get("/api/todolists/:id", (req, res) => {
-  const list = toDoList.find(list => list.idList === req.params.id);
+  const list = toDoList.find(list => list.id === req.params.id);
   if (!list) {
     res.sendStatus(404)
   }
@@ -37,7 +37,7 @@ app.get("/api/todolists/:id", (req, res) => {
 });
 
 app.post("/api/todolists", (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   if (
       typeof req.body.todoListName !== "string" ||
       !Array.isArray(req.body.tasks) ||

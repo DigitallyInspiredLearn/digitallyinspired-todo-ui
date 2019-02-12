@@ -34,11 +34,11 @@ class Sidebar extends Component {
         const titleValue = title === '' ? 'New Title Dashboard' : title;
         const taskValue = taskName === '' ? 'new do-to' : taskName;
         this.props.addNewDashboard({
-            title: titleValue,
+            todoListName: titleValue,
             tasks: [{
                 id: `${idTask}`,
-                name: taskValue,
-                selected: false,
+                body: taskValue,
+                isComplete: false,
             }],
         });
     };
