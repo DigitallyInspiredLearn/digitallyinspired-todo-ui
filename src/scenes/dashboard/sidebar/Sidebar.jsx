@@ -9,6 +9,7 @@ class Sidebar extends Component {
         this.state = {
             titleName: '',
             taskName: '',
+            taskArray: [{taskName: ''}],
             displayStyle: 'none',
             animation: '',
             bool: false,
@@ -51,7 +52,7 @@ class Sidebar extends Component {
         taskName: e.target.value,
     });
 
-    handlerOnClisk = (e) => {
+    handlerOnClick = (e) => {
         e.target.blur();
         this.setState({
             titleName: e.target.value = '',
@@ -68,7 +69,7 @@ class Sidebar extends Component {
                         id="fon"
                         onClick={(e) => {
                             this.updateDisplaySidebar();
-                            this.handlerOnClisk(e);
+                            this.handlerOnClick(e);
                         }}
                     />
                     <aside id="addingArticle" style={{ animation: this.state.animation }}>
@@ -76,7 +77,7 @@ class Sidebar extends Component {
                             className="window-close"
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
-                                this.handlerOnClisk(e);
+                                this.handlerOnClick(e);
                             }}
                         >✕
                         </h4>
@@ -108,7 +109,7 @@ class Sidebar extends Component {
                                     this.state.taskName,
                                     `${randomInteger(1, 100000, this.props.toDoBoard)}`,
                                 );
-                                this.handlerOnClisk(e);
+                                this.handlerOnClick(e);
                             }}
                         >Add
                         </button>

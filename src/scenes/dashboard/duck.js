@@ -150,6 +150,7 @@ function* addTask(action) {
 }
 
 function* addList(action) {
+    // console.log(action);
     yield call(addDashboard, action.payload);
     yield call(getDashboard);
 }
@@ -175,5 +176,4 @@ export function* saga() {
     yield takeEvery(ADD_TASK, addTask);
     yield takeLatest(ON_BLURS, update);
     yield takeEvery(FETCH_LIST, fetchList);
-
 }
