@@ -3,7 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './scenes/header/Header';
 import VisibleTodoList from './scenes/dashboard/TodoListContainer';
 
-import AuthorizationPage from './scenes/authorization/Authorization';
+import MainPageLogin from './scenes/login/MainPageLogin';
+import Registration from './scenes/login/registration/RegistrationContainer'
 import OneList from './scenes/list/OneList';
 
 const App = () => (
@@ -11,9 +12,10 @@ const App = () => (
         <Header />
         <Switch>
             <Route path="/lists" component={VisibleTodoList} />
-            <Route path="/aut" component={AuthorizationPage} />
+            <Route path="/main" component={MainPageLogin} />
+            <Route path="/registration" component={Registration} />
             <Route path="/list/:id" component={OneList} />
-            <Redirect to="/aut" />
+            <Redirect to="/main" />
         </Switch>
     </div>
 );
