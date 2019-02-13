@@ -12,7 +12,7 @@
 }
 
 #header{
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     padding: 10px;
     height: auto;
@@ -21,8 +21,33 @@
 
 .download {
     margin-right: 5px;
-    margin-top: 20px;
 }
+
+.back {
+    color: black;
+    float: left;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: 10px;
+
+}
+
+.deleteList, .download {
+    color: black;
+    z-index: 2;
+    float: right;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.download {
+    margin-top: 10px;
+}
+
+.deleteList {
+    margin-top: 8px;
+}
+
 
 input[placeholder='Search to-do']{
     width: 90%;
