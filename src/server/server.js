@@ -86,9 +86,11 @@ app.post('/api/auth/login', (req, res) => {
             }
         });
         if (status) {
-            res.sendStatus(200).send('Success!');
+            // res.send('POST request to the homepage');
+            res.sendStatus(200).send('success');
+            // res.redirect('/api/todolists');
         } else {
-            res.sendStatus(400);
+            res.status(404).send('Sorry, we cannot find that!');
         }
     }
 });
