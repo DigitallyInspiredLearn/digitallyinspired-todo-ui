@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import './styleList.css';
 import ReactDOMServer from 'react-dom/server';
-// import jsPDF from 'jspdf';
-import {Link} from 'react-router-dom'
-import { bindActionCreators, compose } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { actions } from './duck';
-import { actions as actionsBoard } from '../dashboard/duck';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import Task from '../task/Task';
 import randomInteger from '../../config/helper';
+import { Link } from 'react-router-dom'
 
-class OneList extends Component {
+export class OneList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -135,33 +129,3 @@ class OneList extends Component {
         );
     }
 }
-
-const mapStateToProps = state => (
-    {
-        data: state.list.data,
-        todo: state.dashboard.toDoBoard,
-    }
-);
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({
-        fetchList: actions.fetchList,
-    }, dispatch),
-    actionsBoard: bindActionCreators({
-        updateTitleDashboard: actionsBoard.updateTitleDashboard,
-        deleteDashboard: actionsBoard.deleteDashboard,
-        deleteTask: actionsBoard.deleteTask,
-        addTask: actionsBoard.addTask,
-        updateCheckbox: actionsBoard.updateCheckbox,
-        updateTaskName: actionsBoard.updateTaskName,
-        onBlurs: actionsBoard.onBlurs,
-    }, dispatch),
-});
-
-export default compose(
-    withRouter,
-    connect(
-        mapStateToProps,
-        mapDispatchToProps,
-    ),
-)(OneList);
