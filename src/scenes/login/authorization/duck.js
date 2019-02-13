@@ -13,10 +13,9 @@ export const actions = {
 function* authorization(action) {
     try {
         yield call(authorizationApi(action.payload));
-    }catch (error) {
+    } catch (error) {
         // console.error(error)
     }
-
 }
 
 export function* saga() {

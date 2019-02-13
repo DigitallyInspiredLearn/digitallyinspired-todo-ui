@@ -33,16 +33,27 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.(png|jpg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {limit: 8192 },
+                }]
+            },
         ],
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './assets/index.html',
-            inject: 'body',
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-    ],
-    resolve: {
-        extensions: ['.js', '.jsx'],
-    },
-};
+plugins: [
+    new HtmlWebpackPlugin({
+        template: './assets/index.html',
+        inject: 'body',
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+],
+    resolve
+:
+{
+    extensions: ['.js', '.jsx'],
+}
+,
+}
+;

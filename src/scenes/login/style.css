@@ -12,13 +12,14 @@
 .navForm{
     width: 98%;
 }
-.right, .description{
+.right{
     margin-bottom: 5px;
-    width: 95%;
+    width: 98%;
     height: auto;
 }
 .description{
     margin:  5px;
+    width: 95%;
 }
 .description,form, .href{
     background: white;

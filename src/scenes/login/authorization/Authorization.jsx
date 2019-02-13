@@ -1,19 +1,19 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import todo from '../todo.png';
-
+// import todo from '../todo.png';
+const IMG = require('../todo.png');
 class Authorization extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            password: '',
+        this.state = {
             login: '',
-        }
+            password: '',
+        };
     }
 
-    onChangePassword = (e) => this.setState({ password: e.target.value });
+    onChangeLogin = e => this.setState({ login: e.target.value });
 
-    onChangeLogin = (e) => this.setState({ login: e.target.value });
+    onChangePassword = e => this.setState({ password: e.target.value });
 
     render() {
         return (
@@ -27,7 +27,7 @@ class Authorization extends Component {
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
-                                onChange={this.onChangePassword}
+                                onChange={this.onChangeLogin}
                                 required
                             />
                         </div>
@@ -37,7 +37,7 @@ class Authorization extends Component {
                                 name="passEx"
                                 placeholder="Enter your password"
                                 className="form-control"
-                                onChange={this.onChangeLogin}
+                                onChange={this.onChangePassword}
                                 required
                             />
                         </div>
@@ -45,15 +45,15 @@ class Authorization extends Component {
                             // type="submit"
                             // name="enterEx"
                             className="btn btn-success form-control enter"
-                            style={{width: '95%'}}
+                            style={{ width: '95%' }}
                             onClick={() => this.props.actions.authorization({
-                                password: this.state.password,
                                 usernameOrEmail: this.state.login,
+                                password: this.state.password,
                             })}
                         >ENTER
                         </p>
                     </form>
-                    <img src={todo} alt="todo" className="todo" />
+                    <img src={IMG} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
                         <Link to="/main/reg">
