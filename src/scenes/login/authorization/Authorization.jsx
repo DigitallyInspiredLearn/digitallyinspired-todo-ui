@@ -18,7 +18,7 @@ class Authorization extends Component {
     render() {
         return (
             <div className="right">
-                <nav>
+                <nav className='navForm'>
                     <form action="" method="post">
                         <h2>Sign in</h2>
                         <div className="enterEmail enterInf">
@@ -56,7 +56,7 @@ class Authorization extends Component {
                     <img src={todo} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
-                        <Link to="/registration">
+                        <Link to="/main/reg">
                             <button type="button" className="registration navBtn">Registration</button>
                         </Link>
                     </div>

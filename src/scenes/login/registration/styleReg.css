@@ -1,46 +1,27 @@
-#regDiv {
-    display: flex;
-    flex-direction: row;
+#regDiv{
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
 }
-
 .enter:disabled {
     background-color: darkgray;
 }
 
 .enterInf {
     border-bottom: 1px solid gray;
-    /*margin-left: 10px;*/
-    /*width: 95%;*/
 }
 
-form {
-    margin-top: 10px;
+@media (min-width: 500px) {
+    #regDiv{
+        margin-top: 0;
+    }
 }
 
 @media (min-width: 700px) {
-
-    #regDiv {
-        display: flex;
-        flex-direction: row;
-        margin-left: 40px;
-        margin-right: 20px;
-    }
-
-    .background {
-        margin-top: 10px;
+    #regDiv{
         width: 30%;
-        height: auto;
-        background: repeating-radial-gradient(closest-side at 25px 35px, lightgrey 15%, gray 40%);
-        background-size: 6px 6px;
-
     }
-
-    .L {
-        border-radius: 30px 0 0 30px;
-    }
-
-    .R {
-        border-radius: 0 30px 30px 0;
+    .bg{
+        width: 95%;
     }
 }

@@ -9,10 +9,12 @@
     flex-direction: column-reverse;
     margin: 5px;
 }
-
+.navForm{
+    width: 98%;
+}
 .right, .description{
     margin-bottom: 5px;
-    width: auto;
+    width: 95%;
     height: auto;
 }
 .description{
