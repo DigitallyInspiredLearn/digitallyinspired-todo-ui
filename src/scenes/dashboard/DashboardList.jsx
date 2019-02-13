@@ -16,9 +16,10 @@ class DashboardList extends Component {
                             ? <NullLenghtDashboard />
                             : this.props.toDoBoard.map(i => (
                                 <Dashboard
-                                    idList={i.idList}
-                                    key={i.idList}
-                                    title={i.title}
+                                    userOwnerId={i.userOwnerId}
+                                    idList={i.id}
+                                    key={i.id}
+                                    title={i.todoListName}
                                     tasks={i.tasks}
                                     randomInteger={randomInteger}
                                     toDoBoard={this.props.toDoBoard}

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
-// import randomInteger from '../../../config/helper';
+
 const uuid = require('uuid');
 
 class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
+            todoListName: '',
             displayStyle: 'none',
-            tasks: [{ id: uuid(), name: '', selected: false }],
+            tasks: [{ body: '', id: uuid(), isComplete: false }],
             animation: '',
             bool: false,
         };
@@ -33,23 +33,23 @@ class Sidebar extends Component {
 
     addBoard = (title, tasks) => {
         const titleValue = title === '' ? 'Dashboard' : title;
-        const taskValue = tasks === {} ? { id: uuid(), name: 'ex', selected: false } : tasks;
+        const taskValue = tasks === {} ? { body: 'ex', id: uuid(), isComplete: false } : tasks;
         // console.log(titleValue)
         // console.log(taskValue)
         this.props.addNewDashboard({
-            title: titleValue,
+            todoListName: titleValue,
             tasks: taskValue,
         });
     };
 
     changeValuetitle = e => this.setState({
-        title: e.target.value,
+        todoListName: e.target.value,
     });
 
     changeValuename = i => (e) => {
         const newTaskHolders = this.state.tasks.map((task, sidx) => {
             if (i !== sidx) return task;
-            return { ...task, name: e.target.value };
+            return { ...task, body: e.target.value };
         });
         this.setState({ tasks: newTaskHolders });
     }
@@ -57,14 +57,14 @@ class Sidebar extends Component {
     handlerOnClick = (e) => {
         e.target.blur();
         this.setState({
-            title: '',
-            tasks: [{ name: '' }],
+            todoListName: '',
+            tasks: [{ body: '' }],
         });
     };
 
     handleAddInputTask = () => {
         this.setState({
-            tasks: this.state.tasks.concat([{ id: uuid(), name: '', selected: false }]),
+            tasks: this.state.tasks.concat([{ body: '', id: uuid(), isComplete: false }]),
         });
     };
 
@@ -99,7 +99,7 @@ class Sidebar extends Component {
                             type="text"
                             placeholder="Add title"
                             className="inputTitle"
-                            value={this.state.title}
+                            value={this.state.todoListName}
                             onChange={this.changeValuetitle}
                         />
                         <div className="taskList">
@@ -135,7 +135,7 @@ class Sidebar extends Component {
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
                                 this.addBoard(
-                                    this.state.title,
+                                    this.state.todoListName,
                                     this.state.tasks,
                                 );
                                 this.handlerOnClick(e);

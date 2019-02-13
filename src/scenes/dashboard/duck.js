@@ -13,7 +13,7 @@ export const FETCH_ONE_DASHBOARD_SUCCESS = 'FETCH_ONE_DASHBOARD_SUCCESS';
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
 
-export const ADD_DASHBOARD = 'ADD_DASHBOARD ';
+export const ADD_DASHBOARD = 'ADD_DASHBOARD';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
 export const UPDATE_TITLE_DASHBOARD = 'UPDATE_TITLE_DASHBOARD';
 export const ON_BLURS = 'ON_BLURS';
@@ -49,7 +49,7 @@ export const reducer = handleActions({
 
     [FETCH_ONE_DASHBOARD_SUCCESS]: (state, action) => ({
         ...state,
-        toDoBoard: state.toDoBoard.map(i => (i.idList === action.payload.idBoard ? i : false)),
+        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idBoard ? i : false)),
     }),
 
     [FETCH_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
@@ -57,30 +57,31 @@ export const reducer = handleActions({
     [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
         ...state,
         toDoBoard: state.toDoBoard.map((e) => {
-            if (e.idList === action.payload.id) {
-                return { ...e, title: action.payload.newTitle };
+            if (e.id === action.payload.id) {
+                return { ...e, todoListName: action.payload.newTitle };
             }
             return e;
         }),
     }),
+
     [UPDATE_CHECKBOX]: (state, action) => Object.assign({}, state, {
-        toDoBoard: state.toDoBoard.map(i => (i.idList === action.payload.idDashboard
+        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard
             ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
-                    ? { ...e, selected: !action.payload.selected }
+                    ? { ...e, isComplete: !action.payload.selected }
                     : e)),
             } : i)),
     }),
 
     [UPDATE_TASK_NAME]: (state, action) => ({
         ...state,
-        toDoBoard: state.toDoBoard.map(i => (i.idList === action.payload.idDashboard
+        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard
             ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
                     ? {
-                        ...e, name: action.payload.newTaskName,
+                        ...e, body: action.payload.newTaskName,
                     } : e)),
             } : i)),
     }),
@@ -99,7 +100,7 @@ function* deleteDashboard(action) {
 function* updateSelectedTask(action) {
     yield delay(1000);
     const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.idList === action.payload.idDashboard);
+    const list = todo.find(i => i.id === action.payload.idDashboard);
     yield call(
         updateList,
         action.payload.idDashboard,
@@ -107,7 +108,7 @@ function* updateSelectedTask(action) {
             ...list,
             tasks: list.tasks.map(e => (e.id === action.payload.idTask ? {
                 ...e,
-                selected: !action.payload.selected,
+                isComplete: !action.payload.selected,
             } : e)),
         },
     );
@@ -116,7 +117,7 @@ function* updateSelectedTask(action) {
 
 function* deleteTask(action) {
     const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.idList === action.payload.idDashboard);
+    const list = todo.find(i => i.id === action.payload.idDashboard);
     yield call(
         updateList,
         action.payload.idDashboard,
@@ -130,7 +131,7 @@ function* deleteTask(action) {
 
 function* addTask(action) {
     const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.idList === action.payload.idDashboard);
+    const list = todo.find(i => i.id === action.payload.idDashboard);
     yield call(
         updateList,
         action.payload.idDashboard,
@@ -141,8 +142,8 @@ function* addTask(action) {
                     ...list.tasks,
                     {
                         id: action.payload.idTask,
-                        selected: false,
-                        name: action.payload.nameTask,
+                        isComplete: false,
+                        body: action.payload.nameTask,
                     },
                 ],
         },
@@ -151,15 +152,14 @@ function* addTask(action) {
 }
 
 function* addList(action) {
-    console.log(action);
     yield call(addDashboard, action.payload);
     yield call(getDashboard);
 }
 
 function* update(action) {
-    const list = yield select(state => state.dashboard.toDoBoard.find(l => l.idList === action.payload.id));
-    list.title = list.title === '' ? 'New Title' : list.title;
-    list.tasks.map(task => task.name = task.name === '' ? 'to-do' : task.name);
+    const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
+    list.todoListName = list.todoListName === '' ? 'New Title' : list.todoListName;
+    list.tasks.map(task => task.body = task.body === '' ? 'to-do' : task.body);
     yield call(updateList, action.payload.id, list);
 }
 

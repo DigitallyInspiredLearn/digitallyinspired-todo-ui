@@ -48,7 +48,7 @@
 }
 
 .enterEmail:hover:before, .enterPass:hover:before{
-    width: 99%;
+    width: 100%;
 }
 
 form{
@@ -91,17 +91,19 @@ h2{
 .forgetPass{
     margin-bottom: 15px;
 }
-.forgetPass, .registration{
+.navBtn{
     color: black;
     background-color: whitesmoke;
     margin-top: 0;
-    width: auto;
+    width: 100%;
+    padding: 5px;
+    border: 0;
+    border-radius: 5px;
 }
 
-.forgetPass:hover, .registration:hover{
+.navBtn:hover{
     color: white;
     background: black;
-    border-radius: 5px;
 }
 .bg{
     display: none;
