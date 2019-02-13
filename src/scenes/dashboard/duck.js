@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createAction, handleActions } from 'redux-actions';
 import {
     takeEvery, call, put, select, takeLatest, delay,
@@ -12,7 +13,7 @@ export const FETCH_ONE_DASHBOARD_SUCCESS = 'FETCH_ONE_DASHBOARD_SUCCESS';
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
 
-export const ADD_DASHBOARD = 'ADD_DASHBOARD ';
+export const ADD_DASHBOARD = 'ADD_DASHBOARD';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
 export const UPDATE_TITLE_DASHBOARD = 'UPDATE_TITLE_DASHBOARD';
 export const ON_BLURS = 'ON_BLURS';
@@ -176,5 +177,4 @@ export function* saga() {
     yield takeEvery(ADD_TASK, addTask);
     yield takeLatest(ON_BLURS, update);
     yield takeEvery(FETCH_LIST, fetchList);
-
 }
