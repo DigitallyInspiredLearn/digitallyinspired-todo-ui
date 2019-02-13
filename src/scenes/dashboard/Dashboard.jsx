@@ -13,8 +13,8 @@ export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTa
             idTask={i.id}
             idList={props.idList}
             key={i.id}
-            selected={i.selected}
-            nameTask={i.name}
+            selected={i.isComplete}
+            nameTask={i.body}
             actions={props.actions}
         />
     )));
