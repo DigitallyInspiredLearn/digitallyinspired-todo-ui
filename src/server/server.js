@@ -3,7 +3,7 @@
 const express = require('express');
 const uuid = require('uuid');
 const cors = require('cors');
-
+var randtoken = require('rand-token');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -87,7 +87,9 @@ app.post('/api/auth/login', (req, res) => {
         });
         if (status) {
             // res.send('POST request to the homepage');
-            res.sendStatus(200).send('success');
+            const token = randtoken.generate(16);
+            res.status(200).send(token);
+            // res.send("SUCCESS!");
             // res.redirect('/api/todolists');
         } else {
             res.status(404).send('Sorry, we cannot find that!');

@@ -8,10 +8,15 @@ export const registration = (newUser) => {
 };
 
 export const authorization = (userInfo) => {
-    console.log(userInfo);
+    // console.log(userInfo);
     axios.post('/api/auth/login', userInfo)
         .then((response) => {
-            console.log(response.data);
+            if (response.status === 200) {
+                console.log('Successful authorization!');
+                console.log('token:', response.data);
+            } else if (response.status === 404) {
+                console.log('Failed authorization');
+            }
         });
 };
 
