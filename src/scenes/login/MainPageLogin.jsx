@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import Authorization from './authorization/AutorizationCortainer'
+import Authorization from '../login/authorization/AutorizationCortainer'
 function MainPageLogin() {
     return (
         <div className="container" style={{ alignContent: 'start' }}>

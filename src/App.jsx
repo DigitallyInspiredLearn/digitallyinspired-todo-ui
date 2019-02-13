@@ -5,7 +5,7 @@ import VisibleTodoList from './scenes/dashboard/TodoListContainer';
 
 import MainPageLogin from './scenes/login/MainPageLogin';
 import Registration from './scenes/login/registration/RegistrationContainer'
-import OneList from './scenes/list/OneList';
+import OneListContainer from "./scenes/list/OneListContainer";
 
 const App = () => (
     <div className="App">
@@ -14,7 +14,7 @@ const App = () => (
             <Route path="/lists" component={VisibleTodoList} />
             <Route path="/main" component={MainPageLogin} />
             <Route path="/registration" component={Registration} />
-            <Route path="/list/:id" component={OneList} />
+            <Route path="/list/:id" component={OneListContainer} />
             <Redirect to="/main" />
         </Switch>
     </div>
