@@ -62,13 +62,13 @@ class Sidebar extends Component {
         });
     };
 
-    handleAddShareholder = () => {
+    handleAddInputTask = () => {
         this.setState({
             tasks: this.state.tasks.concat([{ id: uuid(), name: '', selected: false }]),
         });
     };
 
-    handleRemoveShareholder = i => () => {
+    handleRemoveInputTask = i => () => {
         this.setState({
             tasks: this.state.tasks.filter((s, sidx) => i !== sidx),
         });
@@ -114,7 +114,7 @@ class Sidebar extends Component {
                                     />
                                     <button
                                         type="button"
-                                        onClick={this.handleRemoveShareholder(i)}
+                                        onClick={this.handleRemoveInputTask(i)}
                                         className="small"
                                     >
                                         -
@@ -124,10 +124,10 @@ class Sidebar extends Component {
                         </div>
                         <button
                             type="button"
-                            onClick={this.handleAddShareholder}
+                            onClick={this.handleAddInputTask}
                             className="btn"
                         >
-                            Add Shareholder
+                            Add Another Task
                         </button>
                         <button
                             className="addListBtn"
