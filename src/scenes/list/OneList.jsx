@@ -67,7 +67,7 @@ export class OneList extends Component {
                         type="text"
                         value={this.props.data.todoListName}
                         className="titleName"
-                        style={{fontSize: '40px', marginLeft: '20px'}}
+                        style={{fontSize: '40px', marginLeft: '10px'}}
                         onChange={e => this.props.actionsBoard.updateTitleDashboard({
                             id: this.props.data.id,
                             newTitle: e.target.value,
@@ -105,7 +105,7 @@ export class OneList extends Component {
                     </div>
                     <input
                         className="addNewTask"
-                        placeholder="add to-do"
+                        placeholder="Add to-do"
                         style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
                         value={this.state.valueNewTask}
                         onChange={this.changeValueNewTask}

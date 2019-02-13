@@ -13,8 +13,7 @@ section {
     margin: 5px;
     border-radius: 5px;
     padding: 5px;
-    height: 300px;
-    overflow: auto;
+    height: 450px;
     box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
 
 }
@@ -44,7 +43,7 @@ article:hover:before {
     color: black;
     font-weight: bold;
     border: 0;
-    margin: 8px 5px;
+    margin: 8px 20px;
     width: 93%;
     text-overflow: ellipsis;
 }
@@ -54,7 +53,7 @@ article:hover:before {
 }
 
 .deleteBoadr, .linkList {
-    color: gray;
+    color: black;
     margin: 5px;
     z-index: 2;
 }
@@ -66,13 +65,14 @@ article:hover:before {
 .taskLists {
     margin-bottom: 20px;
     margin-right: 3px;
-    overflow: inherit;
+    overflow: auto;
+    height: 325px;
 }
 
 .addNewTask {
     right: 5px;
-    left: 10px;
-    bottom: 5px;
-    width: 96%;
-    font-size: 16px;
+    left: 20px;
+    bottom: 10px;
+    width: 90%;
+    font-size: 20px;
 }

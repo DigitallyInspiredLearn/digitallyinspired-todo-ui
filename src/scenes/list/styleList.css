@@ -27,9 +27,7 @@
     color: black;
     float: left;
     cursor: pointer;
-    margin-left: 20px;
     margin-top: 10px;
-
 }
 
 .deleteList, .download {
@@ -65,6 +63,7 @@ h1{
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     margin: 5px;
     border-radius: 5px;
+    padding-left: 20px;
 }
 .searchTask{
     width: 97%;

@@ -28,11 +28,13 @@
     color:gray;
     margin-top: 2px;
     z-index: 5;
+    font-size: 20px;
 }
 .taskDiv{
     display: flex;
     width: 100%;
     flex-direction: row;
+    align-items: baseline;
 }
 
 .fa-check-square,.unselected{
@@ -44,18 +46,21 @@
 }
 
 .unselected{
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     background-color: white;
     border-radius: 3px;
     border: gray solid 2px;
 }
-
+.fa-check-square {
+    font-size: 21px;
+}
 .taskName{
-    font-size: 15px;
+    font-size: 20px;
     width: 100%;
     text-overflow: ellipsis;
-    z-index: 5
+    z-index: 5;
+    margin-left: 5px;
 }
 
 .taskName:focus{
