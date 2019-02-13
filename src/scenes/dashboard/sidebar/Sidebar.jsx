@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
+import plus from "../../../image/plus.PNG";
 
 const uuid = require('uuid');
 
@@ -50,7 +51,7 @@ class Sidebar extends Component {
             return { ...task, body: e.target.value };
         });
         this.setState({ tasks: newTaskHolders });
-    }
+    };
 
     handlerOnClick = (e) => {
         e.target.blur();
@@ -75,7 +76,13 @@ class Sidebar extends Component {
     render() {
         return (
             [
-                <div className="addNewArticleButton" onClick={this.updateDisplaySidebar}>+</div>,
+                <div className="plus" onClick={this.updateDisplaySidebar}>
+                    <img
+                        id="myBtn"
+                        src={plus}
+                        alt="Plus"
+                    />
+                </div>,
                 <div id="sidebar" style={{ display: this.state.displayStyle }}>
                     <div
                         id="fon"
@@ -85,14 +92,14 @@ class Sidebar extends Component {
                         }}
                     />
                     <aside id="addingArticle" style={{ animation: this.state.animation }}>
-                        <h4
+                        <span
                             className="window-close"
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
                                 this.handlerOnClick(e);
                             }}
-                        >✕
-                        </h4>
+                        >&times;
+                        </span>
                         <input
                             type="text"
                             placeholder="Add title"

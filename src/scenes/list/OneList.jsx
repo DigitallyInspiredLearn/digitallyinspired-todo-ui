@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './styleList.css';
 import ReactDOMServer from 'react-dom/server';
-// import jsPDF from 'jspdf';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import Task from '../task/Task';
 import randomInteger from '../../config/helper';
+import { Link } from 'react-router-dom'
 
-class OneList extends Component {
+export class OneList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,10 +32,42 @@ class OneList extends Component {
         return (
             <div id="list">
                 <div id="header">
+                    <span className="spList">
+                        <Link to='/lists'>
+                        <div
+                            className='back fa fa-arrow-left fa-2x'
+                        />
+                        </Link>
+                        <Link to='/lists'>
+                        <div
+                            className="deleteList fa fa-trash fa-2x"
+                            // id={this.props.data.idList}
+                            // onClick={() => this.props.actions.deleteDashboard(this.props.data.idList)}
+                        />
+                        </Link>
+                        <div
+                            className="download fa fa-download fa-2x"
+                            title="download"
+                            onClick={() => {
+                                const link = document.createElement('a');
+                                const file = new Blob(
+                                    [ReactDOMServer.renderToStaticMarkup(this.render())],
+                                    { type: 'text/html' },
+                                );
+                                link.href = URL.createObjectURL(file);
+                                link.download = 'List.html';
+                                link.click();
+                                // const pdf = new jsPDF();
+                                // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+                                // pdf.save('List.pdf');
+                            }}
+                        />
+                    </span>
                     <input
                         type="text"
                         value={this.props.data.todoListName}
                         className="titleName"
+                        style={{fontSize: '40px', marginLeft: '10px'}}
                         onChange={e => this.props.actionsBoard.updateTitleDashboard({
                             id: this.props.data.id,
                             newTitle: e.target.value,
@@ -47,23 +79,6 @@ class OneList extends Component {
                             this.props.actions.fetchList(this.props.match.params.id);
                         }}
                         onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
-                    />
-                    <div
-                        className="download fa fa-download fa-3x"
-                        title="download"
-                        onClick={() => {
-                            const link = document.createElement('a');
-                            const file = new Blob(
-                                [ReactDOMServer.renderToStaticMarkup(this.render())],
-                                { type: 'text/html' },
-                            );
-                            link.href = URL.createObjectURL(file);
-                            link.download = 'List.html';
-                            link.click();
-                            // const pdf = new jsPDF();
-                            // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-                            // pdf.save('List.pdf');
-                        }}
                     />
                 </div>
                 <div className="searchTask">
@@ -90,7 +105,7 @@ class OneList extends Component {
                     </div>
                     <input
                         className="addNewTask"
-                        placeholder="add to-do"
+                        placeholder="Add to-do"
                         style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
                         value={this.state.valueNewTask}
                         onChange={this.changeValueNewTask}
@@ -114,5 +129,3 @@ class OneList extends Component {
         );
     }
 }
-
-export default OneList
