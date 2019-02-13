@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
-import randomInteger from '../../../config/helper';
+
+const uuid = require('uuid');
 
 class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            titleName: '',
-            taskName: '',
+            todoListName: '',
             displayStyle: 'none',
+            tasks: [{ body: '', id: uuid(), isComplete: false }],
             animation: '',
             bool: false,
         };
@@ -30,32 +31,44 @@ class Sidebar extends Component {
         });
     };
 
-    addBoard = (title, idBoard, taskName, idTask) => {
-        const titleValue = title === '' ? 'New Title Dashboard' : title;
-        const taskValue = taskName === '' ? 'new do-to' : taskName;
+    addBoard = (title, tasks) => {
+        const titleValue = title === '' ? 'Dashboard' : title;
+        const taskValue = tasks === {} ? { body: 'ex', id: uuid(), isComplete: false } : tasks;
         this.props.addNewDashboard({
             todoListName: titleValue,
-            tasks: [{
-                id: `${idTask}`,
-                body: taskValue,
-                isComplete: false,
-            }],
+            tasks: taskValue,
         });
     };
 
-    changeValueTitleName = e => this.setState({
-        titleName: e.target.value,
+    changeValueTitle = e => this.setState({
+        todoListName: e.target.value,
     });
 
-    changeValueTaskName = e => this.setState({
-        taskName: e.target.value,
-    });
+    changeValueName = i => (e) => {
+        const newTaskHolders = this.state.tasks.map((task, sidx) => {
+            if (i !== sidx) return task;
+            return { ...task, body: e.target.value };
+        });
+        this.setState({ tasks: newTaskHolders });
+    }
 
-    handlerOnClisk = (e) => {
+    handlerOnClick = (e) => {
         e.target.blur();
         this.setState({
-            titleName: e.target.value = '',
-            taskName: e.target.value = '',
+            todoListName: '',
+            tasks: [{ body: '' }],
+        });
+    };
+
+    handleAddInputTask = () => {
+        this.setState({
+            tasks: this.state.tasks.concat([{ body: '', id: uuid(), isComplete: false }]),
+        });
+    };
+
+    handleRemoveInputTask = i => () => {
+        this.setState({
+            tasks: this.state.tasks.filter((s, sidx) => i !== sidx),
         });
     };
 
@@ -68,7 +81,7 @@ class Sidebar extends Component {
                         id="fon"
                         onClick={(e) => {
                             this.updateDisplaySidebar();
-                            this.handlerOnClisk(e);
+                            this.handlerOnClick(e);
                         }}
                     />
                     <aside id="addingArticle" style={{ animation: this.state.animation }}>
@@ -76,39 +89,54 @@ class Sidebar extends Component {
                             className="window-close"
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
-                                this.handlerOnClisk(e);
+                                this.handlerOnClick(e);
                             }}
                         >✕
                         </h4>
                         <input
                             type="text"
                             placeholder="Add title"
-                            id="newTitle"
-                            defaultValue={this.state.titleName}
-                            onChange={this.changeValueTitleName}
+                            className="inputTitle"
+                            value={this.state.todoListName}
+                            onChange={this.changeValueTitle}
                         />
                         <div className="taskList">
-                            <input
-                                type="text"
-                                placeholder=" Add to-do"
-                                className="newTask"
-                                id="mainInput"
-                                defaultValue={this.state.taskName}
-                                onInput={this.changeValueTaskName}
-                            />
+                            {this.state.tasks.map((task, i) => (
+                                <div className="addTask">
+                                    <input
+                                        type="text"
+                                        className="inputTask"
+                                        placeholder={`Add to-do #${i + 1}`}
+                                        value={task.name}
+                                        onChange={this.changeValueName(i)}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={this.handleRemoveInputTask(i)}
+                                        className="small"
+                                    >
+                                        -
+                                    </button>
+                                </div>
+                            ))}
                         </div>
+                        <button
+                            type="button"
+                            onClick={this.handleAddInputTask}
+                            className="btn"
+                        >
+                            Add Another Task
+                        </button>
                         <button
                             className="addListBtn"
                             type="submit"
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
                                 this.addBoard(
-                                    this.state.titleName,
-                                    `${randomInteger(1, 100000, this.props.toDoBoard)}`,
-                                    this.state.taskName,
-                                    `${randomInteger(1, 100000, this.props.toDoBoard)}`,
+                                    this.state.todoListName,
+                                    this.state.tasks,
                                 );
-                                this.handlerOnClisk(e);
+                                this.handlerOnClick(e);
                             }}
                         >Add
                         </button>
