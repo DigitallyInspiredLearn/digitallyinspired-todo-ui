@@ -9,7 +9,7 @@ export const registration = (newUser) => {
 
 export const authorization = (userInfo) => {
     console.log(userInfo);
-    // axios.post('/api/auth/login', userInfo);
+    axios.post('/api/auth/login', userInfo);
 };
 
 export const getList = () => axios.get('/api/todolists');

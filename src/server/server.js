@@ -25,6 +25,12 @@ const toDoList = [
         ],
         todoListName: 'My to do list',
         userOwnerId: uuid(),
+        users: [
+            {
+                login: 'user',
+                password: '12345',
+            },
+        ],
     },
 ];
 
@@ -60,6 +66,30 @@ app.post('/api/todolists', (req, res) => {
         };
         toDoList.push(newList);
         res.json(newList);
+    }
+});
+
+app.post('/api/auth/login', (req, res) => {
+    console.log('=== auth ===');
+    console.log(req.body);
+    let status;
+    if (typeof req.body.usernameOrEmail !== 'string'
+        || typeof req.body.password !== 'string') {
+        res.sendStatus(400);
+    } else {
+        toDoList.forEach((item) => {
+            if (item.users.some(user => user.login === req.body.usernameOrEmail
+                && user.password === req.body.password)) {
+                status = true;
+            } else {
+                status = false;
+            }
+        });
+        if (status) {
+            res.sendStatus(200).send('Success!');
+        } else {
+            res.sendStatus(400);
+        }
     }
 });
 
