@@ -34,19 +34,17 @@ class Sidebar extends Component {
     addBoard = (title, tasks) => {
         const titleValue = title === '' ? 'Dashboard' : title;
         const taskValue = tasks === {} ? { body: 'ex', id: uuid(), isComplete: false } : tasks;
-        // console.log(titleValue)
-        // console.log(taskValue)
         this.props.addNewDashboard({
             todoListName: titleValue,
             tasks: taskValue,
         });
     };
 
-    changeValuetitle = e => this.setState({
+    changeValueTitle = e => this.setState({
         todoListName: e.target.value,
     });
 
-    changeValuename = i => (e) => {
+    changeValueName = i => (e) => {
         const newTaskHolders = this.state.tasks.map((task, sidx) => {
             if (i !== sidx) return task;
             return { ...task, body: e.target.value };
@@ -100,7 +98,7 @@ class Sidebar extends Component {
                             placeholder="Add title"
                             className="inputTitle"
                             value={this.state.todoListName}
-                            onChange={this.changeValuetitle}
+                            onChange={this.changeValueTitle}
                         />
                         <div className="taskList">
                             {this.state.tasks.map((task, i) => (
@@ -110,7 +108,7 @@ class Sidebar extends Component {
                                         className="inputTask"
                                         placeholder={`Add to-do #${i + 1}`}
                                         value={task.name}
-                                        onChange={this.changeValuename(i)}
+                                        onChange={this.changeValueName(i)}
                                     />
                                     <button
                                         type="button"
