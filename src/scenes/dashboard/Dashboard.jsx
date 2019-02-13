@@ -76,7 +76,7 @@ export class Dashboard extends Component {
                 </div>
                 <input
                     className="addNewTask"
-                    placeholder="add to-do"
+                    placeholder="Add to-do"
                     style={{ outline: 'none' }}
                     value={this.state.valueNewTask}
                     onChange={this.changeValueNewTask}

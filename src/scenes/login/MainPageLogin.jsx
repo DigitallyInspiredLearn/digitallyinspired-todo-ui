@@ -1,9 +1,8 @@
 import React from 'react';
 import './style.css';
-import Authorization from './authorization/AutorizationCortainer'
-import Registration from "./registration/RegistrationContainer";
 import { Switch, Route, Redirect } from 'react-router-dom';
-import todo from './todo.png'
+import Authorization from './authorization/AutorizationCortainer';
+import Registration from "./registration/RegistrationContainer";
 
 function MainPageLogin() {
     return (

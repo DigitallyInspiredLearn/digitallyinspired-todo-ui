@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './scenes/header/Header';
 import VisibleTodoList from './scenes/dashboard/TodoListContainer';
 import MainPageLogin from './scenes/login/MainPageLogin';
-import OneList from './scenes/list/OneList';
+import OneList from "./scenes/list/OneListContainer";
 
 const App = () => (
     <div className="App">
