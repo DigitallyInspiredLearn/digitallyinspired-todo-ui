@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import todo from '../todo.png';
+// import todo from '../todo.png';
+
+const IMG = require('../todo.png');
 
 class Authorization extends Component {
     constructor(props) {
@@ -18,7 +20,7 @@ class Authorization extends Component {
     render() {
         return (
             <div className="right">
-                <nav>
+                <nav className="navForm">
                     <form action="" method="post">
                         <h2>Sign in</h2>
                         <div className="enterEmail enterInf">
@@ -53,10 +55,10 @@ class Authorization extends Component {
                         >ENTER
                         </p>
                     </form>
-                    <img src={todo} alt="todo" className="todo" />
+                    <img src={IMG} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
-                        <Link to="/registration">
+                        <Link to="/main/reg">
                             <button type="button" className="registration navBtn">Registration</button>
                         </Link>
                     </div>

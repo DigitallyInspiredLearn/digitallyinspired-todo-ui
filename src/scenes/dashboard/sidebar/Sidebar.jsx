@@ -78,7 +78,7 @@ class Sidebar extends Component {
             [
                 <div className="plus" onClick={this.updateDisplaySidebar}>
                     <img
-                        id="myBtn"
+                        id="myBtn "
                         src={plus}
                         alt="Plus"
                     />

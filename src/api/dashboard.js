@@ -10,11 +10,9 @@ export const registration = (newUser) => {
 export const authorization = (userInfo) => {
     console.log(userInfo);
     axios.post('/api/auth/login', userInfo)
-    .then((response) => {
-        console.log(response.data);
-        if(response.data.code == 200){
-          console.log("Login successfull");
-          return (<Redirect to="/Game.js" />)
+        .then((response) => {
+            console.log(response.data);
+        });
 };
 
 export const getList = () => axios.get('/api/todolists');
