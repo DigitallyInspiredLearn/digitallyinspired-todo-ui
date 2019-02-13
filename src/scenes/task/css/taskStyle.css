@@ -10,7 +10,7 @@
     bottom: 0;
     content: "";
     height: 30px;
-    width: 0%;
+    width: 0;
     background-color: whitesmoke;
     transition: width 0.2s ease-in-out;
     opacity: 0.4;

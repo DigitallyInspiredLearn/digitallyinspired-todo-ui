@@ -1,4 +1,4 @@
-# ****# Server for the to-do list app
+# Server for the to-do list app
 
 ## Prerequisities
 

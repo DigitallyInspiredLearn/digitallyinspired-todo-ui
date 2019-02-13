@@ -124,17 +124,20 @@ div > div, #fon, #inputs, #addingArticle {
     background-color: #999;
 }
 
+#myBtn, .plus{
+    height: 60px;
+}
 .plus {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     position: fixed;
-    right: 10px;
-    top: 690px;
-    bottom: auto;
+    z-index: 20;
     cursor: pointer;
+    right: 0;
+    bottom: 0;
 }
 
 .plus img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 }

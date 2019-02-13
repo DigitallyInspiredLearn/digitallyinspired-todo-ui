@@ -15,7 +15,7 @@ function MainPageLogin() {
                 <Switch>
                     <Route path="/main/aut" component={Authorization} />
                     <Route path="/main/reg" component={Registration} />
-                    <Redirect to="/main/reg" />
+                    <Redirect to="/main/aut" />
                 </Switch>
             </div>
         </div>
