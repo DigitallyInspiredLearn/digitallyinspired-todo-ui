@@ -93,8 +93,25 @@ app.post('/api/auth/login', (req, res) => {
             // res.send("SUCCESS!");
             // res.redirect('/api/todolists');
         } else {
-            res.status(404).send('Sorry, we cannot find that!');
+            res.sendStatus(401);
         }
+    }
+});
+
+app.post('/api/auth/register', (req, res) => {
+    console.log('=== registration ===');
+    console.log(req.body);
+    if (toDoList.some(item => item.users.some(user => user.login === req.body.username)) === true) {
+        res.sendStatus(400);
+    } else {
+        const newUser = {
+            login: req.body.username,
+            password: req.body.password,
+        };
+        // console.log(newUser);
+        toDoList.forEach(item => item.users.push(newUser));
+        // toDoList.forEach(item => console.log(item.users));
+        res.sendStatus(201);
     }
 });
 
