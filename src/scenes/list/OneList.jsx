@@ -6,7 +6,7 @@ import Task from '../task/Task';
 import randomInteger from '../../config/helper';
 import { Link } from 'react-router-dom'
 
-export class OneList extends Component {
+ export class OneList extends Component {
     constructor(props) {
         super(props);
         this.state = {
