@@ -3,18 +3,23 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8080';
 
 export const registration = (newUser) => {
-    console.log(newUser);
-    // axios.post('/api/auth/register', newUser);
+    axios.post('/api/auth/register', newUser)
+        .then((response) => {
+            if (response.status === 201) {
+                console.log('Successful registration!');
+            } else {
+                console.log('Failed registration');
+            }
+        });
 };
 
 export const authorization = (userInfo) => {
-    // console.log(userInfo);
     axios.post('/api/auth/login', userInfo)
         .then((response) => {
             if (response.status === 200) {
                 console.log('Successful authorization!');
                 console.log('token:', response.data);
-            } else if (response.status === 404 || response.status === 400) {
+            } else if (response.status === 404 || response.status === 401) {
                 console.log('Failed authorization');
             }
         });
