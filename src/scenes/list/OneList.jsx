@@ -87,7 +87,14 @@ export class OneList extends Component {
                     />
                 </div>
                 <div className="searchTask">
-                    <input type="text" placeholder="Search to-do"/>
+                    <input
+                        type="text"
+                        placeholder="Search to-do"
+                        onChange={(e) => this.props.actions.changeSearch({
+                            idDashboard: this.props.match.params.id,
+                            search: e.target.value
+                        })}
+                    />
                     <div className="btnSearch fa fa-search fa-2x"/>
                 </div>
                 <article className="blockTask">
