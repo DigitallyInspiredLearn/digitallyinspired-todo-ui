@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-// import todo from '../todo.png';
-
-const IMG = require('../todo.png');
-=======
->>>>>>> a6b6d56287d1bec54ff574c3962eb7543c5067ac
 
 class Authorization extends Component {
     constructor(props) {
