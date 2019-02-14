@@ -9,4 +9,7 @@
     .taskLists{
         position: relative;
     }
+    #searchTask{
+margin-left: 32px;
+    }
 }

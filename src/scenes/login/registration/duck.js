@@ -13,9 +13,7 @@ export const actions = {
 function* registration(action) {
     try {
         yield call(registrationApi(action.payload));
-    } catch (e) {
-        // console.log(e);
-    }
+    } catch (e) {}
 }
 
 export function* saga() {

@@ -3,7 +3,6 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8080';
 
 export const registration = (newUser) => {
-    // console.log(newUser);
     axios.post('/api/auth/register', newUser)
         .then((response) => {
             if (response.status === 201) {
@@ -15,7 +14,6 @@ export const registration = (newUser) => {
 };
 
 export const authorization = (userInfo) => {
-    // console.log(userInfo);
     axios.post('/api/auth/login', userInfo)
         .then((response) => {
             if (response.status === 200) {

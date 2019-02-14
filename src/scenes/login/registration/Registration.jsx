@@ -119,7 +119,7 @@ class Registration extends Component {
                                 password: this.state.password1,
                                 username: this.state.username,
                             })}
-                            disabled={this.state.disabled}
+                            // disabled={this.state.disabled}
                         >GO
                         </p>
                     </form>
