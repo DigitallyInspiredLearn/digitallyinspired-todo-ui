@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 // import todo from '../todo.png';
 
 const IMG = require('../todo.png');
+=======
+>>>>>>> a6b6d56287d1bec54ff574c3962eb7543c5067ac
 
 class Authorization extends Component {
     constructor(props) {
@@ -55,7 +58,6 @@ class Authorization extends Component {
                         >ENTER
                         </p>
                     </form>
-                    <img src={IMG} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
                         <Link to="/main/reg">
