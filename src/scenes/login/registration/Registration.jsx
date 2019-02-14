@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
-import todo from '../todo.png';
 import './styleReg.css';
 import '../style.css';
 
@@ -50,10 +49,8 @@ class Registration extends Component {
 
 
     render() {
-
         return (
             <div id="regDiv">
-                {/*<div className="background L" />*/}
                 <nav className='navForm'>
                     <form action="" method="post">
                         <h2>Registration</h2>
@@ -122,7 +119,6 @@ class Registration extends Component {
                         >GO
                         </button>
                     </form>
-                    <img src={todo} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
                         <Link to="/main/aut">
@@ -130,7 +126,6 @@ class Registration extends Component {
                         </Link>
                     </div>
                 </nav>
-                {/*<div className="background R" />*/}
                 <div className="bg" />
             </div>
         );
