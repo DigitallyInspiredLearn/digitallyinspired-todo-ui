@@ -3,7 +3,8 @@
 const express = require('express');
 const uuid = require('uuid');
 const cors = require('cors');
-var randtoken = require('rand-token');
+const randtoken = require('rand-token');
+
 const app = express();
 app.use(cors());
 app.use(express.json());

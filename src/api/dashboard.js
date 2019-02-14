@@ -14,7 +14,7 @@ export const authorization = (userInfo) => {
             if (response.status === 200) {
                 console.log('Successful authorization!');
                 console.log('token:', response.data);
-            } else if (response.status === 404) {
+            } else if (response.status === 404 || response.status === 400) {
                 console.log('Failed authorization');
             }
         });
