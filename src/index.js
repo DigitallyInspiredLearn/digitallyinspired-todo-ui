@@ -9,7 +9,7 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter } from 'react-router-dom';
 import { reducer as listReducer, saga as listSaga } from './scenes/list/duck';
-import { loginPageSaga } from "./scenes/login/duck";
+import { loginPageSaga } from './scenes/login/duck';
 import './api/dashboard';
 import { saga, reducer } from './scenes/dashboard/duck';
 import App from './App';

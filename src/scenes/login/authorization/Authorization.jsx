@@ -5,8 +5,8 @@ class Authorization extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: '',
             password: '',
+            login: '',
         };
     }
 
@@ -17,7 +17,7 @@ class Authorization extends Component {
     render() {
         return (
             <div className="right">
-                <nav className='navForm'>
+                <nav className="navForm">
                     <form action="" method="post">
                         <h2>Sign in</h2>
                         <div className="enterEmail enterInf">
@@ -46,8 +46,8 @@ class Authorization extends Component {
                             className="btn btn-success form-control enter"
                             style={{ width: '95%' }}
                             onClick={() => this.props.actions.authorization({
-                                usernameOrEmail: this.state.login,
                                 password: this.state.password,
+                                usernameOrEmail: this.state.login,
                             })}
                         >ENTER
                         </p>

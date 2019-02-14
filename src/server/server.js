@@ -3,6 +3,7 @@
 const express = require('express');
 const uuid = require('uuid');
 const cors = require('cors');
+const randtoken = require('rand-token');
 
 const app = express();
 app.use(cors());
@@ -25,6 +26,12 @@ const toDoList = [
         ],
         todoListName: 'My to do list',
         userOwnerId: uuid(),
+        users: [
+            {
+                login: 'user',
+                password: '12345',
+            },
+        ],
     },
 ];
 
@@ -60,6 +67,34 @@ app.post('/api/todolists', (req, res) => {
         };
         toDoList.push(newList);
         res.json(newList);
+    }
+});
+
+app.post('/api/auth/login', (req, res) => {
+    console.log('=== auth ===');
+    console.log(req.body);
+    let status;
+    if (typeof req.body.usernameOrEmail !== 'string'
+        || typeof req.body.password !== 'string') {
+        res.sendStatus(400);
+    } else {
+        toDoList.forEach((item) => {
+            if (item.users.some(user => user.login === req.body.usernameOrEmail
+                && user.password === req.body.password)) {
+                status = true;
+            } else {
+                status = false;
+            }
+        });
+        if (status) {
+            // res.send('POST request to the homepage');
+            const token = randtoken.generate(16);
+            res.status(200).send(token);
+            // res.send("SUCCESS!");
+            // res.redirect('/api/todolists');
+        } else {
+            res.status(404).send('Sorry, we cannot find that!');
+        }
     }
 });
 

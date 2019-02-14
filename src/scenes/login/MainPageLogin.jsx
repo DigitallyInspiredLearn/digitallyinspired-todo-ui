@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Authorization from './authorization/AutorizationCortainer';
-import Registration from "./registration/RegistrationContainer";
+import Registration from './registration/RegistrationContainer';
 
 function MainPageLogin() {
     return (
