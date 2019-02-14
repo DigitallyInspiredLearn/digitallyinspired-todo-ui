@@ -104,9 +104,9 @@ class Registration extends Component {
                                 required
                             />
                         </div>
-                        <button
-                            type="submit"
-                            name="enterEx"
+                        <p
+                            // type="submit"
+                            // name="enterEx"
                             className="btn btn-success form-control enter"
                             style={{width: '95%'}}
                             onClick={() => this.props.actions.registration({
@@ -115,9 +115,9 @@ class Registration extends Component {
                                 password: this.state.password1,
                                 username: this.state.username
                             })}
-                            disabled={this.state.disabled}
+                            // disabled={this.state.disabled}
                         >GO
-                        </button>
+                        </p>
                     </form>
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>

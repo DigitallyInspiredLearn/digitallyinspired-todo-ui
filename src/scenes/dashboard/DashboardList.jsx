@@ -9,28 +9,33 @@ class DashboardList extends Component {
 
     render() {
         return (
-            <div id="content">
-                <main style={{ alignContent: 'start' }}>
-                    {
-                        this.props.toDoBoard.length === 0
-                            ? <NullLenghtDashboard />
-                            : this.props.toDoBoard.map(i => (
-                                <Dashboard
-                                    userOwnerId={i.userOwnerId}
-                                    idList={i.id}
-                                    key={i.id}
-                                    title={i.todoListName}
-                                    tasks={i.tasks}
-                                    randomInteger={randomInteger}
-                                    toDoBoard={this.props.toDoBoard}
-                                    actions={this.props.actions}
-                                />
-                            ))
-                    }
-                </main>
-                <VisibleSidebar />
-            </div>
-
+            [
+                <div className="searchTask">
+                    <input type="text" placeholder="Search dashboard" />
+                    <div className="btnSearch fa fa-search fa-2x" />
+                </div>,
+                <div id="content">
+                    <main style={{ alignContent: 'start' }}>
+                        {
+                            this.props.toDoBoard.length === 0
+                                ? <NullLenghtDashboard />
+                                : this.props.toDoBoard.map(i => (
+                                    <Dashboard
+                                        userOwnerId={i.userOwnerId}
+                                        idList={i.id}
+                                        key={i.id}
+                                        title={i.todoListName}
+                                        tasks={i.tasks}
+                                        randomInteger={randomInteger}
+                                        toDoBoard={this.props.toDoBoard}
+                                        actions={this.props.actions}
+                                    />
+                                ))
+                        }
+                    </main>
+                    <VisibleSidebar />
+                </div>
+            ]
         );
     }
 }

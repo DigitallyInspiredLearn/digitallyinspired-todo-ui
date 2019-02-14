@@ -130,7 +130,7 @@ app.delete('/api/todolists/:id', (req, res) => {
     }
 });
 
-const port = 8080;
+const port = 3001;
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
