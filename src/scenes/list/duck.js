@@ -65,7 +65,6 @@ function* updateTitleList(action) {
 function* updateTaskList(action) {
     yield delay(1000);
     const list = yield select(state => state.dashboard.toDoBoard.find(item => item.id === action.payload.idDashboard));
-    console.log(list);
     const res = yield call(updateList, action.payload.idDashboard, {
         ...list,
         tasks: list.tasks.map(item => item.id === action.payload.idTask ? {
@@ -77,9 +76,7 @@ function* updateTaskList(action) {
 }
 
 function* fetchChangeSearch(action) {
-    console.log(action.payload);
     const list = yield select(state => state.dashboard.toDoBoard.find(item => item.id === action.payload.idDashboard));
-    console.log(list);
     action.payload.search === '' ? yield put(actions.fetchListSuccess(list)) : yield put(actions.changeListSuccess({
         ...list,
         tasks: list.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0)
