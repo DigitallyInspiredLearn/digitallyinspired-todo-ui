@@ -14,7 +14,7 @@ function* authorization(action) {
     try {
         yield call(authorizationApi(action.payload));
     } catch (error) {
-        // console.error(error)
+        // console.log(error);
     }
 }
 

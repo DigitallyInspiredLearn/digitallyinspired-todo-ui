@@ -8,8 +8,16 @@ export const registration = (newUser) => {
 };
 
 export const authorization = (userInfo) => {
-    console.log(userInfo);
-    // axios.post('/api/auth/login', userInfo);
+    // console.log(userInfo);
+    axios.post('/api/auth/login', userInfo)
+        .then((response) => {
+            if (response.status === 200) {
+                console.log('Successful authorization!');
+                console.log('token:', response.data);
+            } else if (response.status === 404 || response.status === 400) {
+                console.log('Failed authorization');
+            }
+        });
 };
 
 export const getList = () => axios.get('/api/todolists');

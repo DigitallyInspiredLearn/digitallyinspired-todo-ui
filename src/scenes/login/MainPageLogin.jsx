@@ -1,6 +1,9 @@
 import React from 'react';
 import './style.css';
-import Authorization from '../login/authorization/AutorizationCortainer'
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Authorization from './authorization/AutorizationCortainer';
+import Registration from './registration/RegistrationContainer';
+
 function MainPageLogin() {
     return (
         <div className="container" style={{ alignContent: 'start' }}>
@@ -9,7 +12,11 @@ function MainPageLogin() {
                     <h1>Cool site to control your plans</h1>
                     <p>...</p>
                 </div>
-                <Authorization/>
+                <Switch>
+                    <Route path="/main/aut" component={Authorization} />
+                    <Route path="/main/reg" component={Registration} />
+                    <Redirect to="/main/aut" />
+                </Switch>
             </div>
         </div>
     );

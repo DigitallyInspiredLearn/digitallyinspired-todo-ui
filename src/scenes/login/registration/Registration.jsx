@@ -1,7 +1,8 @@
 import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
-import todo from '../todo.png';
-import './styleReg.css'
+import './styleReg.css';
+import '../style.css';
+
 class Registration extends Component {
 
     constructor(props){
@@ -48,11 +49,9 @@ class Registration extends Component {
 
 
     render() {
-
         return (
             <div id="regDiv">
-                <div className="background L" />
-                <nav>
+                <nav className='navForm'>
                     <form action="" method="post">
                         <h2>Registration</h2>
                         <div className="enterEmail enterInf">
@@ -105,9 +104,9 @@ class Registration extends Component {
                                 required
                             />
                         </div>
-                        <p
-                            // type="submit"
-                            // name="enterEx"
+                        <button
+                            type="submit"
+                            name="enterEx"
                             className="btn btn-success form-control enter"
                             style={{width: '95%'}}
                             onClick={() => this.props.actions.registration({
@@ -118,17 +117,16 @@ class Registration extends Component {
                             })}
                             disabled={this.state.disabled}
                         >GO
-                        </p>
+                        </button>
                     </form>
-                    <img src={todo} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
-                        <Link to="/main">
+                        <Link to="/main/aut">
                             <button type="button" className="navBtn" >Return to the login page</button>
                         </Link>
                     </div>
                 </nav>
-                <div className="background R" />
+                <div className="bg" />
             </div>
         );
     }

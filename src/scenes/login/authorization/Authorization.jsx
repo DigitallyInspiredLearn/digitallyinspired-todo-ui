@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import todo from '../todo.png';
 
 class Authorization extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: '',
             password: '',
+            login: '',
         };
     }
 
@@ -18,7 +17,7 @@ class Authorization extends Component {
     render() {
         return (
             <div className="right">
-                <nav>
+                <nav className="navForm">
                     <form action="" method="post">
                         <h2>Sign in</h2>
                         <div className="enterEmail enterInf">
@@ -47,16 +46,15 @@ class Authorization extends Component {
                             className="btn btn-success form-control enter"
                             style={{ width: '95%' }}
                             onClick={() => this.props.actions.authorization({
-                                usernameOrEmail: this.state.login,
                                 password: this.state.password,
+                                usernameOrEmail: this.state.login,
                             })}
                         >ENTER
                         </p>
                     </form>
-                    <img src={todo} alt="todo" className="todo" />
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
-                        <Link to="/registration">
+                        <Link to="/main/reg">
                             <button type="button" className="registration navBtn">Registration</button>
                         </Link>
                     </div>
