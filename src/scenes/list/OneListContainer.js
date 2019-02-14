@@ -15,6 +15,8 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         fetchList: actions.fetchList,
+        updateTitleList: actions.updateTitleList,
+        updateTaskList: actions.updateTaskList,
     }, dispatch),
     actionsBoard: bindActionCreators({
         updateTitleDashboard: actionsBoard.updateTitleDashboard,

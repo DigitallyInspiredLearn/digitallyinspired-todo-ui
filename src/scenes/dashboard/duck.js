@@ -35,6 +35,7 @@ export const actions = {
     updateTitleDashboard: createAction(UPDATE_TITLE_DASHBOARD),
     onBlurs: createAction(ON_BLURS),
 
+
     addTask: createAction(ADD_TASK),
     deleteTask: createAction(DELETE_TASK),
     updateCheckbox: createAction(UPDATE_CHECKBOX),
@@ -61,7 +62,7 @@ export const reducer = handleActions({
                 return { ...e, todoListName: action.payload.newTitle };
             }
             return e;
-        }),
+        })
     }),
 
     [UPDATE_CHECKBOX]: (state, action) => Object.assign({}, state, {
@@ -156,7 +157,7 @@ function* addList(action) {
     yield call(getDashboard);
 }
 
-function* update(action) {
+function* updateTitle(action) {
     const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
     list.todoListName = list.todoListName === '' ? 'New Title' : list.todoListName;
     list.tasks.map(task => task.body = task.body === '' ? 'to-do' : task.body);
@@ -175,6 +176,6 @@ export function* saga() {
     yield takeLatest(UPDATE_CHECKBOX, updateSelectedTask);
     yield takeEvery(DELETE_TASK, deleteTask);
     yield takeEvery(ADD_TASK, addTask);
-    yield takeLatest(ON_BLURS, update);
+    yield takeLatest(ON_BLURS, updateTitle);
     yield takeEvery(FETCH_LIST, fetchList);
 }
