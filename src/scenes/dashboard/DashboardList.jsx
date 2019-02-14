@@ -10,9 +10,27 @@ class DashboardList extends Component {
     render() {
         return (
             [
-                <div className="searchTask">
-                    <input type="text" placeholder="Search dashboard" />
-                    <div className="btnSearch fa fa-search fa-2x" />
+                <div
+                    className="searchTask"
+                    id="searchTask"
+                    style={{
+                        width: '97%',
+                        marginTop: '30px',
+                    }}>
+                    <input
+                        type="text"
+                        placeholder="Search dashboard"
+                        onChange={(e) => this.props.actions.searchList(e.target.value)}
+                        style={{width: '100%', outline: 'none'}}
+                    />
+                    <div
+                        className="btnSearch fa fa-search fa-2x"
+                        style={{
+                            backgroundColor: 'inherit',
+                            color: 'lightgrey',
+                            width: 'auto',
+                            paddingRight: '15px'
+                        }}/>
                 </div>,
                 <div id="content">
                     <main style={{ alignContent: 'start' }}>
