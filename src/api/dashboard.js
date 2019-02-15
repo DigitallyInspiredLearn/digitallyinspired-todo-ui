@@ -13,19 +13,9 @@ export const registration = (newUser) => {
         });
 };
 
-export const authorization = (userInfo) => {
-    axios.post('/api/auth/login', userInfo)
-        .then((response) => {
-            if (response.status === 200) {
-                console.log('Successful authorization!');
-                console.log('token:', response.data);
-            } else if (response.status === 404 || response.status === 401) {
-                console.log('Failed authorization');
-            }
-        });
-};
+export const authorization = (userInfo) => axios.post('/api/auth/login', userInfo);
 
-export const getList = () => axios.get('/api/todolists');
+export const getList = () => axios.get('/api/todolists/my', );
 
 export const deleteList = id => axios.delete(`/api/todolists/${id}`);
 
