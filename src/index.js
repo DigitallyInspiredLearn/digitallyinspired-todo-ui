@@ -19,9 +19,9 @@ const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
     yield all([
-        fork(saga),
-        fork(listSaga),
-        fork(loginPageSaga),
+        saga(),
+        listSaga(),
+        loginPageSaga(),
     ]);
 }
 

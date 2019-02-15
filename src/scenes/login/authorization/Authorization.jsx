@@ -40,17 +40,19 @@ class Authorization extends Component {
                                 required
                             />
                         </div>
-                        <p
-                            // type="submit"
-                            // name="enterEx"
-                            className="btn btn-success form-control enter"
-                            style={{ width: '95%' }}
-                            onClick={() => this.props.actions.authorization({
-                                password: this.state.password,
-                                usernameOrEmail: this.state.login,
-                            })}
-                        >ENTER
-                        </p>
+                        {/*<Link to="/lists">*/}
+                            <p
+                                // type="submit"
+                                // name="enterEx"
+                                className="btn btn-success form-control enter"
+                                style={{width: '95%'}}
+                                onClick={() => this.props.actions.authorization({
+                                    password: this.state.password,
+                                    usernameOrEmail: this.state.login,
+                                })}
+                            >ENTER
+                            </p>
+                        {/*</Link>*/}
                     </form>
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>

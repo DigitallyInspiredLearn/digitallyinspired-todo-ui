@@ -41,11 +41,18 @@ class Task extends Component {
                         type="text"
                         value={this.props.nameTask}
                         className="taskName"
-                        onChange={e => this.props.actions.updateTaskName({
-                            idDashboard: this.props.idList,
-                            idTask: this.props.idTask,
-                            newTaskName: e.target.value,
-                        })}
+                        onChange={e => {
+                            this.props.actions.updateTaskName({
+                                idDashboard: this.props.idList,
+                                idTask: this.props.idTask,
+                                newTaskName: e.target.value,
+                            });
+                            this.props.updateTaskList({
+                                idDashboard: this.props.idList,
+                                idTask: this.props.idTask,
+                                newTaskName: e.target.value,
+                            });
+                        }}
                         onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
                         onBlur={(e) => {
                             if (e.target.value === '') {

@@ -25,7 +25,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpg|gif|PNG|svg)$/,
+                test: /\.(png|jpg|gif|PNG)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -35,18 +35,16 @@ module.exports = {
             },
         ],
     },
-plugins: [
-    new HtmlWebpackPlugin({
-        template: './assets/index.html',
-        inject: 'body',
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-],
-    resolve
-:
-{
-    extensions: ['.js', '.jsx'],
-}
-,
-}
-;
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './assets/index.html',
+            inject: 'body',
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+    ],
+    resolve:
+        {
+            extensions: ['.js', '.jsx'],
+        }
+    ,
+};

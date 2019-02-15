@@ -39,6 +39,7 @@ section {
     width: 80%;
     text-overflow: ellipsis;
     cursor: pointer;
+    outline: none;
 }
 .titleName:focus {
     color:darkgrey;
@@ -100,11 +101,14 @@ section {
     max-height:100px;
     overflow-y: auto;
     overflow-x: hidden;
+    outline: none;
 }
+
 .addNewTask {
     bottom: 15px;
     font-size: 15px;
     cursor: pointer;
+    outline: none;
 }
 #nullLists{
     opacity:0;
@@ -113,4 +117,10 @@ section {
     animation-fill-mode: forwards;
     animation-delay: 1s;
     margin: auto;
+}
+.searchList {
+    width: 100%;
+    outline: none;
+    padding-top: 7px;
+    cursor: pointer;
 }

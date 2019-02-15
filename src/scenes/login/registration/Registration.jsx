@@ -1,11 +1,10 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './styleReg.css';
 import '../style.css';
 
 class Registration extends Component {
-
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             email: '',
@@ -13,35 +12,40 @@ class Registration extends Component {
             password1: '',
             password2: '',
             username: '',
-            disabled: 'disabled'
+            disabled: 'disabled',
         };
     }
 
     manageDisabled = () => (
-        !this.state.email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$')||
-        !this.state.name.match('^[a-zA-Z0-9]{2,20}$')||
-        !this.state.password1.match('^[a-zA-Z0-9]{6,30}$')||
-        this.state.password1!==this.state.password2||
-        !this.state.username.match('^[a-zA-Z0-9]{2,20}$')
+        !this.state.email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$')
+        || !this.state.name.match('^[a-zA-Z0-9]{2,20}$')
+        || !this.state.password1.match('^[a-zA-Z0-9]{6,30}$')
+        || this.state.password1 !== this.state.password2
+        || !this.state.username.match('^[a-zA-Z0-9]{2,20}$')
             ? this.setState({ disabled: 'disabled' })
-            :this.setState({ disabled: null })
+            : this.setState({ disabled: null })
     );
+
     onChangeEmail = (e) => {
         this.setState({ email: e.target.value });
         this.manageDisabled();
     };
+
     onChangeName = (e) => {
         this.setState({ name: e.target.value });
         this.manageDisabled();
     };
+
     onChangePassword1 = (e) => {
         this.setState({ password1: e.target.value });
         this.manageDisabled();
     };
+
     onChangePassword2 = (e) => {
         this.setState({ password2: e.target.value });
         this.manageDisabled();
     };
+
     onChangeUserName = (e) => {
         this.setState({ username: e.target.value });
         this.manageDisabled();
@@ -51,7 +55,7 @@ class Registration extends Component {
     render() {
         return (
             <div id="regDiv">
-                <nav className='navForm'>
+                <nav className="navForm">
                     <form action="" method="post">
                         <h2>Registration</h2>
                         <div className="enterEmail enterInf">
@@ -70,7 +74,7 @@ class Registration extends Component {
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your name"
-                                onChange={ this.onChangeName }
+                                onChange={this.onChangeName}
                                 required
                             />
                         </div>
@@ -81,7 +85,7 @@ class Registration extends Component {
                                 name="loginEx"
                                 placeholder="Enter your username"
                                 required
-                                onChange={ this.onChangeUserName }
+                                onChange={this.onChangeUserName}
                             />
                         </div>
                         <div className="enterPass enterInf">
@@ -90,7 +94,7 @@ class Registration extends Component {
                                 name="passEx"
                                 placeholder="Enter your password"
                                 className="form-control"
-                                onChange={ this.onChangePassword1 }
+                                onChange={this.onChangePassword1}
                                 required
                             />
                         </div>
@@ -100,29 +104,29 @@ class Registration extends Component {
                                 name="passEx"
                                 placeholder="Repeat password"
                                 className="form-control"
-                                onChange={ this.onChangePassword2 }
+                                onChange={this.onChangePassword2}
                                 required
                             />
                         </div>
-                        <button
-                            type="submit"
-                            name="enterEx"
+                        <p
+                            // type="submit"
+                            // name="enterEx"
                             className="btn btn-success form-control enter"
-                            style={{width: '95%'}}
+                            style={{ width: '95%' }}
                             onClick={() => this.props.actions.registration({
                                 email: this.state.email,
                                 name: this.state.name,
                                 password: this.state.password1,
-                                username: this.state.username
+                                username: this.state.username,
                             })}
-                            disabled={this.state.disabled}
+                            // disabled={this.state.disabled}
                         >GO
-                        </button>
+                        </p>
                     </form>
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
                         <Link to="/main/aut">
-                            <button type="button" className="navBtn" >Return to the login page</button>
+                            <button type="button" className="navBtn">Return to the login page</button>
                         </Link>
                     </div>
                 </nav>
@@ -132,4 +136,3 @@ class Registration extends Component {
 }
 
 export default Registration;
-
