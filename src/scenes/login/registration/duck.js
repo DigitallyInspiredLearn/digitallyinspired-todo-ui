@@ -3,6 +3,7 @@ import {
     takeEvery, call,
 } from 'redux-saga/effects';
 import { registration as registrationApi } from '../../../api/dashboard';
+import { history } from '../../../config/history';
 
 export const REGISTRATION = 'REGISTRATION';
 
@@ -12,8 +13,11 @@ export const actions = {
 
 function* registration(action) {
     try {
-        yield call(registrationApi(action.payload));
-    } catch (e) {}
+        yield call(registrationApi, action.payload);
+        history.replace('/list');
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export function* saga() {

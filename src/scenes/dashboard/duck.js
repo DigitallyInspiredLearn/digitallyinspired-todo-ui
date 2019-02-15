@@ -37,7 +37,6 @@ export const actions = {
     updateTitleDashboard: createAction(UPDATE_TITLE_DASHBOARD),
     onBlurs: createAction(ON_BLURS),
 
-
     addTask: createAction(ADD_TASK),
     deleteTask: createAction(DELETE_TASK),
     updateCheckbox: createAction(UPDATE_CHECKBOX),

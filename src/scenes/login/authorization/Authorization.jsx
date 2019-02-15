@@ -29,7 +29,7 @@ class Authorization extends Component {
                                 <div className="enterEmail enterInf">
                                     <input
                                         className="form-control"
-                                        type="email"
+                                        type="text"
                                         name="loginEx"
                                         placeholder="Enter your email"
                                         onChange={this.onChangeLogin}
@@ -46,7 +46,6 @@ class Authorization extends Component {
                                         required
                                     />
                                 </div>
-                                {/*<Link to="/lists">*/}
                                 <p
                                     // type="submit"
                                     // name="enterEx"
@@ -58,7 +57,6 @@ class Authorization extends Component {
                                     })}
                                 >ENTER
                                 </p>
-                                {/*</Link>*/}
                             </form>
                             <div className="href">
                                 <button type="button" className="forgetPass navBtn">Forgot your password?</button>
