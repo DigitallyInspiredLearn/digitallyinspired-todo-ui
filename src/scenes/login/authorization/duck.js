@@ -1,24 +1,63 @@
-import { createAction } from 'redux-actions';
+import {createAction, handleActions} from 'redux-actions';
+import { history } from '../../../config/history';
 import {
-    takeEvery, call,
+    takeEvery, call, put, select,
 } from 'redux-saga/effects';
 import { authorization as authorizationApi } from '../../../api/auth';
+import { authorization as authorizationApi } from '../../../api/dashboard';
+import {SET_DASHBOARD_SUCCESS} from "../../dashboard/duck";
+import axios from "axios";
 
-export const AUTHORIZATION = 'AUTHORIZATION';
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export const actions = {
-    authorization: createAction(AUTHORIZATION),
+    login: createAction(LOGIN),
+    loginSuccess: createAction(LOGIN_SUCCESS),
 };
+
+const initialState = {
+    user:'',
+    token: '',
+};
+
+export const reducer = handleActions({
+    [LOGIN_SUCCESS]: (state, action) => ({ ...state,
+        user: action.payload.user,
+        token: action.payload.token
+    }),
+
+}, initialState);
+
+function setDefaultApiToken(token) {
+    axios.defaults.headers.common.authorization = `Bearer ${token}`;
+}
 
 function* authorization(action) {
     try {
+<<<<<<< HEAD
         const token = yield call(authorizationApi, action.payload);
         console.log(token.data);
+=======
+        const token = yield call(authorizationApi,action.payload);
+        yield put(actions.loginSuccess({
+            user: action.payload.usernameOrEmail,
+            token: token.data.accessToken,
+        }));
+        yield call(setDefaultApiToken, token.data.accessToken);
+        history.replace('/lists');
+>>>>>>> 9c61037d270167274488f20ef1667cf45153f1e6
     } catch (error) {
         console.log(error);
     }
 }
 
+function* rehydrateSaga() {
+    const { token } = yield select(state => state.auth)
+    yield call(setDefaultApiToken, token);
+}
+
 export function* saga() {
-    yield takeEvery(AUTHORIZATION, authorization);
+    yield takeEvery(LOGIN, authorization);
+    yield takeEvery('persist/REHYDRATE', rehydrateSaga)
 }
