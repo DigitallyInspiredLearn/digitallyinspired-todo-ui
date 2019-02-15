@@ -12,7 +12,7 @@
 }
 
 #header{
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     padding: 10px;
     height: auto;
@@ -53,6 +53,7 @@ input[placeholder='Search to-do']{
     font-size: 15px;
     margin-left: 10px;
     outline: none;
+    cursor: pointer;
 }
 
 h1{
@@ -64,21 +65,19 @@ h1{
     margin: 5px;
     border-radius: 5px;
     padding-left: 20px;
+    font-size: 15px;
+    cursor: pointer;
 }
 .searchTask{
     width: 97%;
     flex-direction: row;
     justify-content: space-between;
     border-radius: 5px;
-
+    cursor: pointer;
+    outline: none;
 }
 .btnSearch{
-    background-color: black;
-    color: white;
-    width: 70px;
-    border-radius: 0 5px 5px 0;
-    padding: 5px;
-    margin-top: 0;
+    border-radius: 5px;
 }
 input[placeholder='Enter to-do name']{
     outline: none;
@@ -87,7 +86,7 @@ input[placeholder='Enter to-do name']{
 
 .blockTask{
     height: 90vh;
-    width: 97%;
+    width: 70%;
     flex-direction: column;
     align-content: space-between;
     padding: 15px 5px 0 5px;
@@ -105,4 +104,29 @@ input[placeholder='Enter to-do name']{
     .searchTask, .blockTask{
         width: 99%;
     }
+}
+.titleNameOneList {
+    width:auto;
+    font-size: 30px;
+    font-weight: bold;
+    float:left;
+    outline: none;
+    margin-right: 50%;
+    cursor: pointer;
+    padding-top: 5px;
+}
+.back{
+    color: lightgrey;
+    height: 20px;
+    weight:20px;
+}
+.deleteList{
+    color: lightgrey;
+    height: 20px;
+    weight:20px;
+}
+.download{
+    color: lightgrey;
+    height: 20px;
+    weight:20px;
 }
