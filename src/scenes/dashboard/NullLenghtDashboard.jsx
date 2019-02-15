@@ -1,11 +1,12 @@
 import React from 'react';
+import './css/dashboardStyle.css';
+import './css/dashboardStyleForComp.css';
+
 
 const NullLenghtDashboard = () => (
-    <div
-        id="nullVal"
-        style={{ margin: 'auto', opacity: 0.6 }}
-    >You don't have a TodoList at the moment!
+    <div id="nullLists">
+        You don't have to-do yet. Plan your tasks with DI To-do!
+        Press to +
     </div>
 );
-
 export default NullLenghtDashboard;

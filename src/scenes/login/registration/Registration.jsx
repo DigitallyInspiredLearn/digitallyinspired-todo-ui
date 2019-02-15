@@ -126,7 +126,6 @@ class Registration extends Component {
                         </Link>
                     </div>
                 </nav>
-                <div className="bg" />
             </div>
         );
     }

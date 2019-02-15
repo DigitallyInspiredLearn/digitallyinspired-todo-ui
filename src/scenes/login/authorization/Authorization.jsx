@@ -58,7 +58,6 @@ class Authorization extends Component {
                             <button type="button" className="registration navBtn">Registration</button>
                         </Link>
                     </div>
-                    <div className="bg" />
                 </nav>
             </div>
         );
