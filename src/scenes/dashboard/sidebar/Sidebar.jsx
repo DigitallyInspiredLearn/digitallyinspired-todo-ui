@@ -11,7 +11,7 @@ class Sidebar extends Component {
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', id: uuid(), isComplete: false }],
+            tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
             animation: '',
             bool: false,
         };
@@ -34,10 +34,12 @@ class Sidebar extends Component {
 
     addBoard = (title, tasks) => {
         const titleValue = title === '' ? 'Dashboard' : title;
-        const taskValue = tasks === {} ? { body: 'ex', id: uuid(), isComplete: false } : tasks;
+        const taskValue = tasks === {} ? { body: 'ex', id: new Date().valueOf(), isComplete: false } : tasks;
         this.props.addNewDashboard({
+            id: new Date().valueOf(),
             todoListName: titleValue,
             tasks: taskValue,
+            userOwnerId: '0',
         });
     };
 

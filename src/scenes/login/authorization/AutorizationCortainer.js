@@ -8,7 +8,7 @@ const mapStateToProps = state => ({ data: state.data });
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
-        authorization: actions.authorization,
+        authorization: actions.login,
     }, dispatch),
 });
 
