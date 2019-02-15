@@ -57,7 +57,7 @@ class Sidebar extends Component {
         e.target.blur();
         this.setState({
             todoListName: '',
-            tasks: [{ body: '' }],
+            tasks: [{ body: 'ex', id: uuid(), isComplete: false }],
         });
     };
 

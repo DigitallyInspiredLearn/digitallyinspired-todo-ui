@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import {
     takeEvery, call,
 } from 'redux-saga/effects';
-import { registration as registrationApi } from '../../../api/dashboard';
+import { registration as registrationApi } from '../../../api/auth';
 
 export const REGISTRATION = 'REGISTRATION';
 

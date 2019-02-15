@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import {
     takeEvery, call,
 } from 'redux-saga/effects';
-import { authorization as authorizationApi } from '../../../api/dashboard';
+import { authorization as authorizationApi } from '../../../api/auth';
 
 export const AUTHORIZATION = 'AUTHORIZATION';
 
@@ -12,9 +12,10 @@ export const actions = {
 
 function* authorization(action) {
     try {
-        yield call(authorizationApi(action.payload));
+        const token = yield call(authorizationApi, action.payload);
+        console.log(token.data);
     } catch (error) {
-        // console.log(error);
+        console.log(error);
     }
 }
 

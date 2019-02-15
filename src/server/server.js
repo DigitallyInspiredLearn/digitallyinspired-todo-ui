@@ -46,7 +46,7 @@ app.get('/api/todolists/:id', (req, res) => {
 });
 
 app.post('/api/todolists', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     if (
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
@@ -89,7 +89,7 @@ app.post('/api/auth/login', (req, res) => {
         if (status) {
             // res.send('POST request to the homepage');
             const token = randtoken.generate(16);
-            res.status(200).send(token);
+            res.status(200).json(token);
             // res.send("SUCCESS!");
             // res.redirect('/api/todolists');
         } else {
