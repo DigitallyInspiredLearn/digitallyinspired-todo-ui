@@ -1,7 +1,29 @@
-.description,.container, .right{
+* {
+    cursor: default;
+}
+
+.container, .right{
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    height: auto;
+    margin-top: 50px;
+    height:auto;
+    opacity:0;
+    transition: 500ms;
+    animation: show 500ms 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0s;
+}
+@keyframes show{
+    0%{
+        opacity:0;
+    }
+
+
+    100% {
+        opacity:1;
+    }
 }
 
 .container-fluid{
@@ -68,13 +90,18 @@ h2{
 }
 
 .enter {
+    text-align: center;
+    font-size: 15px;
     color: white;
-    background: black;
+    background: darkgrey;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
     border: none;
-
+    cursor: pointer;
+}
+.enter:hover {
+    background: black;
 }
 
 .todo{
@@ -102,6 +129,7 @@ h2{
     padding: 5px;
     border: 0;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .navBtn:hover{

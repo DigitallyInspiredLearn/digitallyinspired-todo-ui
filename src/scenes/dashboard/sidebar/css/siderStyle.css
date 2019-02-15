@@ -23,8 +23,9 @@ div > div, #fon, #inputs, #addingArticle {
 }
 
 .taskList {
-    max-height: 70%;
-    overflow-y: scroll;
+    max-height: 75%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .addTask {
@@ -32,6 +33,7 @@ div > div, #fon, #inputs, #addingArticle {
     flex-direction: row;
     align-items: center;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 #sidebar, .window-close, .addListBtn {
@@ -69,75 +71,144 @@ div > div, #fon, #inputs, #addingArticle {
     cursor: pointer;
     margin-right: 50px;
 }
-
+.window-close:hover {
+    animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+}
+@keyframes trambling-animation {
+    0%, 50%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30% {
+        transform: rotate(-10deg);
+    }
+    20%, 40% {
+        transform: rotate(10deg);
+    }
+}
 .addListBtn {
     background-color: black;
-    height: 75px;
+    height: 50px;
     color: white;
     margin: 0 -5px;
     border-color: black;
     bottom: 0;
     padding: 7px;
     font-size: 22px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: #3c3c3c;
+    text-transform: uppercase;
+    width:100%;
+    text-decoration:none;
+    text-align:center;
+    display: block;
+    background-image: linear-gradient(to left,transparent,transparent 50%, #3c3c3c 50%, #3c3c3c);
+    background-position: 100% 0;
+    background-size: 200% 100%;
+    transition: all .25s ease-in;
+    border: 1px solid #3c3c3c;
+}
+.addListBtn:hover {
+    background-position: 0 0;
+    color:#fff;
 }
 
 .inputTitle {
-    margin-top: 70px;
+    margin-top:40px;
     border: none;
     width: 470px;
     height: 25px;
-    margin-left: 10px;
-    outline: none;
-    font-size: 23px;
-    font-weight: bold;
-    color: #808080;
-}
-
-.inputTask {
-    margin-top: 10px;
-    border: none;
-    width: 400px;
-    height: 25px;
-    margin-left: 10px;
+    margin-left: 5px;
     outline: none;
     font-size: 20px;
-    color: #808080;
-}
+    font-weight: bold;
+    color:grey;
+    cursor: pointer;
 
-.inputTitle:focus, .inputTask:focus {
-    border-bottom: 1px solid black;
 }
-
+.inputTask:hover, .inputTitle:hover{
+    color: black;
+}
+.inputTask {
+    margin-top: 10px;
+    width: 500px;
+    height: 25px;
+    margin-left: 15px;
+    outline: none;
+    font-size: 15px;
+    font-weight: bold;
+    color:grey;
+    cursor: pointer;
+    z-index:1;
+}
 .small {
-    display: inline-block;
-    width: auto;
+    width: 50px;
     padding: 7px 15px;
-    background-color: #777;
     font-size: 14px;
-    color: #fff;
-    border: none;
-    appearance: none;
-    border-radius: 5px;
+    cursor:pointer;
+    z-index:1;
 }
-
 .small:hover {
-    background-color: #999;
+    animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
 }
-
+@keyframes trambling-animation {
+    0%, 50%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30% {
+        transform: rotate(-10deg);
+    }
+    20%, 40% {
+        transform: rotate(10deg);
+    }
+}
 #myBtn, .plus{
     height: 60px;
 }
 .plus {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     position: fixed;
     z-index: 20;
     cursor: pointer;
-    right: 0;
-    bottom: 0;
+    right: 15px;
+    bottom: 10px;
 }
-
 .plus img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: all 1000ms;
+    -moz-transition: all 1000ms;
+    -o-transition: all 1000ms;
+    transition: all 1000ms;
+}
+.plus img:hover{
+    opacity: 1;
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+.btn {
+    color: black;
+    background-color: darkgrey;
+    margin-top: 0;
+    width: 100%;
+    padding: 5px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.btn:hover{
+    color: white;
+    background: black;
 }
