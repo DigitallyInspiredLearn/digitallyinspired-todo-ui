@@ -91,7 +91,7 @@ export class Dashboard extends Component {
                             ? (e.target.blur(), this.props.actions.addTask({
                                 idDashboard: this.props.idList,
                                 nameTask: this.state.valueNewTask,
-                                idTask: `${randomInteger(1, 100000, this.props.toDoBoard)}`,
+                                idTask: new Date().valueOf(),
                             })
                             ) : false)
                         : false)
