@@ -23,4 +23,4 @@ export const addDashboard = newDashboard => axios.post('/api/todolists', newDash
 
 export const updateList = (id, newList) => axios.put(`/api/todolists/${id}`, newList);
 
-export const getTasks = id => axios.get(`/api/tasks/${id}`);
+export const getTasks = id => axios.get('/api/tasks', id);

@@ -40,14 +40,14 @@ const toDoList = {
 
 app.get('/api/todolists/my', (req, res) => res.json(toDoList.lists));
 
-app.get('/api/tasks/:id', (req, res) => {
-    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
+app.get('/api/tasks', (req, res) => {
+    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.body.id, 10));
     const tasks = toDoList.lists[listIndex].tasks;
     res.json(tasks);
 });
 
 app.get('/api/todolists/:id', (req, res) => {
-    const list = toDoList.find(list => list.id === req.params.id);
+    const list = toDoList.lists.find(list => list.id === req.params.id);
     if (!list) {
         res.sendStatus(404);
     }
