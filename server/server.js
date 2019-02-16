@@ -25,7 +25,7 @@ const toDoList = [
             },
         ],
         todoListName: 'My to do list',
-        userOwnerId: uuid(),
+        userOwnerId: 0,
         users: [
             {
                 login: 'user',
@@ -35,7 +35,10 @@ const toDoList = [
     },
 ];
 
-app.get('/api/todolists', (req, res) => res.json(toDoList));
+app.get('/api/todolists/my', (req, res) => {
+    console.log(req.headers);
+    res.json(toDoList);
+});
 
 app.get('/api/todolists/:id', (req, res) => {
     const list = toDoList.find(list => list.id === req.params.id);
@@ -46,7 +49,7 @@ app.get('/api/todolists/:id', (req, res) => {
 });
 
 app.post('/api/todolists', (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     if (
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
@@ -89,7 +92,7 @@ app.post('/api/auth/login', (req, res) => {
         if (status) {
             // res.send('POST request to the homepage');
             const token = randtoken.generate(16);
-            res.status(200).json(token);
+            res.status(200).send({ accessToken: token, tokenType: 'Bearer' });
             // res.send("SUCCESS!");
             // res.redirect('/api/todolists');
         } else {
@@ -101,7 +104,12 @@ app.post('/api/auth/login', (req, res) => {
 app.post('/api/auth/register', (req, res) => {
     console.log('=== registration ===');
     console.log(req.body);
+    let status;
+    let message;
     if (toDoList.some(item => item.users.some(user => user.login === req.body.username)) === true) {
+        status = false;
+        message = 'Username is already taken!';
+        // res.status(200).send({ accessToken: token, tokenType: 'Bearer' });
         res.sendStatus(400);
     } else {
         const newUser = {
@@ -110,9 +118,12 @@ app.post('/api/auth/register', (req, res) => {
         };
         // console.log(newUser);
         toDoList.forEach(item => item.users.push(newUser));
+        status = true;
+        message = 'Username has been registrated!';
         // toDoList.forEach(item => console.log(item.users));
         res.sendStatus(201);
     }
+    res.send({ success: status, message: message })
 });
 
 app.put('/api/todolists/:id', (req, res) => {
@@ -147,7 +158,7 @@ app.delete('/api/todolists/:id', (req, res) => {
     }
 });
 
-const port = 3001;
+const port = 8080;
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);

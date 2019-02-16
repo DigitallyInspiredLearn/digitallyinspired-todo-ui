@@ -53,6 +53,7 @@ class Registration extends Component {
 
 
     render() {
+        console.log(this.props);
         return (
             <div id="regDiv">
                 <nav className="navForm">
