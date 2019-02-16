@@ -33,7 +33,7 @@ export class OneList extends Component {
             <div id="list">
                 <div id="header">
                     <span className="spList">
-                        <Link to='/lists'>
+                         <Link to='/lists'>
                         <div
                             className='back fa fa-arrow-left fa-2x'
                         />
@@ -69,8 +69,7 @@ export class OneList extends Component {
                     <input
                         type="text"
                         value={this.props.data.todoListName}
-                        className="titleName"
-                        style={{fontSize: '40px', marginLeft: '10px'}}
+                        className="titleNameOneList"
                         onChange={e => {
                             this.props.actions.updateTitleList({
                                 id: this.props.data.id,
@@ -95,7 +94,14 @@ export class OneList extends Component {
                             search: e.target.value
                         })}
                     />
-                    <div className="btnSearch fa fa-search fa-2x"/>
+                    <div className="btnSearch fa fa-search fa-2x"
+                         style={{
+                             backgroundColor: 'inherit',
+                             color: 'lightgrey',
+                             width: 'auto',
+                             paddingRight: '15px'
+                         }}
+                    />
                 </div>
                 <article className="blockTask">
                     <div>

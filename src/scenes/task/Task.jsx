@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './css/taskStyle.css';
+import trash from '../../image/trash.svg'
 
 class Task extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Task extends Component {
         const displayStyle = { display: this.state.displayStyle, zIndex: 50 };
         return (
             <div
-                draggable="true"
+                draggable="false"
                 className="tasks"
                 id={this.props.idTask}
                 onMouseOver={this.updateDisplayFlex}
@@ -49,13 +50,17 @@ class Task extends Component {
                         onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
                         onBlur={(e) => {
                             if (e.target.value === '') {
-                                e.target.value = 'to-do';
+                                e.target.value = 'New task';
                             }
                             this.props.actions.onBlurs({ id: this.props.idList });
                         }}
                     />
-                    <label
-                        className="deleteTask fa fa-trash"
+                </div>
+                <div className="trashTask">
+                    <img
+                        src={trash}
+                        className="deleteTask"
+                        alt='Delete this task'
                         style={displayStyle}
                         onClick={() => {
                             this.props.actions.deleteTask({

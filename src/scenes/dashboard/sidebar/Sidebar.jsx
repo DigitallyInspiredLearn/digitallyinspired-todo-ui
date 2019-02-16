@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
-import plus from "../../../image/plus.PNG";
+import plus from "../../../image/plus.svg";
+import trash from "../../../image/trash.svg";
 
 const uuid = require('uuid');
 
@@ -11,11 +12,15 @@ class Sidebar extends Component {
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', id: uuid(), isComplete: false }],
+            tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
             animation: '',
             bool: false,
+            displayTrash: 'none'
         };
     }
+
+    updateDisplayTrashVisible = () => this.setState({ displayTrash: 'flex' });
+    updateDisplayTrashHide = () => this.setState({ displayTrash: 'none' });
 
     updateDisplaySidebar = () => {
         this.state.bool === false
@@ -34,10 +39,12 @@ class Sidebar extends Component {
 
     addBoard = (title, tasks) => {
         const titleValue = title === '' ? 'Dashboard' : title;
-        const taskValue = tasks === {} ? { body: 'ex', id: uuid(), isComplete: false } : tasks;
+        const taskValue = tasks === {} ? { body: 'ex', id: new Date().valueOf(), isComplete: false } : tasks;
         this.props.addNewDashboard({
+            id: new Date().valueOf(),
             todoListName: titleValue,
             tasks: taskValue,
+            userOwnerId: '0',
         });
     };
 
@@ -74,6 +81,7 @@ class Sidebar extends Component {
     };
 
     render() {
+        const displayTrash = { display: this.state.displayTrash};
         return (
             [
                 <div className="plus" onClick={this.updateDisplaySidebar}>
@@ -83,7 +91,7 @@ class Sidebar extends Component {
                         alt="Plus"
                     />
                 </div>,
-                <div id="sidebar" style={{ display: this.state.displayStyle }}>
+                <div id="sidebar" style={{ display: this.state.displayStyle, zIndex: 50 }}>
                     <div
                         id="fon"
                         onClick={(e) => {
@@ -109,21 +117,25 @@ class Sidebar extends Component {
                         />
                         <div className="taskList">
                             {this.state.tasks.map((task, i) => (
-                                <div className="addTask">
+                                <div
+                                    className="addTask"
+                                    onMouseOut={this.updateDisplayTrashHide}
+                                    onMouseOver={this.updateDisplayTrashVisible}
+                                >
                                     <input
                                         type="text"
                                         className="inputTask"
-                                        placeholder={`Add to-do #${i + 1}`}
+                                        placeholder={`Add ${i + 1} to-do`}
                                         value={task.name}
                                         onChange={this.changeValueName(i)}
                                     />
-                                    <button
-                                        type="button"
+                                    <img
+                                        src={trash}
+                                        alt='Delete this task'
                                         onClick={this.handleRemoveInputTask(i)}
                                         className="small"
-                                    >
-                                        -
-                                    </button>
+                                        style={displayTrash}
+                                    />
                                 </div>
                             ))}
                         </div>
@@ -132,7 +144,7 @@ class Sidebar extends Component {
                             onClick={this.handleAddInputTask}
                             className="btn"
                         >
-                            Add Another Task
+                            Add one more task
                         </button>
                         <button
                             className="addListBtn"

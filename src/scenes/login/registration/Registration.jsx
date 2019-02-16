@@ -125,12 +125,11 @@ class Registration extends Component {
                     </form>
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
-                        <Link to="/main/aut">
+                        <Link to="/auth">
                             <button type="button" className="navBtn">Return to the login page</button>
                         </Link>
                     </div>
                 </nav>
-                <div className="bg" />
             </div>
         );
     }
