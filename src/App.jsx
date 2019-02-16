@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './scenes/header/Header';
 import VisibleTodoList from './scenes/dashboard/TodoListContainer';
-import Authorization from './scenes/login/authorization/AutorizationCortainer'
-import Registration from './scenes/login/registration/Registration'
+import Authorization from './scenes/login/authorization/AutorizationCortainer';
+import Registration from './scenes/login/registration/Registration';
 import OneList from './scenes/list/OneListContainer';
 
 const App = () => (

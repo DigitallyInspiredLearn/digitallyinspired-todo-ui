@@ -56,7 +56,7 @@ class Authorization extends Component {
                     </form>
                     <div className="href">
                         <button type="button" className="forgetPass navBtn">Forgot your password?</button>
-                        <Link to="/main/reg">
+                        <Link to="/reg">
                             <button type="button" className="registration navBtn">Registration</button>
                         </Link>
                     </div>
