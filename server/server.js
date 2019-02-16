@@ -9,33 +9,42 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const toDoList = [
-    {
-        id: uuid(),
-        tasks: [
-            {
-                body: 'Co',
-                id: uuid(),
-                isComplete: true,
-            },
-            {
-                body: 'Destroy half of the universe',
-                id: uuid(),
-                isComplete: false,
-            },
-        ],
-        todoListName: 'My to do list',
-        userOwnerId: uuid(),
-        users: [
-            {
-                login: 'user',
-                password: '12345',
-            },
-        ],
-    },
-];
+const toDoList = {
+    lists: [
+        {
+            id: new Date().valueOf(),
+            tasks: [
+                {
+                    id: new Date().valueOf() + 1,
+                    isComplete: true,
+                    body: 'Co',
+                },
+                {
+                    id: new Date().valueOf() + 2,
+                    isComplete: false,
+                    body: 'Destroy half of the universe',
+                },
+            ],
+            todoListName: 'My to do list',
+            userOwnerId: 0,
+        },
+    ],
+    users: [
+        {
+            login: 'user',
+            password: '12345',
+        },
+    ],
+};
 
-app.get('/api/todolists', (req, res) => res.json(toDoList));
+
+app.get('/api/todolists/my', (req, res) => res.json(toDoList.lists));
+
+app.get('/api/tasks/:id', (req, res) => {
+    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
+    const tasks = toDoList.lists[listIndex].tasks;
+    res.json(tasks);
+});
 
 app.get('/api/todolists/:id', (req, res) => {
     const list = toDoList.find(list => list.id === req.params.id);
@@ -50,22 +59,22 @@ app.post('/api/todolists', (req, res) => {
     if (
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
-        || req.body.tasks.some(item => typeof item.id !== 'string'
+        || req.body.tasks.some(item => typeof item.id !== 'number'
         || typeof item.body !== 'string' || typeof item.isComplete !== 'boolean')
     ) {
         res.sendStatus(400);
     } else {
         const newList = {
-            id: uuid(),
+            id: req.body.id,
             tasks: req.body.tasks.map(item => ({
-                id: uuid(),
+                id: item.id,
                 body: item.body,
                 isComplete: item.isComplete,
             })),
             todoListName: req.body.todoListName,
-            userOwnerId: uuid(),
+            userOwnerId: 0,
         };
-        toDoList.push(newList);
+        toDoList.lists.push(newList);
         res.json(newList);
     }
 });
@@ -77,31 +86,29 @@ app.post('/api/auth/login', (req, res) => {
     if (typeof req.body.usernameOrEmail !== 'string'
         || typeof req.body.password !== 'string') {
         res.sendStatus(400);
-    } else {
-        toDoList.forEach((item) => {
-            if (item.users.some(user => user.login === req.body.usernameOrEmail
+    } else if (toDoList.users.some(user => user.login === req.body.usernameOrEmail
                 && user.password === req.body.password)) {
-                status = true;
-            } else {
-                status = false;
-            }
-        });
-        if (status) {
-            // res.send('POST request to the homepage');
-            const token = randtoken.generate(16);
-            res.status(200).send(token);
-            // res.send("SUCCESS!");
-            // res.redirect('/api/todolists');
-        } else {
-            res.sendStatus(401);
-        }
+        status = true;
+    } else {
+        status = false;
+    }
+    if (status) {
+        const token = randtoken.generate(16);
+        res.status(200).send({ accessToken: token, tokenType: 'Bearer' });
+    } else {
+        res.sendStatus(401);
     }
 });
 
 app.post('/api/auth/register', (req, res) => {
     console.log('=== registration ===');
     console.log(req.body);
+    let status;
+    let message;
     if (toDoList.some(item => item.users.some(user => user.login === req.body.username)) === true) {
+        status = false;
+        message = 'Username is already taken!';
+        // res.status(200).send({ accessToken: token, tokenType: 'Bearer' });
         res.sendStatus(400);
     } else {
         const newUser = {
@@ -110,44 +117,48 @@ app.post('/api/auth/register', (req, res) => {
         };
         // console.log(newUser);
         toDoList.forEach(item => item.users.push(newUser));
+        status = true;
+        message = 'Username has been registrated!';
         // toDoList.forEach(item => console.log(item.users));
         res.sendStatus(201);
     }
+    res.send({ success: status, message });
 });
 
 app.put('/api/todolists/:id', (req, res) => {
+    console.log(req.body);
     if (
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
-        || req.body.tasks.some(item => typeof item.id !== 'string'
+        || req.body.tasks.some(item => typeof item.id !== 'number'
         || typeof item.body !== 'string' || typeof item.isComplete !== 'boolean')
     ) {
         res.sendStatus(400);
     } else {
-        const listIndex = toDoList.findIndex(list => list.id === req.params.id);
+        const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
+        console.log(listIndex);
         if (listIndex === -1) {
             res.sendStatus(404);
         } else {
-            const list = toDoList[listIndex];
-            toDoList[listIndex].todoListName = req.body.todoListName;
-            toDoList[listIndex].tasks = req.body.tasks;
+            const list = toDoList.lists[listIndex];
+            toDoList.lists[listIndex].todoListName = req.body.todoListName;
+            toDoList.lists[listIndex].tasks = req.body.tasks;
             res.sendStatus(200);
         }
     }
 });
 
 app.delete('/api/todolists/:id', (req, res) => {
-    // console.log(toDoBoard, )
-    const listIndex = toDoList.findIndex(list => list.id === req.params.id);
+    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
     if (listIndex === -1) {
         res.sendStatus(404);
     } else {
-        toDoList.splice(listIndex, 1);
+        toDoList.lists.splice(listIndex, 1);
         res.sendStatus(200);
     }
 });
 
-const port = 3001;
+const port = 8080;
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);

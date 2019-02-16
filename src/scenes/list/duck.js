@@ -1,8 +1,10 @@
-import {createAction, handleActions} from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import {
     takeEvery, call, put, select, takeLatest, delay,
 } from 'redux-saga/effects';
-import {deleteList, getOneList, updateList} from '../../api/dashboard';
+
+import { getOneList } from '../../api/list';
+import { updateList, deleteList } from '../../api/dashboard';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
@@ -85,9 +87,9 @@ function* fetchChangeSearch(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
     action.payload.search === '' ? yield put(actions.fetchListSuccess(list.data)) :
         yield put(actions.changeListSuccess({
-        ...list.data,
-        tasks: list.data.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0)
-    }));
+            ...list.data,
+            tasks: list.data.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0)
+        }));
 }
 
 function* addTask(action) {
