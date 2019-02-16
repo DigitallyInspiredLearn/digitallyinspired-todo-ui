@@ -1,59 +1,51 @@
 .tasks{
     position: relative;
-    margin: 10px;
 }
-
-.tasks:before {
-    position: absolute;
-    z-index:1;
-    display: flex;
-    bottom: 0;
-    content: "";
-    height: 30px;
-    width: 0;
-    background-color: whitesmoke;
-    transition: width 0.2s ease-in-out;
-    opacity: 0.4;
-}
-
-.tasks:hover:before{
-    width: 100%;
-}
-
 .taskDiv,.deleteTask{
     z-index:1;
-}
-
-.deleteTask{
-    color:gray;
-    margin-top: 2px;
-    z-index: 5;
-    font-size: 20px;
-}
-.taskDiv{
-    display: flex;
     width: 100%;
-    flex-direction: row;
-    align-items: baseline;
 }
-
 .fa-check-square,.unselected{
-    margin: 3px 5px 0 10px;
+    margin: 5px 5px 5px 10px;
 }
 
 .fa-check-square+.taskName{
     text-decoration: line-through;
 }
-
 .unselected{
-    width: 18px;
-    height: 18px;
+    width: 13px;
+    height: 13px;
     background-color: white;
     border-radius: 3px;
     border: gray solid 2px;
+    cursor: pointer;
+
 }
 .fa-check-square {
-    font-size: 21px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.deleteTask{
+    margin-top: 2px;
+    float: right;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+
+}
+.deleteTask:hover {
+    animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+}
+@keyframes trambling-animation {
+    0%, 50%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30% {
+        transform: rotate(-10deg);
+    }
+    20%, 40% {
+        transform: rotate(10deg);
+    }
 }
 .taskName{
     font-size: 20px;
@@ -61,9 +53,24 @@
     text-overflow: ellipsis;
     z-index: 5;
     margin-left: 5px;
-}
-
-.taskName:focus{
     outline: none;
 }
+#nullTask{
+    opacity:0;
+    transition: 500ms;
+    animation: show 500ms 1;
+    animation-fill-mode: forwards;
+    margin: auto;
+}
+@keyframes show {
+    0%{
+        opacity:0;
+    }
+
+
+    100% {
+        opacity:1;
+    }
+}
+
 

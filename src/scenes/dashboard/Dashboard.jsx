@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import randomInteger from '../../config/helper';
+import trash from "../../image/trash.svg";
+import info from "../../image/info.png";
 
 import './css/dashboardStyle.css';
 import './css/dashboardStyleForComp.css';
@@ -41,7 +43,22 @@ export class Dashboard extends Component {
     render() {
         return (
             <section id={this.props.idList}>
-                <article>
+                <div className="icons">
+                    <Link to={`/list/${this.props.idList}`}>
+                        <img
+                            src={info}
+                            className="linkList"
+                            alt="Information about this list"
+                        />
+                    </Link>
+                    <img
+                        src={trash}
+                        className="deleteBoadr"
+                        onClick={() => this.props.actions.deleteDashboard({ id: this.props.idList })}
+                        alt="Delete this list"
+                    />
+                </div>
+                <div>
                     <input
                         type="text"
                         value={this.props.title}
@@ -59,18 +76,7 @@ export class Dashboard extends Component {
                         }}
                         onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
                     />
-                    <Link to={`/list/${this.props.idList}`}>
-                        <div
-                            className="linkList fa fa-external-link fa-2x"
-                            title="open detailed information"
-                        />
-                    </Link>
-                    <div
-                        className="deleteBoadr fa fa-trash fa-2x"
-                        onClick={() => this.props.actions.deleteDashboard({ id: this.props.idList })}
-                        title="delete list"
-                    />
-                </article>
+                </div>
                 <div className="taskLists" dropzone="move">
                     {getTaskList(this.props.tasks, this.props)}
                 </div>

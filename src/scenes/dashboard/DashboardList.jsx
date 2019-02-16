@@ -19,9 +19,9 @@ class DashboardList extends Component {
                     }}>
                     <input
                         type="text"
+                        className="searchList"
                         placeholder="Search dashboard"
                         onChange={(e) => this.props.actions.searchList(e.target.value)}
-                        style={{width: '100%', outline: 'none'}}
                     />
                     <div
                         className="btnSearch fa fa-search fa-2x"

@@ -1,10 +1,12 @@
 import React from 'react';
+import './css/taskStyle.css';
 
 const NullLenghtTasks = () => (
     <div
         id="nullTask"
         style={{ margin: '10px', opacity: 0.6 }}
-    >You don't have a do-to at the moment!
+    >
+        You have no tasks yet, it's time to be active!
     </div>
 );
 
