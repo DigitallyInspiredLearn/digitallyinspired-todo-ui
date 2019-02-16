@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './css/taskStyle.css';
-import trash from '../../image/trash.svg'
 
-class Task extends Component {
+class TaskForList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +17,7 @@ class Task extends Component {
         const displayStyle = { display: this.state.displayStyle, zIndex: 50 };
         return (
             <div
-                draggable="false"
+                draggable="true"
                 className="tasks"
                 id={this.props.idTask}
                 onMouseOver={this.updateDisplayFlex}
@@ -34,6 +33,7 @@ class Task extends Component {
                                 idTask: this.props.idTask,
                                 selected: this.props.selected,
                             });
+                            this.props.fetchList(this.props.idList);
                         }}
                     />
                     <input
@@ -41,29 +41,26 @@ class Task extends Component {
                         value={this.props.nameTask}
                         className="taskName"
                         onChange={e => {
-                            this.props.actions.updateTaskName({
+                            this.props.updateTaskList({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                                 newTaskName: e.target.value,
                             });
                         }}
-                        onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
-                        onBlur={(e) => {
-                            if (e.target.value === '') {
-                                e.target.value = 'New task';
-                            }
-                            this.props.actions.onBlurs({ id: this.props.idList });
-                        }}
+                        // onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
+                        // onBlur={(e) => {
+                        //     if (e.target.value === '') {
+                        //         e.target.value = 'to-do';
+                        //     }
+                        //     this.props.actions.onBlurs({ id: this.props.idList });
+                        //     this.props.fetchList(this.props.idList);
+                        // }}
                     />
-                </div>
-                <div className="trashTask">
-                    <img
-                        src={trash}
-                        className="deleteTask"
-                        alt='Delete this task'
+                    <label
+                        className="deleteTask fa fa-trash"
                         style={displayStyle}
                         onClick={() => {
-                            this.props.actions.deleteTask({
+                            this.props.deleteTaskList({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                             });
@@ -75,4 +72,4 @@ class Task extends Component {
     }
 }
 
-export default Task;
+export default TaskForList;

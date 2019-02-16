@@ -51,7 +51,7 @@ ReactDOM.render(
         <PersistGate loading={null} persistor={persistor}>
             <Router history={history} >
 
-                    <App />
+                <App />
 
             </Router>
         </PersistGate>
