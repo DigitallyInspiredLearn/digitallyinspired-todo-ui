@@ -2,7 +2,7 @@ import {createAction, handleActions} from 'redux-actions';
 import {
     takeEvery, call, put, select, takeLatest, delay,
 } from 'redux-saga/effects';
-import {getOneList, updateList} from '../../api/dashboard';
+import {deleteList, getOneList, updateList} from '../../api/dashboard';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
@@ -10,6 +10,9 @@ export const SEARCH_TASK = 'list/SEARCH_TASK';
 export const UPDATE_TITLE_LIST = 'list/UPDATE_TITLE_LIST';
 export const UPDATE_TASK_LIST = 'list/UPDATE_TASK_LIST';
 export const FETCH_CHANGE_LIST_SUCCESS = 'list/FETCH_CHANGE_LIST_SUCCESS';
+export const ADD_TASK_LIST = 'list/ADD_TASK_LIST';
+export const DELETE_TASK_LIST = 'list/DELETE_TASK_LIST';
+export const DELETE_LIST = 'list/DELETE_LIST';
 
 
 export const actions = {
@@ -19,6 +22,9 @@ export const actions = {
     updateTitleList: createAction(UPDATE_TITLE_LIST),
     updateTaskList: createAction(UPDATE_TASK_LIST),
     changeListSuccess: createAction(FETCH_CHANGE_LIST_SUCCESS),
+    addTaskList: createAction(ADD_TASK_LIST),
+    deleteList: createAction(DELETE_LIST),
+    deleteTaskList: createAction(DELETE_TASK_LIST),
 };
 
 const initialState = {
@@ -55,19 +61,19 @@ function* fetchList(action) {
     yield put(actions.fetchListSuccess(r.data));
 }
 
-function* updateTitleList(action) {
+function* updateTitle(action) {
     yield delay(1000);
-    const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
-    const res = yield call(updateList, action.payload.id, {...list, todoListName: action.payload.newTitle});
+    const list = yield call(getOneList, action.payload.id);
+    const res = yield call(updateList, action.payload.id, {...list.data, todoListName: action.payload.newTitle});
     console.log(res);
 }
 
-function* updateTaskList(action) {
+function* updateTask(action) {
     yield delay(1000);
-    const list = yield select(state => state.dashboard.toDoBoard.find(item => item.id === action.payload.idDashboard));
+    const list = yield call(getOneList, action.payload.idDashboard);
     const res = yield call(updateList, action.payload.idDashboard, {
-        ...list,
-        tasks: list.tasks.map(item => item.id === action.payload.idTask ? {
+        ...list.data,
+        tasks: list.data.tasks.map(item => item.id === action.payload.idTask ? {
             ...item,
             body: action.payload.newTaskName
         } : item)
@@ -76,17 +82,66 @@ function* updateTaskList(action) {
 }
 
 function* fetchChangeSearch(action) {
-    const list = yield select(state => state.dashboard.toDoBoard.find(item => item.id === action.payload.idDashboard));
-    action.payload.search === '' ? yield put(actions.fetchListSuccess(list)) : yield put(actions.changeListSuccess({
-        ...list,
-        tasks: list.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0)
+    const list = yield call(getOneList, action.payload.idDashboard);
+    action.payload.search === '' ? yield put(actions.fetchListSuccess(list.data)) :
+        yield put(actions.changeListSuccess({
+        ...list.data,
+        tasks: list.data.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0)
     }));
+}
 
+function* addTask(action) {
+    const list = yield call(getOneList, action.payload.idDashboard);
+    const res = yield call(
+        updateList,
+        action.payload.idDashboard,
+        {
+            ...list.data,
+            tasks:
+                [
+                    ...list.data.tasks,
+                    {
+                        id: action.payload.idTask,
+                        isComplete: false,
+                        body: action.payload.nameTask,
+                    },
+                ],
+        },
+    );
+    console.log(res);
+    const r = yield call(getOneList, action.payload.idDashboard);
+    yield put(actions.fetchListSuccess(r.data));
+}
+
+function* fetchDeleteList(action) {
+    const res =  yield call(deleteList, action.payload);
+    console.log(res);
+    // const r = yield call(getOneList, action.payload);
+    // yield put(actions.fetchListSuccess(r.data));
+}
+
+function* fetchDeleteTask(action) {
+    const list = yield call(getOneList, action.payload.idDashboard);
+    const res = yield call(
+        updateList,
+        action.payload.idDashboard,
+        {
+            ...list.data,
+            tasks: list.data.tasks.filter(e => e.id !== action.payload.idTask),
+        },
+    );
+    console.log(res);
+    const r = yield call(getOneList, action.payload.idDashboard);
+    yield put(actions.fetchListSuccess(r.data));
 }
 
 export function* saga() {
     yield takeEvery(FETCH_LIST, fetchList);
-    yield takeLatest(UPDATE_TASK_LIST, updateTaskList);
     yield takeEvery(SEARCH_TASK, fetchChangeSearch);
-    yield takeLatest(UPDATE_TITLE_LIST, updateTitleList);
+    yield takeEvery(ADD_TASK_LIST, addTask);
+    yield takeEvery(DELETE_LIST, fetchDeleteList);
+    yield takeEvery(DELETE_TASK_LIST, fetchDeleteTask);
+    yield takeLatest(UPDATE_TASK_LIST, updateTask);
+    yield takeLatest(UPDATE_TITLE_LIST, updateTitle);
+
 }

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './styleList.css';
 import ReactDOMServer from 'react-dom/server';
 import NullLenghtTasks from '../task/NullLenghtTasks';
-import Task from '../task/Task';
+// import Task from '../task/Task';
+import TaskForList from './tasksForList/TaskForList'
 import randomInteger from '../../config/helper';
 import {Link} from 'react-router-dom'
 
@@ -40,8 +41,11 @@ export class OneList extends Component {
                         <Link to='/lists'>
                         <div
                             className="deleteList fa fa-trash fa-2x"
-                            // id={this.props.data.idList}
-                            // onClick={() => this.props.actions.deleteDashboard(this.props.data.idList)}
+                            id={this.props.match.params.id}
+                            onClick={() => {
+                                this.props.actions.deleteList(this.props.match.params.id);
+                            }
+                            }
                         />
                         </Link>
                         <div
@@ -72,18 +76,14 @@ export class OneList extends Component {
                                 id: this.props.data.id,
                                 newTitle: e.target.value,
                             });
-                            this.props.actionsBoard.updateTitleDashboard({
-                                id: this.props.data.id,
-                                newTitle: e.target.value,
-                            })
                         }
                         }
-                        onBlur={(e) => {
-                            e.target.value === '' ? e.target.value = 'New Title' : -1;
-                            this.props.actionsBoard.onBlurs({id: this.props.match.params.id});
-                            this.props.actions.fetchList(this.props.match.params.id);
-                        }}
-                        onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
+                        // onBlur={(e) => {
+                        //     e.target.value === '' ? e.target.value = 'New Title' : -1;
+                        //     this.props.actionsBoard.onBlurs({id: this.props.match.params.id});
+                        //     //this.props.actions.fetchList(this.props.match.params.id);
+                        // }}
+                        //onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
                     />
                 </div>
                 <div className="searchTask">
@@ -102,7 +102,7 @@ export class OneList extends Component {
                         {
                             this.props.data.tasks && (this.props.data.tasks.length === 0 ? <NullLenghtTasks/>
                                 : this.props.data.tasks.map(i => (
-                                    <Task
+                                    <TaskForList
                                         idTask={i.id}
                                         idList={this.props.match.params.id}
                                         key={i.id}
@@ -111,6 +111,7 @@ export class OneList extends Component {
                                         actions={this.props.actionsBoard}
                                         fetchList={this.props.actions.fetchList}
                                         updateTaskList={this.props.actions.updateTaskList}
+                                        deleteTaskList={this.props.actions.deleteTaskList}
                                     />
                                 )))
                         }
@@ -122,20 +123,22 @@ export class OneList extends Component {
                         style={{outline: 'none', fontSize: '20px', marginLeft: '15px'}}
                         value={this.state.valueNewTask}
                         onChange={this.changeValueNewTask}
-                        onKeyPress={e => (this.state.valueNewTask !== ''
-                            ? (e.key === 'Enter'
-                                ? (e.target.blur(), this.props.actionsBoard.addTask({
-                                        idDashboard: this.props.match.params.id,
-                                        nameTask: this.state.valueNewTask,
-                                        idTask: `${randomInteger(1, 100000, this.props.todo)}`,
-                                    })
-                                ) : false)
-                            : false)
+                        onKeyPress={event => {
+                            if (event.key === 'Enter') {
+                                this.props.actions.addTaskList({
+                                    idDashboard: this.props.match.params.id,
+                                    nameTask: this.state.valueNewTask,
+                                    idTask: `${randomInteger(1, 100000, this.props.todo)}`,
+                                });
+                                this.state.valueNewTask = "";
+                                //this.props.actions.fetchList(this.props.match.params.id);
+                            }
                         }
-                        onBlur={(e) => {
-                            this.handlerOnBlur(e);
-                            this.props.actions.fetchList(this.props.match.params.id);
-                        }}
+                        }
+                        // onBlur={(e) => {
+                        //     this.handlerOnBlur(e);
+                        //     this.props.actions.fetchList(this.props.match.params.id);
+                        // }}
                     />
                 </article>
             </div>

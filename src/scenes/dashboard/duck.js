@@ -166,6 +166,7 @@ function* updateTitle(action) {
     list.todoListName = list.todoListName === '' ? 'New Title' : list.todoListName;
     list.tasks.map(task => task.body = task.body === '' ? 'to-do' : task.body);
     yield call(updateList, action.payload.id, list);
+    yield call(getDashboard);
 }
 
 function* fetchList(action) {
