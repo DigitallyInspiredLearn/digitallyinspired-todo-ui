@@ -40,6 +40,11 @@ export class Dashboard extends Component {
         });
     };
 
+    componentWillMount = () => {
+        console.log(this.props.idList);
+        // this.props.actions.fetchTasks({ id: this.props.idList });
+    };
+
     render() {
         return (
             <section id={this.props.idList}>
@@ -91,7 +96,6 @@ export class Dashboard extends Component {
                             ? (e.target.blur(), this.props.actions.addTask({
                                 idDashboard: this.props.idList,
                                 nameTask: this.state.valueNewTask,
-                                idTask: new Date().valueOf(),
                             })
                             ) : false)
                         : false)
