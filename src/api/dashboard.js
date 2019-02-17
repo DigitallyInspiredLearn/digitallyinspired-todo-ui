@@ -2,11 +2,11 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
-export const registration = newUser => axios.post('/api/auth/register', newUser);
+export const getMyList = () => axios.get('/api/todolists/my');
 
-export const authorization = userInfo => axios.post('/api/auth/login', userInfo);
+export const getSharedLists = () => axios.get('/api/todolists/shared');
 
-export const getList = () => axios.get('/api/todolists/my');
+export const getAllLists = () => axios.get('/api/users/userStats');
 
 export const deleteList = id => axios.delete(`/api/todolists/${id}`);
 

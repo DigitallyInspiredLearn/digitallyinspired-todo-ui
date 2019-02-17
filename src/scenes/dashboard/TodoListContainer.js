@@ -17,7 +17,8 @@ const mapDispatchToProps = dispatch => ({
         updateCheckbox: actions.updateCheckbox,
         updateTaskName: actions.updateTaskName,
         onBlurs: actions.onBlurs,
-        searchList: actions.searchList
+        searchList: actions.searchList,
+
     }, dispatch),
 });
 

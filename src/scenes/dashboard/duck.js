@@ -4,8 +4,11 @@ import {
     takeEvery, call, put, select, takeLatest, delay,
 } from 'redux-saga/effects';
 import {
-    getList, deleteList, addDashboard, updateList, getOneList,
+    getMyList, deleteList, addDashboard, updateList, getOneList,
 } from '../../api/dashboard';
+import {
+    getTask
+} from '../../api/task';
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
 export const SET_DASHBOARD_SUCCESS = 'SET_DASHBOARD_SUCCESS';
@@ -92,7 +95,7 @@ export const reducer = handleActions({
 }, initialState);
 
 function* getDashboard() {
-    const res = yield call(getList);
+    const res = yield call(getMyList);
     yield put(actions.setDashboardSuccess(res.data));
 }
 
@@ -173,7 +176,7 @@ function* fetchList(action) {
 }
 
 function* mutate(action) {
-    const lists = yield call(getList);
+    const lists = yield call(getMyList);
     const mutateList = action.payload==='' ?
         lists.data :
         lists.data.filter(list => !list.todoListName.toLowerCase().search(action.payload));

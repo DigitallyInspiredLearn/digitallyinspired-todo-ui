@@ -1,15 +1,27 @@
 @media (min-width: 600px) {
-    section{
+    section {
         display: flex;
         width: 48%;
         flex-direction: column;
         margin-bottom: 2.5%;
     }
 
-    .taskLists{
+    .taskLists {
         position: relative;
     }
-    #searchTask{
-margin-left: 32px;
+
+    #searchTask {
+        margin-left: 32px;
+    }
+}
+
+@media (min-width: 700px) {
+    #searchAndWatch{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #searchTask {
+        width: 93%;
     }
 }

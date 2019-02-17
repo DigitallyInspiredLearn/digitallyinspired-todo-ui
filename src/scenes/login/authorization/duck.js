@@ -4,7 +4,7 @@ import {
 } from 'redux-saga/effects';
 import axios from 'axios';
 import { history } from '../../../config/history';
-import { authorization as authorizationApi } from '../../../api/dashboard';
+import { authorization as authorizationApi } from '../../../api/auth';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
