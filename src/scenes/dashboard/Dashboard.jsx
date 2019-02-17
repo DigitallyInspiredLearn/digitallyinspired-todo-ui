@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import randomInteger from '../../config/helper';
-import trash from "../../image/trash.svg";
-import info from "../../image/info.png";
+import trash from '../../image/trash.svg';
+import info from '../../image/info.png';
 
 import './css/dashboardStyle.css';
 import './css/dashboardStyleForComp.css';
@@ -38,6 +38,11 @@ export class Dashboard extends Component {
         this.setState({
             valueNewTask: e.target.value = '',
         });
+    };
+
+    componentWillMount = () => {
+        console.log(this.props.idList);
+        // this.props.actions.fetchTasks({ id: this.props.idList });
     };
 
     render() {
@@ -91,7 +96,6 @@ export class Dashboard extends Component {
                             ? (e.target.blur(), this.props.actions.addTask({
                                 idDashboard: this.props.idList,
                                 nameTask: this.state.valueNewTask,
-                                idTask: `${randomInteger(1, 100000, this.props.toDoBoard)}`,
                             })
                             ) : false)
                         : false)

@@ -15,7 +15,7 @@ class Sidebar extends Component {
             tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
             animation: '',
             bool: false,
-            displayTrash: 'none'
+            displayTrash: 'none',
         };
     }
 
@@ -70,7 +70,7 @@ class Sidebar extends Component {
 
     handleAddInputTask = () => {
         this.setState({
-            tasks: this.state.tasks.concat([{ body: '', id: uuid(), isComplete: false }]),
+            tasks: this.state.tasks.concat([{ body: '', id: new Date().valueOf(), isComplete: false }]),
         });
     };
 

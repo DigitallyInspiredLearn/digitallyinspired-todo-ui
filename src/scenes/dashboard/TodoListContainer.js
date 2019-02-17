@@ -12,13 +12,13 @@ const mapDispatchToProps = dispatch => ({
         fetchOneDashboardSuccess: actions.fetchOneDashboardSuccess,
         updateTitleDashboard: actions.updateTitleDashboard,
         deleteDashboard: actions.deleteDashboard,
+        fetchTasks: actions.fetchTasks,
         deleteTask: actions.deleteTask,
         addTask: actions.addTask,
         updateCheckbox: actions.updateCheckbox,
         updateTaskName: actions.updateTaskName,
         onBlurs: actions.onBlurs,
         searchList: actions.searchList,
-
     }, dispatch),
 });
 
