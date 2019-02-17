@@ -28,6 +28,23 @@ const toDoList = {
             todoListName: 'My to do list',
             userOwnerId: 0,
         },
+        {
+            id: new Date().valueOf() + 3,
+            tasks: [
+                {
+                    id: new Date().valueOf() + 4,
+                    isComplete: true,
+                    body: 'Co 2',
+                },
+                {
+                    id: new Date().valueOf() + 5,
+                    isComplete: true,
+                    body: 'Destroy half of the universe 2',
+                },
+            ],
+            todoListName: 'My to do list 2',
+            userOwnerId: 0,
+        },
     ],
     users: [
         {
@@ -40,14 +57,33 @@ const toDoList = {
 
 app.get('/api/todolists/my', (req, res) => res.json(toDoList.lists));
 
-app.get('/api/tasks/:id', (req, res) => {
-    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
+app.get('/api/tasks', (req, res) => {
+    console.log(req.body);
+    const listIndex = toDoList.lists.findIndex(list => list.id === req.body.id);
     const tasks = toDoList.lists[listIndex].tasks;
     res.json(tasks);
 });
 
+app.post('/api/tasks', (req, res) => {
+    if (typeof req.body.params.newTask.body !== 'string'
+    || typeof req.body.params.newTask.id !== 'number'
+    || typeof req.body.params.newTask.isComplete !== 'boolean') {
+        res.sendStatus(400);
+    } else {
+        const list = toDoList.lists.find(list => list.id === req.body.params.todoListId);
+        if (list === undefined || list === '') {
+            res.sendStatus(404);
+        } else {
+            list.tasks.push(req.body.params.newTask);
+            res.sendStatus(200);
+        }
+    }
+});
+
 app.get('/api/todolists/:id', (req, res) => {
-    const list = toDoList.find(list => list.id === req.params.id);
+    console.log(req.body);
+    const list = toDoList.lists.find(list => list.id === req.params.id);
+    console.log(list);
     if (!list) {
         res.sendStatus(404);
     }
@@ -55,7 +91,7 @@ app.get('/api/todolists/:id', (req, res) => {
 });
 
 app.post('/api/todolists', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     if (
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
@@ -80,8 +116,6 @@ app.post('/api/todolists', (req, res) => {
 });
 
 app.post('/api/auth/login', (req, res) => {
-    console.log('=== auth ===');
-    console.log(req.body);
     let status;
     if (typeof req.body.usernameOrEmail !== 'string'
         || typeof req.body.password !== 'string') {
@@ -126,7 +160,7 @@ app.post('/api/auth/register', (req, res) => {
 });
 
 app.put('/api/todolists/:id', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     if (
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
