@@ -29,6 +29,7 @@ export class OneList extends Component {
     componentWillMount = () => this.props.actions.fetchList(this.props.match.params.id);
 
     render() {
+        console.log(this.props.match.params.id);
         return (
             <div id="list">
                 <div id="header">

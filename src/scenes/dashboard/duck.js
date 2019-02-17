@@ -169,11 +169,6 @@ function* updateTitle(action) {
     yield call(getDashboard);
 }
 
-function* fetchList(action) {
-    const r = yield call(getOneList, action.payload);
-    yield put(actions.fetchListSuccess(r.data));
-}
-
 function* mutate(action) {
     const lists = yield call(getList);
     const mutateList = action.payload==='' ?
@@ -189,6 +184,5 @@ export function* saga() {
     yield takeEvery(DELETE_TASK, deleteTask);
     yield takeEvery(ADD_TASK, addTask);
     yield takeLatest(ON_BLURS, updateTitle);
-    yield takeEvery(FETCH_LIST, fetchList);
     yield takeEvery(SEARCH_LIST, mutate);
 }

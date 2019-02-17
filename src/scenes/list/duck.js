@@ -59,7 +59,9 @@ export const reducer = handleActions({
 }, initialState);
 
 function* fetchList(action) {
+    console.log(action.payload);
     const r = yield call(getOneList, action.payload);
+    console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));
 }
 

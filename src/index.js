@@ -30,7 +30,7 @@ const mainReducer = combineReducers({
     auth: authReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, mainReducer)
+const persistedReducer = persistReducer(persistConfig, mainReducer);
 
 const sagaMiddleware = createSagaMiddleware();
 

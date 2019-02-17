@@ -47,7 +47,7 @@ app.get('/api/tasks/:id', (req, res) => {
 });
 
 app.get('/api/todolists/:id', (req, res) => {
-    const list = toDoList.find(list => list.id === req.params.id);
+    const list = toDoList.lists.find(list => list.id === req.params.id);
     if (!list) {
         res.sendStatus(404);
     }
