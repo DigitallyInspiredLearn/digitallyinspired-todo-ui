@@ -81,8 +81,8 @@ app.post('/api/tasks', (req, res) => {
 });
 
 app.get('/api/todolists/:id', (req, res) => {
-    console.log(req.body);
-    const list = toDoList.lists.find(list => list.id === req.params.id);
+    console.log(req.params);
+    const list = toDoList.lists.find(list => list.id === parseInt(req.params.id, 10));
     console.log(list);
     if (!list) {
         res.sendStatus(404);
