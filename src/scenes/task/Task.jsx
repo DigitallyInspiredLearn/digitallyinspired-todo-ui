@@ -64,7 +64,6 @@ class Task extends Component {
                         style={displayStyle}
                         onClick={() => {
                             this.props.actions.deleteTask({
-                                idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                             });
                         }}

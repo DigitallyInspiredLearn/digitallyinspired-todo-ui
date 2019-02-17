@@ -80,6 +80,7 @@ app.post('/api/tasks', (req, res) => {
     }
 });
 
+
 app.get('/api/todolists/:id', (req, res) => {
     console.log(req.params);
     const list = toDoList.lists.find(list => list.id === parseInt(req.params.id, 10));
@@ -170,7 +171,7 @@ app.put('/api/todolists/:id', (req, res) => {
         res.sendStatus(400);
     } else {
         const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
-        console.log(listIndex);
+        // console.log(listIndex);
         if (listIndex === -1) {
             res.sendStatus(404);
         } else {
@@ -190,6 +191,12 @@ app.delete('/api/todolists/:id', (req, res) => {
         toDoList.lists.splice(listIndex, 1);
         res.sendStatus(200);
     }
+});
+
+app.delete('/api/tasks/:id', (req, res) => {
+    console.log(req.params);
+    const taskIndex = toDoList.lists.map(list => list.tasks.findIndex(task => task.id === parseInt(req.params.id, 10)));
+    console.log(taskIndex);
 });
 
 const port = 8080;

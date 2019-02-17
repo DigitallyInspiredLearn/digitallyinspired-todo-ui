@@ -4,7 +4,7 @@ import {
     takeEvery, call, put, select, takeLatest, delay,
 } from 'redux-saga/effects';
 import {
-    getList, deleteList, addDashboard, updateList, getOneList, getTasks, addTask,
+    getList, deleteList, addDashboard, updateList, getOneList, getTasks, addTask, deleteTask as deleteTaskApi
 } from '../../api/dashboard';
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
@@ -132,15 +132,12 @@ function* updateSelectedTask(action) {
 }
 
 function* deleteTask(action) {
-    const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.id === action.payload.idDashboard);
+    console.log(action)
+    // const todo = yield select(state => state.dashboard.toDoBoard);
+    // const list = todo.find(i => i.id === action.payload.idDashboard);
     yield call(
-        updateList,
-        action.payload.idDashboard,
-        {
-            ...list,
-            tasks: list.tasks.filter(e => e.id !== action.payload.idTask),
-        },
+        deleteTaskApi,
+        action.payload.idTask,
     );
     yield call(getDashboard);
 }

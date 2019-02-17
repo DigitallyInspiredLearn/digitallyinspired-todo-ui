@@ -22,3 +22,5 @@ export const addTask = (id, newTask) => {
         },
     });
 };
+
+export const deleteTask = id => axios.delete(`/api/tasks/${id}`);
