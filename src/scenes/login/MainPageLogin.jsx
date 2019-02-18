@@ -6,13 +6,14 @@ import Registration from './registration/RegistrationContainer';
 
 function MainPageLogin() {
     return (
-        <div className="container" style={{ alignContent: 'start' }}>
-                <Switch>
-                    <Route path="/main/aut" component={Authorization} />
-                    <Route path="/main/reg" component={Registration} />
-                    <Redirect to="/main/aut" />
-                </Switch>
-        </div>
+            <div className="container" style={{ alignContent: 'center' }}>
+                    <Switch>
+                        <Route path="/main/aut" component={Authorization} />
+                        <Route path="/main/reg" component={Registration} />
+                        <Redirect to="/main/aut" />
+                    </Switch>
+            </div>
     );
+
 }
 export default MainPageLogin;

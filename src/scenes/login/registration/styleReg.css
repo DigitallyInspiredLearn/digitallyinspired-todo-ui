@@ -1,5 +1,6 @@
 #regDiv{
-    margin-top: 30px;
+    margin-top: 20%;
+    margin-left: 35%;
     display: flex;
     flex-direction: column;
     opacity:0;
