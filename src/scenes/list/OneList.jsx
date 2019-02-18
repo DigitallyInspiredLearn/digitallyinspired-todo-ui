@@ -121,6 +121,7 @@ export class OneList extends Component {
                                         fetchList={this.props.actions.fetchList}
                                         updateTaskList={this.props.actions.updateTaskList}
                                         deleteTaskList={this.props.actions.deleteTaskList}
+                                        updateCheckboxList={this.props.actions.updateCheckboxList}
                                     />
                                 )))
                         }

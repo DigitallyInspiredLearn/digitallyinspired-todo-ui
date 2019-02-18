@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
         addTaskList: actions.addTaskList,
         deleteList: actions.deleteList,
         deleteTaskList: actions.deleteTaskList,
+        updateCheckboxList: actions.updateCheckboxList,
     }, dispatch),
     actionsBoard: bindActionCreators({
         updateCheckbox: actionsBoard.updateCheckbox,
