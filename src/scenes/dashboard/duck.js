@@ -108,13 +108,11 @@ export const reducer = handleActions({
 }, initialState);
 
 function* getDashboard(action) {
-    yield delay(1000);
     let res = yield call(getMyList);
     console.log(action.payload);
     action.payload==='myList' ? res = yield call(getMyList) :
         action.payload==='sharedList' ? res = yield call(getSharedLists) :
             action.payload==='allLists' ? res = yield call(getAllLists) : yield call(getMyList);
-
     yield put(actions.setDashboardSuccess(res.data));
 }
 
