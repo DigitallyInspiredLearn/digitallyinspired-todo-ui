@@ -9,7 +9,6 @@ const mapStateToProps = state => ({ toDoBoard: state.dashboard.toDoBoard });
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         fetchDashboard: actions.fetchDashboard,
-        fetchOneDashboardSuccess: actions.fetchOneDashboardSuccess,
         updateTitleDashboard: actions.updateTitleDashboard,
         deleteDashboard: actions.deleteDashboard,
         fetchTasks: actions.fetchTasks,
@@ -17,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
         addTask: actions.addTask,
         updateCheckbox: actions.updateCheckbox,
         updateTaskName: actions.updateTaskName,
-        onBlurs: actions.onBlurs,
+        updateTitleSuccess: actions.updateTitleSuccess,
         searchList: actions.searchList,
     }, dispatch),
 });

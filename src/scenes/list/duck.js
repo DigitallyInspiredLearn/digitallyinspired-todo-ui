@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
-import {
-    takeEvery, call, put, takeLatest, delay,
-} from 'redux-saga/effects';
+import { call, put, delay } from 'redux-saga/effects';
 
-import { getOneList } from '../../api/list';
-import { updateList, deleteList, getTasks } from '../../api/dashboard';
+import getOneList from '../../api/list';
+import { updateList, deleteList } from '../../api/dashboard';
+import { getTasks } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
@@ -38,23 +38,24 @@ const initialState = {
 };
 export const reducer = handleActions({
 
-    [FETCH_LIST_SUCCESS]: (state, action) => ({...state, data: action.payload}),
+    [FETCH_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
 
-    [FETCH_CHANGE_LIST_SUCCESS]: (state, action) => ({...state, data: action.payload}),
+    [FETCH_CHANGE_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
 
     [UPDATE_TITLE_LIST]: (state, action) => ({
         ...state,
-        data: {...state.data, todoListName: action.payload.newTitle}
+        data: { ...state.data, todoListName: action.payload.newTitle },
     }),
 
     [UPDATE_TASK_LIST]: (state, action) => ({
         ...state,
         data: {
-            ...state.data, tasks: state.data.tasks.map(e => (e.id === action.payload.idTask
+            ...state.data,
+            tasks: state.data.tasks.map(e => (e.id === action.payload.idTask
                 ? {
                     ...e, body: action.payload.newTaskName,
-                } : e))
-        }
+                } : e)),
+        },
     }),
 
     [UPDATE_CHECKBOX_LIST]: (state, action) => ({
@@ -67,7 +68,6 @@ export const reducer = handleActions({
         }
     }),
 
-
     [SEARCH_TASK]: (state, action) => ({...state, search: action.payload}),
 
 }, initialState);
@@ -79,12 +79,14 @@ function* fetchList(action) {
     const tas = yield call(getTasks, action.payload);
     console.log(tas.data);
     yield put(actions.fetchListSuccess(r.data));
+    const tasks = yield call(getTasks, action.payload);
+    console.log(tasks);
 }
 
 function* updateTitle(action) {
     yield delay(1000);
     const list = yield call(getOneList, action.payload.id);
-    const res = yield call(updateList, action.payload.id, {...list.data, todoListName: action.payload.newTitle});
+    const res = yield call(updateList, action.payload.id, { ...list.data, todoListName: action.payload.newTitle });
     console.log(res);
 }
 
@@ -93,21 +95,22 @@ function* updateTask(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
     const res = yield call(updateList, action.payload.idDashboard, {
         ...list.data,
-        tasks: list.data.tasks.map(item => item.id === action.payload.idTask ? {
+        tasks: list.data.tasks.map(item => (item.id === action.payload.idTask ? {
             ...item,
-            body: action.payload.newTaskName
-        } : item)
+            body: action.payload.newTaskName,
+        } : item)),
     });
     console.log(res);
 }
 
 function* fetchChangeSearch(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
-    action.payload.search === '' ? yield put(actions.fetchListSuccess(list.data)) :
-        yield put(actions.changeListSuccess({
+    const mutateTask = action.payload.search === '' ? actions.fetchListSuccess(list.data)
+        : yield actions.changeListSuccess({
             ...list.data,
-            tasks: list.data.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0)
-        }));
+            tasks: list.data.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0),
+        });
+    yield put(mutateTask);
 }
 
 function* addTask(action) {
@@ -136,7 +139,7 @@ function* addTask(action) {
 }
 
 function* fetchDeleteList(action) {
-    const res =  yield call(deleteList, action.payload);
+    const res = yield call(deleteList, action.payload);
     console.log(res);
 }
 
@@ -181,5 +184,4 @@ export function* saga() {
     yield safeTakeEvery(UPDATE_CHECKBOX_LIST, fetchUpdateCheckbox);
     yield safeTakeLatest(UPDATE_TASK_LIST, updateTask);
     yield safeTakeLatest(UPDATE_TITLE_LIST, updateTitle);
-
 }

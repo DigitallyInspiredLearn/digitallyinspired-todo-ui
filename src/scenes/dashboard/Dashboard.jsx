@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types,react/destructuring-assignment */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Task from '../task/Task';
@@ -39,11 +40,6 @@ export class Dashboard extends Component {
         });
     };
 
-    componentWillMount = () => {
-        console.log(this.props.idList);
-        // this.props.actions.fetchTasks({ id: this.props.idList });
-    };
-
     render() {
         return (
             <section id={this.props.idList}>
@@ -76,9 +72,9 @@ export class Dashboard extends Component {
                             if (e.target.value === '') {
                                 e.target.value = 'New Title';
                             }
-                            this.props.actions.onBlurs({ id: this.props.idList });
+                            this.props.actions.updateTitleSuccess({ id: this.props.idList });
                         }}
-                        onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
+                        onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
                     />
                 </div>
                 <div className="taskLists" dropzone="move">

@@ -1,10 +1,10 @@
+/* eslint-disable react/destructuring-assignment,
+no-unused-expressions,react/no-access-state-in-setstate,react/prop-types */
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
-import plus from "../../../image/plus.svg";
-import trash from "../../../image/trash.svg";
-
-const uuid = require('uuid');
+import plus from '../../../image/plus.svg';
+import trash from '../../../image/trash.svg';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class Sidebar extends Component {
     }
 
     updateDisplayTrashVisible = () => this.setState({ displayTrash: 'flex' });
+
     updateDisplayTrashHide = () => this.setState({ displayTrash: 'none' });
 
     updateDisplaySidebar = () => {
@@ -81,7 +82,7 @@ class Sidebar extends Component {
     };
 
     render() {
-        const displayTrash = { display: this.state.displayTrash};
+        const displayTrash = { display: this.state.displayTrash };
         return (
             [
                 <div className="plus" onClick={this.updateDisplaySidebar}>
@@ -131,7 +132,7 @@ class Sidebar extends Component {
                                     />
                                     <img
                                         src={trash}
-                                        alt='Delete this task'
+                                        alt="Delete this task"
                                         onClick={this.handleRemoveInputTask(i)}
                                         className="small"
                                         style={displayTrash}
