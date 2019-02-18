@@ -14,50 +14,12 @@ class DashboardList extends Component {
 
     componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
 
-    componentDidUpdate() {
-        this.props.actions.fetchDashboard( this.state.selected );
-    }
+    componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
 
     render() {
         return (
             [
                 <div id="searchAndWatch">
-                    <div id="watchedDashb">
-                        <h2>What do you want do watch?</h2>
-                        <div id="radio">
-                            <label htmlFor="contactChoice1">
-                                <input
-                                    type="radio"
-                                    name="show"
-                                    id="myList"
-                                    value="myList"
-                                    checked={this.state.selected === 'myList'}
-                                    onChange={e => this.setState({ selected: e.target.value })}
-                                />Only my dashboard
-                            </label>
-                            <label htmlFor="contactChoice2">
-                                <input
-                                    type="radio"
-                                    name="show"
-                                    value="sharedList"
-                                    id="sharedList"
-                                    checked={this.state.selected === 'sharedList'}
-                                    onChange={e => this.setState({ selected: e.target.value })}
-                                />Only shared dashboard
-                            </label>
-                            <label htmlFor="contactChoice2 ">
-                                <input
-                                    type="radio"
-                                    name="show"
-                                    value="allLists"
-                                    id="allLists"
-                                    checked={this.state.selected === 'allLists'}
-                                    onChange={e => this.setState({ selected: e.target.value })}
-                                />All dashboard
-                            </label>
-                        </div>
-
-                    </div>
                     <div
                         className="searchTask"
                         id="searchTask"
@@ -81,6 +43,37 @@ class DashboardList extends Component {
                                 paddingRight: '5px',
                             }}
                         />
+                    </div>
+                    <div id="watchedDashb">
+                        <div id="radio">
+                            <label htmlFor="contactChoice1">
+                                <input
+                                    type="checkbox"
+                                    name="show"
+                                    id="myList"
+                                    value="myList"
+                                    checked={this.state.selected === 'myList'}
+                                    onChange={e => (
+                                        this.setState({ selected: e.target.value }),
+                                        this.props.actions.fetchDashboard(this.state.selected)
+                                    )}
+                                />Show my dashboard
+                            </label>
+                            <label htmlFor="contactChoice2">
+                                <input
+                                    type="checkbox"
+                                    name="show"
+                                    value="sharedList"
+                                    id="sharedList"
+                                    checked={this.state.selected === 'sharedList'}
+                                    onChange={e => (
+                                        this.setState({ selected: e.target.value }),
+                                            this.props.actions.fetchDashboard(this.state.selected)
+                                    )}
+                                />Show shared dashboard
+                            </label>
+                        </div>
+
                     </div>
                 </div>,
                 <div id="content">
