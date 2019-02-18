@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
-import randomInteger from '../../config/helper';
 import trash from '../../image/trash.svg';
 import info from '../../image/info.png';
 

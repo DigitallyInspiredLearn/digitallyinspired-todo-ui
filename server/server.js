@@ -57,10 +57,12 @@ const toDoList = {
 
 app.get('/api/todolists/my', (req, res) => res.json(toDoList.lists));
 
-app.get('/api/tasks', (req, res) => {
-    console.log(req.body);
-    const listIndex = toDoList.lists.findIndex(list => list.id === req.body.id);
+app.get('/api/tasks/:id', (req, res) => {
+    console.log(req.params);
+    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
+    console.log(listIndex);
     const tasks = toDoList.lists[listIndex].tasks;
+    console.log(tasks)
     res.json(tasks);
 });
 
@@ -81,9 +83,9 @@ app.post('/api/tasks', (req, res) => {
 });
 
 app.get('/api/todolists/:id', (req, res) => {
-    console.log(req.params);
+    // console.log(req.params);
     const list = toDoList.lists.find(list => list.id === parseInt(req.params.id, 10));
-    console.log(list);
+    //console.log(list);
     if (!list) {
         res.sendStatus(404);
     }

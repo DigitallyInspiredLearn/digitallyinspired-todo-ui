@@ -58,6 +58,7 @@
 #nullTask{
     opacity:0;
     transition: 500ms;
+    color: rgba(108,108,108,0.38);
     animation: show 500ms 1;
     animation-fill-mode: forwards;
     margin: auto;

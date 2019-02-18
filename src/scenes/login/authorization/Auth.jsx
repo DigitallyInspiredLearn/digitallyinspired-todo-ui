@@ -40,19 +40,15 @@ class Authorization extends Component {
                                 required
                             />
                         </div>
-                        {/*<Link to="/lists">*/}
-                            <p
-                                // type="submit"
-                                // name="enterEx"
-                                className="btn btn-success form-control enter"
-                                style={{width: '95%'}}
-                                onClick={() => this.props.actions.authorization({
-                                    password: this.state.password,
-                                    usernameOrEmail: this.state.login,
-                                })}
-                            >ENTER
-                            </p>
-                        {/*</Link>*/}
+                        <p
+                            className="btn btn-success form-control enter"
+                            style={{ width: '95%' }}
+                            onClick={() => this.props.actions.authorization({
+                                password: this.state.password,
+                                usernameOrEmail: this.state.login,
+                            })}
+                        >ENTER
+                        </p>
                     </form>
                     <div className="href">
                         <Link to="/reg">
@@ -66,3 +62,9 @@ class Authorization extends Component {
 }
 
 export default Authorization;
+// {/*<div className="container" style={{ alignContent: 'start' }}>*/}
+// {/*<div className="container-fluid">*/}
+// {/*<div className="description">*/}
+// {/*<h1>Cool site to control your plans</h1>*/}
+// {/*<p>...</p>*/}
+// {/*</div>*/}
