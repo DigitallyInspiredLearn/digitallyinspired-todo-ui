@@ -125,7 +125,6 @@ class Registration extends Component {
                         </p>
                     </form>
                     <div className="href">
-                        <button type="button" className="forgetPass navBtn">Forgot your password?</button>
                         <Link to="/auth">
                             <button type="button" className="navBtn">Return to the login page</button>
                         </Link>
