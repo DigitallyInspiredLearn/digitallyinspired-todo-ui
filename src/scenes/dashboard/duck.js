@@ -4,7 +4,15 @@ import {
     takeEvery, call, put, select, takeLatest, delay,
 } from 'redux-saga/effects';
 import {
-    getList, deleteList, addDashboard, updateList, getOneList, getTasks, addTask,
+    getMyList,
+    deleteList,
+    addDashboard,
+    updateList,
+    getOneList,
+    getTasks,
+    addTask,
+    getSharedLists,
+    getAllLists
 } from '../../api/dashboard';
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
@@ -96,10 +104,17 @@ export const reducer = handleActions({
                     } : e)),
             } : i)),
     }),
+
 }, initialState);
 
-function* getDashboard() {
-    const res = yield call(getList);
+function* getDashboard(action) {
+    yield delay(1000);
+    let res = yield call(getMyList);
+    console.log(action.payload);
+    action.payload==='myList' ? res = yield call(getMyList) :
+        action.payload==='sharedList' ? res = yield call(getSharedLists) :
+            action.payload==='allLists' ? res = yield call(getAllLists) : yield call(getMyList);
+
     yield put(actions.setDashboardSuccess(res.data));
 }
 
@@ -110,7 +125,7 @@ function* fetchTasks(action) {
 
 function* deleteDashboard(action) {
     yield call(deleteList, action.payload.id);
-    yield call(getDashboard);
+    yield call(getDashboard,'myList');
 }
 
 function* updateSelectedTask(action) {
@@ -162,7 +177,7 @@ function* addNewTask(action) {
 
 function* addList(action) {
     yield call(addDashboard, action.payload);
-    yield call(getDashboard);
+    yield call(getDashboard, 'myList');
 }
 
 function* updateTitle(action) {
@@ -170,11 +185,11 @@ function* updateTitle(action) {
     list.todoListName = list.todoListName === '' ? 'New Title' : list.todoListName;
     list.tasks.map(task => task.body = task.body === '' ? 'to-do' : task.body);
     yield call(updateList, action.payload.id, list);
-    yield call(getDashboard);
+    yield call(getDashboard, 'myList');
 }
 
 function* mutate(action) {
-    const lists = yield call(getList);
+    const lists = yield call(getMyList);
     const mutateList = action.payload==='' ?
         lists.data :
         lists.data.filter(list => !list.todoListName.toLowerCase().search(action.payload));
