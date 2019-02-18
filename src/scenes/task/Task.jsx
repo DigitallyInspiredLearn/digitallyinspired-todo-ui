@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment,react/prop-types */
 import React, { Component } from 'react';
 import './css/taskStyle.css';
 import trash from '../../image/trash.svg';
@@ -15,7 +16,8 @@ class Task extends Component {
     updateDisplayNone = () => this.setState({ displayStyle: 'none' });
 
     render() {
-        const displayStyle = { display: this.state.displayStyle, zIndex: 50 };
+        const { displayStyle } = this.state;
+        const styleBtn = { displayStyle, zIndex: 50 };
         return (
             <div
                 draggable="false"
@@ -52,7 +54,7 @@ class Task extends Component {
                             if (e.target.value === '') {
                                 e.target.value = 'New task';
                             }
-                            this.props.actions.onBlurs({ id: this.props.idList });
+                            this.props.actions.updateTitleSuccess({ id: this.props.idList });
                         }}
                     />
                 </div>
@@ -61,7 +63,7 @@ class Task extends Component {
                         src={trash}
                         className="deleteTask"
                         alt="Delete this task"
-                        style={displayStyle}
+                        style={styleBtn}
                         onClick={() => {
                             this.props.actions.deleteTask({
                                 idDashboard: this.props.idList,

@@ -1,14 +1,11 @@
 /* eslint-disable */
 import { createAction, handleActions } from 'redux-actions';
-import {
-    takeEvery, call, put, select, takeLatest, delay,
-} from 'redux-saga/effects';
+import { call, put, select, delay } from 'redux-saga/effects';
 import {
     getMyList,
     deleteList,
     addDashboard,
     updateList,
-    getOneList,
     getSharedLists,
     getAllLists
 } from '../../api/dashboard';
@@ -16,20 +13,17 @@ import {
     updateTask,
     getTasks,
     addTask,
-    deleteTask as deleteTasks,
+    deleteTask as deleteTaskApi,
 } from '../../api/task';
 import {safeTakeEvery, safeTakeLatest} from "../../helpers/saga";
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
 export const SET_DASHBOARD_SUCCESS = 'SET_DASHBOARD_SUCCESS';
-export const FETCH_ONE_DASHBOARD_SUCCESS = 'FETCH_ONE_DASHBOARD_SUCCESS';
-export const FETCH_LIST = 'list/FETCH_LIST';
-export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
 
 export const ADD_DASHBOARD = 'ADD_DASHBOARD';
 export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
 export const UPDATE_TITLE_DASHBOARD = 'UPDATE_TITLE_DASHBOARD';
-export const ON_BLURS = 'ON_BLURS';
+export const UPDATE_TITLE_DASHBOARD_SUCCESS = 'UPDATE_TITLE_DASHBOARD_SUCCESS';
 
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const SET_TASKS_SUCCESS = 'SET_TASKS_SUCCESS';
@@ -46,11 +40,7 @@ export const actions = {
     addNewDashboard: createAction(ADD_DASHBOARD),
     deleteDashboard: createAction(DELETE_DASHBOARD),
     updateTitleDashboard: createAction(UPDATE_TITLE_DASHBOARD),
-    onBlurs: createAction(ON_BLURS),
-
-    fetchOneDashboardSuccess: createAction(FETCH_ONE_DASHBOARD_SUCCESS),
-    fetchList: createAction(FETCH_LIST),
-    fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
+    updateTitleSuccess: createAction(UPDATE_TITLE_DASHBOARD_SUCCESS),
 
     fetchTasks: createAction(FETCH_TASKS),
     setTasksSuccess: createAction(SET_TASKS_SUCCESS),
@@ -62,8 +52,55 @@ export const actions = {
     searchList: createAction(SEARCH_LIST),
 };
 
-function* getDashboard(action) {
+
+const initialState = {
+    toDoBoard: [],
+    tasks: [],
+};
+
+export const reducer = handleActions({
+    [SET_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
+
+    [SET_TASKS_SUCCESS]: (state, action) => ({ ...state, tasks: action.payload }),
+
+    [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
+        ...state,
+        toDoBoard: state.toDoBoard.map((e) => {
+            if (e.id === action.payload.id) {
+                return { ...e, todoListName: action.payload.newTitle };
+            }
+            return e;
+        }),
+    }),
+
+    [UPDATE_CHECKBOX]: (state, action) => Object.assign({}, state, {
+        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard
+            ? {
+                ...i,
+                tasks: i.tasks.map(e => (e.id === action.payload.idTask
+                    ? { ...e, isComplete: !action.payload.selected }
+                    : e)),
+            } : i)),
+    }),
+
+    [UPDATE_TASK_NAME]: (state, action) => ({
+        ...state,
+        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard
+            ? {
+                ...i,
+                tasks: i.tasks.map(e => (e.id === action.payload.idTask
+                    ? {
+                        ...e, body: action.payload.newTaskName,
+                    } : e)),
+            } : i)),
+    }),
+
+}, initialState);
+
+function* getDashboard() {
+
     let res = yield call(getMyList);
+    console.log(res);
     // let myList = yield call(getMyList);
     // let sharedList = yield call(getSharedLists);
     // action.payload.selectedMy==='myList' ? res =  {...res, myList}: -1;
@@ -73,14 +110,14 @@ function* getDashboard(action) {
 
 function* deleteDashboard(action) {
     yield call(deleteList, action.payload.id);
-    yield call(getDashboard,'myList');
+    yield call(getDashboard);
 }
 
 function* updateTitle(action) {
     const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
     const updatedList = { ...list, todoListName: list.todoListName === '' ? 'New Title' : list.todoListName };
     yield call(updateList, action.payload.id, updatedList );
-    yield call(getDashboard, 'myList');
+    yield call(getDashboard);
 }
 
 function* fetchTasks(action) {
@@ -99,7 +136,7 @@ function* updateSelectedTask(action) {
 }
 
 function* deleteTask(action) {
-    yield call(deleteTasks, action.payload.idTask);
+    yield call(deleteTaskApi, action.payload.idTask);
     yield call(getTasks);
 }
 
@@ -118,7 +155,7 @@ function* addNewTask(action) {
 
 function* addList(action) {
     yield call(addDashboard, action.payload);
-    yield call(getDashboard, 'myList');
+    yield call(getDashboard);
 }
 
 function* mutate(action) {
@@ -136,6 +173,6 @@ export function* saga() {
     yield safeTakeEvery(FETCH_TASKS, fetchTasks);
     yield safeTakeEvery(DELETE_TASK, deleteTask);
     yield safeTakeEvery(ADD_TASK, addNewTask);
-    yield safeTakeLatest(ON_BLURS, updateTitle);
+    yield safeTakeLatest(UPDATE_TITLE_DASHBOARD_SUCCESS, updateTitle);
     yield safeTakeEvery(SEARCH_LIST, mutate);
 }

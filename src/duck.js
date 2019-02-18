@@ -1,10 +1,7 @@
-/* eslint-disable no-console */
-
-import { createAction, handleActions } from 'redux-actions';
-import {
-    takeEvery, call, put, select,
-} from 'redux-saga/effects';
-import { history } from './config/history';
+/* eslint-disable no-console,no-alert */
+import { createAction } from 'redux-actions';
+import { takeEvery } from 'redux-saga/effects';
+import history from './config/history';
 
 export const ERROR = 'ERROR';
 
@@ -19,21 +16,16 @@ export function* errorHandler(gen) {
         if (e.response.status === 401) {
             console.log('Error 401');
             alert('Неверные данные! Введите еще раз!');
-            location.reload(true);
-        }
-        else if (e.response.status === 500) {
+            // location.reload(true);
+        } else if (e.response.status === 500) {
             console.log('Error 500');
             history.push('/error500');
-        }
-        else if (e.response.status === 400) {
+        } else if (e.response.status === 400) {
             console.log('Error 400');
-        }
-        else if (e.response.status === 404) {
+        } else if (e.response.status === 404) {
             console.log('Error 404');
             history.push('/error404');
-        }
-        else
-            console.log(e);
+        } else console.log(e);
     }
 }
 

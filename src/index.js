@@ -15,10 +15,9 @@ import { Router } from 'react-router-dom';
 import { saga as listSaga, reducer as listReducer } from './scenes/list/duck';
 import loginPageSaga from './scenes/login/duck';
 import './api/dashboard';
-import { saga } from './scenes/dashboard/duck';
+import { saga, reducer } from './scenes/dashboard/duck';
 import App from './App';
 import history from './config/history';
-import { reducer } from './scenes/dashboard/reducer';
 import { reducer as authReducer } from './scenes/login/authorization/duck';
 
 const mainReducer = combineReducers({

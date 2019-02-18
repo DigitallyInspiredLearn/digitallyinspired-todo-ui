@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,import/no-unresolved,prefer-destructuring,no-console, eslint-disable no-shadow */
+
 const express = require('express');
 const uuid = require('uuid');
 const cors = require('cors');
