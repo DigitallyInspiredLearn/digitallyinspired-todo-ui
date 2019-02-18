@@ -15,9 +15,11 @@ export function* errorHandler(gen) {
     } catch (e) {
         if (e.response.status === 401) {
             console.log('Error 401');
-            alert('Неверные данные! Введите еще раз!');
-            // location.reload(true);
-        } else if (e.response.status === 500) {
+            alert('Вы не авторизировались!');
+            history.push('/auth');
+            location.reload(true);
+        }
+        else if (e.response.status === 500) {
             console.log('Error 500');
             history.push('/error500');
         } else if (e.response.status === 400) {
