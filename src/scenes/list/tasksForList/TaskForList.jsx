@@ -28,12 +28,12 @@ class TaskForList extends Component {
                         className={this.props.selected === false ? 'unselected' : 'fa fa-check-square'}
                         style={{ zIndex: 50 }}
                         onClick={() => {
-                            this.props.actions.updateCheckbox({
+                            this.props.updateCheckboxList({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                                 selected: this.props.selected,
                             });
-                            this.props.fetchList(this.props.idList);
+                            //this.props.fetchList(this.props.idList);
                         }}
                     />
                     <input
