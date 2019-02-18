@@ -8,28 +8,21 @@ import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router } from 'react-router-dom';
-import { reducer as listReducer, saga as listSaga } from './scenes/list/duck';
+import { saga as listSaga } from './scenes/list/duck';
 import { loginPageSaga } from './scenes/login/duck';
 import './api/dashboard';
 import { saga } from './scenes/dashboard/duck';
-import { reducer } from './scenes/dashboard/reducer';
 import App from './App';
-import {history} from "./config/history";
-import { reducer as authReducer} from "./scenes/login/authorization/duck";
+import { history } from './config/history';
+import { mainReducer } from './reducer';
 
 const persistConfig = {
     key: 'auth',
     storage,
 };
-
-const mainReducer = combineReducers({
-    dashboard: reducer,
-    list: listReducer,
-    auth: authReducer,
-});
 
 const persistedReducer = persistReducer(persistConfig, mainReducer);
 
@@ -50,10 +43,8 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-            <Router history={history} >
-
+            <Router history={history}>
                 <App />
-
             </Router>
         </PersistGate>
     </Provider>,

@@ -42,14 +42,14 @@ export const SEARCH_LIST = 'SEARCH_LIST';
 export const actions = {
     fetchDashboard: createAction(FETCH_DASHBOARD),
     setDashboardSuccess: createAction(SET_DASHBOARD_SUCCESS),
-    fetchOneDashboardSuccess: createAction(FETCH_ONE_DASHBOARD_SUCCESS),
-    fetchList: createAction(FETCH_LIST),
-    fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
-
     addNewDashboard: createAction(ADD_DASHBOARD),
     deleteDashboard: createAction(DELETE_DASHBOARD),
     updateTitleDashboard: createAction(UPDATE_TITLE_DASHBOARD),
     onBlurs: createAction(ON_BLURS),
+
+    fetchOneDashboardSuccess: createAction(FETCH_ONE_DASHBOARD_SUCCESS),
+    fetchList: createAction(FETCH_LIST),
+    fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
 
     fetchTasks: createAction(FETCH_TASKS),
     setTasksSuccess: createAction(SET_TASKS_SUCCESS),
@@ -63,21 +63,28 @@ export const actions = {
 
 function* getDashboard(action) {
     let res = yield call(getMyList);
-    console.log(action.payload);
-    action.payload==='myList' ? res = yield call(getMyList) :
-        action.payload==='sharedList' ? res = yield call(getSharedLists) :
-            action.payload==='allLists' ? res = yield call(getAllLists) : yield call(getMyList);
+    // let myList = yield call(getMyList);
+    // let sharedList = yield call(getSharedLists);
+    // action.payload.selectedMy==='myList' ? res =  {...res, myList}: -1;
+    // action.payload.selectedShared==='sharedList' ? res =  {...res, sharedList} :-1;
     yield put(actions.setDashboardSuccess(res.data));
-}
-
-function* fetchTasks(action) {
-    const res = yield call(getTasks, action.payload);
-    yield put(actions.setTasksSuccess(res.data));
 }
 
 function* deleteDashboard(action) {
     yield call(deleteList, action.payload.id);
     yield call(getDashboard,'myList');
+}
+
+function* updateTitle(action) {
+    const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
+    const updatedList = { ...list, todoListName: list.todoListName === '' ? 'New Title' : list.todoListName };
+    yield call(updateList, action.payload.id, updatedList );
+    yield call(getDashboard, 'myList');
+}
+
+function* fetchTasks(action) {
+    const res = yield call(getTasks, action.payload);
+    yield put(actions.setTasksSuccess(res.data));
 }
 
 function* updateSelectedTask(action) {
@@ -100,28 +107,16 @@ function* addNewTask(action) {
         yield call(
             addTask,
             action.payload.idDashboard,
-            {
-                body: action.payload.nameTask,
-            },
-
+            {body: action.payload.nameTask,},
         );
         yield call(getTasks);
     }catch (e) {
         console.log(e)
     }
-
 }
 
 function* addList(action) {
     yield call(addDashboard, action.payload);
-    yield call(getDashboard, 'myList');
-}
-
-function* updateTitle(action) {
-    const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
-    list.todoListName = list.todoListName === '' ? 'New Title' : list.todoListName;
-    list.tasks.map(task => task.body = task.body === '' ? 'to-do' : task.body);
-    yield call(updateList, action.payload.id, list);
     yield call(getDashboard, 'myList');
 }
 

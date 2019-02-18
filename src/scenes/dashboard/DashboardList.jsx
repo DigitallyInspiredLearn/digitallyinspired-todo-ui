@@ -8,13 +8,15 @@ class DashboardList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: 'myList',
+            selectedMy: 'myList',
+            selectedShared: null,
         };
     }
 
-    componentWillMount = () => {
-        this.props.actions.fetchDashboard(this.state.selected);
-    }
+    componentWillMount = () => this.props.actions.fetchDashboard({
+        selectedMy: this.state.selectedMy,
+        selectedShared: this.state.selectedShared,
+    });
 
     // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
 
@@ -54,10 +56,9 @@ class DashboardList extends Component {
                                     name="show"
                                     id="myList"
                                     value="myList"
-                                    checked={this.state.selected === 'myList'}
+                                    checked={this.state.selectedMy === 'myList'}
                                     onChange={e => (
-                                        this.setState({ selected: e.target.value }),
-                                        this.props.actions.fetchDashboard(this.state.selected)
+                                        this.setState({ selectedMy: e.target.value })
                                     )}
                                 />Show my dashboard
                             </label>
@@ -67,10 +68,9 @@ class DashboardList extends Component {
                                     name="show"
                                     value="sharedList"
                                     id="sharedList"
-                                    checked={this.state.selected === 'sharedList'}
+                                    checked={this.state.selectedShared === 'sharedList'}
                                     onChange={e => (
-                                        this.setState({ selected: e.target.value }),
-                                            this.props.actions.fetchDashboard(this.state.selected)
+                                        this.setState({ selectedShared: e.target.value })
                                     )}
                                 />Show shared dashboard
                             </label>

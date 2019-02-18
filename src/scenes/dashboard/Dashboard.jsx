@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import trash from '../../image/trash.svg';
@@ -8,7 +8,7 @@ import info from '../../image/info.png';
 import './css/dashboardStyle.css';
 import './css/dashboardStyleForComp.css';
 
-export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks />
+export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks/>
     : tasks.map(i => (
         <Task
             idTask={i.id}
@@ -39,7 +39,7 @@ export class Dashboard extends Component {
         });
     };
 
-    componentWillMount = () => this.props.actions.fetchTasks(this.props.idList);
+    // componentWillMount = () => this.props.actions.fetchTasks(this.props.idList);
 
     render() {
         return (
@@ -55,7 +55,7 @@ export class Dashboard extends Component {
                     <img
                         src={trash}
                         className="deleteBoadr"
-                        onClick={() => this.props.actions.deleteDashboard({ id: this.props.idList })}
+                        onClick={() => this.props.actions.deleteDashboard({id: this.props.idList})}
                         alt="Delete this list"
                     />
                 </div>
@@ -73,9 +73,9 @@ export class Dashboard extends Component {
                             if (e.target.value === '') {
                                 e.target.value = 'New Title';
                             }
-                            this.props.actions.onBlurs({ id: this.props.idList });
+                            this.props.actions.onBlurs({id: this.props.idList});
                         }}
-                        onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
+                        onKeyDown={e => (e.key === 'Enter' && e.target.blur() )}
                     />
                 </div>
                 <div className="taskLists" dropzone="move">
@@ -84,15 +84,15 @@ export class Dashboard extends Component {
                 <input
                     className="addNewTask"
                     placeholder="Add to-do"
-                    style={{ outline: 'none' }}
+                    style={{outline: 'none'}}
                     value={this.state.valueNewTask}
                     onChange={this.changeValueNewTask}
                     onKeyPress={e => (this.state.valueNewTask !== ''
                         ? (e.key === 'Enter'
                             ? (e.target.blur(), this.props.actions.addTask({
-                                idDashboard: this.props.idList,
-                                nameTask: this.state.valueNewTask,
-                            })
+                                    idDashboard: this.props.idList,
+                                    nameTask: this.state.valueNewTask,
+                                })
                             ) : false)
                         : false)
                     }

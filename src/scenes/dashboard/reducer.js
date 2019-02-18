@@ -14,7 +14,7 @@ const initialState = {
 };
 
 export const reducer = handleActions({
-    [SET_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
+    [SET_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
 
     [SET_TASKS_SUCCESS]: (state, action) => ({ ...state, tasks: action.payload }),
 
