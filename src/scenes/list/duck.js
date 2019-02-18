@@ -4,6 +4,7 @@ import {
 } from 'redux-saga/effects';
 
 import { getOneList } from '../../api/list';
+
 import { updateList, deleteList } from '../../api/dashboard';
 import { getTasks } from '../../api/task';
 
@@ -63,6 +64,8 @@ function* fetchList(action) {
     console.log(action.payload);
     const r = yield call(getOneList, action.payload);
     console.log(r.data);
+    const tas = yield call(getTasks, action.payload);
+    console.log(tas.data);
     yield put(actions.fetchListSuccess(r.data));
     const tasks = yield call(getTasks, action.payload);
     console.log(tasks);
@@ -98,7 +101,6 @@ function* fetchChangeSearch(action) {
 }
 
 function* addTask(action) {
-    console.log('hhhh');
     const list = yield call(getOneList, action.payload.idDashboard);
     console.log(list.data);
     const res = yield call(

@@ -5,6 +5,7 @@ import {
 } from 'redux-saga/effects';
 import { history } from '../../../config/history';
 import { authorization as authorizationApi } from '../../../api/auth';
+import { safeTakeEvery } from '../../../helpers/saga';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -33,7 +34,7 @@ function setDefaultApiToken(token) {
 }
 
 function* authorization(action) {
-    try {
+
         const token = yield call(authorizationApi, action.payload);
         console.log(token.data);
         yield put(actions.loginSuccess({
@@ -42,9 +43,7 @@ function* authorization(action) {
         }));
         yield call(setDefaultApiToken, token.data.accessToken);
         history.replace('/lists');
-    } catch (error) {
-        console.log(error);
-    }
+
 }
 
 function* rehydrateSaga() {
@@ -53,6 +52,6 @@ function* rehydrateSaga() {
 }
 
 export function* saga() {
-    yield takeEvery(LOGIN, authorization);
+    yield safeTakeEvery(LOGIN, authorization);
     yield takeEvery('persist/REHYDRATE', rehydrateSaga);
 }
