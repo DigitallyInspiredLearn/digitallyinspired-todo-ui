@@ -63,6 +63,8 @@ function* fetchList(action) {
     const r = yield call(getOneList, action.payload);
     console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));
+    const tas = yield call(getTasks, action.payload);
+    console.log(tas.data);
 }
 
 function* updateTitle(action) {
@@ -97,28 +99,26 @@ function* fetchChangeSearch(action) {
 function* addTask(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
     console.log(list.data);
-    const tas = yield call(getTasks, action.payload.idDashboard);
-    console.log(tas);
-    const res = yield call(
-        updateList,
-        action.payload.idDashboard,
-        {
-            ...list.data,
-            tasks:
-                [
-                    ...list.data.tasks,
-                    {
-                        id: Number(action.payload.idTask),
-                        isComplete: false,
-                        body: action.payload.nameTask,
-                    },
-                ],
-        },
-    );
-    console.log(res);
-    const r = yield call(getOneList, action.payload.idDashboard);
-    console.log(r.data);
-    yield put(actions.fetchListSuccess(r.data));
+    // const res = yield call(
+    //     updateList,
+    //     action.payload.idDashboard,
+    //     {
+    //         ...list.data,
+    //         tasks:
+    //             [
+    //                 ...list.data.tasks,
+    //                 {
+    //                     id: Number(action.payload.idTask),
+    //                     isComplete: false,
+    //                     body: action.payload.nameTask,
+    //                 },
+    //             ],
+    //     },
+    // );
+    // console.log(res);
+    // const r = yield call(getOneList, action.payload.idDashboard);
+    // console.log(r.data);
+    // yield put(actions.fetchListSuccess(r.data));
 }
 
 function* fetchDeleteList(action) {
