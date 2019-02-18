@@ -19,6 +19,7 @@ import App from './App';
 import {history} from "./config/history";
 import { reducer as authReducer} from "./scenes/login/authorization/duck";
 
+
 const persistConfig = {
     key: 'auth',
     storage,
