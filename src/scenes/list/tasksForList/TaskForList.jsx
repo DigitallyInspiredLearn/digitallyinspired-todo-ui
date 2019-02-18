@@ -56,8 +56,8 @@ class TaskForList extends Component {
                         //     this.props.fetchList(this.props.idList);
                         // }}
                     />
-                    <label
-                        className="deleteTask fa fa-trash"
+                    <div
+                        className="trashTaskOneList"
                         style={displayStyle}
                         onClick={() => {
                             this.props.deleteTaskList({

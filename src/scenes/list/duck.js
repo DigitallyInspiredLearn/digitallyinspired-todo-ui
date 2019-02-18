@@ -4,9 +4,9 @@ import {
 } from 'redux-saga/effects';
 
 import getOneList from '../../api/list';
-
 import { updateList, deleteList } from '../../api/dashboard';
 import { getTasks } from '../../api/task';
+import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
@@ -146,12 +146,12 @@ function* fetchDeleteTask(action) {
 }
 
 export function* saga() {
-    yield takeEvery(FETCH_LIST, fetchList);
-    yield takeEvery(SEARCH_TASK, fetchChangeSearch);
-    yield takeEvery(ADD_TASK_LIST, addTask);
-    yield takeEvery(DELETE_LIST, fetchDeleteList);
-    yield takeEvery(DELETE_TASK_LIST, fetchDeleteTask);
-    yield takeLatest(UPDATE_TASK_LIST, updateTask);
-    yield takeLatest(UPDATE_TITLE_LIST, updateTitle);
+    yield safeTakeEvery(FETCH_LIST, fetchList);
+    yield safeTakeEvery(SEARCH_TASK, fetchChangeSearch);
+    yield safeTakeEvery(ADD_TASK_LIST, addTask);
+    yield safeTakeEvery(DELETE_LIST, fetchDeleteList);
+    yield safeTakeEvery(DELETE_TASK_LIST, fetchDeleteTask);
+    yield safeTakeLatest(UPDATE_TASK_LIST, updateTask);
+    yield safeTakeLatest(UPDATE_TITLE_LIST, updateTitle);
 
 }

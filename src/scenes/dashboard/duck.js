@@ -18,6 +18,7 @@ import {
     addTask,
     deleteTask as deleteTasks,
 } from '../../api/task';
+import {safeTakeEvery, safeTakeLatest} from "../../helpers/saga";
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
 export const SET_DASHBOARD_SUCCESS = 'SET_DASHBOARD_SUCCESS';
@@ -128,13 +129,13 @@ function* mutate(action) {
     yield put(actions.setDashboardSuccess(mutateList));
 }
 export function* saga() {
-    yield takeEvery(FETCH_DASHBOARD, getDashboard);
-    yield takeEvery(DELETE_DASHBOARD, deleteDashboard);
-    yield takeEvery(ADD_DASHBOARD, addList);
-    yield takeLatest(UPDATE_CHECKBOX, updateSelectedTask);
-    yield takeEvery(FETCH_TASKS, fetchTasks);
-    yield takeEvery(DELETE_TASK, deleteTask);
-    yield takeEvery(ADD_TASK, addNewTask);
-    yield takeLatest(ON_BLURS, updateTitle);
-    yield takeEvery(SEARCH_LIST, mutate);
+    yield safeTakeEvery(FETCH_DASHBOARD, getDashboard);
+    yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
+    yield safeTakeEvery(ADD_DASHBOARD, addList);
+    yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);
+    yield safeTakeEvery(FETCH_TASKS, fetchTasks);
+    yield safeTakeEvery(DELETE_TASK, deleteTask);
+    yield safeTakeEvery(ADD_TASK, addNewTask);
+    yield safeTakeLatest(ON_BLURS, updateTitle);
+    yield safeTakeEvery(SEARCH_LIST, mutate);
 }

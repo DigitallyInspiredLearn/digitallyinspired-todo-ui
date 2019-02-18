@@ -34,7 +34,6 @@ function setDefaultApiToken(token) {
 }
 
 function* authorization(action) {
-
         const token = yield call(authorizationApi, action.payload);
         console.log(token.data);
         yield put(actions.loginSuccess({
@@ -43,7 +42,6 @@ function* authorization(action) {
         }));
         yield call(setDefaultApiToken, token.data.accessToken);
         history.replace('/lists');
-
 }
 
 function* rehydrateSaga() {
@@ -53,5 +51,5 @@ function* rehydrateSaga() {
 
 export function* saga() {
     yield safeTakeEvery(LOGIN, authorization);
-    yield takeEvery('persist/REHYDRATE', rehydrateSaga);
+    yield safeTakeEvery('persist/REHYDRATE', rehydrateSaga);
 }
