@@ -59,7 +59,9 @@ export const reducer = handleActions({
 }, initialState);
 
 function* fetchList(action) {
+    console.log(action.payload);
     const r = yield call(getOneList, action.payload);
+    console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));
 }
 
@@ -93,7 +95,9 @@ function* fetchChangeSearch(action) {
 }
 
 function* addTask(action) {
+    console.log('hhhh');
     const list = yield call(getOneList, action.payload.idDashboard);
+    console.log(list.data);
     const res = yield call(
         updateList,
         action.payload.idDashboard,
@@ -103,7 +107,7 @@ function* addTask(action) {
                 [
                     ...list.data.tasks,
                     {
-                        id: action.payload.idTask,
+                        id: Number(action.payload.idTask),
                         isComplete: false,
                         body: action.payload.nameTask,
                     },
@@ -112,14 +116,13 @@ function* addTask(action) {
     );
     console.log(res);
     const r = yield call(getOneList, action.payload.idDashboard);
+    console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));
 }
 
 function* fetchDeleteList(action) {
     const res =  yield call(deleteList, action.payload);
     console.log(res);
-    // const r = yield call(getOneList, action.payload);
-    // yield put(actions.fetchListSuccess(r.data));
 }
 
 function* fetchDeleteTask(action) {

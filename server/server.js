@@ -66,8 +66,8 @@ app.get('/api/tasks', (req, res) => {
 
 app.post('/api/tasks', (req, res) => {
     if (typeof req.body.params.newTask.body !== 'string'
-    || typeof req.body.params.newTask.id !== 'number'
-    || typeof req.body.params.newTask.isComplete !== 'boolean') {
+        || typeof req.body.params.newTask.id !== 'number'
+        || typeof req.body.params.newTask.isComplete !== 'boolean') {
         res.sendStatus(400);
     } else {
         const list = toDoList.lists.find(list => list.id === req.body.params.todoListId);
@@ -96,7 +96,7 @@ app.post('/api/todolists', (req, res) => {
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
         || req.body.tasks.some(item => typeof item.id !== 'number'
-        || typeof item.body !== 'string' || typeof item.isComplete !== 'boolean')
+            || typeof item.body !== 'string' || typeof item.isComplete !== 'boolean')
     ) {
         res.sendStatus(400);
     } else {
@@ -121,7 +121,7 @@ app.post('/api/auth/login', (req, res) => {
         || typeof req.body.password !== 'string') {
         res.sendStatus(400);
     } else if (toDoList.users.some(user => user.login === req.body.usernameOrEmail
-                && user.password === req.body.password)) {
+            && user.password === req.body.password)) {
         status = true;
     } else {
         status = false;
@@ -165,7 +165,7 @@ app.put('/api/todolists/:id', (req, res) => {
         typeof req.body.todoListName !== 'string'
         || !Array.isArray(req.body.tasks)
         || req.body.tasks.some(item => typeof item.id !== 'number'
-        || typeof item.body !== 'string' || typeof item.isComplete !== 'boolean')
+            || typeof item.body !== 'string' || typeof item.isComplete !== 'boolean')
     ) {
         res.sendStatus(400);
     } else {
