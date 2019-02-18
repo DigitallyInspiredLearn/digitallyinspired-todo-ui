@@ -6,6 +6,7 @@ import NullLenghtTasks from '../task/NullLenghtTasks';
 import TaskForList from './tasksForList/TaskForList'
 import randomInteger from '../../config/helper';
 import {Link} from 'react-router-dom'
+import trash from '../../image/trash.svg';
 
 export class OneList extends Component {
     constructor(props) {
@@ -33,38 +34,40 @@ export class OneList extends Component {
             <div id="list">
                 <div id="header">
                     <span className="spList">
-                         <Link to='/lists'>
-                        <div
-                            className='back fa fa-arrow-left fa-2x'
-                        />
-                        </Link>
-                        <Link to='/lists'>
-                        <div
-                            className="deleteList fa fa-trash fa-2x"
-                            id={this.props.match.params.id}
-                            onClick={() => {
-                                this.props.actions.deleteList(this.props.match.params.id);
-                            }
-                            }
-                        />
-                        </Link>
-                        <div
-                            className="download fa fa-download fa-2x"
-                            title="download"
-                            onClick={() => {
-                                const link = document.createElement('a');
-                                const file = new Blob(
-                                    [ReactDOMServer.renderToStaticMarkup(this.render())],
-                                    {type: 'text/html'},
-                                );
-                                link.href = URL.createObjectURL(file);
-                                link.download = 'List.html';
-                                link.click();
-                                // const pdf = new jsPDF();
-                                // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-                                // pdf.save('List.pdf');
-                            }}
-                        />
+                        <div className="iconsOneList">
+                            <Link to='/lists'>
+                                <div
+                                    className="back fa fa-arrow-left fa-2x"
+                                />
+                            </Link>
+                            <Link to='/lists'>
+                            <div
+                                className="iconTrash"
+                                id={this.props.match.params.id}
+                                onClick={() => {
+                                    this.props.actions.deleteList(this.props.match.params.id);
+                                }
+                                }
+                            />
+                            </Link>
+                            <div
+                                className="download fa fa-download fa-2x"
+                                title="download"
+                                onClick={() => {
+                                    const link = document.createElement('a');
+                                    const file = new Blob(
+                                        [ReactDOMServer.renderToStaticMarkup(this.render())],
+                                        {type: 'text/html'},
+                                    );
+                                    link.href = URL.createObjectURL(file);
+                                    link.download = 'List.html';
+                                    link.click();
+                                    // const pdf = new jsPDF();
+                                    // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+                                    // pdf.save('List.pdf');
+                                }}
+                            />
+                        </div>
                     </span>
                     <input
                         type="text"
