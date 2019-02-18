@@ -5,8 +5,18 @@ import randomInteger from '../../config/helper';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: 'myList',
+        };
+    }
 
-    componentWillMount = () => this.props.actions.fetchDashboard();
+    componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
+
+    componentDidUpdate() {
+        this.props.actions.fetchDashboard( this.state.selected );
+    }
 
     render() {
         return (
@@ -18,26 +28,31 @@ class DashboardList extends Component {
                             <label htmlFor="contactChoice1">
                                 <input
                                     type="radio"
-                                    id="contactChoice1"
-                                    name="contact"
-                                    value="email"
-                                    checked="checked"
+                                    name="show"
+                                    id="myList"
+                                    value="myList"
+                                    checked={this.state.selected === 'myList'}
+                                    onChange={e => this.setState({ selected: e.target.value })}
                                 />Only my dashboard
                             </label>
                             <label htmlFor="contactChoice2">
                                 <input
                                     type="radio"
-                                    id="contactChoice2"
-                                    name="contact"
-                                    value="phone"
+                                    name="show"
+                                    value="sharedList"
+                                    id="sharedList"
+                                    checked={this.state.selected === 'sharedList'}
+                                    onChange={e => this.setState({ selected: e.target.value })}
                                 />Only shared dashboard
                             </label>
-                            <label htmlFor="contactChoice2">
+                            <label htmlFor="contactChoice2 ">
                                 <input
                                     type="radio"
-                                    id="contactChoice2"
-                                    name="contact"
-                                    value="phone"
+                                    name="show"
+                                    value="allLists"
+                                    id="allLists"
+                                    checked={this.state.selected === 'allLists'}
+                                    onChange={e => this.setState({ selected: e.target.value })}
                                 />All dashboard
                             </label>
                         </div>
