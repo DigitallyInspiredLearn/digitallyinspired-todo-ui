@@ -33,6 +33,7 @@ class Task extends Component {
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                                 selected: this.props.selected,
+                                body: this.props.nameTask,
                             });
                         }}
                     />

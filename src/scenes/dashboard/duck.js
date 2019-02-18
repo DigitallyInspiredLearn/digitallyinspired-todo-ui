@@ -4,7 +4,7 @@ import {
     takeEvery, call, put, select, takeLatest, delay,
 } from 'redux-saga/effects';
 import {
-    getList, deleteList, addDashboard, updateList, getOneList, getTasks, addTask, deleteTask as deleteTaskApi
+    getList, deleteList, addDashboard, updateList, getOneList, getTasks, addTask, deleteTask as deleteTaskApi, updateTask,
 } from '../../api/dashboard';
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
@@ -81,7 +81,7 @@ export const reducer = handleActions({
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
                     ? { ...e, isComplete: !action.payload.selected }
-                    : e)),
+                   : e)),
             } : i)),
     }),
 
@@ -115,17 +115,16 @@ function* deleteDashboard(action) {
 
 function* updateSelectedTask(action) {
     yield delay(1000);
-    const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.id === action.payload.idDashboard);
+    // const todo = yield select(state => state.dashboard.toDoBoard);
+    // const list = todo.find(i => i.id === action.payload.idDashboard);
+    console.log(action.payload);
     yield call(
-        updateList,
-        action.payload.idDashboard,
+        updateTask,
+        action.payload.idTask,
         {
-            ...list,
-            tasks: list.tasks.map(e => (e.id === action.payload.idTask ? {
-                ...e,
-                isComplete: !action.payload.selected,
-            } : e)),
+            body: action.payload.body,
+            id: action.payload.idTask,
+            isComplete: !action.payload.selected
         },
     );
     yield call(getDashboard);
@@ -135,10 +134,7 @@ function* deleteTask(action) {
     console.log(action)
     // const todo = yield select(state => state.dashboard.toDoBoard);
     // const list = todo.find(i => i.id === action.payload.idDashboard);
-    yield call(
-        deleteTaskApi,
-        action.payload.idTask,
-    );
+    yield call(deleteTaskApi, action.payload.idTask);
     yield call(getDashboard);
 }
 
