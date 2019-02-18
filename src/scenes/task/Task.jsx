@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/taskStyle.css';
-import trash from '../../image/trash.svg'
+import trash from '../../image/trash.svg';
 
 class Task extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class Task extends Component {
                         type="text"
                         value={this.props.nameTask}
                         className="taskName"
-                        onChange={e => {
+                        onChange={(e) => {
                             this.props.actions.updateTaskName({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
@@ -60,7 +60,7 @@ class Task extends Component {
                     <img
                         src={trash}
                         className="deleteTask"
-                        alt='Delete this task'
+                        alt="Delete this task"
                         style={displayStyle}
                         onClick={() => {
                             this.props.actions.deleteTask({

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Provider } from 'react-redux';
 import '../assets/index.css';
@@ -7,17 +8,24 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import createSagaMiddleware from 'redux-saga';
-import { all, fork } from 'redux-saga/effects';
-import { applyMiddleware, createStore } from 'redux';
+import { all } from 'redux-saga/effects';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router } from 'react-router-dom';
-import { saga as listSaga } from './scenes/list/duck';
-import { loginPageSaga } from './scenes/login/duck';
+import { saga as listSaga, reducer as listReducer } from './scenes/list/duck';
+import loginPageSaga from './scenes/login/duck';
 import './api/dashboard';
 import { saga } from './scenes/dashboard/duck';
 import App from './App';
-import { history } from './config/history';
-import { mainReducer } from './reducer';
+import history from './config/history';
+import { reducer } from './scenes/dashboard/reducer';
+import { reducer as authReducer } from './scenes/login/authorization/duck';
+
+const mainReducer = combineReducers({
+    dashboard: reducer,
+    list: listReducer,
+    auth: authReducer,
+});
 
 const persistConfig = {
     key: 'auth',

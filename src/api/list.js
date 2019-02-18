@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080';
+const getOneList = id => axios.get(`/api/todolists/${id}`);
 
-export const getOneList = id => axios.get(`/api/todolists/${id}`);
+export default getOneList;

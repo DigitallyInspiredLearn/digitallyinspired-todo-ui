@@ -3,7 +3,7 @@ import {
     takeEvery, call, put, takeLatest, delay,
 } from 'redux-saga/effects';
 
-import { getOneList } from '../../api/list';
+import getOneList from '../../api/list';
 
 import { updateList, deleteList } from '../../api/dashboard';
 import { getTasks } from '../../api/task';

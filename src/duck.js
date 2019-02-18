@@ -1,8 +1,7 @@
-import { createAction, handleActions } from 'redux-actions';
+/* eslint-disable no-console */
+import { createAction } from 'redux-actions';
 
-import {
-    takeEvery, call, put, select,
-} from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 
 export const ERROR = 'ERROR';
 
@@ -19,5 +18,5 @@ export function* errorHandler(gen) {
 }
 
 export function* saga() {
-   yield takeEvery(ERROR, errorHandler);
+    yield takeEvery(ERROR, errorHandler);
 }

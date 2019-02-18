@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
     takeEvery, call, put, select,
 } from 'redux-saga/effects';
-import { history } from '../../../config/history';
+import history from '../../../config/history';
 import { authorization as authorizationApi } from '../../../api/auth';
 import { safeTakeEvery } from '../../../helpers/saga';
 

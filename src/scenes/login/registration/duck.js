@@ -3,7 +3,7 @@ import {
     takeEvery, call,
 } from 'redux-saga/effects';
 import { registration as registrationApi } from '../../../api/auth';
-import { history } from '../../../config/history';
+import history from '../../../config/history';
 
 export const REGISTRATION = 'REGISTRATION';
 

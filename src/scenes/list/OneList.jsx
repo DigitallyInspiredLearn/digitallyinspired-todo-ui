@@ -3,7 +3,6 @@ import './styleList.css';
 import ReactDOMServer from 'react-dom/server';
 import { Link } from 'react-router-dom';
 import NullLenghtTasks from '../task/NullLenghtTasks';
-// import Task from '../task/Task';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 
