@@ -12,9 +12,11 @@ class DashboardList extends Component {
         };
     }
 
-    componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
+    componentWillMount = () => {
+        this.props.actions.fetchDashboard(this.state.selected);
+    }
 
-    componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
+    // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
 
     render() {
         return (

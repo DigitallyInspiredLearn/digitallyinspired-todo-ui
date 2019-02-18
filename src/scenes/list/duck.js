@@ -5,6 +5,7 @@ import {
 
 import { getOneList } from '../../api/list';
 import { updateList, deleteList } from '../../api/dashboard';
+import { getTasks } from '../../api/task';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
@@ -63,6 +64,8 @@ function* fetchList(action) {
     const r = yield call(getOneList, action.payload);
     console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));
+    const tasks = yield call(getTasks, action.payload);
+    console.log(tasks);
 }
 
 function* updateTitle(action) {

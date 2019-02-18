@@ -39,10 +39,7 @@ export class Dashboard extends Component {
         });
     };
 
-    componentWillMount = () => {
-        console.log(this.props.idList);
-        // this.props.actions.fetchTasks({ id: this.props.idList });
-    };
+    componentWillMount = () => this.props.actions.fetchTasks(this.props.idList);
 
     render() {
         return (

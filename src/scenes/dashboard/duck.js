@@ -9,11 +9,15 @@ import {
     addDashboard,
     updateList,
     getOneList,
-    getTasks,
-    addTask,
     getSharedLists,
     getAllLists
 } from '../../api/dashboard';
+import {
+    updateTask,
+    getTasks,
+    addTask,
+    deleteTask as deleteTasks,
+} from '../../api/task';
 
 export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
 export const SET_DASHBOARD_SUCCESS = 'SET_DASHBOARD_SUCCESS';
@@ -57,58 +61,7 @@ export const actions = {
     searchList: createAction(SEARCH_LIST),
 };
 
-const initialState = {
-    toDoBoard: [],
-    tasks: [],
-};
-export const reducer = handleActions({
-    [SET_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
-
-    [SET_TASKS_SUCCESS]: (state, action) => ({ ...state, tasks: action.payload }),
-
-    [FETCH_ONE_DASHBOARD_SUCCESS]: (state, action) => ({
-        ...state,
-        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idBoard ? i : false)),
-    }),
-
-    [FETCH_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
-
-    [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
-        ...state,
-        toDoBoard: state.toDoBoard.map((e) => {
-            if (e.id === action.payload.id) {
-                return { ...e, todoListName: action.payload.newTitle };
-            }
-            return e;
-        })
-    }),
-
-    [UPDATE_CHECKBOX]: (state, action) => Object.assign({}, state, {
-        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard
-            ? {
-                ...i,
-                tasks: i.tasks.map(e => (e.id === action.payload.idTask
-                    ? { ...e, isComplete: !action.payload.selected }
-                    : e)),
-            } : i)),
-    }),
-
-    [UPDATE_TASK_NAME]: (state, action) => ({
-        ...state,
-        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard
-            ? {
-                ...i,
-                tasks: i.tasks.map(e => (e.id === action.payload.idTask
-                    ? {
-                        ...e, body: action.payload.newTaskName,
-                    } : e)),
-            } : i)),
-    }),
-
-}, initialState);
-
 function* getDashboard(action) {
-    yield delay(1000);
     let res = yield call(getMyList);
     console.log(action.payload);
     action.payload==='myList' ? res = yield call(getMyList) :
@@ -130,49 +83,34 @@ function* deleteDashboard(action) {
 
 function* updateSelectedTask(action) {
     yield delay(1000);
-    const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.id === action.payload.idDashboard);
     yield call(
-        updateList,
-        action.payload.idDashboard,
-        {
-            ...list,
-            tasks: list.tasks.map(e => (e.id === action.payload.idTask ? {
-                ...e,
-                isComplete: !action.payload.selected,
-            } : e)),
-        },
+        updateTask,
+        action.payload.idTask,
+         !action.payload.selected,
     );
     yield call(getDashboard);
 }
 
 function* deleteTask(action) {
-    const todo = yield select(state => state.dashboard.toDoBoard);
-    const list = todo.find(i => i.id === action.payload.idDashboard);
-    yield call(
-        updateList,
-        action.payload.idDashboard,
-        {
-            ...list,
-            tasks: list.tasks.filter(e => e.id !== action.payload.idTask),
-        },
-    );
-    yield call(getDashboard);
+    yield call(deleteTasks, action.payload.idTask);
+    yield call(getTasks);
 }
 
 function* addNewTask(action) {
-    console.log(action);
-    yield call(
-        addTask,
-        action.payload.idDashboard,
-        {
-            id: new Date().valueOf(),
-            isComplete: false,
-            body: action.payload.nameTask,
-        },
+    try{
+        yield call(
+            addTask,
+            action.payload.idDashboard,
+            {
+                body: action.payload.nameTask,
+            },
 
-    );
-    yield call(getDashboard);
+        );
+        yield call(getTasks);
+    }catch (e) {
+        console.log(e)
+    }
+
 }
 
 function* addList(action) {

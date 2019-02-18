@@ -117,7 +117,7 @@ section {
 }
 .taskLists {
     margin-bottom: 30px;
-    max-height:100px;
+    max-height:200px;
     overflow-y: auto;
     overflow-x: hidden;
     outline: none;
