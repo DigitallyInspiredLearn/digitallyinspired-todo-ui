@@ -141,16 +141,12 @@ function* deleteTask(action) {
 }
 
 function* addNewTask(action) {
-    try{
         yield call(
             addTask,
             action.payload.idDashboard,
             {body: action.payload.nameTask,},
         );
         yield call(getTasks);
-    }catch (e) {
-        console.log(e)
-    }
 }
 
 function* addList(action) {
