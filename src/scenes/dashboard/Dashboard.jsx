@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types,react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Task from '../task/Task';
@@ -41,10 +42,12 @@ export class Dashboard extends Component {
     };
 
     render() {
+        const { idList, title, tasks } = this.props;
+
         return (
-            <section id={this.props.idList}>
+            <section id={idList}>
                 <div className="icons">
-                    <Link to={`/list/${this.props.idList}`}>
+                    <Link to={`/list/${idList}`}>
                         <img
                             src={info}
                             className="linkList"
@@ -54,17 +57,17 @@ export class Dashboard extends Component {
                     <img
                         src={trash}
                         className="deleteBoadr"
-                        onClick={() => this.props.actions.deleteDashboard({ id: this.props.idList })}
+                        onClick={() => this.props.actions.deleteDashboard({ id: idList })}
                         alt="Delete this list"
                     />
                 </div>
                 <div>
                     <input
                         type="text"
-                        value={this.props.title}
+                        value={title}
                         className="titleName"
                         onChange={e => this.props.actions.updateTitleDashboard({
-                            id: this.props.idList,
+                            id: idList,
                             newTitle: e.target.value,
                         })
                         }
@@ -72,13 +75,13 @@ export class Dashboard extends Component {
                             if (e.target.value === '') {
                                 e.target.value = 'New Title';
                             }
-                            this.props.actions.updateTitleSuccess({ id: this.props.idList });
+                            this.props.actions.updateTitleSuccess({ id: idList });
                         }}
                         onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
                     />
                 </div>
                 <div className="taskLists" dropzone="move">
-                    {getTaskList(this.props.tasks, this.props)}
+                    {getTaskList(tasks, this.props)}
                 </div>
                 <input
                     className="addNewTask"
@@ -89,7 +92,7 @@ export class Dashboard extends Component {
                     onKeyPress={e => (this.state.valueNewTask !== ''
                         ? (e.key === 'Enter'
                             ? (e.target.blur(), this.props.actions.addTask({
-                                idDashboard: this.props.idList,
+                                idDashboard: idList,
                                 nameTask: this.state.valueNewTask,
                             })
                             ) : false)

@@ -1,4 +1,4 @@
-/* eslint-disable no-console,no-alert */
+/* eslint-disable no-console,no-alert,no-restricted-globals */
 import { createAction } from 'redux-actions';
 import { takeEvery } from 'redux-saga/effects';
 import history from './config/history';
@@ -18,8 +18,7 @@ export function* errorHandler(gen) {
             alert('Вы не авторизировались!');
             history.push('/auth');
             location.reload(true);
-        }
-        else if (e.response.status === 500) {
+        } else if (e.response.status === 500) {
             console.log('Error 500');
             history.push('/error500');
         } else if (e.response.status === 400) {
