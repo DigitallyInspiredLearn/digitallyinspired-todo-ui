@@ -16,8 +16,8 @@ class Task extends Component {
     updateDisplayNone = () => this.setState({ displayStyle: 'none' });
 
     render() {
-        const { displayStyle } = this.state;
-        const styleBtn = { displayStyle, zIndex: 50 };
+        const displayStyle = {display : this.state.displayStyle};
+
         return (
             <div
                 draggable="false"
@@ -63,7 +63,7 @@ class Task extends Component {
                         src={trash}
                         className="deleteTask"
                         alt="Delete this task"
-                        style={styleBtn}
+                        style={displayStyle}
                         onClick={() => {
                             this.props.actions.deleteTask({
                                 idDashboard: this.props.idList,
@@ -76,5 +76,4 @@ class Task extends Component {
         );
     }
 }
-
 export default Task;
