@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-shadow */
+
 const express = require('express');
 const uuid = require('uuid');
 const cors = require('cors');
@@ -62,7 +61,7 @@ app.get('/api/tasks/:id', (req, res) => {
     const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
     console.log(listIndex);
     const tasks = toDoList.lists[listIndex].tasks;
-    console.log(tasks)
+    console.log(tasks);
     res.json(tasks);
 });
 
@@ -85,7 +84,7 @@ app.post('/api/tasks', (req, res) => {
 app.get('/api/todolists/:id', (req, res) => {
     // console.log(req.params);
     const list = toDoList.lists.find(list => list.id === parseInt(req.params.id, 10));
-    //console.log(list);
+    // console.log(list);
     if (!list) {
         res.sendStatus(404);
     }

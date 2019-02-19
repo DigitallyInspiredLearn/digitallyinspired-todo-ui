@@ -3,7 +3,7 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { actions as actionsBoard } from '../dashboard/duck';
 import { actions } from './duck';
-import { OneList } from './OneList';
+import OneList from './OneList';
 
 const mapStateToProps = state => (
     {
@@ -21,11 +21,11 @@ const mapDispatchToProps = dispatch => ({
         addTaskList: actions.addTaskList,
         deleteList: actions.deleteList,
         deleteTaskList: actions.deleteTaskList,
+        updateCheckboxList: actions.updateCheckboxList,
     }, dispatch),
     actionsBoard: bindActionCreators({
-        deleteDashboard: actionsBoard.deleteDashboard,
         updateCheckbox: actionsBoard.updateCheckbox,
-        onBlurs: actionsBoard.onBlurs,
+        onBlurs: actionsBoard.updateTitleSuccess,
     }, dispatch),
 });
 

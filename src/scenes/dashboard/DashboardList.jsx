@@ -1,22 +1,14 @@
+/* eslint-disable react/destructuring-assignment,react/prop-types,no-console */
 import React, { Component } from 'react';
 import NullLenghtDashboard from './NullLenghtDashboard';
 import { Dashboard } from './Dashboard';
-import randomInteger from '../../config/helper';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: 'myList',
-        };
-    }
-
-    componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
-
-    //componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
+    componentWillMount = () => this.props.actions.fetchDashboard();
 
     render() {
+        console.log(this.props);
         return (
             [
                 <div id="searchAndWatch">
@@ -32,7 +24,6 @@ class DashboardList extends Component {
                             type="text"
                             className="searchList"
                             placeholder="Search dashboard"
-                            onChange={e => this.props.actions.searchList(e.target.value)}
                         />
                         <div
                             className="btnSearch fa fa-search fa-2x"
@@ -43,6 +34,27 @@ class DashboardList extends Component {
                                 paddingRight: '5px',
                             }}
                         />
+                    </div>
+                    <div id="watchedDashb">
+                        <div id="radio">
+                            <label htmlFor="contactChoice1">
+                                <input
+                                    type="checkbox"
+                                    name="show"
+                                    id="myList"
+                                    value="myList"
+                                />Show my dashboard
+                            </label>
+                            <label htmlFor="contactChoice2">
+                                <input
+                                    type="checkbox"
+                                    name="show"
+                                    value="sharedList"
+                                    id="sharedList"
+                                />Show shared dashboard
+                            </label>
+                        </div>
+
                     </div>
                 </div>,
                 <div id="content">
@@ -57,7 +69,6 @@ class DashboardList extends Component {
                                         key={i.id}
                                         title={i.todoListName}
                                         tasks={i.tasks}
-                                        randomInteger={randomInteger}
                                         toDoBoard={this.props.toDoBoard}
                                         actions={this.props.actions}
                                     />
@@ -70,5 +81,4 @@ class DashboardList extends Component {
         );
     }
 }
-
 export default DashboardList;

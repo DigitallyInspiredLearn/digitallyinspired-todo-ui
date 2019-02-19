@@ -1,9 +1,8 @@
+/* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
-import {
-    takeEvery, call, put, select,
-} from 'redux-saga/effects';
-import { history } from '../../../config/history';
+import { call, put, select } from 'redux-saga/effects';
+import history from '../../../config/history';
 import { authorization as authorizationApi } from '../../../api/auth';
 import { safeTakeEvery } from '../../../helpers/saga';
 
@@ -34,16 +33,14 @@ function setDefaultApiToken(token) {
 }
 
 function* authorization(action) {
-
-        const token = yield call(authorizationApi, action.payload);
-        console.log(token.data);
-        yield put(actions.loginSuccess({
-            user: action.payload.usernameOrEmail,
-            token: token.data.accessToken,
-        }));
-        yield call(setDefaultApiToken, token.data.accessToken);
-        history.replace('/lists');
-
+    const token = yield call(authorizationApi, action.payload);
+    console.log(token.data);
+    yield put(actions.loginSuccess({
+        user: action.payload.usernameOrEmail,
+        token: token.data.accessToken,
+    }));
+    yield call(setDefaultApiToken, token.data.accessToken);
+    history.replace('/lists');
 }
 
 function* rehydrateSaga() {
@@ -53,5 +50,5 @@ function* rehydrateSaga() {
 
 export function* saga() {
     yield safeTakeEvery(LOGIN, authorization);
-    yield takeEvery('persist/REHYDRATE', rehydrateSaga);
+    yield safeTakeEvery('persist/REHYDRATE', rehydrateSaga);
 }

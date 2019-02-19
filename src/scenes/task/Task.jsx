@@ -1,6 +1,7 @@
+/* eslint-disable react/destructuring-assignment,react/prop-types */
 import React, { Component } from 'react';
 import './css/taskStyle.css';
-import trash from '../../image/trash.svg'
+import trash from '../../image/trash.svg';
 
 class Task extends Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class Task extends Component {
     updateDisplayNone = () => this.setState({ displayStyle: 'none' });
 
     render() {
-        const displayStyle = { display: this.state.displayStyle, zIndex: 50 };
+        const { displayStyle } = this.state;
+        const styleBtn = { displayStyle, zIndex: 50 };
         return (
             <div
                 draggable="false"
@@ -40,7 +42,7 @@ class Task extends Component {
                         type="text"
                         value={this.props.nameTask}
                         className="taskName"
-                        onChange={e => {
+                        onChange={(e) => {
                             this.props.actions.updateTaskName({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
@@ -52,7 +54,7 @@ class Task extends Component {
                             if (e.target.value === '') {
                                 e.target.value = 'New task';
                             }
-                            this.props.actions.onBlurs({ id: this.props.idList });
+                            this.props.actions.updateTitleSuccess({ id: this.props.idList });
                         }}
                     />
                 </div>
@@ -60,8 +62,8 @@ class Task extends Component {
                     <img
                         src={trash}
                         className="deleteTask"
-                        alt='Delete this task'
-                        style={displayStyle}
+                        alt="Delete this task"
+                        style={styleBtn}
                         onClick={() => {
                             this.props.actions.deleteTask({
                                 idDashboard: this.props.idList,
@@ -74,5 +76,4 @@ class Task extends Component {
         );
     }
 }
-
 export default Task;
