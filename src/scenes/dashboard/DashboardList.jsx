@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NullLenghtDashboard from './NullLenghtDashboard';
 import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
@@ -86,4 +87,13 @@ class DashboardList extends Component {
         );
     }
 }
+
+DashboardList.propTypes = {
+    toDoBoard: PropTypes.array,
+};
+
+DashboardList.defaultProps = {
+    toDoBoard: [],
+};
+
 export default DashboardList;
