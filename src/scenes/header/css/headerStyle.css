@@ -11,7 +11,7 @@ header{
     width: 100%;
     margin-top: 25px;
     background-color: black;
-    animation: transition 1500ms 1;
+    animation: transition 700ms 1;
 }
 @keyframes transition{
     0%{
