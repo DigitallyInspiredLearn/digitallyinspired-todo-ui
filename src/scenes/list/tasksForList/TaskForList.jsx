@@ -1,4 +1,4 @@
-/* eslint-disable react/destructuring-assignment,react/prop-types */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import './css/taskStyle.css';
 
@@ -6,57 +6,51 @@ class TaskForList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayStyle: 'none',
+            display: 'none',
         };
     }
 
-    updateDisplayFlex = () => this.setState({ displayStyle: 'flex' });
+    updateDisplayFlex = () => this.setState({ display: 'flex' });
 
-    updateDisplayNone = () => this.setState({ displayStyle: 'none' });
+    updateDisplayNone = () => this.setState({ display: 'none' });
 
     render() {
-        const displayStyle = { display: this.state.displayStyle, zIndex: 50 };
+        const { display } = this.state;
+        const displayStyle = { display, zIndex: 50 };
+
+        const {
+            idTask, selected, actionsList, idList, nameTask,
+        } = this.props;
         return (
             <div
                 draggable="true"
                 className="tasks"
-                id={this.props.idTask}
+                id={idTask}
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
             >
                 <div className="taskDiv">
                     <div
-                        className={this.props.selected === false ? 'unselected' : 'fa fa-check-square'}
+                        className={selected ? 'fa fa-check-square' : 'unselected'}
                         style={{ zIndex: 50 }}
-                        onClick={() => {
-                            this.props.actionsList.updateCheckboxList({
-                                idDashboard: this.props.idList,
-                                idTask: this.props.idTask,
-                                selected: this.props.selected,
-                            });
-                        }}
+                        onClick={() => actionsList.updateCheckboxList({
+                            idDashboard: idList, idTask, selected,
+                        })}
                     />
                     <input
                         type="text"
-                        value={this.props.nameTask}
+                        value={nameTask}
                         className="taskName"
-                        onChange={(e) => {
-                            this.props.actionsList.updateTaskList({
-                                idDashboard: this.props.idList,
-                                idTask: this.props.idTask,
-                                newTaskName: e.target.value,
-                            });
-                        }}
+                        onChange={e => actionsList.updateTaskList({
+                            idDashboard: idList, idTask, selected, newTaskName: e.target.value,
+                        })}
                     />
                      <div
                         className="trashTaskOneList"
                         style={displayStyle}
-                        onClick={() => {
-                            this.props.actionsList.deleteTaskList({
-                                idDashboard: this.props.idList,
-                                idTask: this.props.idTask,
-                            });
-                        }}
+                        onClick={() => actionsList.deleteTaskList({
+                            idDashboard: idList, idTask,
+                        })}
                     />
                 </div>
             </div>

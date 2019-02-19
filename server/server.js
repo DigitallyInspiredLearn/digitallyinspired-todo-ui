@@ -212,7 +212,7 @@ app.put('/api/tasks/:id', (req, res) => {
     console.log(req.params);
 });
 
-const port = 8080;
+const port = 3001;
 
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
