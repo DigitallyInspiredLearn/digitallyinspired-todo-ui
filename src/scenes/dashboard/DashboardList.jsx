@@ -5,7 +5,16 @@ import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
-    componentWillMount = () => this.props.actions.fetchDashboard();
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: 'myList',
+        };
+    }
+
+    componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
+
+    // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
 
     render() {
         return (
@@ -15,9 +24,9 @@ class DashboardList extends Component {
                         className="searchTask"
                         id="searchTask"
                         style={{
-                            marginTop: '30px',
+                            marginTop: '0px',
                             padding: '3px',
-                            width: '75%',
+                            width: '80%',
                         }}
                     >
                         <input
@@ -35,31 +44,28 @@ class DashboardList extends Component {
                             }}
                         />
                     </div>
-                    <div id="watchedDashb">
-                        <div id="radio">
-                            <label htmlFor="contactChoice1">
-                                <input
-                                    type="checkbox"
-                                    name="show"
-                                    id="myList"
-                                    value="myList"
-                                    checked={this.props.selectedMy}
-                                    onClick={() => this.props.actions.updateSelectedMyLists(!this.props.selectedMy)}
-                                />Show my dashboard
-                            </label>
-                            <label htmlFor="contactChoice2">
-                                <input
-                                    type="checkbox"
-                                    name="show"
-                                    value="sharedList"
-                                    id="sharedList"
-                                    checked={this.props.selectedShared}
-                                    onClick={() =>
-                                        this.props.actions.updateSelectedSharedLists(!this.props.selectedShared)}
-                                />Show shared dashboard
-                            </label>
+                    <section className="ac-container">
+                        <div>
+                            <input
+                                id="ac-2"
+                                name="accordion-1"
+                                type="checkbox"
+                                checked={this.props.selectedMy}
+                                onClick={() => this.props.actions.updateSelectedMyLists(!this.props.selectedMy)}
+                            />
+                            <label htmlFor="ac-2">Show shared lists</label>
                         </div>
-                    </div>
+                        <div>
+                            <input
+                                id="ac-3"
+                                name="accordion-1"
+                                type="checkbox"
+                                checked={this.props.selectedShared}
+                                onClick={() => this.props.actions.updateSelectedSharedLists(!this.props.selectedShared)}
+                            />
+                            <label htmlFor="ac-3">Show my lists</label>
+                        </div>
+                    </section>
                 </div>,
                 <div id="content">
                     <main style={{ alignContent: 'start' }}>

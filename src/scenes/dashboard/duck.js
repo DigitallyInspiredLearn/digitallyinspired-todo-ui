@@ -7,6 +7,7 @@ import {
     addDashboard,
     updateList,
     getSharedLists,
+    getAllLists,
 } from '../../api/dashboard';
 import {
     updateTask,
