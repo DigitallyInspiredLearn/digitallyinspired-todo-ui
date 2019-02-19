@@ -1,4 +1,5 @@
-/* eslint-disable react/destructuring-assignment,react/prop-types */
+/* eslint-disable react/prop-types */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -25,9 +26,13 @@ class OneList extends Component {
         });
     };
 
-    componentWillMount = () => this.props.actions.fetchList(this.props.match.params.id);
+    componentWillMount = ({ match, actions } = this.props) => actions.fetchList(match.params.id);
 
     render() {
+        const { valueNewTask } = this.state;
+        const {
+            match, actions, data, actionsBoard, todo,
+        } = this.props;
         return (
             <div id="list">
                 <div id="header">
@@ -41,51 +46,29 @@ class OneList extends Component {
                             <Link to="/lists">
                                 <div
                                     className="iconTrash"
-                                    id={this.props.match.params.id}
-                                    onClick={() => {
-                                        this.props.actions.deleteList(this.props.match.params.id);
-                                    }
-                                    }
+                                    id={match.params.id}
+                                    onClick={() => actions.deleteList({ idDashboard: match.params.id})}
                                 />
                             </Link>
                             <div
                                 className="download fa fa-download fa-2x"
                                 title="download"
-                                // onClick={() => {
-                                //     const link = document.createElement('a');
-                                //     const file = new Blob(
-                                //         [ReactDOMServer.renderToStaticMarkup(this.render())],
-                                //         { type: 'text/html' },
-                                //     );
-                                //     link.href = URL.createObjectURL(file);
-                                //     link.download = 'List.html';
-                                //     link.click();
-                                //     // const pdf = new jsPDF();
-                                //     // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-                                //     // pdf.save('List.pdf');
-                                // }}
                             />
                         </div>
                     </span>
                     <input
                         type="text"
-                        value={this.props.data.todoListName}
+                        value={data.todoListName}
                         className="titleNameOneList"
-                        onChange={(e) => {
-                            this.props.actions.updateTitleList({
-                                id: this.props.data.id,
-                                newTitle: e.target.value,
-                            });
-                        }
-                        }
+                        onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                 </div>
                 <div className="searchTask">
                     <input
                         type="text"
                         placeholder="Search to-do"
-                        onChange={e => this.props.actions.changeSearch({
-                            idDashboard: this.props.match.params.id,
+                        onChange={e => actions.changeSearch({
+                            idDashboard: match.params.id,
                             search: e.target.value,
                         })}
                     />
@@ -102,38 +85,34 @@ class OneList extends Component {
                 <article className="blockTask">
                     <div>
                         {
-                            this.props.data.tasks && (this.props.data.tasks.length === 0 ? <NullLenghtTasks />
-                                : this.props.data.tasks.map(i => (
+                            data.tasks && (data.tasks.length === 0 ? <NullLenghtTasks />
+                                : data.tasks.map(i => (
                                     <TaskForList
                                         idTask={i.id}
-                                        idList={this.props.match.params.id}
+                                        idList={match.params.id}
                                         key={i.id}
                                         selected={i.isComplete}
                                         nameTask={i.body}
-                                        actionsBoard={this.props.actionsBoard}
-                                        actionsList={this.props.actions}
+                                        actionsBoard={actionsBoard}
+                                        actionsList={actions}
                                     />
                                 )))
                         }
-
                     </div>
                     <input
                         className="addNewTask"
                         placeholder="Add to-do"
                         style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
-                        value={this.state.valueNewTask}
+                        value={valueNewTask}
                         onChange={this.changeValueNewTask}
-                        onKeyPress={(event) => {
-                            if (event.key === 'Enter') {
-                                this.props.actions.addTaskList({
-                                    idDashboard: this.props.match.params.id,
-                                    nameTask: this.state.valueNewTask,
-                                    idTask: `${randomInteger(1, 100000, this.props.todo)}`,
-                                });
-                                this.state.valueNewTask = '';
-                            }
-                        }
-                        }
+                        onKeyPress={event => event.key === 'Enter' && (
+                            actions.addTaskList({
+                                idDashboard: match.params.id,
+                                nameTask: valueNewTask,
+                                idTask: `${randomInteger(1, 100000, todo)}`,
+                            }),
+                            this.setState({ valueNewTask: '' })
+                        )}
                     />
                 </article>
             </div>

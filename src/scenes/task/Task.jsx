@@ -1,4 +1,5 @@
-/* eslint-disable react/destructuring-assignment,react/prop-types */
+/* eslint-disable react/prop-types*/
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './css/taskStyle.css';
@@ -8,55 +9,52 @@ class Task extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayStyle: 'none',
+            display: 'none',
         };
     }
 
-    updateDisplayFlex = () => this.setState({ displayStyle: 'flex' });
+    updateDisplayFlex = () => this.setState({ display: 'flex' });
 
-    updateDisplayNone = () => this.setState({ displayStyle: 'none' });
+    updateDisplayNone = () => this.setState({ display: 'none' });
 
     render() {
-        const displayStyle = { display: this.state.displayStyle };
+        const { display } = this.state;
+        const displayStyle = { display };
+        const {
+            idTask, selected, actions, idList, nameTask,
+        } = this.props;
 
         return (
             <div
                 draggable="false"
                 className="tasks"
-                id={this.props.idTask}
+                id={idTask}
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
             >
                 <div className="taskDiv">
                     <div
-                        className={this.props.selected === false ? 'unselected' : 'fa fa-check-square'}
+                        className={selected ? 'fa fa-check-square' : 'unselected'}
                         style={{ zIndex: 50 }}
                         onClick={() => {
-                            this.props.actions.updateCheckbox({
-                                idDashboard: this.props.idList,
-                                idTask: this.props.idTask,
-                                selected: this.props.selected,
-                                body: this.props.nameTask,
+                            actions.updateCheckbox({
+                                idDashboard: idList, idTask, selected, body: nameTask,
                             });
                         }}
                     />
                     <input
                         type="text"
-                        value={this.props.nameTask}
+                        value={nameTask}
                         className="taskName"
                         onChange={(e) => {
-                            this.props.actions.updateTaskName({
-                                idDashboard: this.props.idList,
-                                idTask: this.props.idTask,
-                                newTaskName: e.target.value,
+                            actions.updateTaskName({
+                                idDashboard: idList, idTask, newTaskName: e.target.value,
                             });
                         }}
-                        onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
+                        onKeyDown={e => e.key === 'Enter' && e.target.blur()}
                         onBlur={(e) => {
-                            if (e.target.value === '') {
-                                e.target.value = 'New task';
-                            }
-                            this.props.actions.updateTitleSuccess({ id: this.props.idList });
+                            e.target.value = e.target.value ? 'New task' : e.target.value;
+                            actions.updateTitleSuccess({ id: idList });
                         }}
                     />
                 </div>
@@ -66,11 +64,7 @@ class Task extends Component {
                         className="deleteTask"
                         alt="Delete this task"
                         style={displayStyle}
-                        onClick={() => {
-                            this.props.actions.deleteTask({
-                                idTask: this.props.idTask,
-                            });
-                        }}
+                        onClick={() => actions.deleteTask({ idTask })}
                     />
                 </div>
             </div>

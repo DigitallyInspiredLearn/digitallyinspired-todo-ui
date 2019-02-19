@@ -32,7 +32,7 @@ GET /list/:id
 ```
 POST /list
 
-Header: 'Content-Type: application/json'
+Container: 'Content-Type: application/json'
 
 Body: {
   title: string,
@@ -50,7 +50,7 @@ Body: {
 ```
 PUT /list/:id
 
-Header: 'Content-Type: application/json'
+Container: 'Content-Type: application/json'
 
 Body: {
   title: string,

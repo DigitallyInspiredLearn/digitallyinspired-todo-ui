@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Header from './scenes/header/Header';
+import Container from './scenes/header/Container';
 import VisibleTodoList from './scenes/dashboard/TodoListContainer';
 import Authorization from './scenes/login/authorization/AutorizationCortainer';
 import Registration from './scenes/login/registration/RegistrationContainer';
@@ -9,7 +9,7 @@ import PageError404 from './scenes/errors/pageError404';
 import PageError500 from './scenes/errors/pageError500';
 
 const App = () => (
-    <Header>
+    <Container>
         <Switch>
             <Route path="/lists" component={VisibleTodoList} />
             <Route path="/auth" component={Authorization} />
@@ -19,7 +19,7 @@ const App = () => (
             <Route path="/error500" component={PageError500} />
             <Redirect to="/auth" />
         </Switch>
-    </Header>
+    </Container>
 );
 
 export default App;

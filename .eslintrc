@@ -17,7 +17,12 @@
     "indent": ["error", 4, {"SwitchCase": 1}],
     "react/jsx-indent": ["error", 4],
     "react/jsx-indent-props": ["error", 4],
-    "global-require:": "off"
+    "global-require:": "off",
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/mouse-events-have-key-events": 0
+
   },
   "parserOptions": {
     "ecmaFeatures": {
