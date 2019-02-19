@@ -7,6 +7,7 @@ import {
     addDashboard,
     updateList,
     getSharedLists,
+    getAllLists,
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -89,7 +90,7 @@ export const reducer = handleActions({
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
                     ? { ...e, isComplete: !action.payload.selected }
-                    : e)),
+                   : e)),
             } : i)),
     }),
 
