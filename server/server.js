@@ -56,16 +56,10 @@ const toDoList = {
 
 app.get('/api/todolists/my', (req, res) => res.json(toDoList.lists));
 
-<<<<<<< HEAD
-app.get('/api/tasks', (req, res) => {
-    console.log(req.body);
-    const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.body.id, 10));
-=======
 app.get('/api/tasks/:id', (req, res) => {
     console.log(req.params);
     const listIndex = toDoList.lists.findIndex(list => list.id === parseInt(req.params.id, 10));
     console.log(listIndex);
->>>>>>> a7ef5861eb16c9c5a75b171f21aa28081e33dc29
     const tasks = toDoList.lists[listIndex].tasks;
     console.log(tasks);
     res.json(tasks);
@@ -201,15 +195,12 @@ app.delete('/api/todolists/:id', (req, res) => {
     }
 });
 
-<<<<<<< HEAD
 app.delete('/api/tasks/:id', (req, res) => {
     console.log(req.params);
     // const listTasks = toDoList.lists.map(list => list.tasks.map());
     // console.log(listTasks);
     // const tasks = listTasks.map(list => list.tasks);
-    const list = toDoList.lists.map(list => list.tasks.map(task => task)).map(item => item.filter(task => task.id !== parseInt(req.params.id, 10)));
-
-  
+    const list = toDoList.lists.map(i => i.tasks.map(task => task)).map(item => item.filter(task => task.id !== parseInt(req.params.id, 10)));
     // console.log('=== after ===');
     // console.log(list);
     // tasks.forEach(task => task.findIndex(item => item.id === parseInt(req.params.id, 10)));
@@ -221,8 +212,6 @@ app.put('/api/tasks/:id', (req, res) => {
     console.log(req.params);
 });
 
-=======
->>>>>>> a7ef5861eb16c9c5a75b171f21aa28081e33dc29
 const port = 8080;
 
 app.listen(port, () => {
