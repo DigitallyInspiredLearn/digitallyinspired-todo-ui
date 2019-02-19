@@ -7,7 +7,6 @@ import {
     addDashboard,
     updateList,
     getSharedLists,
-    getAllLists
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -17,13 +16,17 @@ import {
 } from '../../api/task';
 import {safeTakeEvery, safeTakeLatest} from "../../helpers/saga";
 
-export const FETCH_DASHBOARD = 'FETCH_DASHBOARD';
-export const SET_DASHBOARD_SUCCESS = 'SET_DASHBOARD_SUCCESS';
+export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
+export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
+export const SEARCH_DASHBOARD = 'dashboard/SEARCH_DASHBOARD';
 
-export const ADD_DASHBOARD = 'ADD_DASHBOARD';
-export const DELETE_DASHBOARD = 'DELETE_DASHBOARD';
-export const UPDATE_TITLE_DASHBOARD = 'UPDATE_TITLE_DASHBOARD';
-export const UPDATE_TITLE_DASHBOARD_SUCCESS = 'UPDATE_TITLE_DASHBOARD_SUCCESS';
+export const SELECTED_MY_LISTS = 'dashboard/SELECTED_MY_LISTS';
+export const SELECTED_SHARED_LISTS = 'dashboard/SELECTED_SHARED_LISTS';
+
+export const ADD_DASHBOARD = 'dashboard/ADD_DASHBOARD';
+export const DELETE_DASHBOARD = 'dashboard/DELETE_DASHBOARD';
+export const UPDATE_TITLE_DASHBOARD = 'dashboard/UPDATE_TITLE_DASHBOARD';
+export const UPDATE_TITLE_DASHBOARD_SUCCESS = 'dashboard/UPDATE_TITLE_DASHBOARD_SUCCESS';
 
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const SET_TASKS_SUCCESS = 'SET_TASKS_SUCCESS';
@@ -32,11 +35,14 @@ export const UPDATE_CHECKBOX = 'UPDATE_CHECKBOX';
 export const UPDATE_TASK_NAME = 'UPDATE_TASK_NAME';
 export const DELETE_TASK = 'DELETE_TASK';
 
-export const SEARCH_LIST = 'SEARCH_LIST';
-
 export const actions = {
     fetchDashboard: createAction(FETCH_DASHBOARD),
-    setDashboardSuccess: createAction(SET_DASHBOARD_SUCCESS),
+    fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
+    updateSelectedMyLists: createAction(SELECTED_MY_LISTS),
+    updateSelectedSharedLists: createAction(SELECTED_SHARED_LISTS),
+
+    searchDashboard: createAction(SEARCH_DASHBOARD),
+
     addNewDashboard: createAction(ADD_DASHBOARD),
     deleteDashboard: createAction(DELETE_DASHBOARD),
     updateTitleDashboard: createAction(UPDATE_TITLE_DASHBOARD),
@@ -48,18 +54,22 @@ export const actions = {
     deleteTask: createAction(DELETE_TASK),
     updateCheckbox: createAction(UPDATE_CHECKBOX),
     updateTaskName: createAction(UPDATE_TASK_NAME),
-
-    searchList: createAction(SEARCH_LIST),
 };
 
 
 const initialState = {
+    // allList: {
+    //     myList: [],
+    //     sharedList:[],
+    // },
     toDoBoard: [],
     tasks: [],
+    selectedMy: true,
+    selectedShared: false,
 };
 
 export const reducer = handleActions({
-    [SET_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
+    [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
 
     [SET_TASKS_SUCCESS]: (state, action) => ({ ...state, tasks: action.payload }),
 
@@ -95,17 +105,33 @@ export const reducer = handleActions({
             } : i)),
     }),
 
+    [SELECTED_MY_LISTS]: (state,action) => ({ ...state, selectedMy: action.payload }),
+
+    [SELECTED_SHARED_LISTS]: (state,action) => ({ ...state, selectedShared: action.payload}),
+
 }, initialState);
 
-function* getDashboard() {
+function* checkSelectedMy() {
+        const selectedMy = yield select(state => state.dashboard.selectedMy);
+        // let allLists = yield select(state => state.dashboard.allList);
+        const myLists = yield  call(getMyList);
+        const res= selectedMy ? myLists.data: [];
+        console.log(res);
+        yield put(actions.fetchDashboardSuccess(res));
+}
 
-    let res = yield call(getMyList);
+function* checkSelectedShared() {
+    const selectedShared = yield select(state => state.dashboard.selectedShared);
+    // const allLists = yield select(state => state.dashboard.allList);
+    const sharedList = yield call(getSharedLists);
+    const res = selectedShared ? sharedList.data : [];
     console.log(res);
-    // let myList = yield call(getMyList);
-    // let sharedList = yield call(getSharedLists);
-    // action.payload.selectedMy==='myList' ? res =  {...res, myList}: -1;
-    // action.payload.selectedShared==='sharedList' ? res =  {...res, sharedList} :-1;
-    yield put(actions.setDashboardSuccess(res.data));
+    yield put(actions.fetchDashboardSuccess(res));
+}
+
+function* getDashboard() {
+    const res = yield  call(getMyList);
+    yield put(actions.fetchDashboardSuccess(res.data));
 }
 
 function* deleteDashboard(action) {
@@ -163,10 +189,11 @@ function* mutate(action) {
     const mutateList = action.payload==='' ?
         lists.data :
         lists.data.filter(list => !list.todoListName.toLowerCase().search(action.payload));
-    yield put(actions.setDashboardSuccess(mutateList));
+    yield put(actions.fetchDashboardSuccess(mutateList));
 }
+
 export function* saga() {
-    yield safeTakeEvery(FETCH_DASHBOARD, getDashboard);
+    yield safeTakeEvery(FETCH_DASHBOARD, checkSelectedMy);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
     yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);
@@ -174,5 +201,7 @@ export function* saga() {
     yield safeTakeEvery(DELETE_TASK, deleteTask);
     yield safeTakeEvery(ADD_TASK, addNewTask);
     yield safeTakeLatest(UPDATE_TITLE_DASHBOARD_SUCCESS, updateTitle);
-    yield safeTakeEvery(SEARCH_LIST, mutate);
+    yield safeTakeEvery(SEARCH_DASHBOARD, mutate);
+    yield safeTakeEvery(SELECTED_MY_LISTS, checkSelectedMy);
+    yield safeTakeEvery(SELECTED_SHARED_LISTS, checkSelectedShared);
 }

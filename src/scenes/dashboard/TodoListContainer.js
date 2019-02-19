@@ -4,7 +4,11 @@ import { compose, bindActionCreators } from 'redux';
 import DashboardList from './DashboardList';
 import { actions } from './duck';
 
-const mapStateToProps = state => ({ toDoBoard: state.dashboard.toDoBoard });
+const mapStateToProps = state => ({
+    toDoBoard: state.dashboard.toDoBoard,
+    selectedShared: state.dashboard.selectedShared,
+    selectedMy: state.dashboard.selectedMy,
+});
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
@@ -18,6 +22,8 @@ const mapDispatchToProps = dispatch => ({
         updateTaskName: actions.updateTaskName,
         updateTitleSuccess: actions.updateTitleSuccess,
         searchList: actions.searchList,
+        updateSelectedSharedLists: actions.updateSelectedSharedLists,
+        updateSelectedMyLists: actions.updateSelectedMyLists,
     }, dispatch),
 });
 
