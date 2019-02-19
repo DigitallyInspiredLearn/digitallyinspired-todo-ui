@@ -6,11 +6,6 @@ section, article {
 article:before, .addNewTask {
     position: absolute;
 }
-/*serch and watch*/
-#searchAndWatch{
-    display: flex;
-    flex-direction: row;
-}
 #watchedDashb{
     display: flex;
     flex-direction: row;
@@ -139,41 +134,58 @@ section {
     padding-top: 7px;
     cursor: pointer;
 }
-.dropdownmenu ul, .dropdownmenu li {
-    margin: 0;
-    padding: 0;
-}
-.dropdownmenu ul {
-    background: darkgrey;
-    list-style: none;
-    width: 100%;
-}
-.dropdownmenu li {
-    float: left;
-    position: relative;
-    width:auto;
-}
-.dropdownmenu a {
-    background: lightgrey;
-    color: black;
+.ac-container label{
+    z-index: 20;
     display: block;
-    font: bold 12px/20px sans-serif;
-    padding: 10px 25px;
+    height: 30px;
+    width: 100px;
+    cursor: pointer;
+    color: black;
+    line-height: 33px;
+    font-size: 15px;
+    background-color: lightgrey;
+    border-radius: 5px;
     text-align: center;
-    text-decoration: none;
-    -webkit-transition: all .25s ease;
-    -moz-transition: all .25s ease;
-    -ms-transition: all .25s ease;
-    -o-transition: all .25s ease;
-    transition: all .25s ease;
-    cursor:pointer;
+    font-weight: bold;
 }
-.dropdownmenu li:hover a {
-    background: #000000;
-    color:white;
+
+.ac-container label:hover{
+    background: darkgrey;
+    color: black;
 }
-.dropdownmenu{
+.ac-container input:checked + label,
+.ac-container input:checked + label:hover {
+    background: black;
+    color: white;}
+.ac-container label:hover:after,
+.ac-container input:checked + label:hover:after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 13px;
+    top: 7px;
+}
+.ac-container input{
+    display: none;
+}
+.ac-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center ;
+    height: 40px;
+    width: 240px;
+    padding: 0;
+    overflow: hidden;
+    background: none;
     margin-top: 25px;
-    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
 }
+#searchAndWatch{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    height:30px;
+    margin-top: 20px;
+}
+
 
