@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
 import { call, put, delay } from 'redux-saga/effects';
-
 import getOneList from '../../api/list';
 import { updateList, deleteList } from '../../api/dashboard';
 import { getTasks } from '../../api/task';
@@ -61,14 +60,15 @@ export const reducer = handleActions({
     [UPDATE_CHECKBOX_LIST]: (state, action) => ({
         ...state,
         data: {
-            ...state.data, tasks: state.data.tasks.map(e => (e.id === action.payload.idTask
+            ...state.data,
+            tasks: state.data.tasks.map(e => (e.id === action.payload.idTask
                 ? {
                     ...e, isComplete: !action.payload.selected,
-                } : e))
-        }
+                } : e)),
+        },
     }),
 
-    [SEARCH_TASK]: (state, action) => ({...state, search: action.payload}),
+    [SEARCH_TASK]: (state, action) => ({ ...state, search: action.payload }),
 
 }, initialState);
 

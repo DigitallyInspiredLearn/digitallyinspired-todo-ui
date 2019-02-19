@@ -8,7 +8,6 @@ class DashboardList extends Component {
     componentWillMount = () => this.props.actions.fetchDashboard();
 
     render() {
-        console.log(this.props);
         return (
             [
                 <div id="searchAndWatch">
@@ -43,6 +42,8 @@ class DashboardList extends Component {
                                     name="show"
                                     id="myList"
                                     value="myList"
+                                    checked={this.props.selectedMy}
+                                    onClick={() => this.props.actions.updateSelectedMyLists(!this.props.selectedMy)}
                                 />Show my dashboard
                             </label>
                             <label htmlFor="contactChoice2">
@@ -51,6 +52,10 @@ class DashboardList extends Component {
                                     name="show"
                                     value="sharedList"
                                     id="sharedList"
+                                    checked={this.props.selectedShared}
+                                    onClick={() => {
+                                        this.props.actions.updateSelectedSharedLists(!this.props.selectedShared);
+                                    }}
                                 />Show shared dashboard
                             </label>
                         </div>
