@@ -27,8 +27,6 @@ export const SELECTED_SHARED_LISTS = 'dashboard/SELECTED_SHARED_LISTS';
 export const FETCH_MY_LISTS_SUCCESS = 'dashboard/FETCH_MY_LISTS_SUCCESS';
 export const FETCH_SHARED_LISTS_SUCCESS = 'dashboard/FETCH_SHARED_LISTS_SUCCESS';
 
-export const SET_DATA_LISTS = 'dashboard/SET_DATA_LISTS';
-
 export const ADD_DASHBOARD = 'dashboard/ADD_DASHBOARD';
 export const DELETE_DASHBOARD = 'dashboard/DELETE_DASHBOARD';
 export const UPDATE_TITLE_DASHBOARD = 'dashboard/UPDATE_TITLE_DASHBOARD';

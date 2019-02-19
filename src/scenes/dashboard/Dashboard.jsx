@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Task from '../task/Task';
@@ -42,7 +41,10 @@ export class Dashboard extends Component {
     };
 
     render() {
-        const { idList, title, tasks } = this.props;
+        const { valueNewTask } = this.state;
+        const {
+            idList, title, tasks, actions,
+        } = this.props;
 
         return (
             <section id={idList}>
@@ -57,7 +59,7 @@ export class Dashboard extends Component {
                     <img
                         src={trash}
                         className="deleteBoadr"
-                        onClick={() => this.props.actions.deleteDashboard({ id: idList })}
+                        onClick={() => actions.deleteDashboard({ id: idList })}
                         alt="Delete this list"
                     />
                 </div>
@@ -66,16 +68,12 @@ export class Dashboard extends Component {
                         type="text"
                         value={title}
                         className="titleName"
-                        onChange={e => this.props.actions.updateTitleDashboard({
-                            id: idList,
-                            newTitle: e.target.value,
-                        })
-                        }
+                        onChange={e => actions.updateTitleDashboard({
+                            id: idList, newTitle: e.target.value,
+                        })}
                         onBlur={(e) => {
-                            if (e.target.value === '') {
-                                e.target.value = 'New Title';
-                            }
-                            this.props.actions.updateTitleSuccess({ id: idList });
+                            e.target.value = e.target.value === '' && (e.target.value = 'New Title');
+                            actions.updateTitleSuccess({ id: idList });
                         }}
                         onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
                     />
@@ -87,18 +85,15 @@ export class Dashboard extends Component {
                     className="addNewTask"
                     placeholder="Add to-do"
                     style={{ outline: 'none' }}
-                    value={this.state.valueNewTask}
+                    value={valueNewTask}
                     onChange={this.changeValueNewTask}
-                    onKeyPress={e => (this.state.valueNewTask !== ''
-                        ? (e.key === 'Enter'
-                            ? (e.target.blur(), this.props.actions.addTask({
-                                idDashboard: idList,
-                                nameTask: this.state.valueNewTask,
-                            })
-                            ) : false)
-                        : false)
+                    onKeyPress={e => valueNewTask
+                        && (e.key === 'Enter'
+                            && (e.target.blur(), actions.addTask({
+                                idDashboard: idList, nameTask: valueNewTask,
+                            })))
                     }
-                    onBlur={e => this.handlerOnBlur(e)}
+                    onBlur={this.handlerOnBlur}
                 />
             </section>
         );
