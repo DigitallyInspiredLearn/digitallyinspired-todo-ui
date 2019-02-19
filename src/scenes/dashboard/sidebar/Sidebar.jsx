@@ -1,5 +1,4 @@
-/* eslint-disable react/destructuring-assignment,
-no-unused-expressions,react/no-access-state-in-setstate,react/prop-types */
+/* eslint-disable react/no-unused-state,no-unused-expressions,no-sequences */
 import React, { Component } from 'react';
 import './css/siderStyle.css';
 import './css/siderStyleForComp.css';
@@ -23,25 +22,16 @@ class Sidebar extends Component {
 
     updateDisplayTrashHide = () => this.setState({ displayTrash: 'none' });
 
-    updateDisplaySidebar = () => {
-        this.state.bool === false
-            ? this.setState({
-                displayStyle: 'flex',
-                animation: 'move 1s',
-            })
-            : this.setState({
-                displayStyle: 'none',
-                animation: '',
-            });
-        this.setState({
-            bool: !this.state.bool,
-        });
+    updateDisplaySidebar = ({ bool } = this.state) => {
+        bool ? this.setState({ displayStyle: 'none', animation: '' })
+            : this.setState({ displayStyle: 'flex', animation: 'move 1s' });
+        this.setState({ bool: !bool });
     };
 
-    addBoard = (title, tasks) => {
-        const titleValue = title === '' ? 'Dashboard' : title;
+    addBoard = (title, tasks, { addNewDashboard } = this.props) => {
+        const titleValue = !title ? 'Dashboard' : title;
         const taskValue = tasks === {} ? { body: 'ex', id: new Date().valueOf(), isComplete: false } : tasks;
-        this.props.addNewDashboard({
+        addNewDashboard({
             id: new Date().valueOf(),
             todoListName: titleValue,
             tasks: taskValue,
@@ -49,15 +39,10 @@ class Sidebar extends Component {
         });
     };
 
-    changeValueTitle = e => this.setState({
-        todoListName: e.target.value,
-    });
+    changeValueTitle = e => this.setState({ todoListName: e.target.value });
 
-    changeValueName = i => (e) => {
-        const newTaskHolders = this.state.tasks.map((task, sidx) => {
-            if (i !== sidx) return task;
-            return { ...task, body: e.target.value };
-        });
+    changeValueName = (i, { tasks } = this.state) => (e) => {
+        const newTaskHolders = tasks.map((task, sidx) => (i !== sidx && task, { ...task, body: e.target.value }));
         this.setState({ tasks: newTaskHolders });
     };
 
@@ -69,55 +54,44 @@ class Sidebar extends Component {
         });
     };
 
-    handleAddInputTask = () => {
+    handleAddInputTask = ({ tasks } = this.state) => {
         this.setState({
-            tasks: this.state.tasks.concat([{ body: '', id: new Date().valueOf(), isComplete: false }]),
+            tasks: tasks.concat([{ body: '', id: new Date().valueOf(), isComplete: false }]),
         });
     };
 
-    handleRemoveInputTask = i => () => {
-        this.setState({
-            tasks: this.state.tasks.filter((s, sidx) => i !== sidx),
-        });
-    };
+    handleRemoveInputTask = (i, { tasks } = this.state) => () => this.setState({
+        tasks: tasks.filter((s, sidx) => i !== sidx),
+    });
 
     render() {
-        const displayTrash = { display: this.state.displayTrash };
+        const { displayTrash, displayStyle, animation, todoListName, tasks } = this.state;
+        const displaysTrash = { display: displayTrash };
         return (
             [
                 <div className="plus" onClick={this.updateDisplaySidebar}>
-                    <img
-                        id="myBtn "
-                        src={plus}
-                        alt="Plus"
-                    />
+                    <img id="myBtn " src={plus} alt="Plus" />
                 </div>,
-                <div id="sidebar" style={{ display: this.state.displayStyle, zIndex: 50 }}>
+                <div id="sidebar" style={{ display: displayStyle, zIndex: 50 }}>
                     <div
                         id="fon"
-                        onClick={(e) => {
-                            this.updateDisplaySidebar();
-                            this.handlerOnClick(e);
-                        }}
+                        onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                     />
-                    <aside id="addingArticle" style={{ animation: this.state.animation }}>
+                    <aside id="addingArticle" style={{ animation }}>
                         <span
                             className="window-close"
-                            onClick={(e) => {
-                                this.updateDisplaySidebar();
-                                this.handlerOnClick(e);
-                            }}
+                            onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                         >&times;
                         </span>
                         <input
                             type="text"
                             placeholder="Add title"
                             className="inputTitle"
-                            value={this.state.todoListName}
+                            value={todoListName}
                             onChange={this.changeValueTitle}
                         />
                         <div className="taskList">
-                            {this.state.tasks.map((task, i) => (
+                            {tasks.map((task, i) => (
                                 <div
                                     className="addTask"
                                     onMouseOut={this.updateDisplayTrashHide}
@@ -135,16 +109,12 @@ class Sidebar extends Component {
                                         alt="Delete this task"
                                         onClick={this.handleRemoveInputTask(i)}
                                         className="small"
-                                        style={displayTrash}
+                                        style={displaysTrash}
                                     />
                                 </div>
                             ))}
                         </div>
-                        <button
-                            type="button"
-                            onClick={this.handleAddInputTask}
-                            className="btn"
-                        >
+                        <button type="button" onClick={this.handleAddInputTask} className="btn">
                             Add one more task
                         </button>
                         <button
@@ -152,10 +122,7 @@ class Sidebar extends Component {
                             type="submit"
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
-                                this.addBoard(
-                                    this.state.todoListName,
-                                    this.state.tasks,
-                                );
+                                this.addBoard(todoListName, tasks);
                                 this.handlerOnClick(e);
                             }}
                         >Add

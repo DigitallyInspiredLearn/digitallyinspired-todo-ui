@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import logo from '../../image/logo_di.svg';
 
 
-const Header = ({ children }) => (
+const Container = ({ children }) => (
     <div className="App">
         <header>
             <img src={logo} className="logo" alt="logo" />
@@ -15,13 +15,13 @@ const Header = ({ children }) => (
         {children}
     </div>
 );
-Header.propTypes = {
+Container.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-// Header.defaultProps = {
+// Container.defaultProps = {
 //     children: undefined,
 // };
 
 
-export default Header;
+export default Container;

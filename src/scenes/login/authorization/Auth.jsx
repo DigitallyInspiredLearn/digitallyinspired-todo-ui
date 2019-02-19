@@ -1,4 +1,5 @@
-/* eslint-disable react/destructuring-assignment,react/prop-types */
+/* eslint-disable react/prop-types */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,6 +17,8 @@ class Authorization extends Component {
     onChangePassword = e => this.setState({ password: e.target.value });
 
     render() {
+        const { actions } = this.props;
+        const { password, login } = this.state;
         return (
             <div className="right">
                 <nav className="navForm">
@@ -44,10 +47,7 @@ class Authorization extends Component {
                         <p
                             className="btn btn-success form-control enter"
                             style={{ width: '95%' }}
-                            onClick={() => this.props.actions.authorization({
-                                password: this.state.password,
-                                usernameOrEmail: this.state.login,
-                            })}
+                            onClick={() => actions.authorization({ password, usernameOrEmail: login })}
                         >ENTER
                         </p>
                     </form>
@@ -63,9 +63,3 @@ class Authorization extends Component {
 }
 
 export default Authorization;
-// {/*<div className="container" style={{ alignContent: 'start' }}>*/}
-// {/*<div className="container-fluid">*/}
-// {/*<div className="description">*/}
-// {/*<h1>Cool site to control your plans</h1>*/}
-// {/*<p>...</p>*/}
-// {/*</div>*/}

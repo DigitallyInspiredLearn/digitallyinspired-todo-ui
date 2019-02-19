@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable*/
 import React from 'react';
 import { Provider } from 'react-redux';
 import '../assets/index.css';
