@@ -48,7 +48,7 @@ class TaskForList extends Component {
                             });
                         }}
                     />
-                    <div
+                     <div
                         className="trashTaskOneList"
                         style={displayStyle}
                         onClick={() => {
