@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment,react/prop-types,no-console */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NullLenghtDashboard from './NullLenghtDashboard';
 import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
@@ -79,4 +80,13 @@ class DashboardList extends Component {
         );
     }
 }
+
+DashboardList.propTypes = {
+    toDoBoard: PropTypes.array,
+};
+
+DashboardList.defaultProps = {
+    toDoBoard: [],
+};
+
 export default DashboardList;

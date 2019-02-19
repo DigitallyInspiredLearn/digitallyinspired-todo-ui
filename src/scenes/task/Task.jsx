@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment,react/prop-types */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './css/taskStyle.css';
 import trash from '../../image/trash.svg';
 
@@ -16,7 +17,7 @@ class Task extends Component {
     updateDisplayNone = () => this.setState({ displayStyle: 'none' });
 
     render() {
-        const displayStyle = {display : this.state.displayStyle};
+        const displayStyle = { display: this.state.displayStyle };
 
         return (
             <div
@@ -76,4 +77,11 @@ class Task extends Component {
         );
     }
 }
+
+Task.propTypes = {
+    idTask: PropTypes.number,
+    selected: PropTypes.bool,
+    nameTask: PropTypes.string,
+};
+
 export default Task;

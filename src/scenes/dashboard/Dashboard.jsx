@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import trash from '../../image/trash.svg';
@@ -104,3 +104,13 @@ export class Dashboard extends Component {
         );
     }
 }
+
+Dashboard.propTypes = {
+    tasks: PropTypes.array,
+    idList: PropTypes.number,
+    title: PropTypes.string,
+};
+
+Dashboard.defaultProps = {
+    tasks: [],
+};
