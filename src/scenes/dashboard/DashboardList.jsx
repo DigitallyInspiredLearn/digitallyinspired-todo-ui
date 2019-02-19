@@ -5,7 +5,16 @@ import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
-    componentWillMount = () => this.props.actions.fetchDashboard();
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: 'myList',
+        };
+    }
+
+    componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
+
+    // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
 
     render() {
         return (
@@ -15,9 +24,9 @@ class DashboardList extends Component {
                         className="searchTask"
                         id="searchTask"
                         style={{
-                            marginTop: '30px',
+                            marginTop: '0px',
                             padding: '3px',
-                            width: '75%',
+                            width: '80%',
                         }}
                     >
                         <input
@@ -35,13 +44,16 @@ class DashboardList extends Component {
                             }}
                         />
                     </div>
-                    <nav className="dropdownmenu">
-                        <ul>
-                            <li><a>All</a></li>
-                            <li><a>Shared</a></li>
-                            <li><a>Private</a></li>
-                        </ul>
-                    </nav>
+                    <section className="ac-container">
+                        <div>
+                            <input id="ac-2" name="accordion-1" type="checkbox"/>
+                            <label htmlFor="ac-2">Shared lists</label>
+                        </div>
+                        <div>
+                            <input id="ac-3" name="accordion-1" type="checkbox"/>
+                            <label htmlFor="ac-3">My lists</label>
+                        </div>
+                    </section>
                 </div>,
                 <div id="content">
                     <main style={{ alignContent: 'start' }}>
