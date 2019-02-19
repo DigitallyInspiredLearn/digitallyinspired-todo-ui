@@ -35,6 +35,7 @@ class Task extends Component {
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                                 selected: this.props.selected,
+                                body: this.props.nameTask,
                             });
                         }}
                     />
@@ -66,7 +67,6 @@ class Task extends Component {
                         style={displayStyle}
                         onClick={() => {
                             this.props.actions.deleteTask({
-                                idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                             });
                         }}
