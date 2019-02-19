@@ -35,13 +35,31 @@ class DashboardList extends Component {
                             }}
                         />
                     </div>
-                    <nav className="dropdownmenu">
-                        <ul>
-                            <li><a>All</a></li>
-                            <li><a>Shared</a></li>
-                            <li><a>Private</a></li>
-                        </ul>
-                    </nav>
+                    <div id="watchedDashb">
+                        <div id="radio">
+                            <label htmlFor="contactChoice1">
+                                <input
+                                    type="checkbox"
+                                    name="show"
+                                    id="myList"
+                                    value="myList"
+                                    checked={this.props.selectedMy}
+                                    onClick={() => this.props.actions.updateSelectedMyLists(!this.props.selectedMy)}
+                                />Show my dashboard
+                            </label>
+                            <label htmlFor="contactChoice2">
+                                <input
+                                    type="checkbox"
+                                    name="show"
+                                    value="sharedList"
+                                    id="sharedList"
+                                    checked={this.props.selectedShared}
+                                    onClick={() =>
+                                        this.props.actions.updateSelectedSharedLists(!this.props.selectedShared)}
+                                />Show shared dashboard
+                            </label>
+                        </div>
+                    </div>
                 </div>,
                 <div id="content">
                     <main style={{ alignContent: 'start' }}>

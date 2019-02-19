@@ -129,9 +129,9 @@ function* addTask(action) {
         },
     );
     console.log(res);
-    const r = yield call(getOneList, action.payload.idDashboard);
-    console.log(r.data);
-    yield put(actions.fetchListSuccess(r.data));
+    // const r = yield call(getOneList, action.payload.idDashboard);
+    // console.log(r.data);
+    // yield put(actions.fetchListSuccess(r.data));
 }
 
 function* fetchDeleteList(action) {
