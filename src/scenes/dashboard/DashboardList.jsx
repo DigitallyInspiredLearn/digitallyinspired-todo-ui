@@ -17,7 +17,6 @@ class DashboardList extends Component {
     // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
 
     render() {
-        console.log(this.props);
         return (
             [
                 <div id="searchAndWatch">
@@ -27,6 +26,7 @@ class DashboardList extends Component {
                         style={{
                             marginTop: '30px',
                             padding: '3px',
+                            width: '75%',
                         }}
                     >
                         <input
@@ -44,27 +44,13 @@ class DashboardList extends Component {
                             }}
                         />
                     </div>
-                    <div id="watchedDashb">
-                        <div id="radio">
-                            <label htmlFor="contactChoice1">
-                                <input
-                                    type="checkbox"
-                                    name="show"
-                                    id="myList"
-                                    value="myList"
-                                />Show my dashboard
-                            </label>
-                            <label htmlFor="contactChoice2">
-                                <input
-                                    type="checkbox"
-                                    name="show"
-                                    value="sharedList"
-                                    id="sharedList"
-                                />Show shared dashboard
-                            </label>
-                        </div>
-
-                    </div>
+                    <nav className="dropdownmenu">
+                        <ul>
+                            <li><a>All</a></li>
+                            <li><a>Shared</a></li>
+                            <li><a>Private</a></li>
+                        </ul>
+                    </nav>
                 </div>,
                 <div id="content">
                     <main style={{ alignContent: 'start' }}>
@@ -90,5 +76,4 @@ class DashboardList extends Component {
         );
     }
 }
-
 export default DashboardList;
