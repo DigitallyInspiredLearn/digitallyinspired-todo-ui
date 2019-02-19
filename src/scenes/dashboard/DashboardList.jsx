@@ -44,37 +44,6 @@ class DashboardList extends Component {
                             }}
                         />
                     </div>
-                    <div id="watchedDashb">
-                        <div id="radio">
-                            <label htmlFor="contactChoice1">
-                                <input
-                                    type="checkbox"
-                                    name="show"
-                                    id="myList"
-                                    value="myList"
-                                    checked={this.state.selected === 'myList'}
-                                    onChange={e => (
-                                        this.setState({ selected: e.target.value }),
-                                        this.props.actions.fetchDashboard(this.state.selected)
-                                    )}
-                                />Show my dashboard
-                            </label>
-                            <label htmlFor="contactChoice2">
-                                <input
-                                    type="checkbox"
-                                    name="show"
-                                    value="sharedList"
-                                    id="sharedList"
-                                    checked={this.state.selected === 'sharedList'}
-                                    onChange={e => (
-                                        this.setState({ selected: e.target.value }),
-                                            this.props.actions.fetchDashboard(this.state.selected)
-                                    )}
-                                />Show shared dashboard
-                            </label>
-                        </div>
-
-                    </div>
                 </div>,
                 <div id="content">
                     <main style={{ alignContent: 'start' }}>

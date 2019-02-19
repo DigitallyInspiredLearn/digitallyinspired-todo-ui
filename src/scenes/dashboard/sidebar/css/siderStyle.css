@@ -207,8 +207,10 @@ div > div, #fon, #inputs, #addingArticle {
     border-radius: 5px;
     cursor: pointer;
     font-size: 15px;
+    outline: none;
 }
 .btn:hover{
     color: white;
     background: black;
+    outline: none;
 }
