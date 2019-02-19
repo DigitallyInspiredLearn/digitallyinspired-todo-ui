@@ -8,7 +8,6 @@ class DashboardList extends Component {
     componentWillMount = () => this.props.actions.fetchDashboard();
 
     render() {
-        console.log(this.props);
         return (
             [
                 <div id="searchAndWatch">
