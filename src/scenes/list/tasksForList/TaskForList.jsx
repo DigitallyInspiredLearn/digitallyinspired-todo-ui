@@ -42,10 +42,10 @@ class TaskForList extends Component {
                         value={nameTask}
                         className="taskName"
                         onChange={e => actionsList.updateTaskList({
-                            idDashboard: idList, idTask, newTaskName: e.target.value,
+                            idDashboard: idList, idTask, selected, newTaskName: e.target.value,
                         })}
                     />
-                    <div
+                     <div
                         className="trashTaskOneList"
                         style={displayStyle}
                         onClick={() => actionsList.deleteTaskList({

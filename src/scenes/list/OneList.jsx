@@ -46,7 +46,7 @@ class OneList extends Component {
                                 <div
                                     className="iconTrash"
                                     id={match.params.id}
-                                    onClick={() => actions.deleteList(match.params.id)}
+                                    onClick={() => actions.deleteList({ idDashboard: match.params.id})}
                                 />
                             </Link>
                             <div
@@ -59,7 +59,7 @@ class OneList extends Component {
                         type="text"
                         value={data.todoListName}
                         className="titleNameOneList"
-                        onChange={e => actions.updateTitleList({ id: data.id, newTitle: e.target.value })}
+                        onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                 </div>
                 <div className="searchTask">
@@ -120,17 +120,3 @@ class OneList extends Component {
 }
 
 export default OneList;
-
-// onClick={() => {
-//     const link = document.createElement('a');
-//     const file = new Blob(
-//         [ReactDOMServer.renderToStaticMarkup(this.render())],
-//         { type: 'text/html' },
-//     );
-//     link.href = URL.createObjectURL(file);
-//     link.download = 'List.html';
-//     link.click();
-//     // const pdf = new jsPDF();
-//     // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-//     // pdf.save('List.pdf');
-// }}

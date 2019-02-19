@@ -75,6 +75,7 @@ class DashboardList extends Component {
                                         tasks={i.tasks}
                                         toDoBoard={toDoBoard}
                                         actions={actions}
+                                        shared={i.shared}
                                     />
                                 ))
                         }
