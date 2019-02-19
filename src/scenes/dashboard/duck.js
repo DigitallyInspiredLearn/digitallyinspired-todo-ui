@@ -8,8 +8,6 @@ import {
     updateList,
     getSharedLists,
     getAllLists,
-    deleteTask as deleteTaskApi, 
-    updateTask
 } from '../../api/dashboard';
 import {
     updateTask,

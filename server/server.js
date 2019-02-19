@@ -71,7 +71,7 @@ app.post('/api/tasks', (req, res) => {
     || typeof req.body.params.newTask.isComplete !== 'boolean') {
         res.sendStatus(400);
     } else {
-        const list = toDoList.lists.find(list => list.id === req.body.params.todoListId);
+        const list = toDoList.lists.find(i => i.id === req.body.params.todoListId);
         if (list === undefined || list === '') {
             res.sendStatus(404);
         } else {
@@ -84,7 +84,7 @@ app.post('/api/tasks', (req, res) => {
 
 app.get('/api/todolists/:id', (req, res) => {
     // console.log(req.params);
-    const list = toDoList.lists.find(list => list.id === parseInt(req.params.id, 10));
+    const list = toDoList.lists.find(i => i.id === parseInt(req.params.id, 10));
     // console.log(list);
     if (!list) {
         res.sendStatus(404);

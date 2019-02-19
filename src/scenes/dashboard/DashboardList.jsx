@@ -5,7 +5,6 @@ import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
-<<<<<<< HEAD
     constructor(props) {
         super(props);
         this.state = {
@@ -16,9 +15,6 @@ class DashboardList extends Component {
     componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
 
     // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
-=======
-    componentWillMount = () => this.props.actions.fetchDashboard();
->>>>>>> a7ef5861eb16c9c5a75b171f21aa28081e33dc29
 
     render() {
         console.log(this.props);
