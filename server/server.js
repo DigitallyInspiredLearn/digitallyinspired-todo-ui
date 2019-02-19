@@ -140,23 +140,24 @@ app.post('/api/auth/register', (req, res) => {
     console.log(req.body);
     let status;
     let message;
-    if (toDoList.some(item => item.users.some(user => user.login === req.body.username)) === true) {
+    // toDoList.users.some(user => console.log(user));
+    if (toDoList.users.some(user => user.login === req.body.username) === true) {
         status = false;
         message = 'Username is already taken!';
-        // res.status(200).send({ accessToken: token, tokenType: 'Bearer' });
         res.sendStatus(400);
     } else {
         const newUser = {
             login: req.body.username,
             password: req.body.password,
         };
-        // console.log(newUser);
-        toDoList.forEach(item => item.users.push(newUser));
+        console.log(newUser);
+        toDoList.users.push(newUser);
         status = true;
         message = 'Username has been registrated!';
         // toDoList.forEach(item => console.log(item.users));
         res.sendStatus(201);
     }
+    console.log(toDoList.users);
     res.send({ success: status, message });
 });
 
@@ -195,10 +196,17 @@ app.delete('/api/todolists/:id', (req, res) => {
 
 app.delete('/api/tasks/:id', (req, res) => {
     console.log(req.params);
-    const tasks = toDoList.lists.map(list => list.tasks);
-    // console.log(tasks);
-    const index = tasks.forEach(task => task.findIndex(item => item.id === parseInt(req.params.id, 10)));
-    console.log(index);
+    // const listTasks = toDoList.lists.map(list => list.tasks.map());
+    // console.log(listTasks);
+    // const tasks = listTasks.map(list => list.tasks);
+    const list = toDoList.lists.map(list => list.tasks.map(task => task)).map(item => item.filter(task => task.id !== parseInt(req.params.id, 10)));
+
+  
+    // console.log('=== after ===');
+    // console.log(list);
+    // tasks.forEach(task => task.findIndex(item => item.id === parseInt(req.params.id, 10)));
+    // console.log(index);
+    console.log(list);
 });
 
 app.put('/api/tasks/:id', (req, res) => {

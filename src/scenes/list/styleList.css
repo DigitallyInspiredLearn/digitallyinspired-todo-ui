@@ -1,7 +1,15 @@
-#list, .header, .searchTask, .blockTask{
+#list, .header, .searchTask, .blockTask,.spList{
     display: flex;
 }
 
+.spList{
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+#backEndTitle{
+    width: 80%;
+}
 #list{
     width: 97%;
     min-height: 95vh;
@@ -24,16 +32,17 @@
 }
 
 .back {
-    color: black;
     float: left;
     cursor: pointer;
     margin-top: 10px;
+    margin-right: 10px;
 }
 
+.titleNameOneList{
+    margin-top: 5px;
+}
 .deleteList, .download {
-    color: black;
     z-index: 2;
-    float: right;
     cursor: pointer;
     margin-left: 10px;
 }

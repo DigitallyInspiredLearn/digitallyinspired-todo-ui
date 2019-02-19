@@ -53,7 +53,6 @@ class Registration extends Component {
 
 
     render() {
-        console.log(this.props);
         return (
             <div id="regDiv">
                 <nav className="navForm">
@@ -125,7 +124,6 @@ class Registration extends Component {
                         </p>
                     </form>
                     <div className="href">
-                        <button type="button" className="forgetPass navBtn">Forgot your password?</button>
                         <Link to="/auth">
                             <button type="button" className="navBtn">Return to the login page</button>
                         </Link>

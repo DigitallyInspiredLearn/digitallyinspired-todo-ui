@@ -1,9 +1,9 @@
-import {actions} from "./duck";
-import {withRouter} from "react-router-dom";
-import {bindActionCreators, compose} from 'redux';
-import {actions as actionsBoard} from "../dashboard/duck";
-import {connect} from "react-redux";
-import {OneList} from "./OneList";
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators, compose } from 'redux';
+import { connect } from 'react-redux';
+import { actions as actionsBoard } from '../dashboard/duck';
+import { actions } from './duck';
+import { OneList } from './OneList';
 
 const mapStateToProps = state => (
     {
