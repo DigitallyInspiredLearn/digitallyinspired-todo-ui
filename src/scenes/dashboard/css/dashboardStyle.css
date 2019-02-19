@@ -9,22 +9,17 @@ article:before, .addNewTask {
 /*serch and watch*/
 #searchAndWatch{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 #watchedDashb{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 }
-#radio{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-}
+
 label{
     margin: 5px;
 }
-/*----------------*/
 section {
     flex-direction: column;
     background-color: white;
@@ -139,8 +134,46 @@ section {
     margin: auto;
 }
 .searchList {
-    width: 100%;
+    width: 1000%;
     outline: none;
     padding-top: 7px;
     cursor: pointer;
 }
+.dropdownmenu ul, .dropdownmenu li {
+    margin: 0;
+    padding: 0;
+}
+.dropdownmenu ul {
+    background: darkgrey;
+    list-style: none;
+    width: 100%;
+}
+.dropdownmenu li {
+    float: left;
+    position: relative;
+    width:auto;
+}
+.dropdownmenu a {
+    background: lightgrey;
+    color: black;
+    display: block;
+    font: bold 12px/20px sans-serif;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
+    cursor:pointer;
+}
+.dropdownmenu li:hover a {
+    background: #000000;
+    color:white;
+}
+.dropdownmenu{
+    margin-top: 25px;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
+}
+
