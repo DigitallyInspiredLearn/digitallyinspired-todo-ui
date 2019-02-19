@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => ({
         updateCheckboxList: actions.updateCheckboxList,
     }, dispatch),
     actionsBoard: bindActionCreators({
-        updateCheckbox: actionsBoard.updateCheckbox,
         onBlurs: actionsBoard.updateTitleSuccess,
     }, dispatch),
 });
