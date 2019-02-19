@@ -76,11 +76,7 @@ function* fetchList(action) {
     console.log(action.payload);
     const r = yield call(getOneList, action.payload);
     console.log(r.data);
-    const tas = yield call(getTasks, action.payload);
-    console.log(tas.data);
     yield put(actions.fetchListSuccess(r.data));
-    const tasks = yield call(getTasks, action.payload);
-    console.log(tasks);
 }
 
 function* updateTitle(action) {
