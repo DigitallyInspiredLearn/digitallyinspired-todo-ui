@@ -1,10 +1,11 @@
+/* eslint-disable react/destructuring-assignment,react/prop-types,no-console */
 import React, { Component } from 'react';
 import NullLenghtDashboard from './NullLenghtDashboard';
 import { Dashboard } from './Dashboard';
-import randomInteger from '../../config/helper';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
+<<<<<<< HEAD
     constructor(props) {
         super(props);
         this.state = {
@@ -15,8 +16,12 @@ class DashboardList extends Component {
     componentWillMount = () => this.props.actions.fetchDashboard(this.state.selected);
 
     // componentDidUpdate= () =>  this.props.actions.fetchDashboard( this.state.selected );
+=======
+    componentWillMount = () => this.props.actions.fetchDashboard();
+>>>>>>> a7ef5861eb16c9c5a75b171f21aa28081e33dc29
 
     render() {
+        console.log(this.props);
         return (
             [
                 <div id="searchAndWatch">
@@ -32,7 +37,6 @@ class DashboardList extends Component {
                             type="text"
                             className="searchList"
                             placeholder="Search dashboard"
-                            onChange={e => this.props.actions.searchList(e.target.value)}
                         />
                         <div
                             className="btnSearch fa fa-search fa-2x"
@@ -52,11 +56,6 @@ class DashboardList extends Component {
                                     name="show"
                                     id="myList"
                                     value="myList"
-                                    checked={this.state.selected === 'myList'}
-                                    onChange={e => (
-                                        this.setState({ selected: e.target.value }),
-                                        this.props.actions.fetchDashboard(this.state.selected)
-                                    )}
                                 />Show my dashboard
                             </label>
                             <label htmlFor="contactChoice2">
@@ -65,11 +64,6 @@ class DashboardList extends Component {
                                     name="show"
                                     value="sharedList"
                                     id="sharedList"
-                                    checked={this.state.selected === 'sharedList'}
-                                    onChange={e => (
-                                        this.setState({ selected: e.target.value }),
-                                            this.props.actions.fetchDashboard(this.state.selected)
-                                    )}
                                 />Show shared dashboard
                             </label>
                         </div>
@@ -88,7 +82,6 @@ class DashboardList extends Component {
                                         key={i.id}
                                         title={i.todoListName}
                                         tasks={i.tasks}
-                                        randomInteger={randomInteger}
                                         toDoBoard={this.props.toDoBoard}
                                         actions={this.props.actions}
                                     />

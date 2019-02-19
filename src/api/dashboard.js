@@ -13,6 +13,7 @@ export const deleteList = id => axios.delete(`/api/todolists/${id}`);
 export const addDashboard = newDashboard => axios.post('/api/todolists', newDashboard);
 
 export const updateList = (id, newList) => axios.put(`/api/todolists/${id}`, newList);
+<<<<<<< HEAD
 
 export const getTasks = id => axios.get('/api/tasks', id);
 
@@ -34,3 +35,5 @@ export const updateTask = (id, task) => {
     console.log(task);
     axios.put(`/api/tasks/${id}`);
 };
+=======
+>>>>>>> a7ef5861eb16c9c5a75b171f21aa28081e33dc29

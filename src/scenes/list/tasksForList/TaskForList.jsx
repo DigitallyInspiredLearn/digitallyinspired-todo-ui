@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment,react/prop-types */
 import React, { Component } from 'react';
 import './css/taskStyle.css';
 
@@ -28,39 +29,31 @@ class TaskForList extends Component {
                         className={this.props.selected === false ? 'unselected' : 'fa fa-check-square'}
                         style={{ zIndex: 50 }}
                         onClick={() => {
-                            this.props.actions.updateCheckbox({
+                            this.props.actionsBoard.updateCheckbox({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                                 selected: this.props.selected,
                             });
-                            this.props.fetchList(this.props.idList);
+                            this.props.actionsList.fetchList(this.props.idList);
                         }}
                     />
                     <input
                         type="text"
                         value={this.props.nameTask}
                         className="taskName"
-                        onChange={e => {
-                            this.props.updateTaskList({
+                        onChange={(e) => {
+                            this.props.actionsList.updateTaskList({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                                 newTaskName: e.target.value,
                             });
                         }}
-                        // onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
-                        // onBlur={(e) => {
-                        //     if (e.target.value === '') {
-                        //         e.target.value = 'to-do';
-                        //     }
-                        //     this.props.actions.onBlurs({ id: this.props.idList });
-                        //     this.props.fetchList(this.props.idList);
-                        // }}
                     />
-                    <label
-                        className="deleteTask fa fa-trash"
+                    <div
+                        className="trashTaskOneList"
                         style={displayStyle}
                         onClick={() => {
-                            this.props.deleteTaskList({
+                            this.props.actionsList.deleteTaskList({
                                 idDashboard: this.props.idList,
                                 idTask: this.props.idTask,
                             });

@@ -1,13 +1,11 @@
+/* eslint-disable react/destructuring-assignment,react/prop-types */
 import React, { Component } from 'react';
-import './styleList.css';
-import ReactDOMServer from 'react-dom/server';
 import { Link } from 'react-router-dom';
-import NullLenghtTasks from '../task/NullLenghtTasks';
-// import Task from '../task/Task';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
+import NullLenghtTasks from '../task/NullLenghtTasks';
 
-export class OneList extends Component {
+class OneList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,60 +30,54 @@ export class OneList extends Component {
         return (
             <div id="list">
                 <div id="header">
-                    <div id="l">
-                        <Link to="/lists">
+                    <span className="spList">
+                        <div className="iconsOneList">
+                            <Link to="/lists">
+                                <div
+                                    className="back fa fa-arrow-left fa-2x"
+                                />
+                            </Link>
+                            <Link to="/lists">
+                                <div
+                                    className="iconTrash"
+                                    id={this.props.match.params.id}
+                                    onClick={() => {
+                                        this.props.actions.deleteList(this.props.match.params.id);
+                                    }
+                                    }
+                                />
+                            </Link>
                             <div
-                                className="back fa fa-arrow-left fa-2x"
+                                className="download fa fa-download fa-2x"
+                                title="download"
+                                // onClick={() => {
+                                //     const link = document.createElement('a');
+                                //     const file = new Blob(
+                                //         [ReactDOMServer.renderToStaticMarkup(this.render())],
+                                //         { type: 'text/html' },
+                                //     );
+                                //     link.href = URL.createObjectURL(file);
+                                //     link.download = 'List.html';
+                                //     link.click();
+                                //     // const pdf = new jsPDF();
+                                //     // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+                                //     // pdf.save('List.pdf');
+                                // }}
                             />
-                        </Link>
-                        <input
-                            type="text"
-                            value={this.props.data.todoListName}
-                            className="titleNameOneList"
-                            onChange={(e) => {
-                                this.props.actions.updateTitleList({
-                                    id: this.props.data.id,
-                                    newTitle: e.target.value,
-                                });
-                            }
-                            }
-                            // onBlur={(e) => {
-                            //     e.target.value === '' ? e.target.value = 'New Title' : -1;
-                            //     this.props.actionsBoard.onBlurs({id: this.props.match.params.id});
-                            //     //this.props.actions.fetchList(this.props.match.params.id);
-                            // }}
-                            // onKeyDown={e => (e.key === 'Enter' ? e.target.blur() : -1)}
-                        />
-                    </div>
-                    <div id="r">
-                        <Link to="/lists">
-                            <div
-                                className="deleteList fa fa-trash fa-2x"
-                                id={this.props.match.params.id}
-                                onClick={() => {
-                                    this.props.actions.deleteList(this.props.match.params.id);
-                                }
-                                }
-                            />
-                        </Link>
-                        <div
-                            className="download fa fa-download fa-2x"
-                            title="download"
-                            onClick={() => {
-                                const link = document.createElement('a');
-                                const file = new Blob(
-                                    [ReactDOMServer.renderToStaticMarkup(this.render())],
-                                    { type: 'text/html' },
-                                );
-                                link.href = URL.createObjectURL(file);
-                                link.download = 'List.html';
-                                link.click();
-                                // const pdf = new jsPDF();
-                                // pdf.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-                                // pdf.save('List.pdf');
-                            }}
-                        />
-                    </div>
+                        </div>
+                    </span>
+                    <input
+                        type="text"
+                        value={this.props.data.todoListName}
+                        className="titleNameOneList"
+                        onChange={(e) => {
+                            this.props.actions.updateTitleList({
+                                id: this.props.data.id,
+                                newTitle: e.target.value,
+                            });
+                        }
+                        }
+                    />
                 </div>
                 <div className="searchTask">
                     <input
@@ -117,10 +109,8 @@ export class OneList extends Component {
                                         key={i.id}
                                         selected={i.isComplete}
                                         nameTask={i.body}
-                                        actions={this.props.actionsBoard}
-                                        fetchList={this.props.actions.fetchList}
-                                        updateTaskList={this.props.actions.updateTaskList}
-                                        deleteTaskList={this.props.actions.deleteTaskList}
+                                        actionsBoard={this.props.actionsBoard}
+                                        actionsList={this.props.actions}
                                     />
                                 )))
                         }
@@ -140,17 +130,14 @@ export class OneList extends Component {
                                     idTask: `${randomInteger(1, 100000, this.props.todo)}`,
                                 });
                                 this.state.valueNewTask = '';
-                                // this.props.actions.fetchList(this.props.match.params.id);
                             }
                         }
                         }
-                        // onBlur={(e) => {
-                        //     this.handlerOnBlur(e);
-                        //     this.props.actions.fetchList(this.props.match.params.id);
-                        // }}
                     />
                 </article>
             </div>
         );
     }
 }
+
+export default OneList;
