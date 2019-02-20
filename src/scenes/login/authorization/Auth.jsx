@@ -20,7 +20,7 @@ class Authorization extends Component {
         const { actions } = this.props;
         const { password, login } = this.state;
         return (
-            <div className="right">
+            <div className="right" id="auth">
                 <nav className="navForm">
                     <form action="" method="post">
                         <h2>Sign in</h2>

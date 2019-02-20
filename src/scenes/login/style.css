@@ -7,7 +7,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-left: 35%;
     height:auto;
     opacity:0;
     transition: 500ms;
@@ -40,11 +39,8 @@
     width: 98%;
     height: auto;
 }
-.description{
-    margin:  5px;
-    width: 95%;
-}
-.description,form, .href{
+
+form, .href{
     background: white;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
@@ -170,4 +166,9 @@ h2{
     background-size:6px 6px;
     opacity: 0.8;
 }
+}
+#auth{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
