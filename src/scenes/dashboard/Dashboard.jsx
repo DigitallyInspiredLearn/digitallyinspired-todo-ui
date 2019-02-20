@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
 import trash from '../../image/trash.svg';
@@ -10,7 +10,7 @@ import pushpin from '../../image/pushpin.svg';
 import './css/dashboardStyle.css';
 import './css/dashboardStyleForComp.css';
 
-export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks/>
+export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks />
     : tasks.map(i => (
         <Task
             idTask={i.id}
@@ -42,38 +42,41 @@ export class Dashboard extends Component {
     };
 
     render() {
-        const {valueNewTask} = this.state;
+        const { valueNewTask } = this.state;
         const {
             idList, title, tasks, actions, shared,
         } = this.props;
 
         return (
             <section id={idList}>
-
                 {
-                    shared ?
-                        <div className="icons">
-                            <img
-                                src={pushpin}
-                                className="linkList"
-                                alt="List is shared"
-                            />
-                        </div> :
-                        <div className="icons">
-                            <Link to={`/list/${idList}`}>
+                    shared
+                        ? (
+                            <div className="icons">
                                 <img
-                                    src={info}
+                                    src={pushpin}
                                     className="linkList"
-                                    alt="Information about this list"
+                                    alt="List is shared"
                                 />
-                            </Link>
-                            <img
-                                src={trash}
-                                className="deleteBoadr"
-                                onClick={() => actions.deleteDashboard({id: idList})}
-                                alt="Delete this list"
-                            />
-                        </div>
+                            </div>
+                        )
+                        : (
+                            <div className="icons">
+                                <Link to={`/list/${idList}`}>
+                                    <img
+                                        src={info}
+                                        className="linkList"
+                                        alt="Information about this list"
+                                    />
+                                </Link>
+                                <img
+                                    src={trash}
+                                    className="deleteBoadr"
+                                    onClick={() => actions.deleteDashboard({ id: idList })}
+                                    alt="Delete this list"
+                                />
+                            </div>
+                        )
                 }
                 <div>
                     <input
@@ -83,10 +86,7 @@ export class Dashboard extends Component {
                         onChange={e => actions.updateTitleDashboard({
                             id: idList, newTitle: e.target.value,
                         })}
-                        onBlur={(e) => {
-                            e.target.value = e.target.value === '' && (e.target.value = 'New Title');
-                            actions.updateTitleSuccess({id: idList});
-                        }}
+                        onBlur={() => actions.updateTitleSuccess({ id: idList })}
                         onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
                     />
                 </div>
@@ -94,11 +94,11 @@ export class Dashboard extends Component {
                     {getTaskList(tasks, this.props)}
                 </div>
                 {
-                    shared ? "" :
+                    shared ? '' : (
                         <input
                             className="addNewTask"
                             placeholder="Add to-do"
-                            style={{outline: 'none'}}
+                            style={{ outline: 'none' }}
                             value={valueNewTask}
                             onChange={this.changeValueNewTask}
                             onKeyPress={e => valueNewTask
@@ -109,7 +109,7 @@ export class Dashboard extends Component {
                             }
                             onBlur={this.handlerOnBlur}
                         />
-                }
+                    )}
             </section>
         );
     }
