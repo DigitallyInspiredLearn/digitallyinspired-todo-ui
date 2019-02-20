@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import {createAction, handleActions} from 'redux-actions';
-import {call, put, delay} from 'redux-saga/effects';
+import { createAction, handleActions } from 'redux-actions';
+import { call, put, delay } from 'redux-saga/effects';
 import getOneList from '../../api/list';
-import {updateList, deleteList} from '../../api/dashboard';
-import {addTask, deleteTask, updateTask} from '../../api/task';
-import {safeTakeEvery, safeTakeLatest} from '../../helpers/saga';
+import { updateList, deleteList } from '../../api/dashboard';
+import { addTask, deleteTask, updateTask } from '../../api/task';
+import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
 export const FETCH_LIST_SUCCESS = 'list/FETCH_LIST_SUCCESS';
@@ -37,13 +37,13 @@ const initialState = {
 };
 export const reducer = handleActions({
 
-    [FETCH_LIST_SUCCESS]: (state, action) => ({...state, data: action.payload}),
+    [FETCH_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
 
-    [FETCH_CHANGE_LIST_SUCCESS]: (state, action) => ({...state, data: action.payload}),
+    [FETCH_CHANGE_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
 
     [UPDATE_TITLE_LIST]: (state, action) => ({
         ...state,
-        data: {...state.data, todoListName: action.payload.newTitle},
+        data: { ...state.data, todoListName: action.payload.newTitle },
     }),
 
     [UPDATE_TASK_LIST]: (state, action) => ({
@@ -68,7 +68,7 @@ export const reducer = handleActions({
         },
     }),
 
-    [SEARCH_TASK]: (state, action) => ({...state, search: action.payload}),
+    [SEARCH_TASK]: (state, action) => ({ ...state, search: action.payload }),
 
 }, initialState);
 
@@ -80,7 +80,7 @@ function* fetchList(action) {
 function* updateTitle(action) {
     yield delay(1000);
     const list = yield call(getOneList, action.payload.idDashboard);
-    yield call(updateList, action.payload.idDashboard, {...list.data, todoListName: action.payload.newTitle});
+    yield call(updateList, action.payload.idDashboard, { ...list.data, todoListName: action.payload.newTitle });
 }
 
 function* fetchUpdateTask(action) {
@@ -89,7 +89,7 @@ function* fetchUpdateTask(action) {
     console.log(list.data);
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.newTaskName,
-        isComplete: action.payload.selected
+        isComplete: action.payload.selected,
     });
     const r = yield call(getOneList, action.payload.idDashboard);
     console.log(r.data);
@@ -109,7 +109,7 @@ function* fetchChangeSearch(action) {
 function* addNewTask(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
     console.log(list.data);
-    yield call(addTask, action.payload.idDashboard, {body: action.payload.nameTask});
+    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask });
     const r = yield call(getOneList, action.payload.idDashboard);
     console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));

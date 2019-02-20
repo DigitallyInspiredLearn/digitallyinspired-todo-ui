@@ -19,6 +19,7 @@ header{
     background-color: black;
     animation: transition 700ms 1;
 }
+
 @keyframes transition{
     0%{
         width:1%;
@@ -36,6 +37,18 @@ header> b{
 .logo{
     width: 50px;
     height: 46px;
+}
+.list{
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 3px;
+    z-index: 10000;
+}
+.close{
+    background-color: white;
+    padding: 5px;
 }
 
 .settings{

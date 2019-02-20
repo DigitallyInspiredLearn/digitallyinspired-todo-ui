@@ -1,45 +1,47 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { compose, bindActionCreators } from 'redux';
+import React, { Component } from 'react';
 import './css/headerStyle.css';
 import PropTypes from 'prop-types';
-import { actions } from './duck';
 import logo from '../../image/logo_di.svg';
-import settings from '../../image/settings.svg';
+import Settings from './settings/Settings';
+import './settings/style.css';
+import list from '../../image/list-menu.svg';
+import close from '../../image/cancel.svg';
 
-const Container = ({ children }) => (
-    <div className="App">
-        <header>
-            <img src={logo} className="logo" alt="logo" />
-            <b>To</b>
-            <p id="line" />
-            <b>do</b>
-            <div>
-                <img src={settings} className="settings" alt="setting" />
+class Container extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+            img: list,
+        };
+    }
+
+    render() {
+        const { visible, img } = this.state;
+        const { children } = this.props;
+        return (
+            <div className="App">
+                <header>
+                    <img src={logo} className="logo" alt="logo" />
+                    <b>To</b>
+                    <p id="line" />
+                    <b>do</b>
+                    <img
+                        src={img}
+                        className="list"
+                        alt="list"
+                        onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
+                    />
+                </header>
+                <Settings visible={visible} />
+                { children}
             </div>
-        </header>
-        {children}
-    </div>
-);
+        );
+    }
+}
+
 Container.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({
-
-    }, dispatch),
-});
-
-export default compose(
-    withRouter,
-    connect(
-        mapStateToProps,
-        mapDispatchToProps,
-    ),
-)(Container);
+export default Container;
