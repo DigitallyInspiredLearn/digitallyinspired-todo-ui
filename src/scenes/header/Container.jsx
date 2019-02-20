@@ -15,7 +15,9 @@ const Container = ({ children }) => (
             <b>To</b>
             <p id="line" />
             <b>do</b>
-            <img src={settings} className="settings" alt="setting" />
+            <div>
+                <img src={settings} className="settings" alt="setting" />
+            </div>
         </header>
         {children}
     </div>
@@ -30,18 +32,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
-        fetchDashboard: actions.fetchDashboard,
-        updateTitleDashboard: actions.updateTitleDashboard,
-        deleteDashboard: actions.deleteDashboard,
-        fetchTasks: actions.fetchTasks,
-        deleteTask: actions.deleteTask,
-        addTask: actions.addTask,
-        updateCheckbox: actions.updateCheckbox,
-        updateTaskName: actions.updateTaskName,
-        updateTitleSuccess: actions.updateTitleSuccess,
-        searchList: actions.searchList,
-        updateSelectedSharedLists: actions.updateSelectedSharedLists,
-        updateSelectedMyLists: actions.updateSelectedMyLists,
+
     }, dispatch),
 });
 
@@ -52,5 +43,3 @@ export default compose(
         mapDispatchToProps,
     ),
 )(Container);
-
-// export default Container;
