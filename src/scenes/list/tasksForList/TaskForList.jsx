@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './css/taskStyle.css';
 
 class TaskForList extends Component {
@@ -57,5 +58,11 @@ class TaskForList extends Component {
         );
     }
 }
+
+TaskForList.propTypes = {
+    idTask: PropTypes.number,
+    selected: PropTypes.bool,
+    nameTask: PropTypes.string,
+};
 
 export default TaskForList;

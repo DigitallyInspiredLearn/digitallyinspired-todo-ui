@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import NullLenghtTasks from '../task/NullLenghtTasks';
@@ -118,5 +119,16 @@ class OneList extends Component {
         );
     }
 }
+
+OneList.propTypes = {
+    data: PropTypes.object,
+    id: PropTypes.number,
+    todoListName: PropTypes.string,
+    tasks: PropTypes.array,
+};
+
+OneList.defaultProps = {
+    data: {},
+};
 
 export default OneList;
