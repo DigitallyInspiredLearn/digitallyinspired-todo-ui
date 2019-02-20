@@ -111,6 +111,7 @@ function* fetchAllLists() {
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
+
 }
 
 function* deleteDashboard(action) {

@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-prop-types,react/require-default-props,
+react/default-props-match-prop-types,react/prop-types */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -116,7 +118,7 @@ export class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-    tasks: PropTypes.array,
+    tasks: PropTypes.array.isRequired,
     idList: PropTypes.number,
     title: PropTypes.string,
 };
