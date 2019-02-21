@@ -70,6 +70,7 @@ export class Dashboard extends Component {
                 <PopupContainer
                     statePopup={statePopup}
                     closePopup={this.closePopup}
+                    idList={idList}
                 />,
                 <section id={idList}>
 
