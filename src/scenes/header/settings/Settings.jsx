@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import './style.css';
-import './styleForComp.css';
+import React, { Component } from 'react';
+import './css/style.css';
+import './css/styleForComp.css';
+import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
-import MediaQuery from 'react-responsive';
+import Tabs, { Pane } from './Tabs';
 
 class Settings extends Component {
     constructor(props) {
@@ -17,15 +18,16 @@ class Settings extends Component {
     }
 
     render() {
-        const {visible} = this.props;
+        const { visible } = this.props;
         const {
             tab1, tab2, tab3, tab4,
         } = this.state;
+
         return (
-            <div style={{display: visible ? 'flex' : 'none'}}>
-                <div id="fon" style={{backgroundColor: 'gainsboro', opacity: 0.98, zIndex: 1000}}/>
+            <div style={{ display: visible ? 'flex' : 'none' }}>
+                <div id="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000 }} />
                 <div id="settingsWindow">
-                    <MediaQuery maxWidth={600}>
+                    <MediaQuery maxWidth={649}>
                         <nav id="tabContainer">
                             <div>
 
@@ -34,10 +36,10 @@ class Settings extends Component {
                                     <img
                                         src={tab1}
                                         className="up-down"
-                                        onClick={() => this.setState({tab1: tab1 === down ? up : down})}
+                                        onClick={() => this.setState({ tab1: tab1 === down ? up : down })}
                                     />
                                 </div>
-                                <div className="content" style={{display: tab1 === up ? 'flex' : 'none'}}>
+                                <div className="content" style={{ display: tab1 === up ? 'flex' : 'none' }}>
                                     <div>Profile</div>
                                     <div>Usentame</div>
                                     <div>Usentame</div>
@@ -51,10 +53,10 @@ class Settings extends Component {
                                     <img
                                         src={tab2}
                                         className="up-down"
-                                        onClick={() => this.setState({tab2: tab2 === down ? up : down})}
+                                        onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
                                     />
                                 </div>
-                                <div className="content" style={{display: tab2 === up ? 'flex' : 'none'}}>
+                                <div className="content" style={{ display: tab2 === up ? 'flex' : 'none' }}>
                                     <div>Theme</div>
                                     <div>Usentame</div>
                                     <div>Usentame</div>
@@ -68,10 +70,10 @@ class Settings extends Component {
                                     <img
                                         src={tab3}
                                         className="up-down"
-                                        onClick={() => this.setState({tab3: tab3 === down ? up : down})}
+                                        onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
                                     />
                                 </div>
-                                <div className="content" style={{display: tab3 === up ? 'flex' : 'none'}}>
+                                <div className="content" style={{ display: tab3 === up ? 'flex' : 'none' }}>
                                     <div>Subscribes</div>
                                     <div>Usentame</div>
                                     <div>Usentame</div>
@@ -105,10 +107,10 @@ class Settings extends Component {
                                     <img
                                         src={tab4}
                                         className="up-down"
-                                        onClick={() => this.setState({tab4: tab4 === down ? up : down})}
+                                        onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
                                     />
                                 </div>
-                                <div className="content" style={{display: tab4 === up ? 'flex' : 'none'}}>
+                                <div className="content" style={{ display: tab4 === up ? 'flex' : 'none' }}>
                                     <div>Followers</div>
                                     <div>Usentame</div>
                                     <div>Usentame</div>
@@ -118,21 +120,40 @@ class Settings extends Component {
                             </div>
                         </nav>
                     </MediaQuery>
-                    <MediaQuery minWidth={600}>
+                    <MediaQuery minWidth={650}>
                         <div id="settingsWindowForComp">
                             <nav id="tabContainerComp">
-                                <ul>
-                                    <li>Profile</li>
-                                    <li>Theme</li>
-                                    <li>Subscribes</li>
-                                    <li>Followers</li>
-                                </ul>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        onClick={() => this.setState({checked1: !checked1})}
+                                        checked={checked1}
+                                    />Profile
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        // onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
+                                    />Theme
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        // onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
+                                    />Subscribes
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        // onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
+                                    />Followers
+                                </label>
                             </nav>
                             <main>
-                                <div>Profile</div>
-                                <div>Theme</div>
-                                <div>Subscribes</div>
-                                <div>Followers</div>
+                                <div style={{display: tab1 === up ? 'flex' : 'none'}}>Profile</div>
+                                <div style={{display: tab2 === up ? 'flex' : 'none'}}>Theme</div>
+                                <div style={{display: tab3 === up ? 'flex' : 'none'}}>Subscribes</div>
+                                <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div>
                             </main>
                         </div>
 
@@ -145,3 +166,18 @@ class Settings extends Component {
 }
 
 export default Settings;
+
+
+<div>
+    <Tabs selected={0}>
+        <Pane label="Tab 1">
+            <div>This is my tab 1 contents!</div>
+        </Pane>
+        <Pane label="Tab 2">
+            <div>This is my tab 2 contents!</div>
+        </Pane>
+        <Pane label="Tab 3">
+            <div>This is my tab 3 contents!</div>
+        </Pane>
+    </Tabs>
+</div>
