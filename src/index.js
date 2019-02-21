@@ -19,12 +19,13 @@ import { saga, reducer } from './scenes/dashboard/duck';
 import App from './App';
 import history from './config/history';
 import { reducer as authReducer } from './scenes/login/authorization/duck';
-
+import { saga as settingsSaga ,reducer as settingsReducer } from './scenes/header/settings/duck';
 
 const mainReducer = combineReducers({
     dashboard: reducer,
     list: listReducer,
     auth: authReducer,
+    settings: settingsReducer,
 });
 
 const persistConfig = {
@@ -42,6 +43,7 @@ function* rootSaga() {
         saga(),
         listSaga(),
         loginPageSaga(),
+        settingsSaga(),
     ]);
 }
 

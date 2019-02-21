@@ -30,7 +30,7 @@ class Container extends Component {
                         src={img}
                         className="list"
                         alt="list"
-                        onClick={() => this.setState({ visible: !visible, img: img===list? close: list })}
+                        onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
                     />
                 </header>
                 <Settings visible={visible} />

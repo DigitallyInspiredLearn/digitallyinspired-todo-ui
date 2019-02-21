@@ -6,19 +6,136 @@
     border-top: 1px solid whitesmoke ;
     width: 100%;
     max-width: 1190px;
-    min-height: 300px;
+    min-height: 450px;
     height: auto;
     border-radius: 0 5px 5px 5px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
+
+#settingsWindowForComp main {
+    padding: 0;
+}
+
 #tabContainerComp{
     background-color: #888888;
     width: 155px;
 }
+
 li{
     list-style-type: none;
     background-color: #888888;
     margin: auto;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+.profile h3 {
+    margin: 2% auto;
+    font-size: 20px;
+    font-family: 'Arial';
+}
+
+.username {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.email {
+    margin-top: -10px;
+    margin-left: 10px;
+    color: rgb(46, 137, 255);
+}
+
+.account {
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.edit-profile {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid gray;
+    height: 50%;
+    width: 100%;
+}
+
+.profile-values {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    align-content: flex-start;
+}
+
+.profile-values p {
+    margin-left: 5%;
+}
+
+.profile-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 65%;
+}
+
+.profile-input > div {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -30px;
+}
+
+.profile-input input {
+    border: 1px solid black;
+    width: 40%;
+    height: 30px;
+    margin-left: 5%;
+    margin-top: 17px;
+}
+
+.save-profile {
+	background-color:#000000;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+    border-radius:6px;
+    border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 15px;
+	font-weight:bold;
+    width: 5%;
+    height: 8%;
+    margin-left: 25%;
+    text-decoration:none;
+    outline: none;
+}
+.save-profile:hover {
+	background-color:#808080;
+}
+.save-profile:active {
+	position:relative;
+	top:1px;
+}
+
+.theme {
+    z-index: 90;
+    display: none;
+}
+
+.subscribes {
+    display: none;
+}
+
+.followers {
+    display: none;
 }
