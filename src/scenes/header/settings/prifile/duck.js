@@ -2,11 +2,11 @@ import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, select, delay,
 } from 'redux-saga/effects';
-import { safeTakeEvery, safeTakeLatest } from '../../../helpers/saga';
-import getCurrentUser from '../../../api/userController';
+import { safeTakeEvery, safeTakeLatest } from '../../../../helpers/saga';
+import getCurrentUser from '../../../../api/userController';
 
-export const FETCH_CURRENT_USER = 'settings/FETCH_CURRENT_USER';
-export const FETCH_CURRENT_USER_SUCCESS = 'settings/FETCH_CURRENT_USER_SUCCESS';
+export const FETCH_CURRENT_USER = 'profileReducer/FETCH_CURRENT_USER';
+export const FETCH_CURRENT_USER_SUCCESS = 'profileReducer/FETCH_CURRENT_USER_SUCCESS';
 
 export const actions = {
     fetchCurrentUser: createAction(FETCH_CURRENT_USER),

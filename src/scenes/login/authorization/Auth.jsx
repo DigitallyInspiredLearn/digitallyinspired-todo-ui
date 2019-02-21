@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import FollowUser from '../../header/settings/followUser/FollowUser';
+
 class Authorization extends Component {
     constructor(props) {
         super(props);
