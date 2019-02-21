@@ -5,6 +5,7 @@ import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
+import FollowUser from './followUser/FollowUserContainer';
 
 class Settings extends Component {
     constructor(props) {
@@ -149,48 +150,7 @@ class Settings extends Component {
                                 </label>
                             </nav>
                             <main>
-                                {/* <div style={{display: tab1 === up ? 'flex' : 'none'}}>Profile</div> */}
-                                {/* <div style={{display: tab2 === up ? 'flex' : 'none'}}>Theme</div> */}
-                                {/* <div style={{display: tab3 === up ? 'flex' : 'none'}}>Subscribes</div> */}
-                                {/* <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div> */}
-                                <div className="profile">
-                                    <h3>Profile</h3>
-                                    <p className="username"> Hello, Username !</p>
-                                    <p className="email">Email</p>
-                                    <p className="account">Account</p>
-                                    <div className="edit-profile">
-                                        <div className="profile-values">
-                                            <p> Username </p>
-                                            <p> Email </p>
-                                            <p> Password </p>
-                                            <p> Repeat password </p>
-                                        </div>
-                                        <div className="profile-input">
-                                            <div>
-                                                <input type="text" placeholder="Username" />
-                                                <input type="text" placeholder="Email" />
-                                                <input type="text" placeholder="Password" />
-                                                <input type="text" placeholder="Repeat password" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button
-                                        className="save-profile"
-                                        type="submit"
-                                        onClick={() => this.props.actions.fetchCurrentUser()}
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                                <div className="theme">
-                                    Theme
-                                </div>
-                                <div className="subscribes">
-                                    Subscribes
-                                </div>
-                                <div className="followers">
-                                    Followers
-                                </div>
+                                <FollowUser/>
                             </main>
                         </div>
                     </MediaQuery>

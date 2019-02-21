@@ -6,7 +6,6 @@ axios.defaults.baseURL = 'http://localhost:8080';
 export const getCurrentUser = () => axios.get('/api/users/me');
 export const deleteProfile = () => axios.delete('api/users/deleteProfile');
 
-// get array with usernames
 export const searchUserByUsername = userName => axios.get(`api/users/search?username=${userName}`);
 
 // get array usersFollowers
