@@ -6,27 +6,32 @@
     border-top: 1px solid whitesmoke ;
     width: 100%;
     max-width: 1190px;
-    min-height: 450px;
+    min-height: 200px;
     height: auto;
     border-radius: 0 5px 5px 5px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: flex-start;margin-top: -5px;
 }
-
-#settingsWindowForComp main {
-    padding: 0;
-}
-
 #tabContainerComp{
-    background-color: #888888;
-    width: 155px;
+    background-color:gainsboro;
+    display: flex;
+    flex-direction: column;
 }
-
-li{
-    list-style-type: none;
-    background-color: #888888;
-    margin: auto;
+input[type="radio"]{
+    visibility:hidden;
+}
+#tabContainerComp > label {
+    padding: 20px 16px;
+    color: white;
+    margin: 0;
+    border: 0;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+}
+#tabContainerComp > label:hover{
+    background-color: black;
 }
 
 .profile {
@@ -102,17 +107,16 @@ li{
 }
 
 .save-profile {
-	background-color:#000000;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
+    background-color:#000000;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
     border-radius:6px;
     border: none;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size: 15px;
-	font-weight:bold;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-size: 15px;
+    font-weight:bold;
     width: 5%;
     height: 8%;
     margin-left: 25%;
@@ -120,11 +124,11 @@ li{
     outline: none;
 }
 .save-profile:hover {
-	background-color:#808080;
+    background-color:#808080;
 }
 .save-profile:active {
-	position:relative;
-	top:1px;
+    position:relative;
+    top:1px;
 }
 
 .theme {
