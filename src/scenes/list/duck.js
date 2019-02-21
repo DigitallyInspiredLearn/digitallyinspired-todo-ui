@@ -129,12 +129,12 @@ function* fetchDeleteTask(action) {
 function* fetchUpdateCheckbox(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
     console.log(list);
-    // yield call(updateTask, action.payload.idTask, {
-    //     body: action.payload.body,
-    //     isComplete: !action.payload.selected
-    // });
-    // const r = yield call(getOneList, action.payload.idDashboard);
-    // yield put(actions.fetchListSuccess(r.data));
+    yield call(updateTask, action.payload.idTask, {
+        body: action.payload.nameTask,
+        isComplete: !action.payload.selected
+    });
+    const r = yield call(getOneList, action.payload.idDashboard);
+    yield put(actions.fetchListSuccess(r.data));
 }
 
 export function* saga() {

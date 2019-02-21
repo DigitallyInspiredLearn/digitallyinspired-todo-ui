@@ -12,7 +12,9 @@ const Container = ({ children }) => (
             <p id="line" />
             <b>do</b>
         </header>
-        {children}
+        <div style={{ display: 'flex', flex: 'auto', flexDirection: 'column' }}>
+            {children}
+        </div>
     </div>
 );
 Container.propTypes = {

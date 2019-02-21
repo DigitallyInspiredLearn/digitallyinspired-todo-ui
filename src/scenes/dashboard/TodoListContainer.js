@@ -24,6 +24,7 @@ const mapDispatchToProps = dispatch => ({
         searchList: actions.searchList,
         updateSelectedSharedLists: actions.updateSelectedSharedLists,
         updateSelectedMyLists: actions.updateSelectedMyLists,
+        togglePopup: actions.togglePopup,
     }, dispatch),
 });
 
