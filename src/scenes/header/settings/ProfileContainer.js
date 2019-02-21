@@ -5,12 +5,14 @@ import Settings from './Settings';
 import { actions } from './duck';
 
 const mapStateToProps = state => ({
-    currentUser: state.dashboard.toDoBoard,
+    currentUser: state.settings.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         fetchCurrentUser: actions.fetchCurrentUser,
+        editProfile: actions.editProfile,
+        deleteProfile: actions.deleteProfile,
     }, dispatch),
 });
 

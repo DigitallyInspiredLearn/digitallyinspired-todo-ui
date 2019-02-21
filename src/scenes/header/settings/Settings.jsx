@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 // import Tabs, { Pane } from './Tabs';
+import { Link } from 'react-router-dom';
 import './css/style.css';
 import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
+
 
 class Settings extends Component {
     constructor(props) {
@@ -14,14 +16,49 @@ class Settings extends Component {
             tab2: down,
             tab3: down,
             tab4: down,
+            newName: '',
+            newUsername: '',
+            newEmail: '',
+            newPassword: '',
+            newRepeatPassword: '',
         };
     }
 
+    // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
+
+    componentDidMount = () => this.props.actions.fetchCurrentUser();
+
+    changeValueNewName = e => this.setState({
+        newName: e.target.value,
+    });
+
+    changeValueNewUsername = e => this.setState({
+        newUsername: e.target.value,
+    });
+
+    changeValueNewEmail = e => this.setState({
+        newEmail: e.target.value,
+    });
+
+    changeValueNewPassword = e => this.setState({
+        newPassword: e.target.value,
+    });
+
+    changeValueNewRepeatPassword = e => this.setState({
+        newRepeatPassword: e.target.value,
+    });
+
+
     render() {
-        const { visible } = this.props;
+        // console.log(this.props);
+        const { visible, currentUser, actions } = this.props;
         const {
             tab1, tab2, tab3, tab4,
         } = this.state;
+        
+        // this.setState({
+        //     newUsername: this.props.currentUser.username,
+        // });
 
         return (
             <div style={{ display: visible ? 'flex' : 'none' }}>
@@ -155,11 +192,23 @@ class Settings extends Component {
                                 {/* <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div> */}
                                 <div className="profile">
                                     <h3>Profile</h3>
-                                    <p className="username"> Hello, Username !</p>
-                                    <p className="email">Email</p>
+                                    <Link to="/auth">
+                                        <div className="delete">
+                                            <button
+                                                className="delete-profile"
+                                                type="submit"
+                                                onClick={() => actions.deleteProfile()}
+                                            >
+                                                Delete profile
+                                            </button>
+                                        </div>
+                                    </Link>
+                                    <p className="username"> Hello, {currentUser.name} !</p>
+                                    <p className="email">{currentUser.email}</p>
                                     <p className="account">Account</p>
                                     <div className="edit-profile">
                                         <div className="profile-values">
+                                            <p> Name </p>
                                             <p> Username </p>
                                             <p> Email </p>
                                             <p> Password </p>
@@ -167,17 +216,52 @@ class Settings extends Component {
                                         </div>
                                         <div className="profile-input">
                                             <div>
-                                                <input type="text" placeholder="Username" />
-                                                <input type="text" placeholder="Email" />
-                                                <input type="text" placeholder="Password" />
-                                                <input type="text" placeholder="Repeat password" />
+                                                <input
+                                                    type="text"
+                                                    placeholder="Name"
+                                                    value={currentUser.name}
+                                                    onChange={this.changeValueNewName}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    placeholder="Username"
+                                                    value={currentUser.username}
+                                                    onChange={this.changeValueNewUsername}
+                                                />
+                                                <input
+                                                    type="email"
+                                                    placeholder="Email"
+                                                    value={currentUser.email}
+                                                    onChange={this.changeValueNewEmail}
+                                                />
+                                                <input
+                                                    type="password"
+                                                    placeholder="Enter new password"
+                                                    value={this.state.newPassword}
+                                                    onChange={this.changeValueNewPassword}
+                                                />
+                                                <input
+                                                    type="password"
+                                                    placeholder="Repeat new password"
+                                                    value={this.state.newRepeatPassword}
+                                                    onChange={this.changeValueNewRepeatPassword}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <button
                                         className="save-profile"
                                         type="submit"
-                                        onClick={() => this.props.actions.fetchCurrentUser()}
+                                        onClick={() => {
+                                            if (this.state.newPassword === this.state.newRepeatPassword && this.state.newPassword.length >= 6) {
+                                                actions.editProfile({
+                                                    email: this.props.currentUser.email,
+                                                    name: this.props.currentUser.name,
+                                                    password: this.state.newPassword,
+                                                    username: this.props.currentUser.username,
+                                                });
+                                            }
+                                        }}
                                     >
                                         Save
                                     </button>
@@ -196,7 +280,6 @@ class Settings extends Component {
                     </MediaQuery>
                 </div>
             </div>
-
         );
     }
 }
