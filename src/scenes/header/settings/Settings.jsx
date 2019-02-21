@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+// import Tabs, { Pane } from './Tabs';
 import './css/style.css';
 import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
-import Tabs, { Pane } from './Tabs';
 
 class Settings extends Component {
     constructor(props) {
@@ -25,12 +25,11 @@ class Settings extends Component {
 
         return (
             <div style={{ display: visible ? 'flex' : 'none' }}>
-                <div id="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000 }} />
+                <div id="fon" style={{ backgroundColor: 'gainsboro', opacity: 0.98, zIndex: 1000 }} />
                 <div id="settingsWindow">
                     <MediaQuery maxWidth={649}>
                         <nav id="tabContainer">
                             <div>
-
                                 <div className="tab">
                                     <h2>Profile</h2>
                                     <img
@@ -126,8 +125,8 @@ class Settings extends Component {
                                 <label>
                                     <input
                                         type="radio"
-                                        onClick={() => this.setState({checked1: !checked1})}
-                                        checked={checked1}
+                                        // onClick={() => this.setState({ checked1: !checked1 })}
+                                        // checked={checked1}
                                     />Profile
                                 </label>
                                 <label>
@@ -150,13 +149,50 @@ class Settings extends Component {
                                 </label>
                             </nav>
                             <main>
-                                <div style={{display: tab1 === up ? 'flex' : 'none'}}>Profile</div>
-                                <div style={{display: tab2 === up ? 'flex' : 'none'}}>Theme</div>
-                                <div style={{display: tab3 === up ? 'flex' : 'none'}}>Subscribes</div>
-                                <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div>
+                                {/* <div style={{display: tab1 === up ? 'flex' : 'none'}}>Profile</div> */}
+                                {/* <div style={{display: tab2 === up ? 'flex' : 'none'}}>Theme</div> */}
+                                {/* <div style={{display: tab3 === up ? 'flex' : 'none'}}>Subscribes</div> */}
+                                {/* <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div> */}
+                                <div className="profile">
+                                    <h3>Profile</h3>
+                                    <p className="username"> Hello, Username !</p>
+                                    <p className="email">Email</p>
+                                    <p className="account">Account</p>
+                                    <div className="edit-profile">
+                                        <div className="profile-values">
+                                            <p> Username </p>
+                                            <p> Email </p>
+                                            <p> Password </p>
+                                            <p> Repeat password </p>
+                                        </div>
+                                        <div className="profile-input">
+                                            <div>
+                                                <input type="text" placeholder="Username" />
+                                                <input type="text" placeholder="Email" />
+                                                <input type="text" placeholder="Password" />
+                                                <input type="text" placeholder="Repeat password" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="save-profile"
+                                        type="submit"
+                                        onClick={() => this.props.actions.fetchCurrentUser()}
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                                <div className="theme">
+                                    Theme
+                                </div>
+                                <div className="subscribes">
+                                    Subscribes
+                                </div>
+                                <div className="followers">
+                                    Followers
+                                </div>
                             </main>
                         </div>
-
                     </MediaQuery>
                 </div>
             </div>
@@ -168,16 +204,16 @@ class Settings extends Component {
 export default Settings;
 
 
-<div>
-    <Tabs selected={0}>
-        <Pane label="Tab 1">
-            <div>This is my tab 1 contents!</div>
-        </Pane>
-        <Pane label="Tab 2">
-            <div>This is my tab 2 contents!</div>
-        </Pane>
-        <Pane label="Tab 3">
-            <div>This is my tab 3 contents!</div>
-        </Pane>
-    </Tabs>
-</div>
+{ /* <div> */ }
+{ /* <Tabs selected={0}> */ }
+{ /* <Pane label="Tab 1"> */ }
+{ /* <div>This is my tab 1 contents!</div> */ }
+{ /* </Pane> */ }
+{ /* <Pane label="Tab 2"> */ }
+{ /* <div>This is my tab 2 contents!</div> */ }
+{ /* </Pane> */ }
+{ /* <Pane label="Tab 3"> */ }
+{ /* <div>This is my tab 3 contents!</div> */ }
+{ /* </Pane> */ }
+{ /* </Tabs> */ }
+{ /* </div> */ }

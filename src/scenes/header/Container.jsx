@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './css/headerStyle.css';
 import PropTypes from 'prop-types';
 import logo from '../../image/logo_di.svg';
-import Settings from './settings/Settings';
+import Settings from './settings/SettingsContainet';
 import './settings/css/style.css';
 import list from '../../image/list-menu.svg';
 import close from '../../image/cancel.svg';
@@ -30,7 +30,7 @@ class Container extends Component {
                         src={img}
                         className="list"
                         alt="list"
-                        onClick={() => this.setState({ visible: !visible, img: img===list? close: list })}
+                        onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
                     />
                 </header>
                 <Settings visible={visible} />
