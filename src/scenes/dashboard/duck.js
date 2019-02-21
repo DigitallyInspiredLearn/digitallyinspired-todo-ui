@@ -9,6 +9,7 @@ import {
     updateList,
     getSharedLists,
     getAllLists,
+    shareTodoListToUser,
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -39,6 +40,8 @@ export const DELETE_TASK = 'DELETE_TASK';
 export const SEARCH_DASHBOARD = 'dashboard/SEARCH_DASHBOARD';
 export const MUTATE_DASHBOARD = 'dashboard/MUTATE_DASHBOARD';
 
+export const SHARE_LIST = 'dashboard/SHARE_LIST';
+
 export const actions = {
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
@@ -56,6 +59,7 @@ export const actions = {
     updateTaskName: createAction(UPDATE_TASK_NAME),
     searching: createAction(SEARCH_DASHBOARD),
     mutateDashboard: createAction(MUTATE_DASHBOARD),
+    shareList: createAction(SHARE_LIST),
 };
 
 
@@ -161,6 +165,13 @@ function* mutate(action) {
     }
 }
 
+function* shareList(action) {
+    console.log(action.payload);
+    const res = yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
+    console.log(res);
+    yield call(fetchAllLists);
+}
+
 export function* saga() {
     yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
@@ -170,4 +181,5 @@ export function* saga() {
     yield safeTakeEvery(ADD_TASK, addNewTask);
     yield safeTakeLatest(UPDATE_TITLE_DASHBOARD_SUCCESS, updateTitle);
     yield safeTakeEvery(SEARCH_DASHBOARD, mutate);
+    yield safeTakeEvery(SHARE_LIST, shareList);
 }
