@@ -29,6 +29,7 @@ class DashboardList extends Component {
                             type="text"
                             className="searchList"
                             placeholder="Search dashboard"
+                            onChange={e => actions.searching({ searchDashboards: e.target.value })}
                         />
                         <div
                             className="btnSearch fa fa-search fa-2x"

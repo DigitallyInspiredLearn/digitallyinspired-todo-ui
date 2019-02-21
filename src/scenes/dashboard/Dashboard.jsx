@@ -1,6 +1,7 @@
-/* eslint-disable react/prop-types */
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+/* eslint-disable react/forbid-prop-types,react/require-default-props,
+react/default-props-match-prop-types,react/prop-types */
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
@@ -14,7 +15,7 @@ import PopupContainer from "../popup/PopupContainer";
 import './css/dashboardStyle.css';
 import './css/dashboardStyleForComp.css';
 
-export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks/>
+export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks />
     : tasks.map(i => (
         <Task
             idTask={i.id}
@@ -59,6 +60,7 @@ export class Dashboard extends Component {
     };
 
     render() {
+
         const {valueNewTask, statePopup} = this.state;
         const {
             idList, title, tasks, actions, shared,
@@ -73,6 +75,7 @@ export class Dashboard extends Component {
 
                     {
                         shared ?
+
                             <div className="icons">
                                 <img
                                     src={pushpin}
@@ -139,12 +142,13 @@ export class Dashboard extends Component {
                     }
                 </section>
             ]
+
         );
     }
 }
 
 Dashboard.propTypes = {
-    tasks: PropTypes.array,
+    tasks: PropTypes.array.isRequired,
     idList: PropTypes.number,
     title: PropTypes.string,
 };
