@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from 'axios/index';
 
 axios.defaults.baseURL = 'http://localhost:8080';
+
 // get username: '', name : '',email: ''
 export const getCurrentUser = () => axios.get('/api/users/me');
 export const deleteProfile = () => axios.delete('api/users/deleteProfile');

@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
         searching: actions.searching,
         updateSelectedSharedLists: actions.updateSelectedSharedLists,
         updateSelectedMyLists: actions.updateSelectedMyLists,
+        togglePopup: actions.togglePopup,
     }, dispatch),
 });
 

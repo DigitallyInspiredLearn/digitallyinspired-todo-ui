@@ -35,7 +35,7 @@ class TaskForList extends Component {
                         className={selected ? 'fa fa-check-square' : 'unselected'}
                         style={{ zIndex: 50 }}
                         onClick={() => actionsList.updateCheckboxList({
-                            idDashboard: idList, idTask, selected,
+                            idDashboard: idList, idTask, selected, nameTask,
                         })}
                     />
                     <input

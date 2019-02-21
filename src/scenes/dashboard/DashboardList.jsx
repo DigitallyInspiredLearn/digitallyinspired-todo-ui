@@ -10,8 +10,9 @@ class DashboardList extends Component {
 
     render() {
         const {
-            selectedMy, selectedShared, actions, toDoBoard,
+            statePopup, selectedMy, selectedShared, actions, toDoBoard,
         } = this.props;
+        console.log(statePopup);
         return (
             [
                 <div id="searchAndWatch">
@@ -83,7 +84,7 @@ class DashboardList extends Component {
                         }
                     </main>
                     <VisibleSidebar />
-                </div>,
+                </div>
             ]
         );
     }
