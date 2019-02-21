@@ -25,7 +25,7 @@ class Settings extends Component {
 
         return (
             <div style={{ display: visible ? 'flex' : 'none' }}>
-                <div id="fon" style={{ backgroundColor: 'gainsboro', opacity: 0.98, zIndex: 1000 }} />
+                <div id="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000 }} />
                 <div id="settingsWindow">
                     <MediaQuery maxWidth={649}>
                         <nav id="tabContainer">
