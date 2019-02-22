@@ -2,10 +2,10 @@ import { bindActionCreators, compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Settings from './Settings';
-import { actions } from './duck';
+import { actions } from './prifile/duck';
 
 const mapStateToProps = state => ({
-    currentUser: state.settings.currentUser,
+    currentUser: state.profileReducer.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({

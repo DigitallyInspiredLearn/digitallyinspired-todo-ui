@@ -6,6 +6,7 @@ import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
+import FollowUser from './followUser/FollowUserContainer';
 
 
 class Settings extends Component {
@@ -16,6 +17,10 @@ class Settings extends Component {
             tab2: down,
             tab3: down,
             tab4: down,
+            profileVisible: 'profile',
+            themeVisible: 'theme.disable',
+            subscribesVisible: 'subscribes.disable',
+            followersVisible: 'followers.disable',
             newName: '',
             newUsername: '',
             newEmail: '',
@@ -26,7 +31,7 @@ class Settings extends Component {
 
     // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
 
-    componentDidMount = () => this.props.actions.fetchCurrentUser();
+    // componentDidMount = () => this.props.actions.fetchCurrentUser();
 
     changeValueNewName = e => this.setState({
         newName: e.target.value,
@@ -190,7 +195,7 @@ class Settings extends Component {
                                 {/* <div style={{display: tab2 === up ? 'flex' : 'none'}}>Theme</div> */}
                                 {/* <div style={{display: tab3 === up ? 'flex' : 'none'}}>Subscribes</div> */}
                                 {/* <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div> */}
-                                <div className="profile">
+                                <div className={this.state.profileVisible} >
                                     <h3>Profile</h3>
                                     <Link to="/auth">
                                         <div className="delete">
@@ -253,7 +258,8 @@ class Settings extends Component {
                                         className="save-profile"
                                         type="submit"
                                         onClick={() => {
-                                            if (this.state.newPassword === this.state.newRepeatPassword && this.state.newPassword.length >= 6) {
+                                            if (this.state.newPassword === this.state.newRepeatPassword
+                                            && this.state.newPassword.length >= 6) {
                                                 actions.editProfile({
                                                     email: this.props.currentUser.email,
                                                     name: this.props.currentUser.name,
@@ -275,6 +281,7 @@ class Settings extends Component {
                                 <div className="followers">
                                     Followers
                                 </div>
+                                <FollowUser/>
                             </main>
                         </div>
                     </MediaQuery>

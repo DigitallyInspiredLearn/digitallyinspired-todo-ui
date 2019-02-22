@@ -2,10 +2,10 @@ import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, select, delay, takeLatest,
 } from 'redux-saga/effects';
-import { safeTakeEvery, safeTakeLatest } from '../../../helpers/saga';
+import { safeTakeEvery, safeTakeLatest } from '../../../../helpers/saga';
 import {
-    getCurrentUser, editProfile as editProfileApi, deleteProfile as deleteProfileApi
-} from '../../../api/userController';
+    getCurrentUser, editProfile as editProfileApi, deleteProfile as deleteProfileApi,
+} from '../../../../api/userController';
 
 export const FETCH_CURRENT_USER = 'settings/FETCH_CURRENT_USER';
 export const FETCH_CURRENT_USER_SUCCESS = 'settings/FETCH_CURRENT_USER_SUCCESS';

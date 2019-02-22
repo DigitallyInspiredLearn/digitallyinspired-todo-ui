@@ -19,16 +19,17 @@ import { saga, reducer } from './scenes/dashboard/duck';
 import App from './App';
 import history from './config/history';
 import { reducer as authReducer } from './scenes/login/authorization/duck';
-
 import { reducer as popupReducer, saga as popupSaga } from './scenes/popup/duck';
-import { saga as settingsSaga ,reducer as settingsReducer } from './scenes/header/settings/duck';
+import {reducer as profileReducer, saga as profileSaga} from "./scenes/header/settings/prifile/duck";
+import {reducer as followUserReducer, saga as followSaga} from "./scenes/header/settings/followUser/duck";
 
 const mainReducer = combineReducers({
     dashboard: reducer,
     list: listReducer,
     auth: authReducer,
     popup: popupReducer,
-    settings: settingsReducer,
+    profileReducer: profileReducer,
+    followUserReducer: followUserReducer,
 });
 
 const persistConfig = {
@@ -47,7 +48,8 @@ function* rootSaga() {
         listSaga(),
         loginPageSaga(),
         popupSaga(),
-        settingsSaga(),
+        followSaga(),
+        profileSaga(),
     ]);
 }
 
