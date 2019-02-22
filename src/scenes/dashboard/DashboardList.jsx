@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import NullLenghtDashboard from './NullLenghtDashboard';
 import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
+import * as styled from './Dashboard.styles';
 
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
@@ -42,7 +43,7 @@ class DashboardList extends Component {
                         />
                     </div>
                     <section className="ac-container">
-                        <div>
+                        {/* <div>
                             <input
                                 id="ac-2"
                                 name="accordion-1"
@@ -51,8 +52,14 @@ class DashboardList extends Component {
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
                             />
                             <label htmlFor="ac-2">Show my lists</label>
-                        </div>
-                        <div>
+                        </div> */}
+                        <styled.ShowButton
+                            checked={selectedMy}
+                            onClick={() => actions.updateSelectedMyLists(!selectedMy)}
+                        >
+                            Show my lists
+                        </styled.ShowButton>
+                        {/* <div>
                             <input
                                 id="ac-3"
                                 name="accordion-1"
@@ -61,7 +68,13 @@ class DashboardList extends Component {
                                 onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
                             />
                             <label htmlFor="ac-3">Show shared lists</label>
-                        </div>
+                        </div> */}
+                        <styled.ShowButton
+                            checked={selectedShared}
+                            onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
+                        >
+                            Show shared lists
+                        </styled.ShowButton>
                     </section>
                 </div>,
                 <div id="content">
@@ -84,14 +97,14 @@ class DashboardList extends Component {
                         }
                     </main>
                     <VisibleSidebar />
-                </div>
+                </div>,
             ]
         );
     }
 }
 
 DashboardList.propTypes = {
-    toDoBoard: PropTypes.array,
+    toDoBoard: PropTypes.arrayOf(PropTypes.shape),
 };
 
 DashboardList.defaultProps = {

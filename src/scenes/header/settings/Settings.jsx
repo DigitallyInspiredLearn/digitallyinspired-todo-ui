@@ -29,7 +29,7 @@ class Settings extends Component {
         };
     }
 
-    // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
+    componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
 
     // componentDidMount = () => this.props.actions.fetchCurrentUser();
 
@@ -281,7 +281,7 @@ class Settings extends Component {
                                 <div className="followers">
                                     Followers
                                 </div>
-                                <FollowUser/>
+                                {/* <FollowUser/> */}
                             </main>
                         </div>
                     </MediaQuery>
