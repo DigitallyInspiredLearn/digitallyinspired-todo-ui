@@ -13,7 +13,6 @@ class DashboardList extends Component {
         const {
             statePopup, selectedMy, selectedShared, actions, toDoBoard,
         } = this.props;
-        console.log(statePopup);
         return (
             [
                 <div id="searchAndWatch">
