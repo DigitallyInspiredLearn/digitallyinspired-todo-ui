@@ -1,3 +1,6 @@
+/* eslint-disable indent */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-indent */
 /* eslint-disable react/forbid-prop-types,react/require-default-props,
 react/default-props-match-prop-types,react/prop-types */
 import React, { Component } from 'react';
@@ -9,7 +12,7 @@ import trash from '../../image/trash.svg';
 import info from '../../image/info.png';
 import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
-import PopupContainer from "../popup/PopupContainer";
+import PopupContainer from '../popup/PopupContainer';
 
 
 import './css/dashboardStyle.css';
@@ -32,7 +35,7 @@ export class Dashboard extends Component {
         super(props);
         this.state = {
             valueNewTask: '',
-            statePopup: false
+            statePopup: false,
         };
     }
 
@@ -49,100 +52,99 @@ export class Dashboard extends Component {
 
     showPopup = () => {
         this.setState({
-            statePopup: true
-        })
+            statePopup: true,
+        });
     };
 
     closePopup = () => {
         this.setState({
-            statePopup: false
-        })
+            statePopup: false,
+        });
     };
 
     render() {
-
-        const {valueNewTask, statePopup} = this.state;
+        const { valueNewTask, statePopup } = this.state;
         const {
             idList, title, tasks, actions, shared,
         } = this.props;
 
         return ([
-                <PopupContainer
-                    statePopup={statePopup}
-                    closePopup={this.closePopup}
-                    idList={idList}
-                />,
-                <section id={idList}>
+            <PopupContainer
+                statePopup={statePopup}
+                closePopup={this.closePopup}
+                idList={idList}
+            />,
+            <section id={idList}>
 
-                    {
-                        shared ?
+                {
+                    shared
 
-                            <div className="icons">
+                            ? <div className="icons">
+                            <img
+                                src={pushpin}
+                                className="linkList"
+                                alt="List is shared"
+                            />
+                        </div>
+                            : <div className="icons">
+                            <Link to={`/list/${idList}`}>
                                 <img
-                                    src={pushpin}
+                                    src={info}
                                     className="linkList"
-                                    alt="List is shared"
+                                    alt="Information about this list"
                                 />
-                            </div> :
-                            <div className="icons">
-                                <Link to={`/list/${idList}`}>
-                                    <img
-                                        src={info}
-                                        className="linkList"
-                                        alt="Information about this list"
-                                    />
-                                </Link>
-                                <img
-                                    src={share}
-                                    className="linkList"
-                                    alt="Share list"
-                                    onClick={this.showPopup}
-                                />
-                                <img
-                                    src={trash}
-                                    className="deleteBoadr"
-                                    onClick={() => actions.deleteDashboard({id: idList})}
-                                    alt="Delete this list"
-                                />
-                            </div>
-                    }
-                    <div>
-                        <input
-                            type="text"
-                            value={title}
-                            className="titleName"
-                            onChange={e => actions.updateTitleDashboard({
-                                id: idList, newTitle: e.target.value,
-                            })}
-                            onBlur={(e) => {
-                                e.target.value = e.target.value === '' && (e.target.value = 'New Title');
-                                actions.updateTitleSuccess({id: idList});
-                            }}
-                            onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
-                        />
-                    </div>
-                    <div className="taskLists" dropzone="move">
-                        {getTaskList(tasks, this.props)}
-                    </div>
-                    {
-                        shared ? "" :
-                            <input
-                                className="addNewTask"
-                                placeholder="Add to-do"
-                                style={{outline: 'none'}}
-                                value={valueNewTask}
-                                onChange={this.changeValueNewTask}
-                                onKeyPress={e => valueNewTask
+                            </Link>
+                            <img
+                                src={share}
+                                className="linkList"
+                                alt="Share list"
+                                onClick={this.showPopup}
+                            />
+                            <img
+                                src={trash}
+                                className="deleteBoadr"
+                                onClick={() => actions.deleteDashboard({ id: idList })}
+                                alt="Delete this list"
+                            />
+                        </div>
+                }
+                <div>
+                    <input
+                        type="text"
+                        value={title}
+                        className="titleName"
+                        onChange={e => actions.updateTitleDashboard({
+                            id: idList, newTitle: e.target.value,
+                        })}
+                        onBlur={(e) => {
+                            e.target.value = e.target.value === '' && (e.target.value = 'New Title');
+                            actions.updateTitleSuccess({ id: idList });
+                        }}
+                        onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
+                    />
+                </div>
+                <div className="taskLists" dropzone="move">
+                    {getTaskList(tasks, this.props)}
+                </div>
+                {
+                    shared ? ''
+                            : <input
+                            className="addNewTask"
+                            placeholder="Add to-do"
+                            style={{ outline: 'none' }}
+                            value={valueNewTask}
+                            onChange={this.changeValueNewTask}
+                            onKeyPress={e => valueNewTask
                                     && (e.key === 'Enter'
                                         && (e.target.blur(), actions.addTask({
                                             idDashboard: idList, nameTask: valueNewTask,
                                         })))
-                                }
-                                onBlur={this.handlerOnBlur}
-                            />
-                    }
-                </section>
-            ]
+                            }
+                            onBlur={this.handlerOnBlur}
+                        />
+                }
+            </section>,
+        ]
 
         );
     }
