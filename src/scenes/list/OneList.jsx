@@ -47,7 +47,7 @@ class OneList extends Component {
                                 <div
                                     className="iconTrash"
                                     id={match.params.id}
-                                    onClick={() => actions.deleteList({ idDashboard: match.params.id})}
+                                    onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                                 />
                             </Link>
                             <div
