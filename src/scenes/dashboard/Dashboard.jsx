@@ -1,3 +1,6 @@
+/* eslint-disable indent */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-indent */
 /* eslint-disable react/forbid-prop-types,react/require-default-props,
 react/default-props-match-prop-types,react/prop-types */
 import React, {Component} from 'react';
@@ -9,7 +12,7 @@ import trash from '../../image/trash.svg';
 import info from '../../image/info.png';
 import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
-import PopupContainer from "../popup/PopupContainer";
+import PopupContainer from '../popup/PopupContainer';
 
 
 import './css/dashboardStyle.css';
@@ -32,7 +35,7 @@ export class Dashboard extends Component {
         super(props);
         this.state = {
             valueNewTask: '',
-            statePopup: false
+            statePopup: false,
         };
     }
 
@@ -49,18 +52,17 @@ export class Dashboard extends Component {
 
     showPopup = () => {
         this.setState({
-            statePopup: true
-        })
+            statePopup: true,
+        });
     };
 
     closePopup = () => {
         this.setState({
-            statePopup: false
-        })
+            statePopup: false,
+        });
     };
 
     render() {
-
         const {valueNewTask, statePopup} = this.state;
         const {
             idList, title, tasks, actions, shared,
@@ -123,8 +125,8 @@ export class Dashboard extends Component {
                         {getTaskList(tasks, this.props)}
                     </div>
                     {
-                        shared ? "" :
-                            <input
+                        shared ? ''
+                            : <input
                                 className="addNewTask"
                                 placeholder="Add to-do"
                                 style={{outline: 'none'}}
@@ -139,7 +141,7 @@ export class Dashboard extends Component {
                                 onBlur={this.handlerOnBlur}
                             />
                     }
-                </section>
+                </section>,
             ]
 
         );

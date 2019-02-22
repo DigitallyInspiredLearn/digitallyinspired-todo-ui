@@ -11,6 +11,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         fetchCurrentUser: actions.fetchCurrentUser,
+        editProfile: actions.editProfile,
+        deleteProfile: actions.deleteProfile,
     }, dispatch),
 });
 

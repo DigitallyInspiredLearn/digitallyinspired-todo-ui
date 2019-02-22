@@ -12,6 +12,7 @@ import { all } from 'redux-saga/effects';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import { saga as listSaga, reducer as listReducer } from './scenes/list/duck';
 import loginPageSaga from './scenes/login/duck';
 import './api/dashboard';
@@ -22,6 +23,7 @@ import { reducer as authReducer } from './scenes/login/authorization/duck';
 import { reducer as popupReducer, saga as popupSaga } from './scenes/popup/duck';
 import {reducer as profileReducer, saga as profileSaga} from "./scenes/header/settings/prifile/duck";
 import {reducer as followUserReducer, saga as followSaga} from "./scenes/header/settings/followUser/duck";
+import theme from './config/theme';
 
 const mainReducer = combineReducers({
     dashboard: reducer,
@@ -61,7 +63,9 @@ ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <Router history={history}>
-                <App />
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
             </Router>
         </PersistGate>
     </Provider>,
