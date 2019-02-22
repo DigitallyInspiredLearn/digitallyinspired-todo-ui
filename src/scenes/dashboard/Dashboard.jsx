@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types,react/require-default-props,
 react/default-props-match-prop-types,react/prop-types */
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Task from '../task/Task';
 import NullLenghtTasks from '../task/NullLenghtTasks';
@@ -15,7 +15,7 @@ import PopupContainer from "../popup/PopupContainer";
 import './css/dashboardStyle.css';
 import './css/dashboardStyleForComp.css';
 
-export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks />
+export const getTaskList = (tasks, props) => (tasks.length === 0 ? <NullLenghtTasks/>
     : tasks.map(i => (
         <Task
             idTask={i.id}
@@ -73,10 +73,8 @@ export class Dashboard extends Component {
                     idList={idList}
                 />,
                 <section id={idList}>
-
                     {
                         shared ?
-
                             <div className="icons">
                                 <img
                                     src={pushpin}
