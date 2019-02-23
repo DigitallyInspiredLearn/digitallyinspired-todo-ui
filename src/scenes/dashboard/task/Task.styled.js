@@ -11,8 +11,10 @@ export const Task = styled.div`
           position:absolute;
           width: 0;
           height: 100%;
+          transition: width 0.2s ease-in-out;
+          opacity: 0.4;
     }
-    &:before:hover{
+    &:hover:before{
         width: 100%;
     }
 `;

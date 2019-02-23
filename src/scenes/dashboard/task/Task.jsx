@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types,react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import trash from '../../image/trash.svg';
+import trash from '../../../image/trash.svg';
 import * as styled from './Task.styled';
 
 class Task extends Component {
@@ -20,7 +20,7 @@ class Task extends Component {
         const { display } = this.state;
         const displayStyle = { display };
         const {
-            idTask, selected, actions, idList, nameTask,
+            idTask, selected, actions, nameTask, idList,
         } = this.props;
 
         return (
@@ -34,7 +34,7 @@ class Task extends Component {
                         selected={selected}
                         onClick={() => {
                             actions.updateCheckbox({
-                                idDashboard: idList, idTask, selected, body: nameTask,
+                                nameTask, idTask, selected, body: nameTask,
                             });
                         }}
                     />
@@ -49,8 +49,11 @@ class Task extends Component {
                         }}
                         onKeyDown={e => e.key === 'Enter' && e.target.blur()}
                         onBlur={(e) => {
-                            e.target.value = e.target.value ? 'New task' : e.target.value;
-                            actions.updateTitleSuccess({ id: idList });
+                            actions.updateTaskNameSuccess({
+                                newTaskName: !e.target.value ? 'New task' : e.target.value,
+                                selected,
+                                idTask,
+                            });
                         }}
                     />
                 </styled.NameAdnCheckedTask>

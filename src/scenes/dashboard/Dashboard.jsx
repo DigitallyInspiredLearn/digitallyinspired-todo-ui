@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as styled from './styled/Dashboard.styled';
-import Task from '../task/Task';
+import Task from './task/Task';
 import trash from '../../image/trash.svg';
 import info from '../../image/information.svg';
 import pushpin from '../../image/pushpin.svg';
@@ -83,7 +83,7 @@ export class Dashboard extends Component {
                             id: idList, newTitle: e.target.value,
                         })}
                         onBlur={(e) => {
-                            e.target.value = e.target.value === '' && (e.target.value = 'New Title');
+                            e.target.value = !e.target.value ? (e.target.value = 'New Title') : e.target.value;
                             actions.updateTitleSuccess({ id: idList });
                         }}
                         onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
