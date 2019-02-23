@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types,react/no-unused-state */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './css/profileStyle.css';
@@ -15,30 +16,21 @@ class Profile extends Component {
         };
     }
 
-    changeValueNewName = e => this.setState({
-        newName: e.target.value,
-    });
+    changeValueNewName = e => this.setState({ newName: e.target.value });
 
-    changeValueNewUsername = e => this.setState({
-        newUsername: e.target.value,
-    });
+    changeValueNewUsername = e => this.setState({ newUsername: e.target.value });
 
-    changeValueNewEmail = e => this.setState({
-        newEmail: e.target.value,
-    });
+    changeValueNewEmail = e => this.setState({ newEmail: e.target.value });
 
-    changeValueNewPassword = e => this.setState({
-        newPassword: e.target.value,
-    });
+    changeValueNewPassword = e => this.setState({ newPassword: e.target.value });
 
-    changeValueNewRepeatPassword = e => this.setState({
-        newRepeatPassword: e.target.value,
-    });
+    changeValueNewRepeatPassword = e => this.setState({ newRepeatPassword: e.target.value });
 
     render() {
-        const { currentUser, actions } = this.props;
+        const { currentUser, actions, profileVisible } = this.props;
+        const { newPassword, newRepeatPassword } = this.state;
         return (
-            <div className={this.props.profileVisible}>
+            <div className={profileVisible}>
                 <h3>Profile</h3>
                 <Link to="/auth">
                     <div className="delete">
@@ -85,13 +77,13 @@ class Profile extends Component {
                             <input
                                 type="password"
                                 placeholder="Enter new password"
-                                value={this.state.newPassword}
+                                value={newPassword}
                                 onChange={this.changeValueNewPassword}
                             />
                             <input
                                 type="password"
                                 placeholder="Repeat new password"
-                                value={this.state.newRepeatPassword}
+                                value={newRepeatPassword}
                                 onChange={this.changeValueNewRepeatPassword}
                             />
                         </div>
@@ -101,13 +93,13 @@ class Profile extends Component {
                     className="save-profile"
                     type="submit"
                     onClick={() => {
-                        if (this.state.newPassword === this.state.newRepeatPassword
-                                            && this.state.newPassword.length >= 6) {
+                        if (newPassword === newRepeatPassword
+                                            && newPassword.length >= 6) {
                             actions.editProfile({
-                                email: this.props.currentUser.email,
-                                name: this.props.currentUser.name,
-                                password: this.state.newPassword,
-                                username: this.props.currentUser.username,
+                                email: currentUser.email,
+                                name: currentUser.name,
+                                password: newPassword,
+                                username: currentUser.username,
                             });
                         }
                     }}

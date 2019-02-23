@@ -1,7 +1,6 @@
 /* eslint-disable*/
 import React from 'react';
 import { Provider } from 'react-redux';
-import '../assets/index.css';
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -24,6 +23,7 @@ import { reducer as popupReducer, saga as popupSaga } from './scenes/popup/duck'
 import {reducer as profileReducer, saga as profileSaga} from "./scenes/header/settings/profile/duck";
 import {reducer as followUserReducer, saga as followSaga} from "./scenes/header/settings/followUser/duck";
 import theme from './config/theme';
+// import * as styled from './Index.styles';
 
 const mainReducer = combineReducers({
     dashboard: reducer,
@@ -64,7 +64,9 @@ ReactDOM.render(
         <PersistGate loading={null} persistor={persistor}>
             <Router history={history}>
                 <ThemeProvider theme={theme}>
-                    <App />
+                    {/*<styled.App>*/}
+                        <App />
+                    {/*</styled.App>*/}
                 </ThemeProvider>
             </Router>
         </PersistGate>

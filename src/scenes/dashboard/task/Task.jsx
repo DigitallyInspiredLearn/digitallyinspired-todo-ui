@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types*/
-
+/* eslint-disable react/prop-types,react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './css/taskStyle.css';
-import trash from '../../image/trash.svg';
+import trash from '../../../image/trash.svg';
+import * as styled from './Task.styled';
 
 class Task extends Component {
     constructor(props) {
@@ -21,31 +20,28 @@ class Task extends Component {
         const { display } = this.state;
         const displayStyle = { display };
         const {
-            idTask, selected, actions, idList, nameTask,
+            idTask, selected, actions, nameTask, idList,
         } = this.props;
 
         return (
-            <div
-                draggable="false"
-                className="tasks"
+            <styled.Task
                 id={idTask}
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
             >
-                <div className="taskDiv">
-                    <div
-                        className={selected ? 'fa fa-check-square' : 'unselected'}
-                        style={{ zIndex: 50 }}
+                <styled.NameAdnCheckedTask>
+                    <styled.CheckboxTask
+                        selected={selected}
                         onClick={() => {
                             actions.updateCheckbox({
-                                idDashboard: idList, idTask, selected, body: nameTask,
+                                nameTask, idTask, selected, body: nameTask,
                             });
                         }}
                     />
-                    <input
+                    <styled.TaskName
                         type="text"
                         value={nameTask}
-                        className="taskName"
+                        selected={selected}
                         onChange={(e) => {
                             actions.updateTaskName({
                                 idDashboard: idList, idTask, newTaskName: e.target.value,
@@ -53,21 +49,22 @@ class Task extends Component {
                         }}
                         onKeyDown={e => e.key === 'Enter' && e.target.blur()}
                         onBlur={(e) => {
-                            e.target.value = e.target.value ? 'New task' : e.target.value;
-                            actions.updateTitleSuccess({ id: idList });
+                            actions.updateTaskNameSuccess({
+                                newTaskName: !e.target.value ? 'New task' : e.target.value,
+                                selected,
+                                idTask,
+                            });
                         }}
                     />
-                </div>
-                <div className="trashTask">
-                    <img
-                        src={trash}
-                        className="deleteTask"
-                        alt="Delete this task"
-                        style={displayStyle}
-                        onClick={() => actions.deleteTask({ idTask })}
-                    />
-                </div>
-            </div>
+                </styled.NameAdnCheckedTask>
+                <styled.DeleteTask
+                    src={trash}
+                    alt="Delete this task"
+                    style={displayStyle}
+                    onClick={() => actions.deleteTask({ idTask })}
+                />
+
+            </styled.Task>
         );
     }
 }

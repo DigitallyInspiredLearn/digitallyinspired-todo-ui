@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-// import Tabs, { Pane } from './Tabs';
 import './css/style.css';
 import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
@@ -58,15 +58,17 @@ class Settings extends Component {
     });
 
     render() {
-        // console.log(this.props);
         const { visible } = this.props;
         const {
-            tab1, tab2, tab3, tab4,
+            tab1,
+            tab2,
+            tab3,
+            tab4,
+            profileVisible,
+            themeVisible,
+            subscribesVisible,
+            followersVisible
         } = this.state;
-        
-        // this.setState({
-        //     newUsername: this.props.currentUser.username,
-        // });
 
         return (
             <div style={{ display: visible ? 'flex' : 'none' }}>
@@ -84,11 +86,7 @@ class Settings extends Component {
                                     />
                                 </div>
                                 <div className="content" style={{ display: tab1 === up ? 'flex' : 'none' }}>
-                                    <div>Profile</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
+                                    {/*<Profile />*/}
                                 </div>
                             </div>
                             <div>
@@ -102,10 +100,6 @@ class Settings extends Component {
                                 </div>
                                 <div className="content" style={{ display: tab2 === up ? 'flex' : 'none' }}>
                                     <div>Theme</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
                                 </div>
                             </div>
                             <div>
@@ -119,30 +113,6 @@ class Settings extends Component {
                                 </div>
                                 <div className="content" style={{ display: tab3 === up ? 'flex' : 'none' }}>
                                     <div>Subscribes</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
                                 </div>
                             </div>
                             <div>
@@ -155,11 +125,7 @@ class Settings extends Component {
                                     />
                                 </div>
                                 <div className="content" style={{ display: tab4 === up ? 'flex' : 'none' }}>
-                                    <div>Followers</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
+                                    <FollowUser />
                                 </div>
                             </div>
                         </nav>
@@ -194,10 +160,10 @@ class Settings extends Component {
                                 </label>
                             </nav>
                             <main>
-                                <Profile profileVisible={this.state.profileVisible} />
-                                <Theme themeVisible={this.state.themeVisible} />
-                                <Subscribes subscribesVisible={this.state.subscribesVisible} />
-                                <FollowUser followersVisible={this.state.followersVisible}/>
+                                <Profile profileVisible={profileVisible} />
+                                {/*<Theme themeVisible={themeVisible} />*/}
+                                {/*<Subscribes subscribesVisible={subscribesVisible} />*/}
+                                <FollowUser followersVisible={followersVisible} />
                             </main>
                         </div>
                     </MediaQuery>

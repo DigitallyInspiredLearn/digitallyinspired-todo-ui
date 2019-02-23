@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
-import NullLenghtTasks from '../task/NullLenghtTasks';
 
 class OneList extends Component {
     constructor(props) {
@@ -85,7 +84,12 @@ class OneList extends Component {
                 <article className="blockTask">
                     <div>
                         {
-                            data.tasks && (data.tasks.length === 0 ? <NullLenghtTasks />
+                            data.tasks && (data.tasks.length === 0
+                                ? (
+                                    <div id="nullTask" style={{ margin: '10px', opacity: 0.6 }}>
+                                    You have no tasks yet, it's time to be active!
+                                    </div>
+                                )
                                 : data.tasks.map(i => (
                                     <TaskForList
                                         idTask={i.id}

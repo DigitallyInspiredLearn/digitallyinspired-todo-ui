@@ -8,7 +8,6 @@ import {
     addDashboard,
     updateList,
     getSharedLists,
-    getAllLists,
     shareTodoListToUser,
 } from '../../api/dashboard';
 import {
@@ -35,6 +34,7 @@ export const UPDATE_TITLE_DASHBOARD_SUCCESS = 'dashboard/UPDATE_TITLE_DASHBOARD_
 export const ADD_TASK = 'ADD_TASK';
 export const UPDATE_CHECKBOX = 'UPDATE_CHECKBOX';
 export const UPDATE_TASK_NAME = 'UPDATE_TASK_NAME';
+export const UPDATE_TASK_NAME_SUCCESS = 'UPDATE_TASK_NAME_SUCCESS';
 export const DELETE_TASK = 'DELETE_TASK';
 
 export const SEARCH_DASHBOARD = 'dashboard/SEARCH_DASHBOARD';
@@ -57,6 +57,7 @@ export const actions = {
     deleteTask: createAction(DELETE_TASK),
     updateCheckbox: createAction(UPDATE_CHECKBOX),
     updateTaskName: createAction(UPDATE_TASK_NAME),
+    updateTaskNameSuccess: createAction(UPDATE_TASK_NAME_SUCCESS),
     searching: createAction(SEARCH_DASHBOARD),
     mutateDashboard: createAction(MUTATE_DASHBOARD),
     shareList: createAction(SHARE_LIST),
@@ -89,14 +90,18 @@ export const reducer = handleActions({
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
                     ? { ...e, isComplete: !action.payload.selected } : e)),
-            } : i)),
+            } : i
+        )),
     }),
     [UPDATE_TASK_NAME]: (state, action) => ({
         ...state,
-        toDoBoard: state.toDoBoard.map(i => (i.id === action.payload.idDashboard ? {
-            ...i,
-            tasks: i.tasks.map(e => (e.id === action.payload.idTask ? { ...e, body: action.payload.newTaskName } : e)),
-        } : i)),
+        toDoBoard: state.toDoBoard.map(i => (
+            i.id === action.payload.idDashboard ? {
+                ...i,
+                tasks: i.tasks.map(e => (e.id === action.payload.idTask
+                    ? {...e, body: action.payload.newTaskName } : e)),
+            } : i
+        )),
     }),
 
     [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
@@ -130,12 +135,19 @@ function* updateTitle(action) {
 }
 
 function* updateSelectedTask(action) {
-    yield delay(1000);
-    yield call(
-        updateTask,
-        action.payload.idTask,
-        !action.payload.selected,
-    );
+    yield delay(150);
+    yield call(updateTask, action.payload.idTask, {
+        body: action.payload.nameTask,
+        isComplete: !action.payload.selected,
+    });
+    yield call(fetchAllLists);
+}
+
+function* updateNameTask(action) {
+    yield call(updateTask, action.payload.idTask, {
+        body: action.payload.newTaskName,
+        isComplete: action.payload.selected,
+    });
     yield call(fetchAllLists);
 }
 
@@ -159,16 +171,16 @@ function* mutate(action) {
         const lists = yield select(state => state.dashboard.toDoBoard);
         yield put(action.payload === ''
             ? yield put(actions.fetchDashboardSuccess(lists))
-            : yield put(actions.fetchDashboardSuccess(lists.filter(list => list.todoListName.toLowerCase().includes(action.payload.searchDashboards.toLowerCase())))));
+            : yield put(actions.fetchDashboardSuccess(lists.filter((list) => {
+                list.todoListName.toLowerCase().includes(action.payload.searchDashboards.toLowerCase());
+            }))));
     } catch (e) {
         console.error(e);
     }
 }
 
 function* shareList(action) {
-    console.log(action.payload);
-    const res = yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
-    console.log(res);
+    yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
     yield call(fetchAllLists);
 }
 
@@ -180,6 +192,7 @@ export function* saga() {
     yield safeTakeEvery(DELETE_TASK, deleteTask);
     yield safeTakeEvery(ADD_TASK, addNewTask);
     yield safeTakeLatest(UPDATE_TITLE_DASHBOARD_SUCCESS, updateTitle);
+    yield safeTakeLatest(UPDATE_TASK_NAME_SUCCESS, updateNameTask);
     yield safeTakeEvery(SEARCH_DASHBOARD, mutate);
     yield safeTakeEvery(SHARE_LIST, shareList);
 }

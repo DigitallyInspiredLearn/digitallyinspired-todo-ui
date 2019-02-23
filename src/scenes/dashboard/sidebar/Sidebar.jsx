@@ -29,7 +29,7 @@ class Sidebar extends Component {
     };
 
     addBoard = (title, tasks, { addNewDashboard } = this.props) => {
-        const titleValue = !title ? 'Dashboard' : title;
+        const titleValue = !title ? 'DashboardList' : title;
         const taskValue = tasks === {} ? { body: 'ex', id: new Date().valueOf(), isComplete: false } : tasks;
         addNewDashboard({
             id: new Date().valueOf(),

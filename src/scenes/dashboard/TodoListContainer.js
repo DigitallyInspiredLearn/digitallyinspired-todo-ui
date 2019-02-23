@@ -14,15 +14,16 @@ const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         fetchDashboard: actions.fetchDashboard,
         updateTitleDashboard: actions.updateTitleDashboard,
+        updateTitleSuccess: actions.updateTitleSuccess,
         deleteDashboard: actions.deleteDashboard,
         deleteTask: actions.deleteTask,
         addTask: actions.addTask,
         updateCheckbox: actions.updateCheckbox,
         updateTaskName: actions.updateTaskName,
-        updateTitleSuccess: actions.updateTitleSuccess,
-        searching: actions.searching,
+        updateTaskNameSuccess: actions.updateTaskNameSuccess,
         updateSelectedSharedLists: actions.updateSelectedSharedLists,
         updateSelectedMyLists: actions.updateSelectedMyLists,
+        searching: actions.searching,
         togglePopup: actions.togglePopup,
     }, dispatch),
 });
