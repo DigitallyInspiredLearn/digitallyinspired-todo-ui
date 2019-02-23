@@ -29,7 +29,7 @@ class Settings extends Component {
         };
     }
 
-    componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
+    // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
 
     // componentDidMount = () => this.props.actions.fetchCurrentUser();
 
