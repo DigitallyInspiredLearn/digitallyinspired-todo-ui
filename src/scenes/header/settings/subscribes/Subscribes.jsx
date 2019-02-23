@@ -1,10 +1,16 @@
+
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for,react/button-has-type */
 // import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
+import './css/subscribesStyle.css';
+
 
 class Subscribes extends Component {
     constructor(props) {
         super(props);
+
         this.state = {};
     }
 
@@ -29,5 +35,4 @@ class Subscribes extends Component {
 }
 
 Subscribes.propTypes = {};
-
 export default Subscribes;
