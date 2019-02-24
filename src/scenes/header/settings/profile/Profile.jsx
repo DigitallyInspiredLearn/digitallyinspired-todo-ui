@@ -15,6 +15,8 @@ class Profile extends Component {
         };
     }
 
+    // componentDidMount = () => this.props.actions.fetchCurrentUser();
+
     changeValueNewName = e => this.setState({
         newName: e.target.value,
     });
@@ -41,28 +43,27 @@ class Profile extends Component {
             <div className={this.props.profileVisible}>
                 <h3>Profile</h3>
                 <Link to="/auth">
-                    <div className="delete">
+                    <styled.DeleteProfile>
                         <styled.DeleteButton
-                            className="delete-profile"
                             type="submit"
                             onClick={() => actions.deleteProfile()}
                         >
                         Delete profile
                         </styled.DeleteButton>
-                    </div>
+                    </styled.DeleteProfile>
                 </Link>
-                <p className="username"> Hello, {currentUser.name} !</p>
-                <p className="email">{currentUser.email}</p>
-                <p className="account">Account</p>
-                <div className="edit-profile">
-                    <div className="profile-values">
+                <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
+                <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
+                <styled.Account>Account</styled.Account>
+                <styled.EditProfile>
+                    <styled.ProfileValues>
                         <p> Name </p>
                         <p> Username </p>
                         <p> Email </p>
                         <p> Password </p>
                         <p> Repeat password </p>
-                    </div>
-                    <div className="profile-input">
+                    </styled.ProfileValues>
+                    <styled.ProfileInput>
                         <div>
                             <input
                                 type="text"
@@ -95,10 +96,9 @@ class Profile extends Component {
                                 onChange={this.changeValueNewRepeatPassword}
                             />
                         </div>
-                    </div>
-                </div>
-                <button
-                    className="save-profile"
+                    </styled.ProfileInput>
+                </styled.EditProfile>
+                <styled.SaveButton
                     type="submit"
                     onClick={() => {
                         if (this.state.newPassword === this.state.newRepeatPassword
@@ -113,7 +113,7 @@ class Profile extends Component {
                     }}
                 >
                 Save
-                </button>
+                </styled.SaveButton>
             </div>
         );
     }

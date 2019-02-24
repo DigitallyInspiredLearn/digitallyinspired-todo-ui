@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import Tabs, { Pane } from './Tabs';
 import './css/style.css';
 import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
