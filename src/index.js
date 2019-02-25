@@ -7,33 +7,19 @@ import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router } from 'react-router-dom';
-
-import { saga as listSaga, reducer as listReducer } from './scenes/list/duck';
+import { saga as listSaga } from './scenes/list/duck';
 import loginPageSaga from './scenes/login/duck';
 import './api/dashboard';
-import { saga, reducer } from './scenes/dashboard/duck';
+import { saga } from './scenes/dashboard/duck';
 import App from './App';
 import history from './config/history';
-import { reducer as authReducer } from './scenes/login/authorization/duck';
-import { reducer as popupReducer, saga as popupSaga } from './scenes/popup/duck';
-import { reducer as profileReducer, saga as profileSaga } from './scenes/header/settings/profile/duck';
-import { reducer as followUserReducer, saga as followSaga } from './scenes/header/settings/followUser/duck';
-import { reducer as themeReducer } from './scenes/header/settings/theme/duck';
-
-// import * as styled from './Index.styles';
-
-const mainReducer = combineReducers({
-    dashboard: reducer,
-    list: listReducer,
-    auth: authReducer,
-    popup: popupReducer,
-    profileReducer: profileReducer,
-    followUserReducer: followUserReducer,
-    theme: themeReducer,
-});
+import { saga as popupSaga } from './scenes/popup/duck';
+import { saga as profileSaga } from './scenes/header/settings/profile/duck';
+import { saga as followSaga } from './scenes/header/settings/followUser/duck';
+import { mainReducer } from './config/reducer';
 
 const persistConfig = {
     key: 'app',
