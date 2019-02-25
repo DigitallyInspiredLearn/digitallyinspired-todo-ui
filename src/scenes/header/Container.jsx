@@ -25,20 +25,20 @@ class Container extends Component {
         return (
             <ThemeProvider theme={theme}>
                 <styled.Container>
+                    <styled.Header>
+                        <img src={logo} className="logo" alt="logo" />
+                        <b>To</b>
+                        <p id="line" />
+                        <b>do</b>
+                        <img
+                            src={img}
+                            className="list"
+                            alt="list"
+                            onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
+                        />
+                    </styled.Header>
+                    <Settings visible={visible} />
                     <styled.App>
-                        <styled.Header>
-                            <img src={logo} className="logo" alt="logo" />
-                            <b>To</b>
-                            <p id="line" />
-                            <b>do</b>
-                            <img
-                                src={img}
-                                className="list"
-                                alt="list"
-                                onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
-                            />
-                        </styled.Header>
-                        <Settings visible={visible} />
                         { children }
                     </styled.App>
                 </styled.Container>

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
-import * as styled from './styled/DashboardList.styles';
+import * as styled from './DashboardList.styles';
 
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
@@ -13,7 +13,7 @@ class DashboardList extends Component {
             selectedMy, selectedShared, actions, toDoBoard,
         } = this.props;
         return (
-            <styled.Main>
+            [
                 <styled.SearchAndChecked>
                     <styled.SearchDiv>
                         <styled.Search
@@ -45,7 +45,7 @@ class DashboardList extends Component {
                             Show shared lists
                         </styled.ShowButton>
                     </styled.CheckboxDiv>
-                </styled.SearchAndChecked>
+                </styled.SearchAndChecked>,
                 <styled.DashboardList>
                     {
                         toDoBoard.length === 0
@@ -67,9 +67,9 @@ class DashboardList extends Component {
                                 />
                             ))
                     }
-                </styled.DashboardList>
-                <VisibleSidebar />
-            </styled.Main>
+                </styled.DashboardList>,
+                <VisibleSidebar />,
+            ]
         );
     }
 }

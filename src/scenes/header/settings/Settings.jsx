@@ -26,9 +26,6 @@ class Settings extends Component {
         };
     }
 
-    // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
-
-    // componentDidMount = () => this.props.actions.fetchCurrentUser();
 
     handleSelectTab = (value) => {
         this.setState({

@@ -32,7 +32,7 @@ export const DashboardHeader = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 10px;
+    margin: 10px;
     width:100%
 `;
 
@@ -62,7 +62,7 @@ export const Icon = styled.img`
 `;
 
 export const TaskList = styled.div`
-    // margin-bottom: 30px;
+    
     height:240px;
     overflow-y: auto;
     overflow-x: hidden;

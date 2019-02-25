@@ -1,6 +1,7 @@
 #line{
     height: 5px;
-    width: 100%;
+    display: flex;
+    flex:auto;
     margin-top: 25px;
     background-color: black;
     animation: transition 700ms 1;
@@ -37,12 +38,3 @@
     width: 45px;
     height: 35px;
 }
-/*@media (min-width: 600px) {*/
-    /*!*header{*!*/
-        /*!*margin-left: 3%;*!*/
-    /*!*}*!*/
-/*}*/
-
-/*!*header>div{*!*/
-    /*!*margin-top: 0.8%;*!*/
-/*!*}*!*/

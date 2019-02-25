@@ -9,5 +9,4 @@ const randomInteger = (min, max, arr) => {
     return rand;
 };
 
-
 export default randomInteger;

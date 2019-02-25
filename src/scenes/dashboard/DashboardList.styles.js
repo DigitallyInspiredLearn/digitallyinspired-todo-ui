@@ -1,14 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
-export const Main = styled.div`
-    display: flex;
-    flex-direction:column;
-`;
-
 export const SearchAndChecked = styled.div`
     display: flex;
     flex-direction:row;
+    height:auto;
     justify-content: space-between;
     @media (max-width: 600px) {
         flex-direction: column-reverse;
@@ -77,9 +73,6 @@ export const DashboardList = styled.main`
     flex-flow: row wrap;
     padding-top: 30px;
     justify-content: space-between;
-    @media (max-width: 600px) {
-        flex-flow: column nowrap; 
-    }
 `;
 
 export const NullLenghtDashboards = styled.p`
