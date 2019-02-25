@@ -21,7 +21,7 @@ import App from './App';
 import history from './config/history';
 import { reducer as authReducer } from './scenes/login/authorization/duck';
 import { reducer as popupReducer, saga as popupSaga } from './scenes/popup/duck';
-import {reducer as profileReducer, saga as profileSaga} from "./scenes/header/settings/prifile/duck";
+import {reducer as profileReducer, saga as profileSaga} from "./scenes/header/settings/profile/duck";
 import {reducer as followUserReducer, saga as followSaga} from "./scenes/header/settings/followUser/duck";
 import theme from './config/theme';
 

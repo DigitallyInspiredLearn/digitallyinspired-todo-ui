@@ -46,6 +46,10 @@ input[type="radio"]{
     height: 100%;
 }
 
+.profile.disable {
+    display: none;
+}
+
 .delete {
     display: flex;
     flex-direction: row-reverse;
@@ -192,10 +196,18 @@ input[type="radio"]{
     display: none;
 }
 
+.theme.disable {
+    display: none;
+}
+
 .subscribes {
     display: none;
 }
 
 .followers {
+    display: flex;
+}
+
+.followers.disable {
     display: none;
 }

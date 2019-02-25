@@ -18,9 +18,9 @@ class Settings extends Component {
             tab3: down,
             tab4: down,
             profileVisible: 'profile',
-            themeVisible: 'theme.disable',
-            subscribesVisible: 'subscribes.disable',
-            followersVisible: 'followers.disable',
+            themeVisible: 'theme disable',
+            subscribesVisible: 'subscribes disable',
+            followersVisible: 'followers disable',
             newName: '',
             newUsername: '',
             newEmail: '',
@@ -32,6 +32,34 @@ class Settings extends Component {
     // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
 
     // componentDidMount = () => this.props.actions.fetchCurrentUser();
+
+    showProfile = () => this.setState({
+        profileVisible: 'profile',
+        themeVisible: 'theme disable',
+        subscribesVisible: 'subscribes disable',
+        followersVisible: 'followers disable',
+    });
+
+    showTheme = () => this.setState({
+        profileVisible: 'profile disable',
+        themeVisible: 'theme',
+        subscribesVisible: 'subscribes disable',
+        followersVisible: 'followers disable',
+    });
+
+    showSubscribes = () => this.setState({
+        profileVisible: 'profile disable',
+        themeVisible: 'theme disable',
+        subscribesVisible: 'subscribes',
+        followersVisible: 'followers disable',
+    });
+
+    showFollowers = () => this.setState({
+        profileVisible: 'profile disable',
+        themeVisible: 'theme disable',
+        subscribesVisible: 'subscribes disable',
+        followersVisible: 'followers',
+    });
 
     changeValueNewName = e => this.setState({
         newName: e.target.value,
@@ -163,35 +191,31 @@ class Settings extends Component {
                                 <label>
                                     <input
                                         type="radio"
-                                        // onClick={() => this.setState({ checked1: !checked1 })}
-                                        // checked={checked1}
-                                    />Profile
+                                        onClick={this.showProfile}
+                                    />
+                                    Profile
                                 </label>
                                 <label>
                                     <input
                                         type="radio"
-                                        // onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
+                                        onClick={this.showTheme}
                                     />Theme
                                 </label>
                                 <label>
                                     <input
                                         type="radio"
-                                        // onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
+                                        onClick={this.showSubscribes}
                                     />Subscribes
                                 </label>
                                 <label>
                                     <input
                                         type="radio"
-                                        // onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
+                                        onClick={this.showFollowers}
                                     />Followers
                                 </label>
                             </nav>
                             <main>
-                                {/* <div style={{display: tab1 === up ? 'flex' : 'none'}}>Profile</div> */}
-                                {/* <div style={{display: tab2 === up ? 'flex' : 'none'}}>Theme</div> */}
-                                {/* <div style={{display: tab3 === up ? 'flex' : 'none'}}>Subscribes</div> */}
-                                {/* <div style={{display: tab4 === up ? 'flex' : 'none'}}>Followers</div> */}
-                                <div className={this.state.profileVisible} >
+                                <div className={this.state.profileVisible}>
                                     <h3>Profile</h3>
                                     <Link to="/auth">
                                         <div className="delete">
@@ -268,15 +292,15 @@ class Settings extends Component {
                                         Save
                                     </button>
                                 </div>
-                                <div className="theme">
+                                <div className={this.state.themeVisible}>
                                     Theme
                                 </div>
-                                <div className="subscribes">
+                                <div className={this.state.subscribesVisible}>
                                     Subscribes
                                 </div>
-                                <div className="followers">
-                                    Followers
-                                </div>
+
+                                
+                                <FollowUser className={this.state.followersVisible}/>
                             </main>
                         </div>
                     </MediaQuery>
