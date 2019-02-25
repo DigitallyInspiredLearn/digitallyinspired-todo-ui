@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './css/taskStyle.css';
+import * as stylesTask from '../../dashboard/task/Task.styled';
 
 class TaskForList extends Component {
     constructor(props) {
@@ -23,9 +24,7 @@ class TaskForList extends Component {
             idTask, selected, actionsList, idList, nameTask,
         } = this.props;
         return (
-            <div
-                draggable="true"
-                className="tasks"
+            <stylesTask.Task
                 id={idTask}
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
@@ -54,7 +53,7 @@ class TaskForList extends Component {
                         })}
                     />
                 </div>
-            </div>
+            </stylesTask.Task>
         );
     }
 }

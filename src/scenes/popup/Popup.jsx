@@ -43,7 +43,8 @@ export class Popup extends Component {
                                     closePopup();
                                     actions.searchUser('');
                                 }}
-                            >OK</styled.buttonCloSeOk>
+                            >Ok
+                            </styled.buttonCloSeOk>
                         </styled.buttonBlock>
                         <styled.users search={search}>
                             {
