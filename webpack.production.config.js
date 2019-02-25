@@ -18,7 +18,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'styled-loader'],
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.(png|jpg|gif|PNG|svg)$/,
