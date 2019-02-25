@@ -2,6 +2,7 @@
 // import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import './css/followersStyle.css';
+import * as styled from './FollowUser.styles';
 
 class FollowUser extends Component {
     constructor(props) {
