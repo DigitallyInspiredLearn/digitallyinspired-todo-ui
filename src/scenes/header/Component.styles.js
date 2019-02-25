@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const App = styled.div`
         display: flex;
@@ -37,4 +37,28 @@ export const Container = styled.div`
          background-color: inherit;
          color: grey;
     }
+`;
+
+export const Logo = styled.img`
+    width: 50px;
+    height: 46px;
+`;
+
+const transition = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Line = styled.p`
+    height: 5px;
+    width: 100%;
+    margin-top: 25px;
+    background-color: black;
+    animation: ${transition} 700ms 1;
+
 `;

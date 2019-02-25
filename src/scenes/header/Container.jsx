@@ -6,7 +6,6 @@ import logo from '../../image/logo_di.svg';
 import Settings from './settings/Settings';
 import './settings/css/style.css';
 import list from '../../image/list-menu.svg';
-import close from '../../image/cancel.svg';
 import * as styled from './Component.styles';
 import theme from '../../config/theme';
 
@@ -19,6 +18,11 @@ class Container extends Component {
         };
     }
 
+    toggleSettings = () => {
+        const { visible } = this.state;
+        this.setState({ visible: !visible });
+    }
+
     render() {
         const { visible, img } = this.state;
         const { children } = this.props;
@@ -27,7 +31,7 @@ class Container extends Component {
                 <styled.Container>
                     <styled.App>
                         <styled.Header>
-                            <img src={logo} className="logo" alt="logo" />
+                            <styled.Logo src={logo} className="logo" alt="logo" />
                             <b>To</b>
                             <p id="line" />
                             <b>do</b>
@@ -35,10 +39,10 @@ class Container extends Component {
                                 src={img}
                                 className="list"
                                 alt="list"
-                                onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
+                                onClick={this.toggleSettings}
                             />
                         </styled.Header>
-                        <Settings visible={visible} />
+                        <Settings visible={visible} toggleSettings={this.toggleSettings} />
                         { children }
                     </styled.App>
                 </styled.Container>

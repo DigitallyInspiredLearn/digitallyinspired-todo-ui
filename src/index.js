@@ -10,7 +10,6 @@ import { all } from 'redux-saga/effects';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router } from 'react-router-dom';
-
 import { saga as listSaga, reducer as listReducer } from './scenes/list/duck';
 import loginPageSaga from './scenes/login/duck';
 import './api/dashboard';
@@ -23,15 +22,13 @@ import { reducer as profileReducer, saga as profileSaga } from './scenes/header/
 import { reducer as followUserReducer, saga as followSaga } from './scenes/header/settings/followUser/duck';
 import { reducer as themeReducer } from './scenes/header/settings/theme/duck';
 
-// import * as styled from './Index.styles';
-
 const mainReducer = combineReducers({
     dashboard: reducer,
     list: listReducer,
     auth: authReducer,
     popup: popupReducer,
-    profileReducer: profileReducer,
-    followUserReducer: followUserReducer,
+    profile: profileReducer,
+    followUser: followUserReducer,
     theme: themeReducer,
 });
 

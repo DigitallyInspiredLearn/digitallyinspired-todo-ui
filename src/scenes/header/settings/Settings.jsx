@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import './css/style.css';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
@@ -19,10 +18,6 @@ class Settings extends Component {
             tab3: down,
             tab4: down,
             selectedTab: 'profile',
-            profileVisible: 'profile',
-            themeVisible: 'theme disable',
-            subscribesVisible: 'subscribes disable',
-            followersVisible: 'followers disable',
         };
     }
 
@@ -36,45 +31,18 @@ class Settings extends Component {
         });
     }
 
-    showProfile = () => this.setState({
-        profileVisible: 'profile',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers disable',
-    });
-
-    showTheme = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers disable',
-    });
-
-    showSubscribes = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes',
-        followersVisible: 'followers disable',
-    });
-
-    showFollowers = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers',
-    });
+    closeSetting = () => {
+        this.props.visible = false;
+    }
 
     render() {
-        const { visible } = this.props;
+        const { visible, toggleSettings } = this.props;
         const {
             tab1,
             tab2,
             tab3,
             tab4,
-            profileVisible,
-            themeVisible,
-            subscribesVisible,
-            followersVisible
+            selectedTab,
         } = this.state;
 
         return (
@@ -86,61 +54,66 @@ class Settings extends Component {
                             <div>
                                 <styled.Tab>
                                     <h2>Profile</h2>
-                                    <img
+                                    <styled.MobileToggle
                                         src={tab1}
-                                        className="up-down"
                                         onClick={() => this.setState({ tab1: tab1 === down ? up : down })}
+                                        alt="profile"
                                     />
                                 </styled.Tab>
-                                <div className="content" style={{ display: tab1 === up ? 'flex' : 'none' }}>
-                                    {/*<Profile />*/}
-                                </div>
+                                <styled.MobileContent style={{ display: tab1 === up ? 'flex' : 'none' }}>
+                                    <Profile />
+                                </styled.MobileContent>
                             </div>
                             <div>
                                 <styled.Tab>
                                     <h2>Theme</h2>
-                                    <img
+                                    <styled.MobileToggle
                                         src={tab2}
-                                        className="up-down"
                                         onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
+                                        alt="Theme"
                                     />
                                 </styled.Tab>
-                                <div className="content" style={{ display: tab2 === up ? 'flex' : 'none' }}>
+                                <styled.MobileContent style={{ display: tab2 === up ? 'flex' : 'none' }}>
                                     <div>Theme</div>
-                                </div>
+                                </styled.MobileContent>
                             </div>
                             <div>
                                 <styled.Tab>
                                     <h2>Subscribes </h2>
-                                    <img
+                                    <styled.MobileToggle
                                         src={tab3}
-                                        className="up-down"
                                         onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
+                                        alt="Subscribes"
                                     />
                                 </styled.Tab>
-                                <div className="content" style={{ display: tab3 === up ? 'flex' : 'none' }}>
+                                <styled.MobileContent style={{ display: tab3 === up ? 'flex' : 'none' }}>
                                     <div>Subscribes</div>
-                                </div>
+                                </styled.MobileContent>
                             </div>
                             <div>
                                 <styled.Tab>
                                     <h2>Followers</h2>
-                                    <img
+                                    <styled.MobileToggle
                                         src={tab4}
-                                        className="up-down"
                                         onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
+                                        alt="Followers"
                                     />
                                 </styled.Tab>
-                                <div className="content" style={{ display: tab4 === up ? 'flex' : 'none' }}>
+                                <styled.MobileContent style={{ display: tab4 === up ? 'flex' : 'none' }}>
                                     <FollowUser />
-                                </div>
+                                </styled.MobileContent>
                             </div>
                         </styled.TabContainer>
                     </MediaQuery>
                     <MediaQuery minWidth={650}>
                         <styled.SettingsWindowForComp>
+                            <styled.CloseWindow
+                                onClick={() => toggleSettings()}
+                            >
+                                    X
+                            </styled.CloseWindow>
                             <styled.TabContainerForComp>
-                                <styled.TabLabel selected={this.state.selectedTab === 'profile'}>
+                                <styled.TabLabel selected={selectedTab === 'profile'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
@@ -148,7 +121,7 @@ class Settings extends Component {
                                     />
                                     Profile
                                 </styled.TabLabel>
-                                <styled.TabLabel selected={this.state.selectedTab === 'theme'}>
+                                <styled.TabLabel selected={selectedTab === 'theme'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
@@ -156,7 +129,7 @@ class Settings extends Component {
                                     />
                                     Theme
                                 </styled.TabLabel>
-                                <styled.TabLabel selected={this.state.selectedTab === 'subscribes'}>
+                                <styled.TabLabel selected={selectedTab === 'subscribes'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
@@ -164,7 +137,7 @@ class Settings extends Component {
                                     />
                                     Subscribes
                                 </styled.TabLabel>
-                                <styled.TabLabel selected={this.state.selectedTab === 'followers'}>
+                                <styled.TabLabel selected={selectedTab === 'followers'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
@@ -174,10 +147,10 @@ class Settings extends Component {
                                 </styled.TabLabel>
                             </styled.TabContainerForComp>
                             <main>
-                                {this.state.selectedTab === 'profile' && <Profile />}
-                                {this.state.selectedTab === 'theme' && <Theme />}
-                                {this.state.selectedTab === 'subscribes' && <Subscribes />}
-                                {this.state.selectedTab === 'followers' && <FollowUser />}
+                                {selectedTab === 'profile' && <Profile toggleSettings={this.props.toggleSettings} />}
+                                {selectedTab === 'theme' && <Theme />}
+                                {selectedTab === 'subscribes' && <Subscribes />}
+                                {selectedTab === 'followers' && <FollowUser />}
                             </main>
                         </styled.SettingsWindowForComp>
                     </MediaQuery>

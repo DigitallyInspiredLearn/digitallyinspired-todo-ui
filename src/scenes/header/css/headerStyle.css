@@ -16,10 +16,6 @@
     }
 }
 
-.logo{
-    width: 50px;
-    height: 46px;
-}
 .list{
     width: 30px;
     height: 30px;
@@ -37,12 +33,3 @@
     width: 45px;
     height: 35px;
 }
-/*@media (min-width: 600px) {*/
-    /*!*header{*!*/
-        /*!*margin-left: 3%;*!*/
-    /*!*}*!*/
-/*}*/
-
-/*!*header>div{*!*/
-    /*!*margin-top: 0.8%;*!*/
-/*!*}*!*/
