@@ -5,12 +5,11 @@ export const Dashboard = styled.section`
     flex-direction: column;
     background-color: white;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
-    width: 48%;
-    margin: auto;
-    margin-bottom: 30px;
+    width: 49.6%;
+    margin-bottom: 10px;
     border-radius: 5px;
-    height: 300px;
-    opacity:0;
+    height: auto;
+    min-height: 300px;
     transition: 500ms;
     animation: show 500ms 1;
     animation-fill-mode: forwards;
@@ -24,7 +23,7 @@ export const Dashboard = styled.section`
         }
     }
     @media (max-width: 600px) {
-        width: 98%; 
+        width: 100%; 
     }
 `;
 
@@ -57,12 +56,10 @@ export const Icon = styled.img`
     width: 25px;
     height: 22px;
     color: grey;
-    opacity: 0.5;
-    
+    opacity: 0.5; 
 `;
 
 export const TaskList = styled.div`
-    
     height:240px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -89,7 +86,7 @@ export const InputAddingTask = styled.input`
     align=item:center;
     font-size: 16px;
     outline: none;
-    padding: 10px;
+    margin: 10px;
 `;
 
 export const NullLenghtTask = styled.p`

@@ -19,10 +19,7 @@ class Settings extends Component {
             tab3: down,
             tab4: down,
             selectedTab: 'profile',
-            profileVisible: 'profile',
-            themeVisible: 'theme disable',
-            subscribesVisible: 'subscribes disable',
-            followersVisible: 'followers disable',
+
         };
     }
 
@@ -32,34 +29,6 @@ class Settings extends Component {
             selectedTab: value,
         });
     }
-
-    showProfile = () => this.setState({
-        profileVisible: 'profile',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers disable',
-    });
-
-    showTheme = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers disable',
-    });
-
-    showSubscribes = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes',
-        followersVisible: 'followers disable',
-    });
-
-    showFollowers = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers',
-    });
 
     render() {
         const { visible } = this.props;
