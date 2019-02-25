@@ -1,25 +1,3 @@
-.tasks{
-    position: relative;
-    margin: 10px;
-}
-
-.tasks:before {
-    position: absolute;
-    z-index:1;
-    display: flex;
-    bottom: 0;
-    content: "";
-    height: 30px;
-    width: 0;
-    background-color: whitesmoke;
-    transition: width 0.2s ease-in-out;
-    opacity: 0.4;
-}
-
-.tasks:hover:before{
-    width: 100%;
-}
-
 .taskDiv,.deleteTask{
     z-index:1;
 }
