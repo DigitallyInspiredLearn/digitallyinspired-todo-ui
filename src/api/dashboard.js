@@ -12,4 +12,5 @@ export const addDashboard = newDashboard => axios.post('/api/todolists', newDash
 
 export const updateList = (id, newList) => axios.put(`/api/todolists/${id}`, newList);
 
-export const shareTodoListToUser = (id, userName) => axios.post(`http://localhost:8080/api/todolists/${id}/share?username=${userName}`);
+export const shareTodoListToUser = (id, userName) => (
+    axios.post(`/api/todolists/${id}/share?username=${userName}`));

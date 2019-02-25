@@ -51,7 +51,8 @@ export const SettingsWindowForComp = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        margin-top: -25px;
+        margin-top: 5%;
+        margin-left: 15%;
 
         & main {
             padding: 0;
