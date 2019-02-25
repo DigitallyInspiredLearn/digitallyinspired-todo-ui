@@ -27,21 +27,25 @@ class Profile extends Component {
     changeValueNewRepeatPassword = e => this.setState({ newRepeatPassword: e.target.value });
 
     render() {
-        const { currentUser, actions, profileVisible } = this.props;
+        console.log(this.props)
+        const { currentUser, actions } = this.props;
         const { newPassword, newRepeatPassword } = this.state;
         return (
-            <div className="profile">
+            <styled.Profile>
                 <h3>Profile</h3>
-                <Link to="/auth">
-                    <styled.DeleteProfile>
+                <styled.DeleteProfile>
+                    <Link to="/auth">
                         <styled.DeleteButton
                             type="submit"
-                            onClick={() => actions.deleteProfile()}
+                            onClick={() => {
+                                this.props.toggleSettings();
+                                actions.deleteProfile();
+                            }}
                         >
                         Delete profile
                         </styled.DeleteButton>
-                    </styled.DeleteProfile>
-                </Link>
+                    </Link>
+                </styled.DeleteProfile>
                 <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
                 <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
                 <styled.Account>Account</styled.Account>
@@ -104,7 +108,7 @@ class Profile extends Component {
                 >
                 Save
                 </styled.SaveButton>
-            </div>
+            </styled.Profile>
         );
     }
 }
