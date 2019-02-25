@@ -77,7 +77,7 @@ class OneList extends Component {
                         {
                             data.tasks && (data.tasks.length === 0
                                 ? (
-                                    <styled.nullTask >
+                                    <styled.nullTask>
                                     You have no tasks yet, it's time to be active!
                                     </styled.nullTask>
                                 )

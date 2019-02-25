@@ -4,9 +4,9 @@ import styled from 'styled-components';
 export const list = styled.div`
     display: flex;
     width: 97%;
-    min-height: 95vh;
+    min-height: 100vh;
     margin-left: 5px;
-    margin-top: -30px;
+    margin-top: 10px;
     height: auto;
     flex-direction: column;
 `;
@@ -56,7 +56,7 @@ export const iconTrash = styled.img`
 `;
 
 export const titleNameOneList = styled.input`
-    width:auto;
+    width: 87%;
     font-size: 30px;
     font-weight: bold;
     float:left;
@@ -65,6 +65,7 @@ export const titleNameOneList = styled.input`
     cursor: pointer;
     padding-top: 5px;
     margin-top: 5px;
+    margin-left: 10px;
 `;
 
 export const searchToDo = styled.input`
@@ -85,8 +86,8 @@ export const blockTask = styled.article`
     padding-left: 20px;
     font-size: 15px;
     cursor: pointer;
-    height: 50vh;
-    width: 101.9%;
+    height: 70vh;
+    width: 101.2%;
     flex-direction: column;
     align-content: space-between;
     padding: 15px 5px 0 5px;
