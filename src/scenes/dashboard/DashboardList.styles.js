@@ -1,51 +1,52 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
-export const Main = styled.div`
+export const App = styled.div`
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
+    flex: auto;
+    width: 100%;
+    height: 100vh;
+    overflow auto;
 `;
-
 export const SearchAndChecked = styled.div`
     display: flex;
     flex-direction:row;
+    height: auto;
+    margin: 10px;
     justify-content: space-between;
     @media (max-width: 600px) {
-        flex-direction: column-reverse;
+        flex-direction: column-reverse; min-height: 60px;
     }
 `;
 
 export const SearchDiv = styled.div`
     display: flex;
     flex-direction:row;
-    align-item: center;
     flex: auto;
     background-color: white;
+    height: auto;
+    min-height:15px;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
-    padding-left: 7px;
-    padding-top: 2px;
-    justify-content: space-between;
-    margin-left: 10px;
-    @media (max-width: 600px) {
-        margin-right: 3px;
-        margin-left: 3px;
-    }
+    padding: 5px;
+    align-items: center;
 `;
 
 export const Search = styled.input`
-    width: 90%;
+    display: flex;
+    flex: auto;
     outline: none;
 `;
 
+export const IconSearch = styled.img`
+    width:20px;
+    height:20px;
+    color:grey;
+`;
 export const CheckboxDiv = styled.div`
     display: flex;
-    flex-direction:row;
-    align-item: stretch;
-    width: auto;
-    
     @media (max-width: 600px) {
-        margin-left: 3px;
         margin-bottom: 10px;
     }
 `;
@@ -55,30 +56,29 @@ export const ShowButton = styled.div`
     background-color: ${props => (props.checked ? 'black' : 'lightgray')};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     color: ${props => (props.checked ? 'white' : 'black')};
-    height: 20px;
-    width: 100px;
+    height: auto;
+    min-height:15px;
     font-weight: bold;
     &:hover{
         background-color: ${props => (props.checked ? props.theme.color.black : 'gray')};
     }
     width: auto;
-    padding: 7px;
-    margin-right: 5px;
+    padding: 5px;
     @media (max-width: 600px) {
         flex: 1;
         text-align: center;
-        height: auto;
     }
 `;
 
 export const DashboardList = styled.main`
-    height: auto;
     display: flex;
     flex-flow: row wrap;
-    padding-top: 30px;
     justify-content: space-between;
+    flex: auto;
+    margin:0 10px;
+    height: 100vh;
     @media (max-width: 600px) {
-        flex-flow: column nowrap; 
+        flex-flow: column nowrap;
     }
 `;
 
