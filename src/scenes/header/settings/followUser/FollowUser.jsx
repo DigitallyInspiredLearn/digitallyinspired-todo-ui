@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for,react/button-has-type */
 // import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import './css/followersStyle.css';
+import * as styled from './FollowUser.styles';
 
 class FollowUser extends Component {
     constructor(props) {
@@ -20,7 +22,7 @@ class FollowUser extends Component {
 
         const { displayMessage, display } = this.state;
         return (
-            <div id="followUserContainer">
+            <div className={this.props.followersVisible}>
                 <h2>Follow User</h2>
                 <main>
                     <label>
