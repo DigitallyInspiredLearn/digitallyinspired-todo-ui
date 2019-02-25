@@ -38,7 +38,7 @@ export const RegistrationNavigationForm = styled.nav`
 
 export const RegistrationTitle = styled.h2`
      width: auto;
-     argin:15px auto;
+     margin:15px auto;
      cursor: default;
  `;
 
@@ -119,7 +119,7 @@ export const RegistrationHref = styled.div`
     border-radius: 5px;
 `;
 
-export const NavigationButton = styled.div`
+export const NavigationButton = styled.button`
     color: black;
     background-color: whitesmoke;
     margin-top: 0;
