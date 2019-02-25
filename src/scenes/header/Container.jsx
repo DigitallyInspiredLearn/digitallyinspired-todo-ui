@@ -6,6 +6,7 @@ import Settings from './settings/Settings';
 import './settings/css/style.css';
 import list from '../../image/list-menu.svg';
 import close from '../../image/cancel.svg';
+import * as styled from './Component.styles';
 
 class Container extends Component {
     constructor(props) {
@@ -20,8 +21,8 @@ class Container extends Component {
         const { visible, img } = this.state;
         const { children } = this.props;
         return (
-            <div className="App">
-                <header>
+            <styled.App>
+                <styled.Header>
                     <img src={logo} className="logo" alt="logo" />
                     <b>To</b>
                     <p id="line" />
@@ -32,10 +33,10 @@ class Container extends Component {
                         alt="list"
                         onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
                     />
-                </header>
+                </styled.Header>
                 <Settings visible={visible} />
                 { children }
-            </div>
+            </styled.App>
         );
     }
 }
