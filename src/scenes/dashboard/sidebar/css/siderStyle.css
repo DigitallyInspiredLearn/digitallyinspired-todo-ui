@@ -13,10 +13,6 @@
     outline: none
 }
 
-div > div, #fon, #inputs, #addingArticle {
-    display: flex;
-}
-
 #sidebar, #fon, #addingArticle, .addListBtn {
     width: 100%;
     z-index: 20;

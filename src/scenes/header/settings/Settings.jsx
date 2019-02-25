@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import './css/style.css';
 import MediaQuery from 'react-responsive';
@@ -17,6 +18,7 @@ class Settings extends Component {
             tab2: down,
             tab3: down,
             tab4: down,
+            selectedTab: 'profile',
             profileVisible: 'profile',
             themeVisible: 'theme disable',
             subscribesVisible: 'subscribes disable',
@@ -27,6 +29,12 @@ class Settings extends Component {
     // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
 
     // componentDidMount = () => this.props.actions.fetchCurrentUser();
+
+    handleSelectTab = (value) => {
+        this.setState({
+            selectedTab: value,
+        });
+    }
 
     showProfile = () => this.setState({
         profileVisible: 'profile',
@@ -57,15 +65,17 @@ class Settings extends Component {
     });
 
     render() {
-        // console.log(this.props);
         const { visible } = this.props;
         const {
-            tab1, tab2, tab3, tab4,
+            tab1,
+            tab2,
+            tab3,
+            tab4,
+            profileVisible,
+            themeVisible,
+            subscribesVisible,
+            followersVisible
         } = this.state;
-        
-        // this.setState({
-        //     newUsername: this.props.currentUser.username,
-        // });
 
         return (
             <div style={{ display: visible ? 'flex' : 'none' }}>
@@ -83,11 +93,7 @@ class Settings extends Component {
                                     />
                                 </styled.Tab>
                                 <div className="content" style={{ display: tab1 === up ? 'flex' : 'none' }}>
-                                    <div>Profile</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
+                                    {/*<Profile />*/}
                                 </div>
                             </div>
                             <div>
@@ -101,10 +107,6 @@ class Settings extends Component {
                                 </styled.Tab>
                                 <div className="content" style={{ display: tab2 === up ? 'flex' : 'none' }}>
                                     <div>Theme</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
                                 </div>
                             </div>
                             <div>
@@ -118,30 +120,6 @@ class Settings extends Component {
                                 </styled.Tab>
                                 <div className="content" style={{ display: tab3 === up ? 'flex' : 'none' }}>
                                     <div>Subscribes</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
                                 </div>
                             </div>
                             <div>
@@ -154,11 +132,7 @@ class Settings extends Component {
                                     />
                                 </styled.Tab>
                                 <div className="content" style={{ display: tab4 === up ? 'flex' : 'none' }}>
-                                    <div>Followers</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
+                                    <FollowUser />
                                 </div>
                             </div>
                         </styled.TabContainer>
@@ -166,44 +140,44 @@ class Settings extends Component {
                     <MediaQuery minWidth={650}>
                         <styled.SettingsWindowForComp>
                             <styled.TabContainerForComp>
-                                <label>
+                                <styled.TabLabel selected={this.state.selectedTab === 'profile'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
-                                        onClick={this.showProfile}
+                                        onClick={() => this.handleSelectTab('profile')}
                                     />
                                     Profile
-                                </label>
-                                <label>
+                                </styled.TabLabel>
+                                <styled.TabLabel selected={this.state.selectedTab === 'theme'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
-                                        onClick={this.showTheme}
+                                        onClick={() => this.handleSelectTab('theme')}
                                     />
                                     Theme
-                                </label>
-                                <label>
+                                </styled.TabLabel>
+                                <styled.TabLabel selected={this.state.selectedTab === 'subscribes'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
-                                        onClick={this.showSubscribes}
+                                        onClick={() => this.handleSelectTab('subscribes')}
                                     />
                                     Subscribes
-                                </label>
-                                <label>
+                                </styled.TabLabel>
+                                <styled.TabLabel selected={this.state.selectedTab === 'followers'}>
                                     <input
                                         type="radio"
                                         style={{ visibility: 'hidden' }}
-                                        onClick={this.showFollowers}
+                                        onClick={() => this.handleSelectTab('followers')}
                                     />
                                     Followers
-                                </label>
+                                </styled.TabLabel>
                             </styled.TabContainerForComp>
                             <main>
-                                <Profile profileVisible={this.state.profileVisible} />
-                                <Theme themeVisible={this.state.themeVisible} />
-                                <Subscribes subscribesVisible={this.state.subscribesVisible} />
-                                <FollowUser followersVisible={this.state.followersVisible}/>
+                                {this.state.selectedTab === 'profile' && <Profile />}
+                                {this.state.selectedTab === 'theme' && <Theme />}
+                                {this.state.selectedTab === 'subscribes' && <Subscribes />}
+                                {this.state.selectedTab === 'followers' && <FollowUser />}
                             </main>
                         </styled.SettingsWindowForComp>
                     </MediaQuery>

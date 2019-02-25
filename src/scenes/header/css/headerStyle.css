@@ -26,7 +26,7 @@
     margin-top: 10px;
     margin-left: 10px;
     border-radius: 3px;
-    z-index: 10000;
+    z-index: 19;
 }
 .close{
     background-color: white;
@@ -37,8 +37,12 @@
     width: 45px;
     height: 35px;
 }
-@media (min-width: 600px) {
-    header{
-        margin-left: 3%;
-    }
-}
+/*@media (min-width: 600px) {*/
+    /*!*header{*!*/
+        /*!*margin-left: 3%;*!*/
+    /*!*}*!*/
+/*}*/
+
+/*!*header>div{*!*/
+    /*!*margin-top: 0.8%;*!*/
+/*!*}*!*/

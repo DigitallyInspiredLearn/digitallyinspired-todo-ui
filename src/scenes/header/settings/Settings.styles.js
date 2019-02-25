@@ -83,3 +83,18 @@ export const TabContainerForComp = styled.nav`
             background-color: black;
         }
 `;
+
+export const TabLabel = styled.label`
+            background-color: ${p => p.selected && 'black'};
+            padding: 20px 16px;
+            color: white;
+            margin: 0;
+            border: 0;
+            font-size: 20px;
+            font-weight: bold;
+            outline: none;
+
+            &:hover{
+            background-color: black;
+        }
+`;

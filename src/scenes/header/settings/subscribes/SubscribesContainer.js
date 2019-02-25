@@ -10,7 +10,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
-        
+
+        searchSubscribers: actions.searchSubscribers,
+        fetchSubscribers: actions.fetchSubscribers,
     }, dispatch),
 });
 
