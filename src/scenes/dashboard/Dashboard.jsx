@@ -12,6 +12,7 @@ import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
 import PopupContainer from '../popup/PopupContainer';
 
+
 export const getTaskList = (tasks, props) => (
     tasks.length === 0
         ? (
@@ -63,7 +64,7 @@ export class Dashboard extends Component {
     };
 
     render() {
-        const { valueNewTask, statePopup } = this.state;
+        const {valueNewTask, statePopup} = this.state;
         const {
             idList, title, tasks, actions, shared,
         } = this.props;

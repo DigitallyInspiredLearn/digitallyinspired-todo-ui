@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import './Popup.css';
+import * as styled from './Popup.styles';
 
 
 export class Popup extends Component {
@@ -8,25 +8,18 @@ export class Popup extends Component {
         const {statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
         console.log(users);
         return (
-            <div>
-                <div className={statePopup ? 'popupActive' : 'popup'}>
-                    <div
-                        className='popup_content'
-                        id={idList}
-                    >
-                        <span
-                            className="window-close"
+                <styled.showPopup show={statePopup}>
+                    <styled.popupContent>
+                        <styled.closeWindow
                             onClick={() => {
                                 closePopup();
                                 actions.searchUser('');
                             }}
                         >&times;
-                        </span>
-                        <div style={{alignSelf: 'center', marginTop: '20px'}}>
-                            <h1>Share list with</h1>
-                        </div>
-                        <div className="searchTask">
-                            <input className='searchUser'
+                        </styled.closeWindow>
+                        <styled.title>Share list with</styled.title>
+                        <styled.searchTask>
+                            <styled.searchUser
                                    type="text"
                                    placeholder="Enter username"
                                    value={search}
@@ -34,38 +27,26 @@ export class Popup extends Component {
                                        actions.searchUser(e.target.value);
                                    }}
                             />
-                            <div
-                                className="btnSearch fa fa-search fa-2x"
-                                style={{
-                                    backgroundColor: 'inherit',
-                                    color: 'lightgrey',
-                                    width: 'auto',
-                                    paddingRight: '15px',
-                                    paddingTop: '10px',
-                                }}
-                            />
-                        </div>
-                        <div className='buttonBlock'>
-                            <button
-                                className='butClose'
-                                onClick={() => {
+                            <styled.btnSearch className="fa fa-search fa-2x" />
+                        </styled.searchTask>
+                        <styled.buttonBlock>
+                            <styled.buttonCloSeOk
+                                    onClick={() => {
                                     closePopup();
                                     actions.searchUser('');
                                 }}
                             >Cansel
-                            </button>
-                            <button
-                                className='butOk'
+                            </styled.buttonCloSeOk>
+                            <styled.buttonCloSeOk
                                 onClick={() => {
                                     actionsBoard.shareList({idList: idList, userName: search});
                                     closePopup();
                                     actions.searchUser('');
                                 }}
-                            >OK</button>
-                        </div>
-                        <div className='users'>
+                            >OK</styled.buttonCloSeOk>
+                        </styled.buttonBlock>
+                        <styled.users search={search}>
                             {
-                                search === '' ? null :
                                 users.map(i => (
                                     search === i ? null :
                                         <div  onClick={() => actions.searchUser(i)}>
@@ -76,10 +57,9 @@ export class Popup extends Component {
                                     )
                                 )
                             }
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </styled.users>
+                    </styled.popupContent>
+                </styled.showPopup>
 
         );
     }
