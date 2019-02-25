@@ -11,7 +11,7 @@ class Theme extends Component {
 
     render() {
         return (
-            <div className={this.props.themeVisible}>
+            <div className="theme">
                 Theme
             </div>
         );

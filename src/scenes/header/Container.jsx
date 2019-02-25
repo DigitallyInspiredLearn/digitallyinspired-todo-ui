@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './css/headerStyle.css';
 import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
 import logo from '../../image/logo_di.svg';
 import Settings from './settings/Settings';
 import './settings/css/style.css';
 import list from '../../image/list-menu.svg';
 import close from '../../image/cancel.svg';
+import * as styled from './Component.styles';
+import theme from '../../config/theme';
 
 class Container extends Component {
     constructor(props) {
@@ -20,22 +23,26 @@ class Container extends Component {
         const { visible, img } = this.state;
         const { children } = this.props;
         return (
-            <div className="App">
-                <header>
-                    <img src={logo} className="logo" alt="logo" />
-                    <b>To</b>
-                    <p id="line" />
-                    <b>do</b>
-                    <img
-                        src={img}
-                        className="list"
-                        alt="list"
-                        onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
-                    />
-                </header>
-                <Settings visible={visible} />
-                { children }
-            </div>
+            <ThemeProvider theme={theme}>
+                <styled.Container>
+                    <styled.App>
+                        <styled.Header>
+                            <img src={logo} className="logo" alt="logo" />
+                            <b>To</b>
+                            <p id="line" />
+                            <b>do</b>
+                            <img
+                                src={img}
+                                className="list"
+                                alt="list"
+                                onClick={() => this.setState({ visible: !visible, img: img === list ? close : list })}
+                            />
+                        </styled.Header>
+                        <Settings visible={visible} />
+                        { children }
+                    </styled.App>
+                </styled.Container>
+            </ThemeProvider>
         );
     }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable*/
 import React from 'react';
 import { Provider } from 'react-redux';
 import 'regenerator-runtime/runtime';
@@ -11,7 +10,7 @@ import { all } from 'redux-saga/effects';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+
 import { saga as listSaga, reducer as listReducer } from './scenes/list/duck';
 import loginPageSaga from './scenes/login/duck';
 import './api/dashboard';
@@ -20,9 +19,10 @@ import App from './App';
 import history from './config/history';
 import { reducer as authReducer } from './scenes/login/authorization/duck';
 import { reducer as popupReducer, saga as popupSaga } from './scenes/popup/duck';
-import {reducer as profileReducer, saga as profileSaga} from "./scenes/header/settings/profile/duck";
-import {reducer as followUserReducer, saga as followSaga} from "./scenes/header/settings/followUser/duck";
-import theme from './config/theme';
+import { reducer as profileReducer, saga as profileSaga } from './scenes/header/settings/profile/duck';
+import { reducer as followUserReducer, saga as followSaga } from './scenes/header/settings/followUser/duck';
+import { reducer as themeReducer } from './scenes/header/settings/theme/duck';
+
 // import * as styled from './Index.styles';
 
 const mainReducer = combineReducers({
@@ -32,11 +32,12 @@ const mainReducer = combineReducers({
     popup: popupReducer,
     profileReducer: profileReducer,
     followUserReducer: followUserReducer,
+    theme: themeReducer,
 });
 
 const persistConfig = {
     key: 'app',
-    whitelist:['auth'],
+    whitelist: ['auth'],
     storage,
 };
 
@@ -63,11 +64,7 @@ ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <Router history={history}>
-                <ThemeProvider theme={theme}>
-                    {/*<styled.App>*/}
-                        <App />
-                    {/*</styled.App>*/}
-                </ThemeProvider>
+                <App />
             </Router>
         </PersistGate>
     </Provider>,
