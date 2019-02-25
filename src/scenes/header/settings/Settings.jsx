@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-// import Tabs, { Pane } from './Tabs';
-import { Link } from 'react-router-dom';
 import './css/style.css';
 import './css/styleForComp.css';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
+import Profile from './profile/ProfileContainer';
+import Theme from './theme/ThemeContainer';
+import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
-
 
 class Settings extends Component {
     constructor(props) {
@@ -21,11 +22,6 @@ class Settings extends Component {
             themeVisible: 'theme disable',
             subscribesVisible: 'subscribes disable',
             followersVisible: 'followers disable',
-            newName: '',
-            newUsername: '',
-            newEmail: '',
-            newPassword: '',
-            newRepeatPassword: '',
         };
     }
 
@@ -61,37 +57,18 @@ class Settings extends Component {
         followersVisible: 'followers',
     });
 
-    changeValueNewName = e => this.setState({
-        newName: e.target.value,
-    });
-
-    changeValueNewUsername = e => this.setState({
-        newUsername: e.target.value,
-    });
-
-    changeValueNewEmail = e => this.setState({
-        newEmail: e.target.value,
-    });
-
-    changeValueNewPassword = e => this.setState({
-        newPassword: e.target.value,
-    });
-
-    changeValueNewRepeatPassword = e => this.setState({
-        newRepeatPassword: e.target.value,
-    });
-
-
     render() {
-        // console.log(this.props);
-        const { visible, currentUser, actions } = this.props;
+        const { visible } = this.props;
         const {
-            tab1, tab2, tab3, tab4,
+            tab1,
+            tab2,
+            tab3,
+            tab4,
+            profileVisible,
+            themeVisible,
+            subscribesVisible,
+            followersVisible
         } = this.state;
-        
-        // this.setState({
-        //     newUsername: this.props.currentUser.username,
-        // });
 
         return (
             <div style={{ display: visible ? 'flex' : 'none' }}>
@@ -109,11 +86,7 @@ class Settings extends Component {
                                     />
                                 </div>
                                 <div className="content" style={{ display: tab1 === up ? 'flex' : 'none' }}>
-                                    <div>Profile</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
+                                    {/*<Profile />*/}
                                 </div>
                             </div>
                             <div>
@@ -127,10 +100,6 @@ class Settings extends Component {
                                 </div>
                                 <div className="content" style={{ display: tab2 === up ? 'flex' : 'none' }}>
                                     <div>Theme</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
                                 </div>
                             </div>
                             <div>
@@ -144,30 +113,6 @@ class Settings extends Component {
                                 </div>
                                 <div className="content" style={{ display: tab3 === up ? 'flex' : 'none' }}>
                                     <div>Subscribes</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
-                                    <div>Usentame</div>
                                 </div>
                             </div>
                             <div>
@@ -180,7 +125,7 @@ class Settings extends Component {
                                     />
                                 </div>
                                 <div className="content" style={{ display: tab4 === up ? 'flex' : 'none' }}>
-                                    <FollowUser/>
+                                    <FollowUser />
                                 </div>
                             </div>
                         </nav>
@@ -215,92 +160,10 @@ class Settings extends Component {
                                 </label>
                             </nav>
                             <main>
-                                <div className={this.state.profileVisible}>
-                                    <h3>Profile</h3>
-                                    <Link to="/auth">
-                                        <div className="delete">
-                                            <button
-                                                className="delete-profile"
-                                                type="submit"
-                                                onClick={() => actions.deleteProfile()}
-                                            >
-                                                Delete profile
-                                            </button>
-                                        </div>
-                                    </Link>
-                                    <p className="username"> Hello, {currentUser.name} !</p>
-                                    <p className="email">{currentUser.email}</p>
-                                    <p className="account">Account</p>
-                                    <div className="edit-profile">
-                                        <div className="profile-values">
-                                            <p> Name </p>
-                                            <p> Username </p>
-                                            <p> Email </p>
-                                            <p> Password </p>
-                                            <p> Repeat password </p>
-                                        </div>
-                                        <div className="profile-input">
-                                            <div>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Name"
-                                                    value={currentUser.name}
-                                                    onChange={this.changeValueNewName}
-                                                />
-                                                <input
-                                                    type="text"
-                                                    placeholder="Username"
-                                                    value={currentUser.username}
-                                                    onChange={this.changeValueNewUsername}
-                                                />
-                                                <input
-                                                    type="email"
-                                                    placeholder="Email"
-                                                    value={currentUser.email}
-                                                    onChange={this.changeValueNewEmail}
-                                                />
-                                                <input
-                                                    type="password"
-                                                    placeholder="Enter new password"
-                                                    value={this.state.newPassword}
-                                                    onChange={this.changeValueNewPassword}
-                                                />
-                                                <input
-                                                    type="password"
-                                                    placeholder="Repeat new password"
-                                                    value={this.state.newRepeatPassword}
-                                                    onChange={this.changeValueNewRepeatPassword}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button
-                                        className="save-profile"
-                                        type="submit"
-                                        onClick={() => {
-                                            if (this.state.newPassword === this.state.newRepeatPassword
-                                            && this.state.newPassword.length >= 6) {
-                                                actions.editProfile({
-                                                    email: this.props.currentUser.email,
-                                                    name: this.props.currentUser.name,
-                                                    password: this.state.newPassword,
-                                                    username: this.props.currentUser.username,
-                                                });
-                                            }
-                                        }}
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                                <div className={this.state.themeVisible}>
-                                    Theme
-                                </div>
-                                <div className={this.state.subscribesVisible}>
-                                    Subscribes
-                                </div>
-
-                                
-                                <FollowUser className={this.state.followersVisible}/>
+                                <Profile profileVisible={profileVisible} />
+                                {/*<Theme themeVisible={themeVisible} />*/}
+                                {/*<Subscribes subscribesVisible={subscribesVisible} />*/}
+                                <FollowUser followersVisible={followersVisible} />
                             </main>
                         </div>
                     </MediaQuery>
@@ -311,18 +174,3 @@ class Settings extends Component {
 }
 
 export default Settings;
-
-
-{ /* <div> */ }
-{ /* <Tabs selected={0}> */ }
-{ /* <Pane label="Tab 1"> */ }
-{ /* <div>This is my tab 1 contents!</div> */ }
-{ /* </Pane> */ }
-{ /* <Pane label="Tab 2"> */ }
-{ /* <div>This is my tab 2 contents!</div> */ }
-{ /* </Pane> */ }
-{ /* <Pane label="Tab 3"> */ }
-{ /* <div>This is my tab 3 contents!</div> */ }
-{ /* </Pane> */ }
-{ /* </Tabs> */ }
-{ /* </div> */ }
