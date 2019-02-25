@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const closeWindow = styled.span`    
     font-weight: bold; 
     font-size: 40px;  
-    width: 50px; 
+    width: 30px; 
     align-self: flex-end;
     cursor: pointer;
 `;
@@ -51,7 +51,7 @@ export const popupContent = styled.div`
     background: white;
     border-radius: 5px;
     padding: 10px;
-    width: 70%;
+    width: 70%; 
 `;
 
 export const title = styled.div`
@@ -124,8 +124,8 @@ export const users = styled.div`
     top: 170px;
     left: 18px;
     right: 18px;
-    padding: 10px 20px;
-    width: 95%;
+    padding: 10px;
+    width: 94%;
     background: white;
     opacity: 0.9;
 `;
