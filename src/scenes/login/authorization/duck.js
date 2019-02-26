@@ -34,7 +34,6 @@ function setDefaultApiToken(token) {
 
 function* authorization(action) {
     const token = yield call(authorizationApi, action.payload);
-    console.log(token.data);
     yield put(actions.loginSuccess({
         user: action.payload.usernameOrEmail,
         token: token.data.accessToken,
