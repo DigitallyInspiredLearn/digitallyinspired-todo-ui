@@ -84,13 +84,13 @@ export const TabContainerForComp = styled.nav`
         background-color:gainsboro;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between;
         height: 100%;
 `;
 
 export const TabLabel = styled.label`
             background-color: ${p => p.selected && 'black'};
-            padding: 16px 20px 16px 0;
+            padding: 40px 20px 40px 0;
             color: white;
             font-size: 20px;
             font-weight: bold;
