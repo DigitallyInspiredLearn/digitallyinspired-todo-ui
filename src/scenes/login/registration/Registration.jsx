@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types,react/no-unused-state */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './styleReg.css';
-import '../style.css';
+import * as styled from '../styled/LogIn.styled';
 
 class Registration extends Component {
     constructor(props) {
@@ -11,7 +10,6 @@ class Registration extends Component {
             email: '',
             name: '',
             password: '',
-            // repeatPassword: '',
             username: '',
         };
     }
@@ -24,95 +22,79 @@ class Registration extends Component {
 
     onChangeUserName = e => this.setState({ username: e.target.value });
 
-    // onChangePassword2 = (e) => this.setState({ repeatPassword: e.target.value });
+    onChangePassword2 = e => this.setState({ repeatPassword: e.target.value });
 
     render() {
         const {
             actions, email, name, password, username,
         } = this.props;
+
         return (
-            <div id="regDiv">
-                <nav className="navForm">
-                    <form action="" method="post">
-                        <h2>Registration</h2>
-                        <div className="enterEmail enterInf">
-                            <input
-                                className="form-control"
+            <styled.Styled>
+                <styled.NavigationForm>
+                    <styled.Form action="" method="post">
+                        <styled.Title>Registration</styled.Title>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
                                 onChange={this.onChangeEmail}
                                 required
                             />
-                        </div>
-                        <div className="enterEmail enterInf">
-                            <input
-                                className="form-control"
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your name"
                                 onChange={this.onChangeName}
                                 required
                             />
-                        </div>
-                        <div className="enterEmail enterInf">
-                            <input
-                                className="form-control"
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your username"
-                                required
                                 onChange={this.onChangeUserName}
+                                required
                             />
-                        </div>
-                        <div className="enterPass enterInf">
-                            <input
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
-                                className="form-control"
                                 onChange={this.onChangePassword1}
                                 required
                             />
-                        </div>
-                        <div className="enterPass enterInf">
-                            <input
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="password"
                                 name="passEx"
                                 placeholder="Repeat password"
-                                className="form-control"
                                 onChange={this.onChangePassword2}
                                 required
                             />
-                        </div>
-                        <p
-                            className="btn btn-success form-control enter"
-                            style={{ width: '95%' }}
+                        </styled.EnterInformation>
+                        <styled.SuccessButton
                             onClick={() => actions.registration({
                                 email, name, password, username,
                             })}
                         >GO
-                        </p>
-                    </form>
-                    <div className="href">
+                        </styled.SuccessButton>
+                    </styled.Form>
+                    <styled.HrefButton>
                         <Link to="/auth">
-                            <button type="button" className="navBtn">Return to the login page</button>
+                            <styled.NavigationButton type="button">Return to the login page</styled.NavigationButton>
                         </Link>
-                    </div>
-                </nav>
-            </div>
+                    </styled.HrefButton>
+                </styled.NavigationForm>
+            </styled.Styled>
         );
     }
 }
 
 export default Registration;
-
-// manageDisabled = () => (
-//     !this.state.email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$')
-//     || !this.state.name.match('^[a-zA-Z0-9]{2,20}$')
-//     || !this.state.password.match('^[a-zA-Z0-9]{6,30}$')
-//     || this.state.password !== this.state.repeatPassword
-//     || !this.state.username.match('^[a-zA-Z0-9]{2,20}$')
-//         ? this.setState({ disabled: 'disabled' })
-//         : this.setState({ disabled: null })
-// );
