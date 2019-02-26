@@ -35,7 +35,7 @@ export class Popup extends Component {
                                     closePopup();
                                     actions.searchUser('');
                                 }}
-                            >Cansel
+                            >Cancel
                             </styled.buttonCloSeOk>
                             <styled.buttonCloSeOk
                                 onClick={() => {
