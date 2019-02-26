@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types,react/no-unused-state */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as styled from '../styled/Registration.styled';
+import * as styled from '../styled/LogIn.styled';
 
 class Registration extends Component {
     constructor(props) {
@@ -10,7 +10,6 @@ class Registration extends Component {
             email: '',
             name: '',
             password: '',
-            // repeatPassword: '',
             username: '',
         };
     }
@@ -23,7 +22,7 @@ class Registration extends Component {
 
     onChangeUserName = e => this.setState({ username: e.target.value });
 
-    // onChangePassword2 = (e) => this.setState({ repeatPassword: e.target.value });
+    onChangePassword2 = e => this.setState({ repeatPassword: e.target.value });
 
     render() {
         const {
@@ -31,70 +30,69 @@ class Registration extends Component {
         } = this.props;
 
         return (
-            <styled.RegistrationStyled>
-                <styled.RegistrationNavigationForm>
-
-                    <styled.RegistrationForm action="" method="post">
-                        <styled.RegistrationTitle>Registration</styled.RegistrationTitle>
-                        <styled.EnterRegistrationInform>
-                            <styled.RegistrationInput
+            <styled.Styled>
+                <styled.NavigationForm>
+                    <styled.Form action="" method="post">
+                        <styled.Title>Registration</styled.Title>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
                                 onChange={this.onChangeEmail}
                                 required
                             />
-                        </styled.EnterRegistrationInform>
-                        <styled.EnterRegistrationInform>
-                            <styled.RegistrationInput
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your name"
                                 onChange={this.onChangeName}
                                 required
                             />
-                        </styled.EnterRegistrationInform>
-                        <styled.EnterRegistrationInform>
-                            <styled.RegistrationInput
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your username"
-                                required
                                 onChange={this.onChangeUserName}
+                                required
                             />
-                        </styled.EnterRegistrationInform>
-                        <styled.EnterRegistrationInform>
-                            <styled.RegistrationInput
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
                                 onChange={this.onChangePassword1}
                                 required
                             />
-                        </styled.EnterRegistrationInform>
-                        <styled.EnterRegistrationInform>
-                            <styled.RegistrationInput
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="password"
                                 name="passEx"
                                 placeholder="Repeat password"
                                 onChange={this.onChangePassword2}
                                 required
                             />
-                        </styled.EnterRegistrationInform>
-                        <styled.RegistrationParagraph
+                        </styled.EnterInformation>
+                        <styled.SuccessButton
                             onClick={() => actions.registration({
                                 email, name, password, username,
                             })}
                         >GO
-                        </styled.RegistrationParagraph>
-                    </styled.RegistrationForm>
-                    <styled.RegistrationHref>
+                        </styled.SuccessButton>
+                    </styled.Form>
+                    <styled.HrefButton>
                         <Link to="/auth">
                             <styled.NavigationButton type="button">Return to the login page</styled.NavigationButton>
                         </Link>
-                    </styled.RegistrationHref>
-                </styled.RegistrationNavigationForm>
-            </styled.RegistrationStyled>
+                    </styled.HrefButton>
+                </styled.NavigationForm>
+            </styled.Styled>
         );
     }
 }
