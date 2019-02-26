@@ -49,7 +49,9 @@ class OneList extends Component {
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
-                        <styled.iconTrash
+
+                        <styled.animationButton
+                            className="iconTrash"
                             src={trash}
                             id={match.params.id}
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}

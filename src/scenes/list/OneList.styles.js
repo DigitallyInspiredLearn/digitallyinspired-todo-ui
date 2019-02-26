@@ -35,6 +35,16 @@ export const animationButton = styled.div`
     }    
 `;
 
+
+export const iconTrash = styled.img`
+    background-image: ${p => p.src};
+    margin-top: 5px;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+`;
+
 export const titleNameOneList = styled.input`
     font-size: 30px;
     font-weight: bold;
@@ -43,12 +53,6 @@ export const titleNameOneList = styled.input`
     width:90%;
     margin-left: 10px;
     text-overflow: ellipsis;
-`;
-export const iconTrash = styled.img`
-    margin-left: 10px;
-    width: 30px;
-    height: 25px;
-    cursor: pointer;
 `;
 
 export const searchToDo = styled.input`

@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import * as styled from '../LogIn.styled';
 
 class Authorization extends Component {
     constructor(props) {
@@ -20,44 +21,40 @@ class Authorization extends Component {
         const { actions } = this.props;
         const { password, login } = this.state;
         return (
-            <div className="right" id="auth">
-                <nav className="navForm">
-                    <form action="" method="post">
-                        <h2>Sign in</h2>
-                        <div className="enterEmail enterInf">
-                            <input
-                                className="form-control"
+            <styled.Styled>
+                <styled.NavigationForm>
+                    <styled.Form action="" method="post">
+                        <styled.Title>Sign in</styled.Title>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
                                 onChange={this.onChangeLogin}
                                 required
                             />
-                        </div>
-                        <div className="enterPass">
-                            <input
+                        </styled.EnterInformation>
+                        <styled.EnterInformation>
+                            <styled.Input
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
-                                className="form-control"
                                 onChange={this.onChangePassword}
                                 required
                             />
-                        </div>
-                        <p
-                            className="btn btn-success form-control enter"
-                            style={{ width: '95%' }}
+                        </styled.EnterInformation>
+                        <styled.SuccessButton
                             onClick={() => actions.authorization({ password, usernameOrEmail: login })}
                         >ENTER
-                        </p>
-                    </form>
-                    <div className="href">
+                        </styled.SuccessButton>
+                    </styled.Form>
+                    <styled.HrefButton>
                         <Link to="/reg">
-                            <button type="button" className="registration navBtn">Registration</button>
+                            <styled.NavigationButton>Registration</styled.NavigationButton>
                         </Link>
-                    </div>
-                </nav>
-            </div>
+                    </styled.HrefButton>
+                </styled.NavigationForm>
+            </styled.Styled>
         );
     }
 }
