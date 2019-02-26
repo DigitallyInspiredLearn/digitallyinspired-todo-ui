@@ -96,6 +96,7 @@ export const SuccessButton = styled.p`
 
 export const Form = styled.form`
     margin: 5px;
+    margin-top: 50px;
     padding: 15px;
     display: flex;
     flex-direction: column;
