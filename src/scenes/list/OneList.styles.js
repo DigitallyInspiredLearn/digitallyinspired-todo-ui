@@ -30,6 +30,7 @@ export const animationButton = styled.div`
     color: lightgrey;
     height: 20px;
     weight:20px;
+    margin-right: 10px;
     &:hover {
         animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
     }    
@@ -49,7 +50,7 @@ export const titleNameOneList = styled.input`
     font-weight: bold;
     outline: none;
     display:flex;
-    width:90%;
+    width:97%;
     margin-left: 10px;
     text-overflow: ellipsis;
 `;
