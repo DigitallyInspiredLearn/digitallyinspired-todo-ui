@@ -13,36 +13,36 @@ export const ThemeTitle = styled.div`
     color: #2E2E2E;
 `;
 
-export const BlockTheme = styled.div`
-    display: flex;
-    flex-direction: column;  
-    width: 50%;
-    padding: 10px;  
-    margin-left: 20px;
-`;
-
 export const NewTheme = styled.div`
     display: flex;
     flex-direction: row;   
+    justify-content: space-between;
     align-self: center;
-    margin-top: 20px;
-    width: 100%;
-    height: 60%
+    margin: 0px auto;
+    width: 90%;
+    height: 70%
+`;
+
+export const BlockTheme = styled.div`
+    display: flex;
+    flex-direction: column;  
+    width: 45%;
+    margin: 10px 20px;
 `;
 
 export const NewAddingTheme = styled.div`
     display: flex;
     flex-direction: row;   
     align-item: center;
-    margin-left: 30px;
+    margin-left: 65px;
     margin-top: 50px;
 `;
 
 export const ImageTheme = styled.img`
-    width: 95%;
-    height: 95%;
+    width: 100%;
+    height: 97%;
     border-radius: 10px;
-    margin: 20px 10px;
+    margin: 20px 0;
 `;
 
 export const NameTheme = styled.span`
