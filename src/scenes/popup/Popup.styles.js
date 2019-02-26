@@ -10,6 +10,7 @@ export const closeWindow = styled.span`
 `;
 
 export const searchTask = styled.div`
+    display: flex;
     background-color: white;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     margin: 5px;
@@ -62,7 +63,7 @@ export const title = styled.div`
 `;
 
 export const searchUser = styled.input`
-    width: 90%;
+    width: 93%;
     outline: none;
     height: 50px;
     font-size: 20px;
@@ -72,8 +73,8 @@ export const btnSearch = styled.div`
     border-radius: 5px;
     background-color: inherit;
     color: lightgrey;
-    width: auto;
-    padding-right: 15px;
+    width: 2%;
+    padding-right: 20px;
     padding-top: 10px;
 `;
 

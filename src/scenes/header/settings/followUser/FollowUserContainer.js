@@ -6,9 +6,9 @@ import { actions } from './duck';
 
 const mapStateToProps = state => ({
 
-    userNameList: state.followUserReducer.userNameList,
-    search: state.followUserReducer.search,
-    message: state.followUserReducer.message,
+    userNameList: state.followUser.userNameList,
+    search: state.followUser.search,
+    message: state.followUser.message,
 });
 
 const mapDispatchToProps = dispatch => ({
