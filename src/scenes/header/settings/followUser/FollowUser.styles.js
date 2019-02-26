@@ -7,9 +7,11 @@ export const Follow = styled.div`
 `;
 
 export const Label = styled.div`
+    font-family: Helvetica;
     align-self: center;
     margin-top: 10px;
-    font-size: 32px;
+    font-size: 30px;
+    font-weight: bold;
 `;
 export const SearchBlock = styled.div`
     display: flex;
