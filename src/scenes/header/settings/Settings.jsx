@@ -1,3 +1,4 @@
+
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import './css/style.css';
@@ -19,54 +20,16 @@ class Settings extends Component {
             tab3: down,
             tab4: down,
             selectedTab: 'profile',
-            profileVisible: 'profile',
-            themeVisible: 'theme disable',
-            subscribesVisible: 'subscribes disable',
-            followersVisible: 'followers disable',
+
         };
     }
 
-<<<<<<< HEAD
-    //componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
-=======
-    // componentWillMount = ({ actions } = this.props) => actions.fetchCurrentUser();
->>>>>>> 062a4e8ad38f6b981bb0790832b7df09a2fa8f69
-
-    // componentDidMount = () => this.props.actions.fetchCurrentUser();
 
     handleSelectTab = (value) => {
         this.setState({
             selectedTab: value,
         });
     }
-
-    showProfile = () => this.setState({
-        profileVisible: 'profile',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers disable',
-    });
-
-    showTheme = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers disable',
-    });
-
-    showSubscribes = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes',
-        followersVisible: 'followers disable',
-    });
-
-    showFollowers = () => this.setState({
-        profileVisible: 'profile disable',
-        themeVisible: 'theme disable',
-        subscribesVisible: 'subscribes disable',
-        followersVisible: 'followers',
-    });
 
     render() {
         const { visible } = this.props;
@@ -134,6 +97,8 @@ class Settings extends Component {
                                         className="up-down"
                                         onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
                                     />
+
+                                    Ann Gerastovskaya, [25.02.19 21:11]
                                 </styled.Tab>
                                 <div className="content" style={{ display: tab4 === up ? 'flex' : 'none' }}>
                                     <FollowUser />
@@ -191,4 +156,5 @@ class Settings extends Component {
     }
 }
 
-export default Settings;
+export default Settings
+
