@@ -4,7 +4,7 @@ react/require-default-props,react/default-props-match-prop-types */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as styled from './styled/Dashboard.styled';
+import * as styled from './Dashboard.styled';
 import Task from './task/Task';
 import trash from '../../image/trash.svg';
 import info from '../../image/information.svg';

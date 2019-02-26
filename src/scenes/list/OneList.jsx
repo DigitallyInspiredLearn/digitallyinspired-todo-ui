@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
+import * as styled from './OneList.styles';
+import trash from '../../image/trash.svg';
+import * as styledPopup from '../popup/Popup.styles';
+
 
 class OneList extends Component {
     constructor(props) {
@@ -33,37 +37,32 @@ class OneList extends Component {
             match, actions, data, actionsBoard, todo,
         } = this.props;
         return (
-            <div id="list">
-                <div id="header">
-                    <span className="spList">
-                        <div className="iconsOneList">
-                            <Link to="/lists">
-                                <div
-                                    className="back fa fa-arrow-left fa-2x"
-                                />
-                            </Link>
-                            <Link to="/lists">
-                                <div
-                                    className="iconTrash"
-                                    id={match.params.id}
-                                    onClick={() => actions.deleteList({ idDashboard: match.params.id })}
-                                />
-                            </Link>
-                            <div
-                                className="download fa fa-download fa-2x"
-                                title="download"
-                            />
-                        </div>
-                    </span>
-                    <input
+            <styled.list>
+                <styled.inputBlock>
+                    <Link to="/lists">
+                        <styled.animationButton className="fa fa-arrow-left fa-2x" />
+                    </Link>
+                    <styled.titleNameOneList
                         type="text"
+                        placeholder="Enter dashboard title"
                         value={data.todoListName}
-                        className="titleNameOneList"
-                        onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
+                        onChange={e => actions.updateTitleList({idDashboard: data.id, newTitle: e.target.value})}
                     />
-                </div>
-                <div className="searchTask">
-                    <input
+                    <Link to="/lists">
+                        <styled.animationButton
+                            className="iconTrash"
+                            // src={trash}
+                            id={match.params.id}
+                            onClick={() => actions.deleteList({idDashboard: match.params.id})}
+                        />
+                    </Link>
+                    <styled.animationButton
+                        className="fa fa-download fa-2x"
+                        title="download"
+                    />
+                </styled.inputBlock>
+                <styled.inputBlock>
+                    <styled.searchToDo
                         type="text"
                         placeholder="Search to-do"
                         onChange={e => actions.changeSearch({
@@ -71,24 +70,16 @@ class OneList extends Component {
                             search: e.target.value,
                         })}
                     />
-                    <div
-                        className="btnSearch fa fa-search fa-2x"
-                        style={{
-                            backgroundColor: 'inherit',
-                            color: 'lightgrey',
-                            width: 'auto',
-                            paddingRight: '15px',
-                        }}
-                    />
-                </div>
-                <article className="blockTask">
+                    <styledPopup.btnSearch className="fa fa-search fa-2x" />
+                </styled.inputBlock>
+                <styled.blockTask>
                     <div>
                         {
                             data.tasks && (data.tasks.length === 0
                                 ? (
-                                    <div id="nullTask" style={{ margin: '10px', opacity: 0.6 }}>
+                                    <styled.nullTask>
                                     You have no tasks yet, it's time to be active!
-                                    </div>
+                                    </styled.nullTask>
                                 )
                                 : data.tasks.map(i => (
                                     <TaskForList
@@ -103,10 +94,8 @@ class OneList extends Component {
                                 )))
                         }
                     </div>
-                    <input
-                        className="addNewTask"
+                    <styled.addNewTask
                         placeholder="Add to-do"
-                        style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
                         value={valueNewTask}
                         onChange={this.changeValueNewTask}
                         onKeyPress={event => event.key === 'Enter' && (
@@ -118,8 +107,8 @@ class OneList extends Component {
                             this.setState({ valueNewTask: '' })
                         )}
                     />
-                </article>
-            </div>
+                </styled.blockTask>
+            </styled.list>
         );
     }
 }

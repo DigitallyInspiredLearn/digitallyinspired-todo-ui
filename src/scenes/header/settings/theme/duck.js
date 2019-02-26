@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
 
 export const TOGGLE_THEME = 'settings/theme/TOGGLE_THEME';

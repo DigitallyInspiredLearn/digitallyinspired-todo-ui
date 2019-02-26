@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './css/taskStyle.css';
+import * as stylesTask from '../../dashboard/task/Task.styled';
 
 class TaskForList extends Component {
     constructor(props) {
@@ -23,25 +24,22 @@ class TaskForList extends Component {
             idTask, selected, actionsList, idList, nameTask,
         } = this.props;
         return (
-            <div
-                draggable="true"
-                className="tasks"
+            <stylesTask.Task
                 id={idTask}
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
             >
-                <div className="taskDiv">
-                    <div
-                        className={selected ? 'fa fa-check-square' : 'unselected'}
-                        style={{ zIndex: 50 }}
+                <stylesTask.NameAdnCheckedTask>
+                    <stylesTask.CheckboxTask
+                        selected={selected}
                         onClick={() => actionsList.updateCheckboxList({
                             idDashboard: idList, idTask, selected, nameTask,
                         })}
                     />
-                    <input
+                    <stylesTask.TaskName
                         type="text"
                         value={nameTask}
-                        className="taskName"
+                        selected={selected}
                         onChange={e => actionsList.updateTaskList({
                             idDashboard: idList, idTask, selected, newTaskName: e.target.value,
                         })}
@@ -53,8 +51,8 @@ class TaskForList extends Component {
                             idDashboard: idList, idTask,
                         })}
                     />
-                </div>
-            </div>
+                </stylesTask.NameAdnCheckedTask>
+            </stylesTask.Task>
         );
     }
 }
