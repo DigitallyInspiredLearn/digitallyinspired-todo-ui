@@ -32,7 +32,8 @@ class Profile extends Component {
         const { newPassword, newRepeatPassword } = this.state;
         return (
             <styled.Profile>
-                <h3>Profile</h3>
+                <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
+                <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
                 <styled.DeleteProfile>
                     <Link to="/auth">
                         <styled.DeleteButton
@@ -42,12 +43,10 @@ class Profile extends Component {
                                 actions.deleteProfile();
                             }}
                         >
-                        Delete profile
+                            Delete profile
                         </styled.DeleteButton>
                     </Link>
                 </styled.DeleteProfile>
-                <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
-                <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
                 <styled.Account>Account</styled.Account>
                 <styled.EditProfile>
                     <styled.ProfileValues>
