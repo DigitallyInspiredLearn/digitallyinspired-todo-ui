@@ -51,7 +51,7 @@ class OneList extends Component {
                     <Link to="/lists">
                         <styled.animationButton
                             className="iconTrash"
-                            src={trash}
+                            // src={trash}
                             id={match.params.id}
                             onClick={() => actions.deleteList({idDashboard: match.params.id})}
                         />

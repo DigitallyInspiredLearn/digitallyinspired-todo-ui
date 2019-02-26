@@ -6,7 +6,7 @@ export const list = styled.div`
     width: 97%;
     min-height: 100vh;
     margin-left: 5px;
-    margin-top: 10px;
+    margin-top: 50px;
     height: auto;
     flex-direction: column;
 `;
@@ -32,6 +32,7 @@ export const animationButton = styled.div`
     height: 20px;
     weight:20px;
     margin-top: 10px;
+    margin-right: 10px;
     @keyframes trambling-animation {
     0%, 50%, 100% {
         transform: rotate(0deg);
@@ -48,6 +49,7 @@ export const animationButton = styled.div`
 `;
 
 export const iconTrash = styled.img`
+    background-image: ${p => p.src};
     margin-top: 5px;
     margin-left: 10px;
     width: 30px;
@@ -86,7 +88,7 @@ export const blockTask = styled.article`
     padding-left: 20px;
     font-size: 15px;
     cursor: pointer;
-    height: 70vh;
+    height: 65vh;
     width: 101.2%;
     flex-direction: column;
     align-content: space-between;
