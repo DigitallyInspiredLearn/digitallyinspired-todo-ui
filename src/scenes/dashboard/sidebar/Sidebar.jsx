@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
 import * as styled from './Sidebar.styles';
-
+// tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
 class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
+            tasks: [{ body: '', isComplete: false }],
             animation: '',
             bool: false,
             displayTrash: 'none',
@@ -29,33 +29,35 @@ class Sidebar extends Component {
 
     addBoard = (title, tasks, { addNewDashboard } = this.props) => {
         const titleValue = !title ? 'DashboardList' : title;
-        const taskValue = tasks === {} ? { body: 'ex', id: new Date().valueOf(), isComplete: false } : tasks;
+        // const taskValue = tasks === {} ? { body: '', id: new Date().valueOf(), isComplete: false } : tasks;
         addNewDashboard({
-            id: new Date().valueOf(),
             todoListName: titleValue,
-            tasks: taskValue,
-            userOwnerId: '0',
+            tasks: tasks,
         });
+        this.setState({
+            todoListName: '',
+            tasks: [{ body: '', isComplete: false }],
+        });
+        console.log(this.state);
     };
 
     changeValueTitle = e => this.setState({ todoListName: e.target.value });
 
-    changeValueName = (i, { tasks } = this.state) => (e) => {
-        const newTaskHolders = tasks.map((task, sidx) => (i !== sidx && task, { ...task, body: e.target.value }));
+    changeValueName = i => (e) => {
+        const newTaskHolders = this.state.tasks.map((task, sidx) => {
+            if (i !== sidx) return task;
+            return { ...task, body: e.target.value };
+        });
         this.setState({ tasks: newTaskHolders });
     };
 
     handlerOnClick = (e) => {
         e.target.blur();
-        this.setState({
-            todoListName: '',
-            tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
-        });
     };
 
-    handleAddInputTask = ({ tasks } = this.state) => {
+    handleAddInputTask = () => {
         this.setState({
-            tasks: tasks.concat([{ body: '', id: new Date().valueOf(), isComplete: false }]),
+            tasks: this.state.tasks.concat([{ body: '', isComplete: false }]),
         });
     };
 
@@ -64,19 +66,21 @@ class Sidebar extends Component {
     });
 
     render() {
-        const { displayTrash, displayStyle, animation, todoListName, tasks } = this.state;
+        const {
+            displayTrash, displayStyle, animation, todoListName, tasks,
+        } = this.state;
         const displaysTrash = { display: displayTrash };
         return (
 
             [
                 <styled.Plus className="plus" onClick={this.updateDisplaySidebar}>
-                    <styled.ButtonPlus  src={plus} alt="Plus" />
+                    <styled.ButtonPlus src={plus} alt="Plus" />
                 </styled.Plus>,
-                <styled.Sidebar  style={{ display: displayStyle, zIndex: 50 }}>
+                <styled.Sidebar style={{ display: displayStyle, zIndex: 50 }}>
                     <styled.Background
                         onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                     />
-                    <styled.Aside  style={{ animation }}>
+                    <styled.Aside style={{ animation }}>
                         <styled.Close
                             onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                         >&times;
@@ -86,13 +90,10 @@ class Sidebar extends Component {
                             placeholder="Add title"
                             value={todoListName}
                             onChange={this.changeValueTitle}
-                        >
-
-                        </styled.InputTitle>
+                        />
                         <styled.TaskList>
                             {tasks.map((task, i) => (
                                 <styled.AddTaskPlace
-
                                     onMouseOut={this.updateDisplayTrashHide}
                                     onMouseOver={this.updateDisplayTrashVisible}
                                 >

@@ -17,7 +17,7 @@ export const Header = styled.header`
     flex-direction: row;
     padding:10px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
-    z-index:40;
+    z-index:1;
     background-color: white;
     & > b{
         font-size: 42px;
