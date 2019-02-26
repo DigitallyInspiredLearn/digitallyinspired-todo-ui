@@ -16,7 +16,7 @@ export const ThemeTitle = styled.div`
 export const NewTheme = styled.div`
     display: flex;
     flex-direction: row;   
-    justify-content: space-between;
+    justify-content: center;
     align-self: center;
     margin: 0px auto;
     width: 90%;
@@ -26,7 +26,7 @@ export const NewTheme = styled.div`
 export const BlockTheme = styled.div`
     display: flex;
     flex-direction: column;  
-    width: 45%;
+    max-width: 420px;
     margin: 10px 20px;
 `;
 
@@ -39,7 +39,7 @@ export const NewAddingTheme = styled.div`
 `;
 
 export const ImageTheme = styled.img`
-    width: 100%;
+    width: 95%;
     height: 97%;
     border-radius: 10px;
     margin: 20px 0;
