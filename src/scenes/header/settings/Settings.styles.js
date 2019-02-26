@@ -39,6 +39,7 @@ export const Tab = styled.div`
 `;
 
 export const SettingsWindowForComp = styled.div`
+
     display: flex;
     position: fixed;
     width: 100%;
@@ -74,6 +75,7 @@ export const settingsContent = styled.div`
     width: 70%; 
     min-height: 500px;
     height: auto;
+
 `;
 
 export const Main = styled.div`

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './css/subscribesStyle.css';
 import * as styled from './Subscribes.styles';
 
 class Subscribes extends Component {

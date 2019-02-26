@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types,react/no-unused-state */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as styled from '../styled/LogIn.styled';
+import * as styled from '../LogIn.styled';
 
 class Registration extends Component {
     constructor(props) {
@@ -25,9 +25,8 @@ class Registration extends Component {
     onChangePassword2 = e => this.setState({ repeatPassword: e.target.value });
 
     render() {
-        const {
-            actions, email, name, password, username,
-        } = this.props;
+        const { actions } = this.props;
+        const { email, name, password, username } = this.state;
 
         return (
             <styled.Styled>
