@@ -75,6 +75,7 @@ export const btnSearch = styled.div`
     width: auto;
     padding-right: 15px;
     padding-top: 10px;
+    margin-left: 50px;
 `;
 
 export const buttonBlock = styled.div`

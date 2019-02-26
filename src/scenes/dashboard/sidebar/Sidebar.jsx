@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unused-state,no-unused-expressions,no-sequences */
 import React, { Component } from 'react';
-import './css/siderStyle.css';
-import './css/siderStyleForComp.css';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
+import * as styled from './Sidebar.styles';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -68,57 +67,54 @@ class Sidebar extends Component {
         const { displayTrash, displayStyle, animation, todoListName, tasks } = this.state;
         const displaysTrash = { display: displayTrash };
         return (
+
             [
-                <div className="plus" onClick={this.updateDisplaySidebar}>
-                    <img id="myBtn " src={plus} alt="Plus" />
-                </div>,
-                <div id="sidebar" style={{ display: displayStyle, zIndex: 50 }}>
-                    <div
-                        id="fon"
+                <styled.Plus className="plus" onClick={this.updateDisplaySidebar}>
+                    <styled.ButtonPlus  src={plus} alt="Plus" />
+                </styled.Plus>,
+                <styled.Sidebar  style={{ display: displayStyle, zIndex: 50 }}>
+                    <styled.Background
                         onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                     />
-                    <aside id="addingArticle" style={{ animation }}>
-                        <span
-                            className="window-close"
+                    <styled.Aside  style={{ animation }}>
+                        <styled.Close
                             onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                         >&times;
-                        </span>
-                        <input
+                        </styled.Close>
+                        <styled.InputTitle
                             type="text"
                             placeholder="Add title"
-                            className="inputTitle"
                             value={todoListName}
                             onChange={this.changeValueTitle}
-                        />
-                        <div className="taskList">
+                        >
+
+                        </styled.InputTitle>
+                        <styled.TaskList>
                             {tasks.map((task, i) => (
-                                <div
-                                    className="addTask"
+                                <styled.AddTaskPlace
+
                                     onMouseOut={this.updateDisplayTrashHide}
                                     onMouseOver={this.updateDisplayTrashVisible}
                                 >
-                                    <input
+                                    <styled.InputTask
                                         type="text"
-                                        className="inputTask"
                                         placeholder={`Add ${i + 1} to-do`}
                                         value={task.name}
                                         onChange={this.changeValueName(i)}
                                     />
-                                    <img
+                                    <styled.TrashTask
                                         src={trash}
                                         alt="Delete this task"
                                         onClick={this.handleRemoveInputTask(i)}
-                                        className="small"
                                         style={displaysTrash}
                                     />
-                                </div>
+                                </styled.AddTaskPlace>
                             ))}
-                        </div>
-                        <button type="button" onClick={this.handleAddInputTask} className="btn">
+                        </styled.TaskList>
+                        <styled.AddTask type="button" onClick={this.handleAddInputTask}>
                             Add one more task
-                        </button>
-                        <button
-                            className="addListBtn"
+                        </styled.AddTask>
+                        <styled.AddButton
                             type="submit"
                             onClick={(e) => {
                                 this.updateDisplaySidebar();
@@ -126,12 +122,11 @@ class Sidebar extends Component {
                                 this.handlerOnClick(e);
                             }}
                         >Add
-                        </button>
-                    </aside>
-                </div>,
+                        </styled.AddButton>
+                    </styled.Aside>
+                </styled.Sidebar>,
             ]
         );
     }
 }
-
 export default Sidebar;

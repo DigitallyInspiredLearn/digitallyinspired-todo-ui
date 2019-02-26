@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import './css/themeStyle.css';
+import * as styled from './Theme.styles';
 
 class Theme extends Component {
     constructor(props) {
@@ -11,9 +10,9 @@ class Theme extends Component {
 
     render() {
         return (
-            <div className="theme">
-                Theme
-            </div>
+            <styled.Theme>
+                <h2>Theme</h2>
+            </styled.Theme>
         );
     }
 }

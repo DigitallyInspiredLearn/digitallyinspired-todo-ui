@@ -1,5 +1,18 @@
 import styled from 'styled-components';
 
+export const Profile = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 363%;
+    height: 100%;
+
+    & h3{
+        margin: 2% auto;
+        font-size: 20px;
+        font-family: 'Arial';
+    }
+`;
+
 export const DeleteProfile = styled.div`
     display: flex;
     flex-direction: row-reverse;
@@ -7,9 +20,9 @@ export const DeleteProfile = styled.div`
 
 export const DeleteButton = styled.button`
         width: 115px;
-        margin-right: 30px;
         outline: none;
         border: none;
+        margin-left: -40%
         -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
         -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
         box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -20,8 +33,8 @@ export const DeleteButton = styled.button`
         background:-ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
         background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
         filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100',GradientType=0);
-        background-color:#fe1a00;
-        -moz-border-radius:6px;
+        background-color: #fe1a00;
+        -moz-border-radius: 6px;
         -webkit-border-radius:6px;
         border-radius:6px;
         cursor:pointer;

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dashboard } from './Dashboard';
 import VisibleSidebar from './sidebar/SidebarContainer';
-import * as styled from './styled/DashboardList.styles';
+import * as styled from './DashboardList.styles';
+import loupe from '../../image/magnifying-glass-browser.svg';
 
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
@@ -13,7 +14,7 @@ class DashboardList extends Component {
             selectedMy, selectedShared, actions, toDoBoard,
         } = this.props;
         return (
-            <styled.Main>
+            <styled.App>
                 <styled.SearchAndChecked>
                     <styled.SearchDiv>
                         <styled.Search
@@ -21,28 +22,21 @@ class DashboardList extends Component {
                             placeholder="Search dashboard"
                             onChange={e => actions.searching({ searchDashboards: e.target.value })}
                         />
-                        <div
-                            className="fa fa-search fa-2x"
-                            style={{
-                                backgroundColor: 'inherit',
-                                color: 'lightgrey',
-                                paddingRight: '5px',
-                                borderRadius: '5px',
-                            }}
-                        />
+                        <styled.IconSearch src={loupe} />
                     </styled.SearchDiv>
                     <styled.CheckboxDiv>
                         <styled.ShowButton
                             checked={selectedMy}
                             onClick={() => actions.updateSelectedMyLists(!selectedMy)}
+                            style={{ marginRight: '5px' }}
                         >
-                            Show my lists
+                            Show my
                         </styled.ShowButton>
                         <styled.ShowButton
                             checked={selectedShared}
                             onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
                         >
-                            Show shared lists
+                            Show shared
                         </styled.ShowButton>
                     </styled.CheckboxDiv>
                 </styled.SearchAndChecked>
@@ -69,7 +63,8 @@ class DashboardList extends Component {
                     }
                 </styled.DashboardList>
                 <VisibleSidebar />
-            </styled.Main>
+            </styled.App>
+
         );
     }
 }
