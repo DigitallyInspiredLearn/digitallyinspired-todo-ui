@@ -97,7 +97,7 @@ class Settings extends Component {
                                     />
                                 </styled.Tab>
                                 <styled.MobileContent style={{display: tab4 === up ? 'flex' : 'none'}}>
-                                    <FollowUser/>
+                                    <FollowUser />
                                 </styled.MobileContent>
                             </div>
                         </styled.TabContainer>
@@ -109,12 +109,12 @@ class Settings extends Component {
                                     onClick={() => toggleSettings()}
                                 >&times;
                                 </styled.CloseWindow>
-                                <div>
+                                <styled.Main>
                                     <styled.TabContainerForComp>
                                         <styled.TabLabel selected={selectedTab === 'profile'}>
                                             <input
                                                 type="radio"
-                                                style={{visibility: 'hidden'}}
+                                                style={{ visibility: 'hidden' }}
                                                 onClick={() => this.handleSelectTab('profile')}
                                             />
                                             Profile
@@ -122,7 +122,7 @@ class Settings extends Component {
                                         <styled.TabLabel selected={selectedTab === 'theme'}>
                                             <input
                                                 type="radio"
-                                                style={{visibility: 'hidden'}}
+                                                style={{ visibility: 'hidden' }}
                                                 onClick={() => this.handleSelectTab('theme')}
                                             />
                                             Theme
@@ -130,7 +130,7 @@ class Settings extends Component {
                                         <styled.TabLabel selected={selectedTab === 'subscribes'}>
                                             <input
                                                 type="radio"
-                                                style={{visibility: 'hidden'}}
+                                                style={{ visibility: 'hidden' }}
                                                 onClick={() => this.handleSelectTab('subscribes')}
                                             />
                                             Subscribe
@@ -138,20 +138,20 @@ class Settings extends Component {
                                         <styled.TabLabel selected={selectedTab === 'followers'}>
                                             <input
                                                 type="radio"
-                                                style={{visibility: 'hidden'}}
+                                                style={{ visibility: 'hidden' }}
                                                 onClick={() => this.handleSelectTab('followers')}
                                             />
                                             Followers
                                         </styled.TabLabel>
                                     </styled.TabContainerForComp>
                                     <main>
-                                        {selectedTab === 'profile' &&
-                                        <Profile toggleSettings={this.props.toggleSettings}/>}
-                                        {selectedTab === 'theme' && <Theme/>}
-                                        {selectedTab === 'subscribes' && <Subscribes/>}
-                                        {selectedTab === 'followers' && <FollowUser/>}
+                                        {selectedTab === 'profile'
+                                        && <Profile toggleSettings={this.props.toggleSettings}/>}
+                                        {selectedTab === 'theme' && <Theme />}
+                                        {selectedTab === 'subscribes' && <Subscribes />}
+                                        {selectedTab === 'followers' && <FollowUser />}
                                     </main>
-                                </div>
+                                </styled.Main>
                             </styled.settingsContent>
 
                         </styled.SettingsWindowForComp>
