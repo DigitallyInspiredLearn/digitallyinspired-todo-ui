@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
@@ -33,7 +33,7 @@ class Settings extends Component {
     }
 
     render() {
-        const {visible, toggleSettings} = this.props;
+        const { visible, toggleSettings } = this.props;
         const {
             tab1,
             tab2,
@@ -43,8 +43,8 @@ class Settings extends Component {
         } = this.state;
 
         return (
-            <div style={{display: visible ? 'flex' : 'none'}}>
-                <div id="fon" style={{backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000}}/>
+            <div style={{ display: visible ? 'flex' : 'none' }}>
+                <div id="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000 }} />
                 <styled.SettingsWindow>
                     <MediaQuery maxWidth={649}>
                         <styled.TabContainer>
@@ -53,12 +53,12 @@ class Settings extends Component {
                                     <h2>Profile</h2>
                                     <styled.MobileToggle
                                         src={tab1}
-                                        onClick={() => this.setState({tab1: tab1 === down ? up : down})}
+                                        onClick={() => this.setState({ tab1: tab1 === down ? up : down })}
                                         alt="profile"
                                     />
                                 </styled.Tab>
-                                <styled.MobileContent style={{display: tab1 === up ? 'flex' : 'none'}}>
-                                    <Profile/>
+                                <styled.MobileContent style={{ display: tab1 === up ? 'flex' : 'none' }}>
+                                    <Profile />
                                 </styled.MobileContent>
                             </div>
                             <div>
@@ -66,11 +66,11 @@ class Settings extends Component {
                                     <h2>Theme</h2>
                                     <styled.MobileToggle
                                         src={tab2}
-                                        onClick={() => this.setState({tab2: tab2 === down ? up : down})}
+                                        onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
                                         alt="Theme"
                                     />
                                 </styled.Tab>
-                                <styled.MobileContent style={{display: tab2 === up ? 'flex' : 'none'}}>
+                                <styled.MobileContent style={{ display: tab2 === up ? 'flex' : 'none' }}>
                                     <div>Theme</div>
                                 </styled.MobileContent>
                             </div>
@@ -79,11 +79,11 @@ class Settings extends Component {
                                     <h2>Subscribes </h2>
                                     <styled.MobileToggle
                                         src={tab3}
-                                        onClick={() => this.setState({tab3: tab3 === down ? up : down})}
+                                        onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
                                         alt="Subscribes"
                                     />
                                 </styled.Tab>
-                                <styled.MobileContent style={{display: tab3 === up ? 'flex' : 'none'}}>
+                                <styled.MobileContent style={{ display: tab3 === up ? 'flex' : 'none' }}>
                                     <div>Subscribes</div>
                                 </styled.MobileContent>
                             </div>
@@ -92,11 +92,11 @@ class Settings extends Component {
                                     <h2>Followers</h2>
                                     <styled.MobileToggle
                                         src={tab4}
-                                        onClick={() => this.setState({tab4: tab4 === down ? up : down})}
+                                        onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
                                         alt="Followers"
                                     />
                                 </styled.Tab>
-                                <styled.MobileContent style={{display: tab4 === up ? 'flex' : 'none'}}>
+                                <styled.MobileContent style={{ display: tab4 === up ? 'flex' : 'none' }}>
                                     <FollowUser />
                                 </styled.MobileContent>
                             </div>
@@ -146,14 +146,13 @@ class Settings extends Component {
                                     </styled.TabContainerForComp>
                                     <main>
                                         {selectedTab === 'profile'
-                                        && <Profile toggleSettings={this.props.toggleSettings}/>}
+                                        && <Profile toggleSettings={this.props.toggleSettings} />}
                                         {selectedTab === 'theme' && <Theme />}
                                         {selectedTab === 'subscribes' && <Subscribes />}
                                         {selectedTab === 'followers' && <FollowUser />}
                                     </main>
                                 </styled.Main>
                             </styled.settingsContent>
-
                         </styled.SettingsWindowForComp>
                     </MediaQuery>
                 </styled.SettingsWindow>
