@@ -27,7 +27,6 @@ class Profile extends Component {
     changeValueNewRepeatPassword = e => this.setState({ newRepeatPassword: e.target.value });
 
     render() {
-        console.log(this.props)
         const { currentUser, actions } = this.props;
         const { newPassword, newRepeatPassword } = this.state;
         return (

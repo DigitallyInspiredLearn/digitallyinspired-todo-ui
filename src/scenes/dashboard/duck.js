@@ -99,7 +99,7 @@ export const reducer = handleActions({
             i.id === action.payload.idDashboard ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
-                    ? {...e, body: action.payload.newTaskName } : e)),
+                    ? { ...e, body: action.payload.newTaskName } : e)),
             } : i
         )),
     }),
@@ -157,11 +157,13 @@ function* deleteTask(action) {
 }
 
 function* addNewTask(action) {
+    console.log(action);
     yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask });
     yield call(fetchAllLists);
 }
 
 function* addList(action) {
+    console.log(action.payload);
     yield call(addDashboard, action.payload);
     yield call(fetchAllLists);
 }

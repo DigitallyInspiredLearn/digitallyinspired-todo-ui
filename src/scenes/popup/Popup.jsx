@@ -6,7 +6,6 @@ import * as styled from './Popup.styles';
 export class Popup extends Component {
     render() {
         const {statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
-        console.log(users);
         return (
                 <styled.showPopup show={statePopup}>
                     <styled.popupContent>
