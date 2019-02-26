@@ -91,6 +91,7 @@ export const ProfileInput = styled.div`
             margin-left: 5%;
             margin-top: 30px;
             cursor:pointer;
+            outline: none;
         }
         
         
