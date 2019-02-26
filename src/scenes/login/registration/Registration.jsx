@@ -25,9 +25,8 @@ class Registration extends Component {
     onChangePassword2 = e => this.setState({ repeatPassword: e.target.value });
 
     render() {
-        const {
-            actions, email, name, password, username,
-        } = this.props;
+        const { actions } = this.props;
+        const { email, name, password, username } = this.state;
 
         return (
             <styled.Styled>
