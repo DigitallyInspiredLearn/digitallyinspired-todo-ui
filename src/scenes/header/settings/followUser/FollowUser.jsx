@@ -23,11 +23,11 @@ class FollowUser extends Component {
         const { displayMessage, display } = this.state;
         return (
             <styled.Follow>
-                <h2>Follow User</h2>
-                <main>
-                    <label>
-                        Enter username your friends
-                        <input
+                <styled.Label>Enter username your friends</styled.Label>
+                <styled.SearchBlock>
+                    <styled.Search>
+                        <styled.SearchInput
+                            placeholder="Search user..."
                             type="text"
                             value={search}
                             onChange={e => actions.searchUserForFollowing(e.target.value)}
@@ -36,22 +36,16 @@ class FollowUser extends Component {
                                 this.onChangeDisplay('block');
                             }}
                         />
-                    </label>
-                    <button
-                        onClick={() => {
-                            actions.searchUserForFollowing('');
-                            search && actions.followUser(search);
-                            this.onChangeDisplay('none');
-                            this.setState({ displayMessage: 'block' });
-                        }}
-                    > to follow
-                    </button>
-                    <p style={{ display: displayMessage }}>{message}</p>
-                    <div id="usernameList">
-                        <ul style={{ display }}>
-                            {
-                                // userNameList.length = 0 ? <li>User with this username not found</li> :
-                                userNameList.map((username, i) => i < 15
+                        <styled.UsernameList>
+                            <ul style={{ display }}>
+                                {
+                                    userNameList.length === 0
+                                        ? (
+                                            <styled.Ul>
+                                                User with this username not found
+                                            </styled.Ul>
+                                        )
+                                        : userNameList.map((username, i) => i < 15
                                     && (
                                         <li
                                             onClick={() => {
@@ -62,12 +56,22 @@ class FollowUser extends Component {
                                             {username}
                                         </li>
                                     ))
-                            }
-                        </ul>
+                                }
+                            </ul>
+                        </styled.UsernameList>
+                    </styled.Search>
 
-                    </div>
-
-                </main>
+                    <styled.SearchUserBtn
+                        onClick={() => {
+                            actions.searchUserForFollowing('');
+                            search && actions.followUser(search);
+                            this.onChangeDisplay('none');
+                            this.setState({ displayMessage: 'block' });
+                        }}
+                    > to follow
+                    </styled.SearchUserBtn>
+                </styled.SearchBlock>
+                <styled.Result style={{ display: displayMessage }}>{message}</styled.Result>
             </styled.Follow>
         );
     }

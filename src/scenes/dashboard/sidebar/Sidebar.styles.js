@@ -124,8 +124,9 @@ export const Aside = styled.aside`
 `;
 export const Sidebar= styled.div`
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     position: absolute;
+    height: 100%;
 `;
 export const TaskList= styled.div`
     max-height: 75%;
