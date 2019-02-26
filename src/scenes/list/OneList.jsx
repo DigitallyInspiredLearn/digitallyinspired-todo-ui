@@ -37,7 +37,7 @@ class OneList extends Component {
             match, actions, data, actionsBoard, todo,
         } = this.props;
         return (
-            <styled.list>
+            <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
                         <styled.animationButton className="fa fa-arrow-left fa-2x" />
@@ -46,14 +46,13 @@ class OneList extends Component {
                         type="text"
                         placeholder="Enter dashboard title"
                         value={data.todoListName}
-                        onChange={e => actions.updateTitleList({idDashboard: data.id, newTitle: e.target.value})}
+                        onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
-                        <styled.animationButton
-                            className="iconTrash"
+                        <styled.iconTrash
                             src={trash}
                             id={match.params.id}
-                            onClick={() => actions.deleteList({idDashboard: match.params.id})}
+                            onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
                     <styled.animationButton
@@ -108,7 +107,7 @@ class OneList extends Component {
                         )}
                     />
                 </styled.blockTask>
-            </styled.list>
+            </styled.List>
         );
     }
 }
