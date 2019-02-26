@@ -17,9 +17,9 @@ class Subscribes extends Component {
 
         return (
             <styled.Subscribes>
-                <h2>Subscribes</h2>
-
-                <label><input type="text" onClick={() => actions.fetchSubscribers()} /></label>
+                <styled.Title>Subscribes</styled.Title>
+                <styled.NotificationMessage>Your subscribers list:</styled.NotificationMessage>
+                 {/*<label><input type="text" onClick={() => actions.fetchSubscribers()} /></label>*/}
                 {
                     // subscribers.map(subscriber => <p>{subscriber}</p>)
                 }
