@@ -42,7 +42,8 @@ export const SettingsWindowForComp = styled.div`
     display: flex;
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height:100vh;
     top: 0;
     left: 0;
     right: 0;
@@ -50,23 +51,11 @@ export const SettingsWindowForComp = styled.div`
     margin: auto;
     background-color: rgba(0,0,0, 0.2);
     z-index: 50;
-    
-
-        // position: absolute;
-        // background-color: white;
-        // z-index: 10000;
-        // box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
-        // border-top: 1px solid whitesmoke ;
-        // width: 100%;
-        // min-height: 500px;
-        // border-radius: 0 5px 5px 5px;
-        
-        // margin-top: 5%;
-        // margin-left: 15%;
-        //
-        // & main {
-        //     padding: 0;
-        // }
+    & main {
+        padding: 0;
+        display: flex;
+        flex: auto;
+    }
 `;
 
 export const settingsContent = styled.div`
@@ -87,12 +76,18 @@ export const settingsContent = styled.div`
     height: auto;
 `;
 
+export const Main = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+`;
+
 export const TabContainerForComp = styled.nav`
         background-color:gainsboro;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
+        
         & > label {
             text-align: center;
             padding: 50px 20px;

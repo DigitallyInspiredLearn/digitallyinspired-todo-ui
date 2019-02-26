@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Profile = styled.div`
     display: flex;
     flex-direction: column;
-    width: 363%;
+    width: 100%;
     height: 100%;
 
     & h3{
@@ -105,7 +105,7 @@ export const ProfileInput = styled.div`
         }
 
         & input {
-            border: 1px solid black;
+            border: 1px solid black !important;
             width: 40%;
             height: 30px;
             margin-left: 5%;
