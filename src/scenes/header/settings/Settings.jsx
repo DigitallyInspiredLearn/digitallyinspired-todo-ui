@@ -104,51 +104,55 @@ class Settings extends Component {
                     </MediaQuery>
                     <MediaQuery minWidth={650}>
                         <styled.SettingsWindowForComp>
-                            <styled.CloseWindow
-                                onClick={() => toggleSettings()}
-                            >
-                                    X
-                            </styled.CloseWindow>
-                            <styled.TabContainerForComp>
-                                <styled.TabLabel selected={selectedTab === 'profile'}>
-                                    <input
-                                        type="radio"
-                                        style={{ visibility: 'hidden' }}
-                                        onClick={() => this.handleSelectTab('profile')}
-                                    />
-                                    Profile
-                                </styled.TabLabel>
-                                <styled.TabLabel selected={selectedTab === 'theme'}>
-                                    <input
-                                        type="radio"
-                                        style={{ visibility: 'hidden' }}
-                                        onClick={() => this.handleSelectTab('theme')}
-                                    />
-                                    Theme
-                                </styled.TabLabel>
-                                <styled.TabLabel selected={selectedTab === 'subscribes'}>
-                                    <input
-                                        type="radio"
-                                        style={{ visibility: 'hidden' }}
-                                        onClick={() => this.handleSelectTab('subscribes')}
-                                    />
-                                    Subscribes
-                                </styled.TabLabel>
-                                <styled.TabLabel selected={selectedTab === 'followers'}>
-                                    <input
-                                        type="radio"
-                                        style={{ visibility: 'hidden' }}
-                                        onClick={() => this.handleSelectTab('followers')}
-                                    />
-                                    Followers
-                                </styled.TabLabel>
-                            </styled.TabContainerForComp>
-                            <main>
-                                {selectedTab === 'profile' && <Profile toggleSettings={this.props.toggleSettings} />}
-                                {selectedTab === 'theme' && <Theme />}
-                                {selectedTab === 'subscribes' && <Subscribes />}
-                                {selectedTab === 'followers' && <FollowUser />}
-                            </main>
+                            <styled.settingsContent>
+                                <styled.CloseWindow
+                                    onClick={() => toggleSettings()}
+                                >&times;
+                                </styled.CloseWindow>
+                                <styled.Main>
+                                    <styled.TabContainerForComp>
+                                        <styled.TabLabel selected={selectedTab === 'profile'}>
+                                            <input
+                                                type="radio"
+                                                style={{ visibility: 'hidden' }}
+                                                onClick={() => this.handleSelectTab('profile')}
+                                            />
+                                            Profile
+                                        </styled.TabLabel>
+                                        <styled.TabLabel selected={selectedTab === 'theme'}>
+                                            <input
+                                                type="radio"
+                                                style={{ visibility: 'hidden' }}
+                                                onClick={() => this.handleSelectTab('theme')}
+                                            />
+                                            Theme
+                                        </styled.TabLabel>
+                                        <styled.TabLabel selected={selectedTab === 'subscribes'}>
+                                            <input
+                                                type="radio"
+                                                style={{ visibility: 'hidden' }}
+                                                onClick={() => this.handleSelectTab('subscribes')}
+                                            />
+                                            Subscribe
+                                        </styled.TabLabel>
+                                        <styled.TabLabel selected={selectedTab === 'followers'}>
+                                            <input
+                                                type="radio"
+                                                style={{ visibility: 'hidden' }}
+                                                onClick={() => this.handleSelectTab('followers')}
+                                            />
+                                            Followers
+                                        </styled.TabLabel>
+                                    </styled.TabContainerForComp>
+                                    <main>
+                                        {selectedTab === 'profile'
+                                        && <Profile toggleSettings={this.props.toggleSettings} />}
+                                        {selectedTab === 'theme' && <Theme />}
+                                        {selectedTab === 'subscribes' && <Subscribes />}
+                                        {selectedTab === 'followers' && <FollowUser />}
+                                    </main>
+                                </styled.Main>
+                            </styled.settingsContent>
                         </styled.SettingsWindowForComp>
                     </MediaQuery>
                 </styled.SettingsWindow>

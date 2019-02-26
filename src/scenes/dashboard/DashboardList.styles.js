@@ -74,6 +74,7 @@ export const DashboardList = styled.main`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    align-content: flex-start;
     flex: auto;
     margin:0 10px;
     height: 100vh;

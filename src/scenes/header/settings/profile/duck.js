@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import {
-    call, put, select, delay, takeLatest,
+    call, put
 } from 'redux-saga/effects';
 import { safeTakeEvery, safeTakeLatest } from '../../../../helpers/saga';
 import {

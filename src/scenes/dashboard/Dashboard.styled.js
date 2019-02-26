@@ -8,8 +8,8 @@ export const Dashboard = styled.section`
     width: 49.6%;
     margin-bottom: 10px;
     border-radius: 5px;
-    height: auto;
     min-height: 300px;
+    height:auto;
     transition: 500ms;
     animation: show 500ms 1;
     animation-fill-mode: forwards;

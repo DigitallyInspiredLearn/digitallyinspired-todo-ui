@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as styled from '../styled/LogIn.styled';
+import * as styled from '../LogIn.styled';
 
 class Authorization extends Component {
     constructor(props) {
