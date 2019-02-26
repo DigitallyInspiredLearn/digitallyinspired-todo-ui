@@ -70,13 +70,14 @@ export const settingsContent = styled.div`
     border-radius: 5px;
     padding: 10px;
     width: 70%; 
-    min-height: 500px;
-    height: auto;
+    height: 500px;
+    
 `;
 
 export const Main = styled.div`
     display: flex;
     flex-direction: row;
+    height: 100%;
 `;
 
 export const TabContainerForComp = styled.nav`
@@ -84,6 +85,7 @@ export const TabContainerForComp = styled.nav`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        height: 100%;
 `;
 
 export const TabLabel = styled.label`
