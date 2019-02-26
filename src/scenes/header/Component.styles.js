@@ -22,12 +22,11 @@ export const Header = styled.header`
     & > b{
         font-size: 42px;
     }
-}
 `;
+
 const transition = keyframes`
    0%{ width:1%; }
    100% { width:100%; }
-}
 `;
 
 export const Line = styled.div`

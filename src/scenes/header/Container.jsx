@@ -14,6 +14,11 @@ class Container extends Component {
         this.state = { visible: false };
     }
 
+    toggleSettings = () => {
+        const { visible } = this.state;
+        this.setState({ visible: !visible });
+    }
+
     render() {
         const { visible } = this.state;
         const { children } = this.props;
@@ -25,9 +30,13 @@ class Container extends Component {
                         <b>To</b>
                         <styled.Line />
                         <b>do</b>
-                        <styled.Burger src={list} alt="list" />
+                        <styled.Burger
+                            src={list}
+                            alt="list"
+                            onClick={this.toggleSettings}
+                        />
                     </styled.Header>
-                    <Settings visible={visible} />
+                    <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }
                 </styled.Container>
             </ThemeProvider>

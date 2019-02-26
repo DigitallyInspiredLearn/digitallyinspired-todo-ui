@@ -22,7 +22,7 @@ class FollowUser extends Component {
 
         const { displayMessage, display } = this.state;
         return (
-            <div className={this.props.followersVisible}>
+            <styled.Follow>
                 <h2>Follow User</h2>
                 <main>
                     <label>
@@ -68,7 +68,7 @@ class FollowUser extends Component {
                     </div>
 
                 </main>
-            </div>
+            </styled.Follow>
         );
     }
 }

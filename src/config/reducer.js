@@ -12,7 +12,7 @@ export const mainReducer = combineReducers({
     list: listReducer,
     auth: authReducer,
     popup: popupReducer,
-    profileReducer: profileReducer,
-    followUserReducer: followUserReducer,
+    profile: profileReducer,
+    followUser: followUserReducer,
     theme: themeReducer,
 });
