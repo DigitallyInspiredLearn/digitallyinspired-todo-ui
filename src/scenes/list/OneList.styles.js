@@ -49,7 +49,6 @@ export const animationButton = styled.div`
 `;
 
 export const iconTrash = styled.img`
-    background-image: ${p => p.src};
     margin-top: 5px;
     margin-left: 10px;
     width: 30px;
