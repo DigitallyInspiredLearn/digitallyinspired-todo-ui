@@ -29,18 +29,17 @@ class TaskForList extends Component {
                 onMouseOver={this.updateDisplayFlex}
                 onMouseOut={this.updateDisplayNone}
             >
-                <div className="taskDiv">
-                    <div
-                        className={selected ? 'fa fa-check-square' : 'unselected'}
-                        style={{ zIndex: 50 }}
+                <stylesTask.NameAdnCheckedTask>
+                    <stylesTask.CheckboxTask
+                        selected={selected}
                         onClick={() => actionsList.updateCheckboxList({
                             idDashboard: idList, idTask, selected, nameTask,
                         })}
                     />
-                    <input
+                    <stylesTask.TaskName
                         type="text"
                         value={nameTask}
-                        className="taskName"
+                        selected={selected}
                         onChange={e => actionsList.updateTaskList({
                             idDashboard: idList, idTask, selected, newTaskName: e.target.value,
                         })}
@@ -52,7 +51,7 @@ class TaskForList extends Component {
                             idDashboard: idList, idTask,
                         })}
                     />
-                </div>
+                </stylesTask.NameAdnCheckedTask>
             </stylesTask.Task>
         );
     }
