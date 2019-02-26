@@ -39,8 +39,6 @@ export const Tab = styled.div`
 `;
 
 export const SettingsWindowForComp = styled.div`
-
-    display: flex;
     position: fixed;
     width: 100%;
     height: auto;
@@ -51,7 +49,7 @@ export const SettingsWindowForComp = styled.div`
     bottom: 0;
     margin: auto;
     background-color: rgba(0,0,0, 0.2);
-    z-index: 50;
+    z-index: 5;
     & main {
         padding: 0;
         display: flex;
@@ -65,56 +63,37 @@ export const settingsContent = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     position: fixed;
-    top: 15%;
+    top: 8%;
     left: 15%;
     right: 15%;
-    bottom: 15%;
     background: white;
     border-radius: 5px;
     padding: 10px;
     width: 70%; 
     min-height: 500px;
     height: auto;
-
 `;
 
 export const Main = styled.div`
     display: flex;
     flex-direction: row;
-    flex: auto;
 `;
 
 export const TabContainerForComp = styled.nav`
         background-color:gainsboro;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        
-        & > label {
-            text-align: center;
-            padding: 50px 20px;
-            color: white;
-            border: 0;
-            font-size: 20px;
-            font-weight: bold;
-            outline: none;
-        }
-
-        & > label:hover{
-            background-color: black;
-        }
+        justify-content: flex-start;
 `;
 
 export const TabLabel = styled.label`
             background-color: ${p => p.selected && 'black'};
-            padding: 20px 16px;
+            padding: 16px 20px 16px 0;
             color: white;
-            margin: 0;
-            border: 0;
             font-size: 20px;
             font-weight: bold;
-            outline: none;
-
+            text-align: center;
+            color: white;
             &:hover{
             background-color: black;
         }
