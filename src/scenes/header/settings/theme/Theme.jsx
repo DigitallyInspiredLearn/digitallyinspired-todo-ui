@@ -26,7 +26,7 @@ class Theme extends Component {
                 </styled.NewTheme>
                 <styled.NewAddingTheme>
                     <styled.PaintTheme src={paint}/>
-                    <styled.TextTheme>Edit theme</styled.TextTheme>
+                    <styled.TextTheme>Custom theme</styled.TextTheme>
                 </styled.NewAddingTheme>
             </styled.Theme>
         );
