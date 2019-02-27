@@ -25,8 +25,13 @@ class Theme extends Component {
                     </styled.BlockTheme>
                 </styled.NewTheme>
                 <styled.NewAddingTheme>
+<<<<<<< HEAD
                     <styled.PaintTheme src={paint} />
                     <styled.TextTheme>Edit theme</styled.TextTheme>
+=======
+                    <styled.PaintTheme src={paint}/>
+                    <styled.TextTheme>Custom theme</styled.TextTheme>
+>>>>>>> 67630735276c45c83c3453f84964464fb66138de
                 </styled.NewAddingTheme>
             </styled.Theme>
         );
