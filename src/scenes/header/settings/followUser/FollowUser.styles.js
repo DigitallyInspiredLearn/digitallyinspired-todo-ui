@@ -48,6 +48,7 @@ export const Result = styled.p`
     align-self: center;
     margin-top: 10px;
     font-size: 20px;
+    color: ${props => (props.message === 'You\'ll follow this user!' ? 'grey' : 'lightgrey')}
 `;
 
 export const SearchUserBtn = styled.div`

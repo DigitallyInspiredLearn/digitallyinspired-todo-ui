@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types,react/no-unused-state */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './css/profileStyle.css';
 import * as styled from './Profile.styles';
 
 class Profile extends Component {

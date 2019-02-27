@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import logo from '../../image/logo_di.svg';
 import Settings from './settings/Settings';
-import './settings/css/style.css';
 import list from '../../image/list-menu.svg';
 import * as styled from './Component.styles';
 import theme from '../../config/theme';
