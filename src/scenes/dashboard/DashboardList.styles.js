@@ -13,7 +13,7 @@ export const SearchAndChecked = styled.div`
     display: flex;
     flex-direction:row;
     height: auto;
-    margin: 10px;
+    margin:1% 10px 3% 10px;
     justify-content: space-between;
     @media (max-width: 600px) {
         flex-direction: column-reverse; min-height: 60px;
@@ -29,8 +29,11 @@ export const SearchDiv = styled.div`
     min-height:15px;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
-    padding: 5px;
+    padding:15px 5px;
     align-items: center;
+    @media (max-width: 600px) {
+        padding: 5px;   
+     }
 `;
 
 export const Search = styled.input`
@@ -42,8 +45,8 @@ export const Search = styled.input`
 `;
 
 export const IconSearch = styled.img`
-    width:20px;
-    height:20px;
+    width:30px;
+    height:30px;
     color:grey;
 `;
 export const CheckboxDiv = styled.div`
@@ -65,10 +68,11 @@ export const ShowButton = styled.div`
         background-color: ${props => (props.checked ? props.theme.color.black : 'gray')};
     }
     width: auto;
-    padding: 5px;
+    padding: 15px 5px;
     @media (max-width: 600px) {
         flex: 1;
         text-align: center;
+         padding:5px;
     }
 `;
 
