@@ -9,6 +9,7 @@ import PageError404 from './scenes/errors/pageError404';
 import PageError500 from './scenes/errors/pageError500';
 
 const App = () => (
+
     <Container>
         <Switch>
             <Route path="/lists" component={VisibleTodoList} />
@@ -20,6 +21,7 @@ const App = () => (
             <Redirect to="/auth" />
         </Switch>
     </Container>
+
 );
 
 export default App;

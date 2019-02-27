@@ -26,7 +26,7 @@ export const NewTheme = styled.div`
 export const BlockTheme = styled.div`
     display: flex;
     flex-direction: column;  
-    max-width: 420px;
+    max-width: 380px;
     margin: 10px 20px;
 `;
 

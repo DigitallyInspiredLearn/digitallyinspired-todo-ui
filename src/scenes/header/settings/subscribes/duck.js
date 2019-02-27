@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { call, put } from 'redux-saga/effects';
 import { safeTakeEvery } from '../../../../helpers/saga';
-import { getFollowers as getSubscribersApi } from '../../../../api/userController';
+import { getFollowers } from '../../../../api/userController';
 
 export const SEARCH_SUBSCRIBERS = 'subscribeReducer/SEARCH_SUBSCRIBERS';
 export const FETCH_SUBSCRIBERS = 'subscribeReducer/FETCH_SUBSCRIBERS';
@@ -28,11 +28,11 @@ export const reducer = handleActions({
 //     yield put(actions.fetchUser(res.data));
 // }
 function* getSubscribers() {
-    const res = yield call(getSubscribersApi);
+    const res = yield call(getFollowers);
     yield put(actions.fetchSubscribersSuccess(res.data));
+    console.log(res.data);
 }
 
 export function* saga() {
     yield safeTakeEvery(FETCH_SUBSCRIBERS, getSubscribers);
-    // yield safeTakeEvery(FOLLOW_USER, followUser);
 }

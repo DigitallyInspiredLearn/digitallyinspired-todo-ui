@@ -22,11 +22,40 @@ export const NotificationMessage = styled.p`
     cursor: pointer;
 `;
 export const SearchInput = styled.input`
-    width:90%;
+    width:95%;
     margin-left: 10px;
-    border-radius:5px 0 0 0 ;
+    border-radius:5px;
     padding-left:10px;
     outline:none;
     height:34px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+`;
+
+export const TableSubscribers = styled.table`
+    margin-left: 10px;
+    margin-top: 10px;
+    border-radius:5px;
+    width:96%;
+    max-height:200px;
+    height: auto;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+    overflow: auto;
+`;
+export const Tr = styled.tr`
+    width:100%;
+    border-radius:5px;
+    &:nth-child(2n+1){
+        background-color:lightgrey;
+        color:white;
+    }
+`;
+export const Td = styled.td`
+    font-family: Helvetica;
+    padding:5px;
+    &:nth-child(1){
+        border-radius:5px 0 0 5px;
+    }  
+    &:nth-child(3){
+        border-radius:0 5px 5px 0;
+    }
 `;

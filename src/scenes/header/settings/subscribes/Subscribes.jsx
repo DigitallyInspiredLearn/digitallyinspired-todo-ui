@@ -10,7 +10,7 @@ class Subscribes extends Component {
         };
     }
 
-    // componentWillMount = ({ actions } = this.props) => actions.fetchSubscribers();
+    componentWillMount = ({ actions } = this.props) => actions.fetchSubscribers();
 
     render() {
         const { actions, search, subscribers } = this.props;
@@ -28,10 +28,19 @@ class Subscribes extends Component {
                         this.onChangeDisplay('block');
                     }}
                 />
-                 {/*<label><input type="text" onClick={() => actions.fetchSubscribers()} /></label>*/}
-                {
-                    // subscribers.map(subscriber => <p>{subscriber}</p>)
-                }
+                <styled.TableSubscribers>
+                    <tr><th>Name</th><th>Username</th><th>Email</th></tr>
+                    {
+                        subscribers.map(subscriber => (
+                            <styled.Tr>
+                                <styled.Td>{subscriber.name}</styled.Td>
+                                <styled.Td>{subscriber.username}</styled.Td>
+                                <styled.Td>{subscriber.email}</styled.Td>
+                            </styled.Tr>
+                        ))
+                    }
+                </styled.TableSubscribers>
+
             </styled.Subscribes>
         );
     }
