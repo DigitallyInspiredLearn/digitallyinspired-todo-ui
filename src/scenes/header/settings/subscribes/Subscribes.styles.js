@@ -21,3 +21,12 @@ export const NotificationMessage = styled.p`
     color: #08088A;
     cursor: pointer;
 `;
+export const SearchInput = styled.input`
+    width:90%;
+    margin-left: 10px;
+    border-radius:5px 0 0 0 ;
+    padding-left:10px;
+    outline:none;
+    height:34px;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+`;
