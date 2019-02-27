@@ -9,7 +9,8 @@ export const Dashboard = styled.section`
     margin-bottom: 10px;
     border-radius: 5px;
     min-height: 300px;
-    height:auto;
+    max-height: 300px;
+    height: auto;
     transition: 500ms;
     animation: show 500ms 1;
     animation-fill-mode: forwards;
