@@ -15,7 +15,7 @@ export const Plus = styled.div`
     width: 50px;
     height: 50px;
     position: fixed;
-    z-index: 20;
+    z-index: 2;
     cursor: pointer;
     right: 15px;
     bottom: 10px;
@@ -99,7 +99,7 @@ export const AddTaskPlace = styled.div`
 `;
 export const Background = styled.div`
     width: 100%;
-    z-index: 20;
+    z-index: 10;
     flex-direction: row;
     background-color: #888888;
     opacity: 0.8;
@@ -107,6 +107,7 @@ export const Background = styled.div`
     height: 100%;
     position: fixed;
     left: 0;
+    top:0;
 `;
 export const Aside = styled.aside`
     display: flex;
@@ -122,13 +123,13 @@ export const Aside = styled.aside`
     z-index:  20;
     width: 30%;
 `;
-export const Sidebar= styled.div`
+export const Sidebar = styled.div`
     width: 100%;
     z-index: 2;
     position: absolute;
     height: 100%;
 `;
-export const TaskList= styled.div`
+export const TaskList = styled.div`
     max-height: 75%;
     overflow-y: auto;
     overflow-x: hidden;
