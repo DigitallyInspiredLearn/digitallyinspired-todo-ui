@@ -23,10 +23,15 @@ export const reducer = handleActions({
     [FETCH_SUBSCRIBERS_SUCCESS]: (state, action) => ({ ...state, subscribers: action.payload }),
 }, initialState);
 
-// function* searchUsersForFollowing(action) {
-//     const res = yield call();
-//     yield put(actions.fetchUser(res.data));
-// }
+function* searchUsers(action) {
+    const my = yield select(state => state.dashboard.myList);
+    const shared = yield select(state => state.dashboard.sharedList);
+    const allList = my.concat(shared).filter(list => list.todoListName.toLowerCase().includes(
+        action.payload.searchDashboards.toLowerCase(),
+    ));
+    yield put(actions.fetchDashboardSuccess(allList));
+}
+
 function* getSubscribers() {
     const res = yield call(getFollowers);
     yield put(actions.fetchSubscribersSuccess(res.data));

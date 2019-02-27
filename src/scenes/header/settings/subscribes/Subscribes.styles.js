@@ -31,7 +31,7 @@ export const TableSubscribers = styled.table`
     margin-left: 10px;
     margin-top: 10px;
     border-radius:5px;
-    height:200px;
+    height:100px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
     overflow: auto;
     font-family: Helvetica;
@@ -61,6 +61,5 @@ export const NullArray = styled.td`
     height:20px;
 `;
 export const NullTr = styled.tr`
-    background-color: gray;
-    color: white;
+    color: gray;
 `;
