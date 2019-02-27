@@ -72,8 +72,9 @@ export const Input = styled.input`
 
 export const SuccessButton = styled.p`
     outline:none;
-    width: 85%;
+    width: 90%;
     margin: 10px;
+    margin-top: 20px;
     
     &:hover {
          background-color: black;

@@ -37,6 +37,8 @@ export const Search = styled.input`
     display: flex;
     flex: auto;
     outline: none;
+    font-size: 1.1em;
+}
 `;
 
 export const IconSearch = styled.img`
