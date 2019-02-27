@@ -13,10 +13,8 @@ export const NotificationMessage = styled.p`
     font-weight: bold; 
     font-family: Helvetica;
     color: #2E2E2E;
-    &:hover {
-    color: #08088A;
-    cursor: pointer;
 `;
+
 export const SearchInput = styled.input`
     width: 97%;
     margin-left: 10px;
