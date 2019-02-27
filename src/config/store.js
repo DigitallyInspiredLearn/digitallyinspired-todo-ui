@@ -11,6 +11,7 @@ import { saga as popupSaga } from '../scenes/popup/duck';
 import loginPageSaga from '../scenes/login/duck';
 import { saga as profileSaga } from '../scenes/header/settings/profile/duck';
 import { saga } from '../scenes/dashboard/duck';
+import { saga as subscribeSaga } from '../scenes/header/settings/subscribes/duck';
 
 const persistConfig = {
     key: 'app',
@@ -30,6 +31,7 @@ function* rootSaga() {
         popupSaga(),
         followSaga(),
         profileSaga(),
+        subscribeSaga(),
     ]);
 }
 
