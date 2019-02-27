@@ -6,6 +6,7 @@ import { reducer as followUserReducer } from '../scenes/header/settings/followUs
 import { reducer as themeReducer } from '../scenes/header/settings/theme/duck';
 import { reducer as dashboardReducer } from '../scenes/dashboard/duck';
 import { reducer as listReducer } from '../scenes/list/duck';
+import { reducer as subscribeReducer } from '../scenes/header/settings/subscribes/duck';
 
 export const mainReducer = combineReducers({
     dashboard: dashboardReducer,
@@ -15,4 +16,5 @@ export const mainReducer = combineReducers({
     profile: profileReducer,
     followUser: followUserReducer,
     theme: themeReducer,
+    subscribe: subscribeReducer,
 });
