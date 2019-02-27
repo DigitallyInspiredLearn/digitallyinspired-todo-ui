@@ -5,8 +5,8 @@ export const Dashboard = styled.section`
     flex-direction: column;
     background-color: white;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
-    width: 49.6%;
-    margin-bottom: 10px;
+    width: 48.5%;
+    margin-bottom: 3%;
     border-radius: 5px;
     min-height: 300px;
     max-height: 300px;
@@ -58,6 +58,7 @@ export const Icon = styled.img`
     height: 22px;
     color: grey;
     opacity: 0.5; 
+    margin-right:5px;
 `;
 
 export const TaskList = styled.div`
