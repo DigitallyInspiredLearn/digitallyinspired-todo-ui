@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, select, delay,
@@ -120,6 +121,7 @@ function* fetchAllLists() {
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
+    // yield call(mutate);
 }
 
 function* deleteDashboard(action) {
@@ -169,16 +171,12 @@ function* addList(action) {
 }
 
 function* mutate(action) {
-    try {
-        const lists = yield select(state => state.dashboard.toDoBoard);
-        yield put(action.payload === ''
-            ? yield put(actions.fetchDashboardSuccess(lists))
-            : yield put(actions.fetchDashboardSuccess(lists.filter((list) => {
-                list.todoListName.toLowerCase().includes(action.payload.searchDashboards.toLowerCase());
-            }))));
-    } catch (e) {
-        console.error(e);
-    }
+    const my = yield select(state => state.dashboard.myList);
+    const shared = yield select(state => state.dashboard.sharedList);
+    const allList = my.concat(shared).filter(list => list.todoListName.toLowerCase().includes(
+        action.payload.searchDashboards.toLowerCase(),
+    ));
+    yield put(actions.fetchDashboardSuccess(allList));
 }
 
 function* shareList(action) {

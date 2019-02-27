@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for,react/button-has-type */
 // import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import './css/followersStyle.css';
 import * as styled from './FollowUser.styles';
 
 class FollowUser extends Component {
@@ -71,7 +70,7 @@ class FollowUser extends Component {
                     > to follow
                     </styled.SearchUserBtn>
                 </styled.SearchBlock>
-                <styled.Result style={{ display: displayMessage }}>{message}</styled.Result>
+                <styled.Result message={message} style={{ display: displayMessage }}>{message}</styled.Result>
             </styled.Follow>
         );
     }

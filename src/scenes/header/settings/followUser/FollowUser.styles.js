@@ -7,9 +7,11 @@ export const Follow = styled.div`
 `;
 
 export const Label = styled.div`
+    font-family: Helvetica;
     align-self: center;
     margin-top: 10px;
-    font-size: 32px;
+    font-size: 30px;
+    font-weight: bold;
 `;
 export const SearchBlock = styled.div`
     display: flex;
@@ -46,6 +48,7 @@ export const Result = styled.p`
     align-self: center;
     margin-top: 10px;
     font-size: 20px;
+    color: ${props => (props.message === 'You\'ll follow this user!' ? 'grey' : 'lightgrey')}
 `;
 
 export const SearchUserBtn = styled.div`
