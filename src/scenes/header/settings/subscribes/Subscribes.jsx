@@ -17,8 +17,7 @@ class Subscribes extends Component {
         const { displayMessage, display } = this.state;
         return (
             <styled.Subscribes>
-                <styled.Title>Subscribes</styled.Title>
-                <styled.NotificationMessage>Your subscribers list:</styled.NotificationMessage>
+                <styled.Title>Your subscribers list</styled.Title>
                 <styled.SearchInput
                     placeholder="Search user..."
                     type="text"

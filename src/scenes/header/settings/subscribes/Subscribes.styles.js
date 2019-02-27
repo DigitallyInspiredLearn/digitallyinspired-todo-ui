@@ -12,15 +12,7 @@ export const Title = styled.h2`
     font-weight: bold; 
     color: #2E2E2E;
 `;
-export const NotificationMessage = styled.p`
-    font-size: 24px;
-    color: #2E2E2E;
-    margin-top: 40px;
-    margin-left: 10px;
-    &:hover {
-    color: #08088A;
-    cursor: pointer;
-`;
+
 export const SearchInput = styled.input`
     width:95%;
     margin-left: 10px;
