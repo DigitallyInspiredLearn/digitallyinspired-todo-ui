@@ -36,7 +36,8 @@ export const TableSubscribers = styled.table`
     margin-top: 10px;
     border-radius:5px;
     width:96%;
-    height:200px;
+    max-height:200px;
+    height: auto;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
     overflow: auto;
 `;

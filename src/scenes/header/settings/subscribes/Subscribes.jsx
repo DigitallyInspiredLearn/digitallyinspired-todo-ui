@@ -29,12 +29,13 @@ class Subscribes extends Component {
                     }}
                 />
                 <styled.TableSubscribers>
+                    <tr><th>Name</th><th>Username</th><th>Email</th></tr>
                     {
                         subscribers.map(subscriber => (
                             <styled.Tr>
-                                <styled.Td>Name:{subscriber.name}</styled.Td>
-                                <styled.Td>Username:{subscriber.username}</styled.Td>
-                                <styled.Td>Email:{subscriber.email}</styled.Td>
+                                <styled.Td>{subscriber.name}</styled.Td>
+                                <styled.Td>{subscriber.username}</styled.Td>
+                                <styled.Td>{subscriber.email}</styled.Td>
                             </styled.Tr>
                         ))
                     }
