@@ -38,7 +38,6 @@ class Sidebar extends Component {
             todoListName: '',
             tasks: [{ body: '', isComplete: false }],
         });
-        console.log(this.state);
     };
 
     changeValueTitle = e => this.setState({ todoListName: e.target.value });
@@ -100,7 +99,7 @@ class Sidebar extends Component {
                                     <styled.InputTask
                                         type="text"
                                         placeholder={`Add ${i + 1} to-do`}
-                                        value={task.name}
+                                        value={task.body}
                                         onChange={this.changeValueName(i)}
                                     />
                                     <styled.TrashTask

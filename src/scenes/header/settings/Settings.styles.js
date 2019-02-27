@@ -90,14 +90,16 @@ export const TabContainerForComp = styled.nav`
 
 export const TabLabel = styled.label`
             background-color: ${p => p.selected && 'black'};
-            padding: 40px 20px 40px 0;
+            height: 25%;
+            padding: 40px 15px 0 0;
             color: white;
             font-size: 20px;
             font-weight: bold;
             text-align: center;
+            
             color: white;
             &:hover{
-            background-color: black;
+            background-color: ${p => p.selected ? 'black' : 'gray'};
         }
 `;
 
