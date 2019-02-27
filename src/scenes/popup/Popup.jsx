@@ -41,6 +41,7 @@ export class Popup extends Component {
                                     actionsBoard.shareList({idList: idList, userName: search});
                                     closePopup();
                                     actions.searchUser('');
+                                    alert("Successfully shared!");
                                 }}
                             >Ok
                             </styled.buttonCloSeOk>
