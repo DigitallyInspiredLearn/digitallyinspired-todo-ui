@@ -7,7 +7,7 @@ export const App = styled.div`
     flex: auto;
     width: 100%;
     height: 100vh;
-    overflow auto;
+    overflow: auto;
 `;
 export const SearchAndChecked = styled.div`
     display: flex;
@@ -26,7 +26,7 @@ export const SearchDiv = styled.div`
     flex: auto;
     background-color: white;
     height: auto;
-    min-height:15px;
+    min-height: 15px;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
     padding: 5px;
@@ -38,7 +38,7 @@ export const Search = styled.input`
     flex: auto;
     outline: none;
     font-size: 1.1em;
-}
+    
 `;
 
 export const IconSearch = styled.img`
@@ -78,7 +78,7 @@ export const DashboardList = styled.main`
     justify-content: space-between;
     align-content: flex-start;
     flex: auto;
-    margin:0 10px;
+    margin: 10px 10px;
     height: 100vh;
     @media (max-width: 600px) {
         flex-flow: column nowrap;
