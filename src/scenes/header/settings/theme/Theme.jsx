@@ -16,16 +16,16 @@ class Theme extends Component {
                 <styled.ThemeTitle>Theme selection</styled.ThemeTitle>
                 <styled.NewTheme>
                     <styled.BlockTheme>
-                        <styled.ImageTheme src={dayImage}/>
+                        <styled.ImageTheme src={dayImage} />
                         <styled.NameTheme>Day theme</styled.NameTheme>
                     </styled.BlockTheme>
                     <styled.BlockTheme>
-                        <styled.ImageTheme src={nightImage}/>
+                        <styled.ImageTheme src={nightImage} />
                         <styled.NameTheme>Night theme</styled.NameTheme>
                     </styled.BlockTheme>
                 </styled.NewTheme>
                 <styled.NewAddingTheme>
-                    <styled.PaintTheme src={paint}/>
+                    <styled.PaintTheme src={paint} />
                     <styled.TextTheme>Edit theme</styled.TextTheme>
                 </styled.NewAddingTheme>
             </styled.Theme>

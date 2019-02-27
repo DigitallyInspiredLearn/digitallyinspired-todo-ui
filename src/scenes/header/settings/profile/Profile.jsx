@@ -15,6 +15,8 @@ class Profile extends Component {
         };
     }
 
+    componentDidMount = () => this.props.actions.fetchCurrentUser();
+
     changeValueNewName = e => this.setState({ newName: e.target.value });
 
     changeValueNewUsername = e => this.setState({ newUsername: e.target.value });
@@ -26,7 +28,7 @@ class Profile extends Component {
     changeValueNewRepeatPassword = e => this.setState({ newRepeatPassword: e.target.value });
 
     render() {
-        const { currentUser, actions } = this.props;
+        const { currentUser, actions, toggleSettings } = this.props;
         const { newPassword, newRepeatPassword } = this.state;
         return (
             <styled.Profile>
@@ -37,7 +39,7 @@ class Profile extends Component {
                         <styled.DeleteButton
                             type="submit"
                             onClick={() => {
-                                this.props.toggleSettings();
+                                toggleSettings();
                                 actions.deleteProfile();
                             }}
                         >

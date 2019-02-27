@@ -31,7 +31,8 @@ export const DeleteButton = styled.button`
 `;
 
 export const Username = styled.p`
-        font-size: 15px;
+        font-size: 20px;
+        align-self: center;
         margin-left: 10px;
         font-weight: bold;
         color:gray;
@@ -39,6 +40,8 @@ export const Username = styled.p`
 `;
 
 export const Email = styled.p`
+        font-size: 20px;
+        align-self: center;
         margin-top: -10px;
         margin-left: 10px;
         color: darkgray;
@@ -55,10 +58,18 @@ export const Account = styled.p`
         cursor: default;
 `;
 
+export const EditProfile = styled.div`
+        display: flex;
+        flex-direction: center;
+        height: auto;
+        width: 100%;
+        font-weight: bold;
+`;
+
 export const ProfileValues = styled.div`
         display: flex;
         flex-direction: column;
-        margin-top:17px;
+        margin-top: 10px;
         width: 35%;
         height: auto;
         justify-content: flex-start;
@@ -124,12 +135,4 @@ export const SaveButton = styled.button`
         position:relative;
         top: 1px;
     }
-`;
-
-export const EditProfile = styled.div`
-        display: flex;
-        flex-direction: center;
-        height: auto;
-        width: 100%;
-        font-weight: bold;
 `;
