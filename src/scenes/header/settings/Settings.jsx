@@ -133,7 +133,7 @@ class Settings extends Component {
                                                 style={{ visibility: 'hidden' }}
                                                 onClick={() => this.handleSelectTab('subscribes')}
                                             />
-                                            Subscribe
+                                            Subscribers
                                         </styled.TabLabel>
                                         <styled.TabLabel selected={selectedTab === 'followers'}>
                                             <input
@@ -141,7 +141,7 @@ class Settings extends Component {
                                                 style={{ visibility: 'hidden' }}
                                                 onClick={() => this.handleSelectTab('followers')}
                                             />
-                                            Followers
+                                            Follow
                                         </styled.TabLabel>
                                     </styled.TabContainerForComp>
                                     <main>

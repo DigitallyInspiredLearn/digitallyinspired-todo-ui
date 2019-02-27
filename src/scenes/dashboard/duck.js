@@ -157,8 +157,8 @@ function* deleteTask(action) {
 }
 
 function* addNewTask(action) {
-    console.log(action);
-    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask });
+    console.log(action.payload);
+    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask, isComplete: false });
     yield call(fetchAllLists);
 }
 
