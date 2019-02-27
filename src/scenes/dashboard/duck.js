@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, select, delay,
@@ -121,7 +120,6 @@ function* fetchAllLists() {
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
-    // yield call(mutate);
 }
 
 function* deleteDashboard(action) {
