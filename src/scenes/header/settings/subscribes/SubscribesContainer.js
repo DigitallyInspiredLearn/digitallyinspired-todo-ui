@@ -6,6 +6,7 @@ import { actions } from './duck';
 
 const mapStateToProps = state => ({
     subscribers: state.subscribe.subscribers,
+    search: state.subscribe.search,
 });
 
 const mapDispatchToProps = dispatch => ({

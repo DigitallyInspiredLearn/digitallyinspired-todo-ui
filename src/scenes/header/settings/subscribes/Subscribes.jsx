@@ -2,30 +2,18 @@ import React, { Component } from 'react';
 import * as styled from './Subscribes.styles';
 
 class Subscribes extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            display: 'none',
-            displayMessage: 'none',
-        };
-    }
 
     componentWillMount = ({ actions } = this.props) => actions.fetchSubscribers();
 
     render() {
         const { actions, search, subscribers } = this.props;
-        const { displayMessage, display } = this.state;
         return (
             <styled.Subscribes>
                 <styled.NotificationMessage>Your subscribers</styled.NotificationMessage>
                 <styled.SearchInput
                     placeholder="Enter username..."
                     type="text"
-                    value={search}
-                    onClick={() => {
-                        this.setState({ displayMessage: 'none' });
-                        this.onChangeDisplay('block');
-                    }}
+                    onChange={(e) => { actions.searchSubscribers(e.target.value); }}
                 />
                 <styled.TableSubscribers>
                     <styled.NullTr>

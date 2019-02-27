@@ -12,8 +12,6 @@ class FollowUser extends Component {
         };
     }
 
-    onChangeDisplay = value => this.setState({ display: value });
-
     render() {
         const {
             actions, userNameList, search, message,
@@ -30,10 +28,7 @@ class FollowUser extends Component {
                             type="text"
                             value={search}
                             onChange={e => actions.searchUserForFollowing(e.target.value)}
-                            onClick={() => {
-                                this.setState({ displayMessage: 'none' });
-                                this.onChangeDisplay('block');
-                            }}
+                            onClick={() => this.setState({ displayMessage: 'none', display: 'block' })}
                         />
                         <styled.UsernameList>
                             <ul style={{ display }}>
@@ -64,8 +59,7 @@ class FollowUser extends Component {
                         onClick={() => {
                             actions.searchUserForFollowing('');
                             search && actions.followUser(search);
-                            this.onChangeDisplay('none');
-                            this.setState({ displayMessage: 'block' });
+                            this.setState({ displayMessage: 'block', display: 'none' });
                         }}
                     > to follow
                     </styled.SearchUserBtn>
