@@ -48,4 +48,13 @@ export const Burger = styled.img`
     height: 30px;
     margin-top: 10px;
     margin-left: 10px;
+    cursor: pointer;
+`;
+
+export const Logout = styled.img`
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
 `;
