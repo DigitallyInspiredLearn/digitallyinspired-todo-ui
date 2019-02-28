@@ -30,13 +30,13 @@ class DashboardList extends Component {
                             onClick={() => actions.updateSelectedMyLists(!selectedMy)}
                             style={{ marginRight: '10px' }}
                         >
-                            <span>Show my</span>
+                            Show my
                         </styled.ShowButton>
                         <styled.ShowButton
                             checked={selectedShared}
                             onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
                         >
-                            <span>Show shared</span>
+                            Show shared
                         </styled.ShowButton>
                     </styled.CheckboxDiv>
                 </styled.SearchAndChecked>
