@@ -28,7 +28,7 @@ class DashboardList extends Component {
                         <styled.ShowButton
                             checked={selectedMy}
                             onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                            style={{ marginRight: '5px' }}
+                            style={{ marginRight: '10px' }}
                         >
                             <span>Show my</span>
                         </styled.ShowButton>

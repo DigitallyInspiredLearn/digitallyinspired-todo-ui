@@ -1,17 +1,17 @@
 import { createAction, handleActions } from 'redux-actions';
-
-export const TOGGLE_THEME = 'settings/theme/TOGGLE_THEME';
+import theme from '../../../../config/theme';
+export const CHANGE_THEME = 'settings/theme/CHANGE_THEME';
 
 
 export const actions = {
-    toggleTheme: createAction(TOGGLE_THEME),
+    changeTheme: createAction(CHANGE_THEME),
 };
 
 const initialState = {
     type: 'day',
+    data: theme.day,
 };
 
 export const reducer = handleActions({
-    [TOGGLE_THEME]: state => ({ ...state, type: state.type === 'day' ? 'night' : 'day' }),
-
+    [CHANGE_THEME]: (state, { payload }) => ({ ...state, type: payload, data: theme[payload] }),
 }, initialState);

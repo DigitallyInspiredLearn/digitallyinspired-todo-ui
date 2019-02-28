@@ -107,7 +107,6 @@ export const reducer = handleActions({
     [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
     [SELECTED_SHARED_LISTS]: (state, action) => ({ ...state, selectedShared: action.payload }),
     [SEARCH_DASHBOARD]: (state, action) => ({ ...state, searching: action.payload }),
-    [MUTATE_DASHBOARD]: (state, action) => ({ ...state, mutateData: action.payload }),
 }, initialState);
 
 function* fetchAllLists() {
@@ -157,13 +156,11 @@ function* deleteTask(action) {
 }
 
 function* addNewTask(action) {
-    console.log(action.payload);
     yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask, isComplete: false });
     yield call(fetchAllLists);
 }
 
 function* addList(action) {
-    console.log(action.payload);
     yield call(addDashboard, action.payload);
     yield call(fetchAllLists);
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import logo from '../../image/logo_di.svg';
 import Settings from './settings/Settings';
 import list from '../../image/list-menu.svg';
 import * as styled from './Component.styles';
-import theme from '../../config/theme';
 
 class Container extends Component {
     constructor(props) {
@@ -20,9 +20,9 @@ class Container extends Component {
 
     render() {
         const { visible } = this.state;
-        const { children } = this.props;
+        const { children, data } = this.props;
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={data}>
                 <styled.Container>
                     <styled.Header>
                         <styled.Logo src={logo} alt="logo" />
@@ -47,4 +47,8 @@ Container.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export default Container;
+const mapStateToProps = state => ({
+    data: state.theme.data,
+});
+
+export default connect(mapStateToProps)(Container);
