@@ -1,6 +1,14 @@
 export default {
-    color: {
-        white: 'white',
-        black: 'black',
+    day: {
+        color: {
+            white: 'white',
+            black: 'black',
+        },
+    },
+    night: {
+        color: {
+            white: 'black',
+            black: 'white',
+        },
     },
 };
