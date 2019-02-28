@@ -8,10 +8,12 @@ import { safeTakeEvery } from '../../../helpers/saga';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGOUT = 'LOGOUT';
 
 export const actions = {
     login: createAction(LOGIN),
     loginSuccess: createAction(LOGIN_SUCCESS),
+    logout: createAction(LOGOUT),
 };
 
 const initialState = {
@@ -47,7 +49,17 @@ function* rehydrateSaga() {
     yield call(setDefaultApiToken, token);
 }
 
+function* logout() {
+    yield put(actions.loginSuccess({
+        user: '',
+        token: '',
+    }));
+    yield call(setDefaultApiToken, '');
+    history.replace('/auth');
+}
+
 export function* saga() {
     yield safeTakeEvery(LOGIN, authorization);
     yield safeTakeEvery('persist/REHYDRATE', rehydrateSaga);
+    yield safeTakeEvery(LOGOUT, logout);
 }
