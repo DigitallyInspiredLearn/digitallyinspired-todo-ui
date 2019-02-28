@@ -8,6 +8,7 @@ import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
 import * as styledPopup from '../popup/Popup.styles';
+import * as styledDashboard from '../dashboard/DashboardList.styles';
 
 
 class OneList extends Component {
@@ -34,7 +35,7 @@ class OneList extends Component {
     render() {
         const { valueNewTask } = this.state;
         const {
-            match, actions, data, actionsBoard, todo,
+            match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
         return (
             <styled.List>
@@ -62,18 +63,34 @@ class OneList extends Component {
                         title="download"
                     />
                 </styled.inputBlock>
-                <styled.inputBlock>
-                    <styled.searchToDo
-                        type="text"
-                        placeholder="Search to-do"
-                        onChange={e => actions.changeSearch({
-                            idDashboard: match.params.id,
-                            search: e.target.value,
-                        })}
-                    />
-                    <styledPopup.btnSearch className="fa fa-search fa-2x" />
-                </styled.inputBlock>
                 <styled.blockTask>
+                    <styled.inputDiv>
+                        <styled.searchToDo
+                            type="text"
+                            placeholder="Search to-do"
+                            onChange={e => actions.changeSearch({
+                                idDashboard: match.params.id,
+                                search: e.target.value,
+                            })}
+                        />
+                        <styledPopup.btnSearch className="fa fa-search fa-2x" />
+                        <styledDashboard.CheckboxDiv>
+                            <styledDashboard.ShowButton
+                                checked={notDone}
+                                onClick={() => actions.selectedNotDoneAction(notDone)}
+                                style={{ marginRight: '5px', borderRadius: 0}}
+                            >
+                                not done
+                            </styledDashboard.ShowButton>
+                            <styledDashboard.ShowButton
+                                checked={done}
+                                onClick={() => actions.selectDoneAction(done)}
+                                style={{ borderRadius: '0 5px 5px 0' }}
+                            >
+                                done
+                            </styledDashboard.ShowButton>
+                        </styledDashboard.CheckboxDiv>
+                    </styled.inputDiv>
                     <div>
                         {
                             data.tasks && (data.tasks.length === 0

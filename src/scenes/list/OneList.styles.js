@@ -55,17 +55,28 @@ export const titleNameOneList = styled.input`
     text-overflow: ellipsis;
 `;
 
+export const inputDiv = styled.main`
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    padding:10px 0 10px 10px ;
+    border-radius: 5px;
+    box-shadow: 0 0  10px 0  rgba(0,0,0,0.2);
+    height: 40px;
+    align-items: center;
+    width:auto;
+`;
 export const searchToDo = styled.input`
-    width: 97%;
-    font-size: 20px;
-    margin-left: 10px;
+    display: flex;
+    flex: auto;
     outline: none;
+    font-size: 18px;
+    padding-left: 10px;
     cursor: pointer;
 `;
 
 export const blockTask = styled.article`
     display: flex;
-    flex:auto;
     flex-direction: column;
     align-content: space-between;
     background-color: white;
@@ -86,7 +97,6 @@ export const blockTask = styled.article`
 export const addNewTask = styled.input`
     font-size: 24px;
     margin: 10px;
-
     outline: none;
 `;
 

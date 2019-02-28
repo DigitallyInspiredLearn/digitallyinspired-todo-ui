@@ -1,8 +1,12 @@
 /* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
-import { call, put, delay } from 'redux-saga/effects';
+import {
+    call, put, delay, select,
+} from 'redux-saga/effects';
 import getOneList from '../../api/list';
-import { updateList, deleteList } from '../../api/dashboard';
+import {
+    updateList, deleteList, getMyList, getSharedLists,
+} from '../../api/dashboard';
 import { addTask, deleteTask, updateTask } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 
@@ -16,7 +20,8 @@ export const ADD_TASK_LIST = 'list/ADD_TASK_LIST';
 export const DELETE_TASK_LIST = 'list/DELETE_TASK_LIST';
 export const DELETE_LIST = 'list/DELETE_LIST';
 export const UPDATE_CHECKBOX_LIST = 'list/UPDATE_CHECKBOX_LIST';
-
+export const SELECTED_DONE = 'list/SELECTED_DONE';
+export const SELECTED_NOT_DONE = 'list/SELECTED_NOT_DONE';
 
 export const actions = {
     fetchList: createAction(FETCH_LIST),
@@ -29,11 +34,15 @@ export const actions = {
     addTaskList: createAction(ADD_TASK_LIST),
     deleteList: createAction(DELETE_LIST),
     deleteTaskList: createAction(DELETE_TASK_LIST),
+    selectDoneAction: createAction(SELECTED_DONE),
+    selectedNotDoneAction: createAction(SELECTED_NOT_DONE),
 };
 
 const initialState = {
     data: {},
     search: '',
+    selectedDone: true,
+    selectedNotDone: true,
 };
 export const reducer = handleActions({
 
@@ -69,12 +78,26 @@ export const reducer = handleActions({
     }),
 
     [SEARCH_TASK]: (state, action) => ({ ...state, search: action.payload }),
+    [SELECTED_DONE]: (state, action) => ({ ...state, selectedDone: !action.payload }),
+    [SELECTED_NOT_DONE]: (state, action) => ({ ...state, selectedNotDone: !action.payload }),
 
 }, initialState);
 
+// function* fetchList(action) {
+//     const r = yield call(getOneList, action.payload);
+//     yield put(actions.fetchListSuccess(r.data));
+// }
+
 function* fetchList(action) {
+    const { selectedDone, selectedNotDone } = yield select(state => state.list);
     const r = yield call(getOneList, action.payload);
-    yield put(actions.fetchListSuccess(r.data));
+    const allTasks = r.data.tasks;
+    console.log(selectedDone, selectedNotDone, allTasks);
+    const doneTask = selectedDone ? allTasks.filter(task => task.isComplete === true) : [];
+    const notDoneTask = selectedNotDone ? allTasks.filter(task => task.isComplete === false) : [];
+    const all = doneTask.concat(notDoneTask);
+    console.log(all, action.payload);
+    yield put(actions.fetchListSuccess(all));
 }
 
 function* updateTitle(action) {
@@ -131,7 +154,7 @@ function* fetchUpdateCheckbox(action) {
     console.log(list);
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
-        isComplete: !action.payload.selected
+        isComplete: !action.payload.selected,
     });
     const r = yield call(getOneList, action.payload.idDashboard);
     yield put(actions.fetchListSuccess(r.data));
@@ -139,6 +162,8 @@ function* fetchUpdateCheckbox(action) {
 
 export function* saga() {
     yield safeTakeEvery(FETCH_LIST, fetchList);
+    yield safeTakeEvery(SELECTED_NOT_DONE, fetchList);
+    yield safeTakeEvery(SELECTED_DONE, fetchList);
     yield safeTakeEvery(SEARCH_TASK, fetchChangeSearch);
     yield safeTakeEvery(ADD_TASK_LIST, addNewTask);
     yield safeTakeEvery(DELETE_LIST, fetchDeleteList);
