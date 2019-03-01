@@ -8,6 +8,8 @@ import OneList from './OneList';
 const mapStateToProps = state => (
     {
         data: state.list.data,
+        done: state.list.selectedDone,
+        notDone: state.list.selectedNotDone,
         todo: state.dashboard.toDoBoard,
     }
 );
@@ -22,6 +24,8 @@ const mapDispatchToProps = dispatch => ({
         deleteList: actions.deleteList,
         deleteTaskList: actions.deleteTaskList,
         updateCheckboxList: actions.updateCheckboxList,
+        selectDoneAction: actions.selectDoneAction,
+        selectedNotDoneAction: actions.selectedNotDoneAction,
     }, dispatch),
     actionsBoard: bindActionCreators({
         onBlurs: actionsBoard.updateTitleSuccess,

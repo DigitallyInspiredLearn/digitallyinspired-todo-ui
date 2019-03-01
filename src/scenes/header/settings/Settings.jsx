@@ -146,7 +146,7 @@ class Settings extends Component {
                                     </styled.TabContainerForComp>
                                     <main>
                                         {selectedTab === 'profile'
-                                        && <Profile toggleSettings={this.props.toggleSettings} />}
+                                        && <Profile toggleSettings={toggleSettings} />}
                                         {selectedTab === 'theme' && <Theme />}
                                         {selectedTab === 'subscribes' && <Subscribes />}
                                         {selectedTab === 'followers' && <FollowUser />}

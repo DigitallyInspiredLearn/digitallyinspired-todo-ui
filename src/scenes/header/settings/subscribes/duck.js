@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { safeTakeEvery } from '../../../../helpers/saga';
 import { getFollowers } from '../../../../api/userController';
 
@@ -23,16 +23,20 @@ export const reducer = handleActions({
     [FETCH_SUBSCRIBERS_SUCCESS]: (state, action) => ({ ...state, subscribers: action.payload }),
 }, initialState);
 
-// function* searchUsersForFollowing(action) {
-//     const res = yield call();
-//     yield put(actions.fetchUser(res.data));
-// }
+function* searchUsers(action) {
+    const subscribers = yield select(state => state.subscribe.subscribers);
+    const mutateData = subscribers.filter(subscriber => subscriber.username.toLowerCase().includes(
+        action.payload.toLowerCase(),
+    ));
+    yield put(actions.fetchSubscribersSuccess(mutateData));
+}
+
 function* getSubscribers() {
     const res = yield call(getFollowers);
     yield put(actions.fetchSubscribersSuccess(res.data));
-    console.log(res.data);
 }
 
 export function* saga() {
     yield safeTakeEvery(FETCH_SUBSCRIBERS, getSubscribers);
+    yield safeTakeEvery(SEARCH_SUBSCRIBERS, searchUsers);
 }
