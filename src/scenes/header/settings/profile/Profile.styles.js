@@ -115,10 +115,10 @@ export const SaveButton = styled.button`
         border-radius:6px;
         border: none;
         align-self: flex-end;
-        cursor:pointer;
-        color:white;
+        cursor: pointer;
+        color: white;
         font-size: 15px;
-        font-weight:bold;
+        font-weight: bold;
         width: 6%;
         height: 8%;
         margin-left: 25%;

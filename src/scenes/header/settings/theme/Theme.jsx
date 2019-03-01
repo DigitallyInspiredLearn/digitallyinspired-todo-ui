@@ -58,18 +58,87 @@ class Theme extends Component {
                 <styled.ColumnContainer>
                     <styled.ColumnTitle>Properties</styled.ColumnTitle>
                     <styled.Row>
-                        <styled.Text>Base color:</styled.Text>
+                        <styled.Text>Background:</styled.Text>
                         <styled.Input
-                            onChange={e => this.handleDataChange('baseColor', e.target.value)}
-                            value={data.baseColor}
+                            onChange={e => this.handleDataChange('background', e.target.value)}
+                            value={data.background}
                         />
-
                     </styled.Row>
                     <styled.Row>
-                        <styled.Text>Secondary color:</styled.Text>
+                        <styled.Text>Main Text:</styled.Text>
                         <styled.Input
-                            onChange={e => this.handleDataChange('secondaryColor', e.target.value)}
-                            value={data.secondaryColor}
+                            onChange={e => this.handleDataChange('mainText', e.target.value)}
+                            value={data.mainText}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Background List:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('backgroundList', e.target.value)}
+                            value={data.backgroundList}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Background Header:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('backgroundHeader', e.target.value)}
+                            value={data.backgroundHeader}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Text Header:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('textHeader', e.target.value)}
+                            value={data.textHeader}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Background Button:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('backgroundButton', e.target.value)}
+                            value={data.backgroundButton}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Hover Button:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('hoverButton', e.target.value)}
+                            value={data.hoverButton}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Active Button:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('activeButton', e.target.value)}
+                            value={data.activeButton}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Button Text:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('buttonText', e.target.value)}
+                            value={data.buttonText}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Active Button Text:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('activeButtonText', e.target.value)}
+                            value={data.activeButtonText}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Checkbox Background:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('checkboxBackground', e.target.value)}
+                            value={data.checkboxBackground}
+                        />
+                    </styled.Row>
+                    <styled.Row>
+                        <styled.Text>Active Checkbox:</styled.Text>
+                        <styled.Input
+                            onChange={e => this.handleDataChange('activeCheckbox', e.target.value)}
+                            value={data.activeCheckbox}
                         />
                     </styled.Row>
                     <styled.ApplyButton
