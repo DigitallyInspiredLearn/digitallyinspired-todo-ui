@@ -15,7 +15,7 @@ class Profile extends Component {
         };
     }
 
-    componentDidMount = () => this.props.actions.fetchCurrentUser();
+   // componentDidMount = () => this.props.actions.fetchCurrentUser();
 
     changeValueNewName = e => this.setState({ newName: e.target.value });
 
