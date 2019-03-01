@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import theme from '../../../../config/theme';
-export const CHANGE_THEME = 'settings/theme/CHANGE_THEME';
 
+export const CHANGE_THEME = 'settings/theme/CHANGE_THEME';
 
 export const actions = {
     changeTheme: createAction(CHANGE_THEME),
