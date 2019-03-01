@@ -1,5 +1,5 @@
-/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
+import theme from '../../config/theme';
 
 export const App = styled.div`
     display: flex;
@@ -60,7 +60,7 @@ export const ShowButton = styled.div`
     border-radius: 5px;
     background-color: ${props => (props.checked ? 'black' : 'lightgray')};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
-    color: ${props => (props.checked ? 'white' : 'black')};
+    color: ${props => (props.checked ? theme.day.activeButtonText : theme.day.buttonText)};
     height: auto;
     min-height:15px;
     font-weight: bold;
@@ -93,4 +93,3 @@ export const NullLenghtDashboards = styled.p`
     color: darkgray;
     margin: auto;
 `;
-
