@@ -1,14 +1,10 @@
 export default {
     day: {
-        color: {
-            white: 'white',
-            black: 'black',
-        },
+        baseColor: 'white',
+        secondaryColor: 'black',
     },
     night: {
-        color: {
-            white: 'black',
-            black: 'white',
-        },
+        baseColor: 'black',
+        secondaryColor: 'white',
     },
 };
