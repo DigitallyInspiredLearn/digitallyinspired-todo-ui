@@ -5,6 +5,7 @@ export const Container = styled.div`
    flex-direction: column;
    height:100vh;
    width:100%;
+   background-color: ${p => p.theme.background};
    input{
          border: none;
          background-color: inherit;
@@ -18,7 +19,7 @@ export const Header = styled.header`
     padding:10px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
     z-index:1;
-    background-color: white;
+    background-color: ${ p => p.theme.backgroundHeader };
     & > b{
         font-size: 42px;
     }
@@ -34,7 +35,7 @@ export const Line = styled.div`
     display: flex;
     flex:auto;
     margin-top: 25px;
-    background-color: black;
+    background-color: ${ p => p.theme.textHeader };
     animation: ${transition} 700ms 1;
 `;
 
