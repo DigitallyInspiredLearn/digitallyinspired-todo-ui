@@ -10,9 +10,8 @@ export default {
         activeButton: '#000000',
         buttonText: '#000000',
         activeButtonText: '#FFFFFF',
-        secondaryColor: 'black',
         checkboxBackground: '#FFFFFF',
-        activeCheckbox: '#000000'
+        activeCheckbox: '#000000',
     },
     night: {
         background: '#26272F',
@@ -25,8 +24,7 @@ export default {
         activeButton: '#000000',
         buttonText: '#A9A9A9',
         activeButtonText: '#A9A9A9',
-        secondaryColor: 'white',
         checkboxBackground: '#A9A9A9',
-        activeCheckbox: '#000000'
+        activeCheckbox: '#000000',
     },
 };

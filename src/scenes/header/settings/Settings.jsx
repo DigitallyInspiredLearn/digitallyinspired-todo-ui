@@ -28,6 +28,10 @@ class Settings extends Component {
         });
     }
 
+    handlerOnClick = (e) => {
+        e.target.blur();
+    };
+
     closeSetting = () => {
         this.props.visible = false;
     }

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../../config/theme';
 
 export const App = styled.div`
     display: flex;
@@ -16,7 +15,8 @@ export const SearchAndChecked = styled.div`
     margin:1% 10px 3% 10px;
     justify-content: space-between;
     @media (max-width: 600px) {
-        flex-direction: column-reverse; min-height: 60px;
+        flex-direction: column-reverse;
+        min-height: 60px;
     }
 `;
 
@@ -48,7 +48,7 @@ export const Search = styled.input`
 export const IconSearch = styled.img`
     width:30px;
     height:30px;
-    color: ${ p => p.theme.mainText };
+    color: ${p => p.theme.mainText};
 `;
 export const CheckboxDiv = styled.div`
     display: flex;
@@ -66,7 +66,7 @@ export const ShowButton = styled.div`
     min-height:15px;
     font-weight: bold;
     &:hover{
-        background-color: ${ p => (p.checked ? p.theme.hoverButton : p.theme.backgroundButton)};
+        background-color: ${p => (p.checked ? p.theme.hoverButton : p.theme.backgroundButton)};
     }
     width: auto;
     padding: 15px 5px;
@@ -91,6 +91,6 @@ export const DashboardList = styled.main`
 `;
 
 export const NullLenghtDashboards = styled.p`
-    color: ${ p => p.theme.mainText };
+    color: ${p => p.theme.mainText};
     margin: auto;
 `;

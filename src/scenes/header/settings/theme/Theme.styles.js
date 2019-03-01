@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Theme = styled.div`
     display: flex;   
     width: 100%;
+    justify-content: space-around;
 `;
 
 export const ColumnContainer = styled.div`
@@ -20,20 +21,23 @@ export const ColumnTitle = styled.div`
 
 export const Row = styled.div`
     display: flex;
-
     justify-content: space-between;
+    height: 24px;
+    margin-top: 8px;
 `;
 
 export const Text = styled.p`
     font-size: 14px;
     color: #2E2E2E;
-
+    align-self: center;
 `;
 
 export const Input = styled.input`
     border: 1px solid black !important;
-    height: 32px;
-    width: 150px;
+    height: 16px;
+    width: 120px;
+    margin-left: 8px;
+    align-self: center;
 `;
 
 export const ThemeTitle = styled.div`
@@ -56,7 +60,6 @@ export const BlockTheme = styled.div`
     display: flex;
     flex-direction: column;  
     max-width: 380px;
-    margin: 10px 20px;
 `;
 
 export const NewAddingTheme = styled.div`
@@ -68,10 +71,12 @@ export const NewAddingTheme = styled.div`
 `;
 
 export const ImageTheme = styled.img`
-    width: 95%;
-    height: 97%;
+    width: 70%;
+    height: 70%;
     border-radius: 10px;
     margin: 20px 0;
+    cursor: pointer;
+    align-self: center;
 `;
 
 export const NameTheme = styled.span`
@@ -79,8 +84,8 @@ export const NameTheme = styled.span`
     font-size: 20px;
     color: #2E2E2E;
     &:hover {
-    color: #08088A;
-    cursor: pointer;
+        color: #08088A;
+        cursor: pointer;
     }
 `;
 
@@ -102,6 +107,28 @@ export const TextTheme = styled.span`
 `;
 
 export const ApplyButton = styled.button`
-    width: 150px;
-    
+    background-color: gray;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:6px;
+    border: none;
+    margin-top: 16px;
+    align-self: center;
+    text-decoration:none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 20%;
+    height: 8%;
+
+    &:hover {
+        background-color:black;
+    }
+
+    &:active {
+        position:relative;
+        top: 1px;
+    }
 `;
