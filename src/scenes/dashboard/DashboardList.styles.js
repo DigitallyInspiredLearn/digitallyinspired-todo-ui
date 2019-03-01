@@ -31,7 +31,6 @@ export const SearchDiv = styled.div`
     border-radius: 5px;
     padding:15px 5px;
     align-items: center;
-    opacity: 0.7;
     @media (max-width: 600px) {
         padding: 5px;   
      }
