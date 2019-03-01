@@ -10,6 +10,7 @@ import './api/dashboard';
 import history from './config/history';
 import { store, persistor } from './config/store';
 
+
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>

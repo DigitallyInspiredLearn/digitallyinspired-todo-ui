@@ -6,7 +6,7 @@ export const Task = styled.div`
     position:relative;
     &:before{ 
           content: '';
-          background-color: whitesmoke;
+          background-color: ${ p => p.theme.background };
           z-index: -1;
           position:absolute;
           width: 0;
@@ -32,13 +32,13 @@ export const CheckboxTask = styled.div`
      height: 15px;
      margin-top: 3px
      margin-left: 10px
-     background: ${props => (props.selected ? 'black' : 'white')};
+     background: ${p => (p.selected ? p.theme.activeCheckbox : p.theme.checkboxBackground)};
      border-radius: 3px;
      position:relative;
-     border:  ${props => (props.selected ? 'black solid 2px' : 'gray solid 2px')};
+     border:  ${p => (p.selected ? 'black solid 2px' : 'gray solid 2px')};
      &:before{ 
           content: '\\2714';
-          color: white;
+          color: ${p => p.theme.checkboxBackground};
           bottom:-3px;
           left:1px;
           position:absolute;
