@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Dashboard = styled.section`
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: ${ p => p.theme.backgroundList };
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
     width: 48.5%;
     margin-bottom: 3%;
@@ -38,7 +38,7 @@ export const DashboardHeader = styled.div`
 
 export const Title = styled.input`
     font-size: 23px;
-    color: black;
+    color: ${ p => p.theme.mainText };
     font-weight: bold;
     text-overflow: ellipsis;
     cursor: pointer;
@@ -56,7 +56,7 @@ export const IconContainer = styled.div`
 export const Icon = styled.img`
     width: 25px;
     height: 22px;
-    color: grey;
+    color: ${ p => p.theme.mainText };
     opacity: 0.5; 
     margin-right:5px;
 `;
@@ -79,7 +79,7 @@ export const TaskList = styled.div`
          background: grey; 
     }
     margin-right: 10px;
-    border: 2px solid rgba(241,241,241,0.2)
+    // border: 2px solid rgba(241,241,241,0.2)
 `;
 
 export const InputAddingTask = styled.input`
@@ -92,7 +92,7 @@ export const InputAddingTask = styled.input`
 `;
 
 export const NullLenghtTask = styled.p`
-     color: gray;
+     color: ${ p => p.theme.mainText };
      margin: 10px;
      opacity: 0.6
 `;

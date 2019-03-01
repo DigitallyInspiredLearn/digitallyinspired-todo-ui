@@ -24,16 +24,18 @@ export const SearchDiv = styled.div`
     display: flex;
     flex-direction:row;
     flex: auto;
-    background-color: white;
+    background-color: ${p => p.theme.backgroundList};
     height: auto;
     min-height: 15px;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
     padding:15px 5px;
     align-items: center;
+    opacity: 0.7;
     @media (max-width: 600px) {
         padding: 5px;   
      }
+     
 `;
 
 export const Search = styled.input`
@@ -47,7 +49,7 @@ export const Search = styled.input`
 export const IconSearch = styled.img`
     width:30px;
     height:30px;
-    color:grey;
+    color: ${ p => p.theme.mainText };
 `;
 export const CheckboxDiv = styled.div`
     display: flex;
@@ -58,14 +60,14 @@ export const CheckboxDiv = styled.div`
 
 export const ShowButton = styled.div`
     border-radius: 5px;
-    background-color: ${props => (props.checked ? 'black' : 'lightgray')};
+    background-color: ${p => (p.checked ? p.theme.activeButton : p.theme.backgroundButton)};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
-    color: ${props => (props.checked ? theme.day.activeButtonText : theme.day.buttonText)};
+    color: ${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)};
     height: auto;
     min-height:15px;
     font-weight: bold;
     &:hover{
-        background-color: ${props => (props.checked ? 'black' : 'gray')};
+        background-color: ${ p => (p.checked ? p.theme.hoverButton : p.theme.backgroundButton)};
     }
     width: auto;
     padding: 15px 5px;
@@ -90,6 +92,6 @@ export const DashboardList = styled.main`
 `;
 
 export const NullLenghtDashboards = styled.p`
-    color: darkgray;
+    color: ${ p => p.theme.mainText };
     margin: auto;
 `;
