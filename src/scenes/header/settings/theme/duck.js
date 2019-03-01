@@ -13,5 +13,5 @@ const initialState = {
 };
 
 export const reducer = handleActions({
-    [CHANGE_THEME]: (state, { payload }) => ({ ...state, type: payload, data: theme[payload] }),
+    [CHANGE_THEME]: (state, { payload }) => ({ ...state, ...payload }),
 }, initialState);

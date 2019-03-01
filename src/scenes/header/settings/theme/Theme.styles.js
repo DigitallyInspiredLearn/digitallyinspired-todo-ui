@@ -1,16 +1,45 @@
 import styled from 'styled-components';
 
 export const Theme = styled.div`
-    display: flex;
-    flex-direction: column;    
+    display: flex;   
     width: 100%;
 `;
 
-export const ThemeTitle = styled.div`
+export const ColumnContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const ColumnTitle = styled.div`
     font-size: 30px;
     align-self: center;
     font-weight: bold; 
     color: #2E2E2E;
+    border-bottom: 1px solid grey; 
+`;
+
+export const Row = styled.div`
+    display: flex;
+
+    justify-content: space-between;
+`;
+
+export const Text = styled.p`
+    font-size: 14px;
+    color: #2E2E2E;
+
+`;
+
+export const Input = styled.input`
+    border: 1px solid black !important;
+    height: 32px;
+    width: 150px;
+`;
+
+export const ThemeTitle = styled.div`
+    font-size: 30px;
+    color: #2E2E2E;
+    
 `;
 
 export const NewTheme = styled.div`
@@ -72,3 +101,7 @@ export const TextTheme = styled.span`
     }
 `;
 
+export const ApplyButton = styled.button`
+    width: 150px;
+    
+`;

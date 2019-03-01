@@ -65,7 +65,7 @@ export const ShowButton = styled.div`
     min-height:15px;
     font-weight: bold;
     &:hover{
-        background-color: ${props => (props.checked ? props.theme.color.black : 'gray')};
+        background-color: ${props => (props.checked ? 'black' : 'gray')};
     }
     width: auto;
     padding: 15px 5px;
