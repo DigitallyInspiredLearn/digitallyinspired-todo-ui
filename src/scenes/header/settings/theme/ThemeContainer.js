@@ -12,7 +12,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         changeTheme: actions.changeTheme,
-        
     }, dispatch),
 });
 

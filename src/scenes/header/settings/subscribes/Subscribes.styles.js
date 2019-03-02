@@ -6,13 +6,13 @@ export const Subscribes = styled.div`
     width: 100%;
     height 100%;
 `;
-
-export const NotificationMessage = styled.p`
-    font-size: 30px;
-    align-self: center;
-    font-weight: bold; 
+export const Title = styled.div`
     font-family: Helvetica;
-    color: #2E2E2E;
+    align-self: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: bold;
 `;
 
 export const SearchInput = styled.input`

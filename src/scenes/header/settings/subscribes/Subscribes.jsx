@@ -9,7 +9,7 @@ class Subscribes extends Component {
         const { actions, search, subscribers } = this.props;
         return (
             <styled.Subscribes>
-                <styled.NotificationMessage>Your subscribers</styled.NotificationMessage>
+                <styled.Title> Your subscribers list</styled.Title>
                 <styled.SearchInput
                     placeholder="Enter username..."
                     type="text"
