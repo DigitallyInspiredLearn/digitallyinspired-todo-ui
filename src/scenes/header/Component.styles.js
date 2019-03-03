@@ -22,7 +22,14 @@ export const Header = styled.header`
     background-color: ${ p => p.theme.backgroundHeader };
     & > b{
         font-size: 42px;
+        color: ${ p => p.theme.textHeader };
     }
+`;
+
+export const Logo = styled.svg`
+    width: 50px;
+    height: 46px;
+    fill: ${ p => p.theme.textHeader };
 `;
 
 const transition = keyframes`
@@ -37,11 +44,6 @@ export const Line = styled.div`
     margin-top: 25px;
     background-color: ${ p => p.theme.textHeader };
     animation: ${transition} 700ms 1;
-`;
-
-export const Logo = styled.img`
-    width: 50px;
-    height: 46px;
 `;
 
 export const Burger = styled.img`

@@ -40,6 +40,7 @@ export const Title = styled.h2`
      width: auto;
      margin:15px auto;
      cursor: default;
+     color: ${p => p.theme.textHeader};
  `;
 
 export const EnterInformation = styled.div`
@@ -77,18 +78,19 @@ export const SuccessButton = styled.p`
     margin-top: 20px;
     
     &:hover {
-         background-color: black;
+         background-color: ${p => p.theme.hoverButton};
+         color: white;
     }
     
     &:disabled {
-        background-color: darkgrey;
+        background-color: ${p => p.theme.activeButton};
         cursor: pointer;
     }
     
     text-align: center;
     font-size: 15px;
-    color: white;
-    background: darkgrey;
+    color: activeButton;
+    background: ${p => p.theme.backgroundButton};
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -102,7 +104,7 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: white;
+    background: ${p => p.theme.backgroundWindow};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
 `;
@@ -113,14 +115,14 @@ export const HrefButton = styled.div`
     justify-content: space-between;
     margin: 0  5px ;
     padding: 15px;
-    background: white;
+    background: ${p => p.theme.hrefButton};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
 `;
 
 export const NavigationButton = styled.button`
     color: black;
-    background-color: whitesmoke;
+    background-color: ${p => p.theme.navButton};
     margin-top: 0;
     width: 100%;
     padding: 5px;
@@ -130,6 +132,6 @@ export const NavigationButton = styled.button`
     
     &:hover {
         color: white;
-        background: black;
+        background: ${p => p.theme.activeButton};
     }
 `;
