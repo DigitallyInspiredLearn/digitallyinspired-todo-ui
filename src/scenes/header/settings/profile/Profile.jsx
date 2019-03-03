@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from './Profile.styles';
-import axios from 'axios/index';
+
 
 class Profile extends Component {
     constructor(props) {
@@ -17,7 +17,10 @@ class Profile extends Component {
         };
     }
 
-    // componentDidMount = () => this.props.actions.fetchCurrentUser();
+    componentDidMount = () => {
+        const { fetchCurrentUser } = this.props.actions;
+        fetchCurrentUser();
+    };
 
     changeValueNewName = e => this.setState({ newName: e.target.value });
 
@@ -29,7 +32,7 @@ class Profile extends Component {
 
     changeValueNewRepeatPassword = e => this.setState({ newRepeatPassword: e.target.value });
 
-    avatarSelectHandler = event => { this.setState({ selectedAvatar: event.target.files[0] }); }
+    avatarSelectHandler = e => this.setState({ selectedAvatar: e.target.files[0] });
 
     /*avatarUploadHandler = () => {
         const fd = new FormData();
