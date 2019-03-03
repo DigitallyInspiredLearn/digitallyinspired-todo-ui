@@ -43,15 +43,15 @@ export const AddButton = styled.div`
     border: 1px solid #3c3c3c;
     &:hover {
         background-position: 0 0;
-        color:#fff;
+        color:${p => p.theme.activeButton};
     }    
 `;
 export const AddTask = styled.div`
-    color: black;
+    color: ${p => p.theme.buttonText};
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: grey;
+    background-color: ${p => p.theme.backgroundButton};
     margin-top: 0;
     width: 100%;
     height: 30px;
@@ -61,8 +61,8 @@ export const AddTask = styled.div`
     font-size: 15px;
     outline: none;
     &:hover {
-        color: white;
-        background: black;
+        color: ${p => p.theme.activeButton};
+        background: ${p => p.theme.hoverButton};
         outline: none;
     }
 `;
@@ -75,7 +75,7 @@ export const InputTitle = styled.input`
     outline: none;
     font-size: 20px;
     font-weight: bold;
-    color:grey;
+    color:${p => p.theme.mainText};
     cursor: pointer; 
 `;
 export const InputTask = styled.input`
@@ -86,7 +86,7 @@ export const InputTask = styled.input`
     outline: none;
     font-size: 15px;
     font-weight: bold;
-    color:grey;
+    color: ${p => p.theme.mainText};
     cursor: pointer;
     z-index:30;
 `;
@@ -101,7 +101,7 @@ export const Background = styled.div`
     width: 100%;
     z-index: 10;
     flex-direction: row;
-    background-color: #888888;
+    background-color: ${p => p.theme.mainTextпше};
     opacity: 0.8;
     width: 100%;
     height: 100%;
@@ -111,7 +111,7 @@ export const Background = styled.div`
 `;
 export const Aside = styled.aside`
     display: flex;
-    background-color: white;
+    background-color: ${p => p.theme.backgroundHeader};
     padding: 0 5px 0 5px;
     height: 101vh;
     margin: auto;
