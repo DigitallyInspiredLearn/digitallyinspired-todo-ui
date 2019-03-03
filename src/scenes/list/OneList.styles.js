@@ -13,7 +13,7 @@ export const inputBlock = styled.span`
     display: flex;
     flex-direction: row;
     flex: auto;
-    background-color: white;
+    background-color: ${p => p.theme.backgroundList};
     margin: 10px 10px 0 10px;
     border-radius: 5px;
     padding: 10px;
@@ -27,7 +27,7 @@ export const inputBlock = styled.span`
 `;
 
 export const animationButton = styled.div`
-    color: lightgrey;
+    color: ${p => p.theme.mainText};
     height: 20px;
     weight:20px;
     margin-right: 10px;
@@ -43,6 +43,7 @@ export const iconTrash = styled.img`
     width: 30px;
     height: 30px;
     cursor: pointer;
+    color: ${p => p.theme.mainText}
 `;
 
 export const titleNameOneList = styled.input`
@@ -53,6 +54,7 @@ export const titleNameOneList = styled.input`
     width:97%;
     margin-left: 10px;
     text-overflow: ellipsis;
+    color: ${p => p.theme.mainText}
 `;
 
 export const inputDiv = styled.main`
@@ -73,13 +75,14 @@ export const searchToDo = styled.input`
     font-size: 18px;
     padding-left: 10px;
     cursor: pointer;
+    background-color: ${p => p.theme.backgroundList};
 `;
 
 export const blockTask = styled.article`
     display: flex;
     flex-direction: column;
     align-content: space-between;
-    background-color: white;
+    background-color:  ${p => p.theme.backgroundList};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     margin: 10px;
     border-radius: 5px;

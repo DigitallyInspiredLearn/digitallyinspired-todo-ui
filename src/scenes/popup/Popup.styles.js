@@ -11,7 +11,7 @@ export const closeWindow = styled.span`
 
 export const searchTask = styled.div`
     display: flex;
-    background-color: white;
+    background-color: ${p => p.theme.backgroundList};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     margin: 5px;
     border-radius: 5px;
@@ -24,6 +24,7 @@ export const searchTask = styled.div`
     border-radius: 5px;
     cursor: pointer;
     outline: none;
+    opacity: 0.8;
 `;
 
 export const showPopup = styled.div`
@@ -49,7 +50,7 @@ export const popupContent = styled.div`
     top: 30%;
     left: 15%;
     right: 15%;
-    background: white;
+    background: ${p => p.theme.backgroundList};
     border-radius: 5px;
     padding: 10px;
     width: 70%; 
@@ -60,6 +61,7 @@ export const title = styled.div`
     align-self: center;
     margin-top: 10px;
     font-size: 32px;
+    color: ${p => p.theme.mainText}
 `;
 
 export const searchUser = styled.input`
@@ -67,12 +69,13 @@ export const searchUser = styled.input`
     outline: none;
     height: 50px;
     font-size: 20px;
+    color: ${p => p.theme.mainText}
 `;
 
 export const btnSearch = styled.div`
     border-radius: 5px;
-    background-color: inherit;
-    color: lightgrey;
+    background-color: ${p => p.theme.backgroundList};
+    color: ${p => p.theme.mainText};
     width: 2%;
     padding-right: 20px;
     padding-top: 10px;
@@ -113,6 +116,7 @@ export const buttonCloSeOk = styled.button`
     -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 1px #ffffff;
     box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
     outline: none;
+    color: ${p => p.theme.mainText}
 `;
 
 export const users = styled.div`
@@ -127,6 +131,6 @@ export const users = styled.div`
     right: 18px;
     padding: 10px;
     width: 94%;
-    background: white;
+    background: ${p => p.theme.backgroundList};
     opacity: 0.9;
 `;
