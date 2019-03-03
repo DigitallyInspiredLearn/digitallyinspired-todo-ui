@@ -34,6 +34,7 @@ class Profile extends Component {
             <styled.Profile>
                 <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
                 <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
+                <styled.Avatar src="https://www.gravatar.com/avatar/null?s=130&d=mp" />
                 <styled.DeleteProfile>
                     <Link to="/auth">
                         <styled.DeleteButton

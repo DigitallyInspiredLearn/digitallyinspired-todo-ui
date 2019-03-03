@@ -6,6 +6,11 @@ export const Profile = styled.div`
     width: 100%;
     height: 100%;
 `;
+export const Avatar = styled.img`
+    margin-left: 10px;
+    margin-bottom: 10px;
+    position: absolute;
+`;
 
 export const DeleteProfile = styled.div`
     display: flex;
@@ -13,7 +18,7 @@ export const DeleteProfile = styled.div`
 `;
 
 export const DeleteButton = styled.button`
-        align-self: flex-end;
+        align-self: flex-end;   
         width: 115px;
         outline: none;
         border: none;
