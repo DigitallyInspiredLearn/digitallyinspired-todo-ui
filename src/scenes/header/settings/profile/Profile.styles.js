@@ -11,6 +11,12 @@ export const Avatar = styled.img`
     margin-bottom: 10px;
     position: absolute;
 `;
+export const AvararInput = styled.input`
+    margin-left: 10px
+    margin-top: 120px;
+    margin-bottom: 100px;
+    position: absolute;
+`;
 
 export const DeleteProfile = styled.div`
     display: flex;
