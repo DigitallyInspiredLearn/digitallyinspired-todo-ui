@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from './Profile.styles';
+import axios from 'axios/index';
 
 class Profile extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class Profile extends Component {
             newEmail: '',
             newPassword: '',
             newRepeatPassword: '',
+            selectedAvatar: null,
         };
     }
 
@@ -27,6 +29,13 @@ class Profile extends Component {
 
     changeValueNewRepeatPassword = e => this.setState({ newRepeatPassword: e.target.value });
 
+    avatarSelectHandler = event => { this.setState({ selectedAvatar: event.target.files[0] }); }
+
+    /*avatarUploadHandler = () => {
+        const fd = new FormData();
+        fd.append('image', this.state.selectedAvatar, this.state.selectedAvatar.name);
+    }*/
+
     render() {
         const { currentUser, actions, toggleSettings } = this.props;
         const { newPassword, newRepeatPassword } = this.state;
@@ -34,6 +43,8 @@ class Profile extends Component {
             <styled.Profile>
                 <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
                 <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
+                <styled.Avatar src="https://www.gravatar.com/avatar/null?s=110&d=mp" />
+                <styled.AvararInput type="file" onChange={this.avatarSelectHandler}/>
                 <styled.DeleteProfile>
                     <Link to="/auth">
                         <styled.DeleteButton
