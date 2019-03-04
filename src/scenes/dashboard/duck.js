@@ -37,8 +37,9 @@ export const UPDATE_TASK_NAME = 'UPDATE_TASK_NAME';
 export const UPDATE_TASK_NAME_SUCCESS = 'UPDATE_TASK_NAME_SUCCESS';
 export const DELETE_TASK = 'DELETE_TASK';
 
-export const SEARCH_DASHBOARD = 'dashboard/SEARCH_DASHBOARD';
-export const MUTATE_DASHBOARD = 'dashboard/MUTATE_DASHBOARD';
+export const SEARCH = 'dashboard/SEARCH';
+export const MUTATE = 'dashboard/MUTATE';
+export const MUTATE_SUCCESS = 'dashboard/MUTATE_SUCCESS';
 
 export const SHARE_LIST = 'dashboard/SHARE_LIST';
 
@@ -58,8 +59,9 @@ export const actions = {
     updateCheckbox: createAction(UPDATE_CHECKBOX),
     updateTaskName: createAction(UPDATE_TASK_NAME),
     updateTaskNameSuccess: createAction(UPDATE_TASK_NAME_SUCCESS),
-    searching: createAction(SEARCH_DASHBOARD),
-    mutateDashboard: createAction(MUTATE_DASHBOARD),
+    search: createAction(SEARCH),
+    mutate: createAction(MUTATE),
+    mutateSuccessDashboard: createAction(MUTATE_SUCCESS),
     shareList: createAction(SHARE_LIST),
 };
 
@@ -67,25 +69,27 @@ export const actions = {
 const initialState = {
     myList: [],
     sharedList: [],
+    toDoBoardRaw: [],
     toDoBoard: [],
     selectedMy: true,
     selectedShared: false,
-    searchDashboards: '',
+    search: '',
 };
 
 export const reducer = handleActions({
-    [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
+    [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
+    [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({ ...state, myList: action.payload }),
     [FETCH_SHARED_LISTS_SUCCESS]: (state, action) => ({ ...state, sharedList: action.payload }),
 
     [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
         ...state,
-        toDoBoard: state.toDoBoard.map(e => (e.id === action.payload.id
+        toDoBoardRaw: state.toDoBoardRaw.map(e => (e.id === action.payload.id
             ? { ...e, todoListName: action.payload.newTitle } : e)),
     }),
     [UPDATE_CHECKBOX]: (state, action) => ({
         ...state,
-        toDoBoard: state.toDoBoard.map(i => (
+        toDoBoardRaw: state.toDoBoardRaw.map(i => (
             i.id === action.payload.idDashboard ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
@@ -95,7 +99,7 @@ export const reducer = handleActions({
     }),
     [UPDATE_TASK_NAME]: (state, action) => ({
         ...state,
-        toDoBoard: state.toDoBoard.map(i => (
+        toDoBoardRaw: state.toDoBoardRaw.map(i => (
             i.id === action.payload.idDashboard ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
@@ -106,7 +110,7 @@ export const reducer = handleActions({
 
     [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
     [SELECTED_SHARED_LISTS]: (state, action) => ({ ...state, selectedShared: action.payload }),
-    [SEARCH_DASHBOARD]: (state, action) => ({ ...state, searching: action.payload }),
+    [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
 }, initialState);
 
 function* fetchAllLists() {
@@ -127,7 +131,7 @@ function* deleteDashboard(action) {
 }
 
 function* updateTitle(action) {
-    const list = yield select(state => state.dashboard.toDoBoard.find(l => l.id === action.payload.id));
+    const list = yield select(state => state.dashboard.toDoBoardRaw.find(l => l.id === action.payload.id));
     const updatedList = { ...list, todoListName: list.todoListName === '' ? 'New Title' : list.todoListName };
     yield call(updateList, action.payload.id, updatedList);
     yield call(fetchAllLists);
@@ -165,13 +169,10 @@ function* addList(action) {
     yield call(fetchAllLists);
 }
 
-function* mutate(action) {
-    const my = yield select(state => state.dashboard.myList);
-    const shared = yield select(state => state.dashboard.sharedList);
-    const allList = my.concat(shared).filter(list => list.todoListName.toLowerCase().includes(
-        action.payload.searchDashboards.toLowerCase(),
-    ));
-    yield put(actions.fetchDashboardSuccess(allList));
+function* mutate() {
+    const { toDoBoardRaw, search } = yield select(state => state.dashboard);
+    const allList = toDoBoardRaw.filter(list => list.todoListName.toLowerCase().includes(search.toLowerCase()));
+    yield put(actions.mutateSuccessDashboard(allList));
 }
 
 function* shareList(action) {
@@ -188,6 +189,6 @@ export function* saga() {
     yield safeTakeEvery(ADD_TASK, addNewTask);
     yield safeTakeLatest(UPDATE_TITLE_DASHBOARD_SUCCESS, updateTitle);
     yield safeTakeLatest(UPDATE_TASK_NAME_SUCCESS, updateNameTask);
-    yield safeTakeEvery(SEARCH_DASHBOARD, mutate);
+    yield safeTakeEvery([FETCH_DASHBOARD_SUCCESS, SEARCH], mutate);
     yield safeTakeEvery(SHARE_LIST, shareList);
 }

@@ -20,7 +20,7 @@ class DashboardList extends Component {
                         <styled.Search
                             type="text"
                             placeholder="Search dashboard"
-                            onChange={e => actions.searching({ searchDashboards: e.target.value })}
+                            onChange={e => actions.search(e.target.value)}
                         />
                         <styled.IconSearch src={loupe} />
                     </styled.SearchDiv>
