@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from './Profile.styles';
+import download from '../../../../image/download.svg';
 
 
 class Profile extends Component {
@@ -37,7 +38,10 @@ class Profile extends Component {
     /*avatarUploadHandler = () => {
         const fd = new FormData();
         fd.append('image', this.state.selectedAvatar, this.state.selectedAvatar.name);
-    }*/
+        axious.post('some url', fd);
+        .then(res => {
+        console.log(res);
+    });*/
 
     render() {
         const { currentUser, actions, toggleSettings } = this.props;
@@ -46,8 +50,6 @@ class Profile extends Component {
             <styled.Profile>
                 <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
                 <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
-                <styled.Avatar src="https://www.gravatar.com/avatar/null?s=110&d=mp" />
-                <styled.AvararInput type="file" onChange={this.avatarSelectHandler} />
                 <styled.DeleteProfile>
                     <Link to="/auth">
                         <styled.DeleteButton
@@ -63,6 +65,10 @@ class Profile extends Component {
                 </styled.DeleteProfile>
                 <styled.Account>Account</styled.Account>
                 <styled.EditProfile>
+                    <styled.Avatar src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp" />
+                    <styled.AvatarInput type="file" onChange={this.avatarSelectHandler}
+                                        ref={avatarInput => this.avatarInput = avatarInput } />
+                     <styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />
                     <styled.ProfileValues>
                         <p> Name </p>
                         <p> Username </p>
@@ -125,5 +131,4 @@ class Profile extends Component {
         );
     }
 }
-
 export default Profile;
