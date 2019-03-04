@@ -15,7 +15,7 @@ export const ColumnTitle = styled.div`
     font-size: 30px;
     align-self: center;
     font-weight: bold; 
-    color: #2E2E2E;
+    color: ${p => p.theme.mainText};
     border-bottom: 1px solid grey; 
 `;
 
@@ -28,7 +28,7 @@ export const Row = styled.div`
 
 export const Text = styled.p`
     font-size: 14px;
-    color: #2E2E2E;
+    color: ${p => p.theme.mainText};
     align-self: center;
 `;
 
@@ -42,7 +42,7 @@ export const Input = styled.input`
 
 export const ThemeTitle = styled.div`
     font-size: 30px;
-    color: #2E2E2E;
+    color: ${p => p.theme.mainText};
     
 `;
 
@@ -82,9 +82,8 @@ export const ImageTheme = styled.img`
 export const NameTheme = styled.span`
     align-self: center;
     font-size: 20px;
-    color: #2E2E2E;
+    color: ${p => p.theme.mainText};
     &:hover {
-        color: #08088A;
         cursor: pointer;
     }
 `;
@@ -97,17 +96,16 @@ export const PaintTheme = styled.img`
 
 export const TextTheme = styled.span`
     font-size: 24px;
-    color: #2E2E2E;
+    color: ${p => p.theme.mainText};
     margin-top: 40px;
     margin-left: 10px;
     &:hover {
-    color: #08088A;
     cursor: pointer;
     }
 `;
 
 export const ApplyButton = styled.button`
-    background-color: gray;
+    background-color: ${p => p.theme.backgroundButton};
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
     border-radius:6px;
@@ -117,14 +115,14 @@ export const ApplyButton = styled.button`
     text-decoration:none;
     outline: none;
     cursor: pointer;
-    color: white;
+    color: ${p => p.theme.buttonText};
     font-size: 15px;
     font-weight: bold;
     width: 20%;
     height: 8%;
 
     &:hover {
-        background-color:black;
+        background-color:${p => p.theme.hoverButton};
     }
 
     &:active {
