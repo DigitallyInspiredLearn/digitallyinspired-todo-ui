@@ -10,7 +10,7 @@ const mapStateToProps = state => (
         data: state.list.data,
         done: state.list.selectedDone,
         notDone: state.list.selectedNotDone,
-        todo: state.dashboard.toDoBoard,
+        todo: state.dashboard.toDoBoardRow,
     }
 );
 
