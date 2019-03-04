@@ -66,7 +66,7 @@ export const settingsContent = styled.div`
     top: 8%;
     left: 15%;
     right: 15%;
-    background: white;
+    background: ${p => p.theme.backgroundWindow};
     border-radius: 5px;
     padding: 10px;
     width: 70%; 
@@ -81,7 +81,7 @@ export const Main = styled.div`
 `;
 
 export const TabContainerForComp = styled.nav`
-        background-color:gainsboro;
+        background-color:${p => p.theme.backgroundButton};
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -89,18 +89,16 @@ export const TabContainerForComp = styled.nav`
 `;
 
 export const TabLabel = styled.label`
-            background-color: ${p => p.selected && 'black'};
-            height: 25%;
-            padding: 40px 15px 0 0;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            
-            color: white;
-            &:hover{
-            background-color: ${p => p.selected ? 'black' : 'gray'};
-        }
+    background-color: ${p => p.selected && p.theme.activeButton};
+    height: 25%;
+    padding: 40px 15px 0 0;
+    color: ${p => p.selected && p.theme.activeButtonText};
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    &:hover{
+         background-color: ${p => p.selected ? p.theme.activeButton : p.theme.hoverButton};
+    }
 `;
 
 export const MobileContent = styled.div`

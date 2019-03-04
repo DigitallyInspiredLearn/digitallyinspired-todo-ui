@@ -13,6 +13,7 @@ export const Title = styled.div`
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: bold;
+    color: ${p => p.theme.mainText};
 `;
 
 export const SearchInput = styled.input`
@@ -39,7 +40,7 @@ export const Tr = styled.tr`
     border-radius:5px;
     height:20px;
     &:nth-child(2n+1){
-        background-color:lightgrey;
+        background-color:${p => p.theme.background};
         color:white;
     }
 `;
