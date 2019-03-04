@@ -30,14 +30,14 @@ export const DeleteButton = styled.button`
         border: none;
         border-radius:6px;
         cursor:pointer;
-        background-color: grey;
-        color:#ffffff;
+        background-color: ${p => p.theme.backgroundButton};
+        color:  ${p => p.theme.buttonText};
         font-family:Arial;
         font-size:15px;
         font-weight:bold;
         padding:6px 8px;
         &:hover{
-            background-color: black;
+            background-color: ${p => p.theme.hoverButton};
         }
 `;
 
@@ -46,7 +46,7 @@ export const Username = styled.p`
         align-self: center;
         margin-left: 10px;
         font-weight: bold;
-        color:gray;
+        color:${p => p.theme.mainText};
         cursor:default;
 `;
 
@@ -55,7 +55,7 @@ export const Email = styled.p`
         align-self: center;
         margin-top: -10px;
         margin-left: 10px;
-        color: darkgray;
+        color: ${p => p.theme.mainText};
         font-weight: bold;
         cursor:default;
 `;
@@ -65,7 +65,7 @@ export const Account = styled.p`
         margin-left: 10px;
         margin-bottom: 0;
         font-weight: bold;
-        color:gray;
+        color:${p => p.theme.mainText};
         cursor: default;
 `;
 
@@ -85,7 +85,7 @@ export const ProfileValues = styled.div`
         height: auto;
         justify-content: flex-start;
         font-weight: bold;
-        color:darkgray;
+        color:${p => p.theme.mainText};
         cursor: default;
         & p {
             margin-left: 5%;
@@ -120,14 +120,12 @@ export const ProfileInput = styled.div`
 `;
 
 export const SaveButton = styled.button`
-        background-color: gray;
-        -moz-border-radius:10px;
-        -webkit-border-radius:10px;
-        border-radius:6px;
+        background-color: ${p => p.theme.backgroundButton};
+        border-radius:5px;
         border: none;
         align-self: flex-end;
         cursor: pointer;
-        color: white;
+        color: ${p => p.theme.buttonText};
         font-size: 15px;
         font-weight: bold;
         width: 6%;
@@ -139,7 +137,7 @@ export const SaveButton = styled.button`
         outline: none;
 
     &:hover{
-        background-color:black;
+        background-color:${p => p.theme.hoverButton};
     }
 
     &:active{

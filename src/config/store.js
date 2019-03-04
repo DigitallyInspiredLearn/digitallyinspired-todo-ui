@@ -15,7 +15,7 @@ import { saga as subscribeSaga } from '../scenes/header/settings/subscribes/duck
 
 const persistConfig = {
     key: 'app',
-    whitelist: ['auth'],
+    whitelist: ['auth', 'theme'],
     storage,
 };
 
