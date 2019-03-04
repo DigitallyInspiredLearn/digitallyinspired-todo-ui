@@ -7,15 +7,23 @@ export const Profile = styled.div`
     height: 100%;
 `;
 export const Avatar = styled.img`
-    margin-left: 10px;
-    margin-bottom: 10px;
     position: absolute;
+    left: 200px;
+    bottom: 350px;
+    border-radius: 50%;
+    
 `;
-export const AvararInput = styled.input`
-    margin-left: 10px
-    margin-top: 120px;
-    margin-bottom: 100px;
+export const AvatarInput = styled.input`
+   display: none
+`;
+export const UploadButton = styled.input`
     position: absolute;
+    left: 280px;
+    bottom: 320px 
+    width: 40px;
+    outline: none;
+    cursor:pointer;
+    padding:6px 8px;
 `;
 
 export const DeleteProfile = styled.div`

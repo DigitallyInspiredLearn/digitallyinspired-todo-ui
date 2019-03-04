@@ -54,6 +54,7 @@ function* logout() {
         user: '',
         token: '',
     }));
+    alert('Вы точно хотите выйти?');
     yield call(setDefaultApiToken, '');
     history.replace('/auth');
 }
