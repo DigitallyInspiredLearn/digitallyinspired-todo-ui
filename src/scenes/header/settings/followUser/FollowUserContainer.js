@@ -6,15 +6,16 @@ import { actions } from './duck';
 
 const mapStateToProps = state => ({
 
-    userNameList: state.followUser.userNameList,
+    usersNames: state.followUser.usersNames,
     search: state.followUser.search,
     message: state.followUser.message,
 });
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
-        searchUserForFollowing: actions.searchUserForFollowing,
-        followUser: actions.followUser,
+        searchUserForFollowing: actions.searchUsers,
+        followUser: actions.followUsers,
+        fetchUsers: actions.fetchUsers,
     }, dispatch),
 });
 

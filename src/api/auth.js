@@ -1,4 +1,4 @@
-import axios from 'axios/index';
+import axios from 'axios';
 
 export const registration = newUser => axios.post('/api/auth/register', newUser);
 
