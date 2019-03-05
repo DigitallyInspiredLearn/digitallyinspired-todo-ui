@@ -12,9 +12,13 @@ class FollowUser extends Component {
         };
     }
 
+    componentWillMount = ({ actions } = this.props) => actions.fetchUsers();
+
+    // componentWillUnmount = ({ actions } = this.props) => actions.searchUserForFollowing('');
+
     render() {
         const {
-            actions, userNameList, search, message,
+            actions, usersNames, search, message,
         } = this.props;
 
         const { displayMessage, display } = this.state;
@@ -33,13 +37,13 @@ class FollowUser extends Component {
                         <styled.UsernameList>
                             <ul style={{ display }}>
                                 {
-                                    userNameList.length === 0
+                                    usersNames.length === 0
                                         ? (
                                             <styled.Ul>
                                                 User with this username not found
                                             </styled.Ul>
                                         )
-                                        : userNameList.map((username, i) => i < 15
+                                        : usersNames.map((username, i) => i < 15
                                     && (
                                         <li
                                             onClick={() => {
