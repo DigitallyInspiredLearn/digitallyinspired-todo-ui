@@ -62,7 +62,7 @@ class FollowUser extends Component {
                     <styled.SearchUserBtn
                         onClick={() => {
                             actions.searchUserForFollowing('');
-                            search && actions.followUser(search);
+                            actions.followUser(search);
                             this.setState({ displayMessage: 'block', display: 'none' });
                         }}
                     > to follow
