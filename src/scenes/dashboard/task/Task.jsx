@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import trash from '../../../image/trash.svg';
 import * as styled from './Task.styled';
+import Checkbox from '../../../components/checkbox/Checkbox';
 
 class Task extends Component {
     constructor(props) {
@@ -15,6 +16,16 @@ class Task extends Component {
     updateDisplayFlex = () => this.setState({ display: 'flex' });
 
     updateDisplayNone = () => this.setState({ display: 'none' });
+
+    handleSelectTask = (newValue) => {
+        console.log(newValue);
+        const {
+            idTask, selected, actions, nameTask,
+        } = this.props;
+        actions.updateCheckbox({
+            nameTask, idTask, selected, body: nameTask,
+        });
+    };
 
     render() {
         const { display } = this.state;
@@ -30,13 +41,9 @@ class Task extends Component {
                 onMouseOut={this.updateDisplayNone}
             >
                 <styled.NameAdnCheckedTask>
-                    <styled.CheckboxTask
-                        selected={selected}
-                        onClick={() => {
-                            actions.updateCheckbox({
-                                nameTask, idTask, selected, body: nameTask,
-                            });
-                        }}
+                    <Checkbox
+                        checked={selected}
+                        onChange={this.handleSelectTask}
                     />
                     <styled.TaskName
                         type="text"
