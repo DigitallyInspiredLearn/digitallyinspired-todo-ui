@@ -32,14 +32,6 @@ export const Text = styled.p`
     align-self: center;
 `;
 
-export const Input = styled.input`
-    border: 1px solid black !important;
-    height: 16px;
-    width: 120px;
-    margin-left: 8px;
-    align-self: center;
-`;
-
 export const ThemeTitle = styled.div`
     font-size: 30px;
     color: ${p => p.theme.mainText};
