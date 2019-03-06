@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import InputStyles from '../input/Input.styles';
+import InputStyles from './Input.styles';
 
 class Input extends Component {
     constructor(props) {
@@ -12,8 +12,8 @@ class Input extends Component {
     componentWillReceiveProps = (newProps) => {
         if (newProps.value !== this.props.value) {
             this.setState({
-                value: newProps.value
-            })
+                value: newProps.value,
+            });
         }
     };
 
