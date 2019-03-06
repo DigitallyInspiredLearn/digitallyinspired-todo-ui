@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CheckboxStyle from './Checkbox.styles';
@@ -10,7 +9,7 @@ class Checkbox extends Component {
         onChange: PropTypes.func,
     };
 
-    static defaultProps ={
+    static defaultProps = {
         checked: false,
         onChange: undefined,
     };
@@ -32,8 +31,12 @@ class Checkbox extends Component {
 
     render() {
         return (
-            <CheckboxStyle selected={this.state.checked} onClick={this.handleClick} />
-        )}
+            <CheckboxStyle
+                selected={this.state.checked}
+                onClick={this.handleClick}
+            />
+        );
+    }
 }
 
 export default Checkbox;

@@ -19,7 +19,7 @@ export const AvatarInput = styled.input`
 export const UploadButton = styled.input`
     position: absolute;
     left: 280px;
-    bottom: 320px 
+    bottom: 320px; 
     width: 40px;
     outline: none;
     cursor:pointer;

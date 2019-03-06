@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from './Profile.styles';
 import download from '../../../../image/download.svg';
-
+import Button from '../../../../components/button/Button';
 
 class Profile extends Component {
     constructor(props) {
@@ -18,10 +18,10 @@ class Profile extends Component {
         };
     }
 
-    componentDidMount = () => {
-        const { fetchCurrentUser } = this.props.actions;
-        fetchCurrentUser();
-    };
+    // componentDidMount = () => {
+    //     const { fetchCurrentUser } = this.props.actions;
+    //     fetchCurrentUser();
+    // };
 
     changeValueNewName = e => this.setState({ newName: e.target.value });
 
@@ -35,13 +35,17 @@ class Profile extends Component {
 
     avatarSelectHandler = e => this.setState({ selectedAvatar: e.target.files[0] });
 
-    /*avatarUploadHandler = () => {
+    handleClick = () => {
+        console.log('handle!');
+    };
+
+    /* avatarUploadHandler = () => {
         const fd = new FormData();
         fd.append('image', this.state.selectedAvatar, this.state.selectedAvatar.name);
         axious.post('some url', fd);
         .then(res => {
         console.log(res);
-    });*/
+    }); */
 
     render() {
         const { currentUser, actions, toggleSettings } = this.props;
@@ -50,6 +54,7 @@ class Profile extends Component {
             <styled.Profile>
                 <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
                 <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
+                
                 <styled.DeleteProfile>
                     <Link to="/auth">
                         <styled.DeleteButton
@@ -62,13 +67,19 @@ class Profile extends Component {
                             Delete profile
                         </styled.DeleteButton>
                     </Link>
+                    <Button
+                        onClick={this.handleClick}
+                    />
                 </styled.DeleteProfile>
                 <styled.Account>Account</styled.Account>
                 <styled.EditProfile>
                     <styled.Avatar src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp" />
-                    <styled.AvatarInput type="file" onChange={this.avatarSelectHandler}
-                                        ref={avatarInput => this.avatarInput = avatarInput } />
-                     <styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />
+                    <styled.AvatarInput
+                        type="file"
+                        onChange={this.avatarSelectHandler}
+                        ref={avatarInput => this.avatarInput = avatarInput }
+                    />
+                    <styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />
                     <styled.ProfileValues>
                         <p> Name </p>
                         <p> Username </p>
@@ -115,7 +126,7 @@ class Profile extends Component {
                     type="submit"
                     onClick={() => {
                         if (newPassword === newRepeatPassword
-                                            && newPassword.length >= 6) {
+                            && newPassword.length >= 6) {
                             actions.editProfile({
                                 email: currentUser.email,
                                 name: currentUser.name,
