@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types,react/require-default-props */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import trash from '../../../image/trash.svg';
 import * as styled from './Task.styled';
@@ -11,12 +11,13 @@ class Task extends Component {
         super(props);
         this.state = {
             display: 'none',
+            newTaskName: props.nameTask
         };
     }
 
-    updateDisplayFlex = () => this.setState({ display: 'flex' });
+    updateDisplayFlex = () => this.setState({display: 'flex'});
 
-    updateDisplayNone = () => this.setState({ display: 'none' });
+    updateDisplayNone = () => this.setState({display: 'none'});
 
     handleSelectTask = (newValue) => {
         console.log(newValue);
@@ -30,30 +31,34 @@ class Task extends Component {
     };
 
     handleUpdateTask = (newValue) => {
-        console.log(newValue);
         const {
             idTask, actions, idList,
         } = this.props;
+        const { newTaskName } = this.state;
+        this.setState({
+            newTaskName: newValue,
+        });
         actions.updateTaskName({
-            idDashboard: idList, idTask, newTaskName: newValue,
+            idDashboard: idList, idTask, newTaskName,
         });
 
     };
 
     handleUpdateTaskSuccess = () => {
         const {
-            idTask, selected, actions, nameTask,
+            idTask, selected, actions,
         } = this.props;
+        const { newTaskName } = this.state;
         actions.updateTaskNameSuccess({
-            newTaskName: !nameTask ? 'New task' : nameTask,
+            newTaskName: !newTaskName? 'New task' : newTaskName,
             selected,
             idTask,
         });
     };
 
     render() {
-        const { display } = this.state;
-        const displayStyle = { display };
+        const {display} = this.state;
+        const displayStyle = {display};
         const {
             idTask, selected, actions, nameTask,
         } = this.props;
@@ -73,18 +78,16 @@ class Task extends Component {
                         onChange={this.handleUpdateTask}
                         value={nameTask}
                         onBlur={this.handleUpdateTaskSuccess}
-                        width="100%"
                         border={false}
-                        style={{textDecoration: selected ? 'line-through': 'none'}}
+                        style={{textDecoration: selected ? 'line-through' : 'none', width: '100%'}}
                     />
                 </styled.NameAdnCheckedTask>
                 <styled.DeleteTask
                     src={trash}
                     alt="Delete this task"
                     style={displayStyle}
-                    onClick={() => actions.deleteTask({ idTask })}
+                    onClick={() => actions.deleteTask({idTask})}
                 />
-
             </styled.Task>
         );
     }
