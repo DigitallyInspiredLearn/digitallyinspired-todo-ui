@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CheckboxStyle from './Checkbox.styles';
@@ -31,9 +30,11 @@ class Checkbox extends Component {
     };
 
     render() {
+        const { checked } = this.state;
         return (
-            <CheckboxStyle selected={this.state.checked} onClick={this.handleClick} />
-        )}
+            <CheckboxStyle selected={checked} onClick={this.handleClick} />
+        );
+    }
 }
 
 export default Checkbox;
