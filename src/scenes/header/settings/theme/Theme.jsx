@@ -4,6 +4,7 @@ import dayImage from '../../../../image/day.png';
 import nightImage from '../../../../image/night.png';
 import paint from '../../../../image/paint.svg';
 import theme from '../../../../config/theme';
+import Input from "../../../../components/input/Input";
 
 class Theme extends Component {
     constructor(props) {
@@ -14,16 +15,17 @@ class Theme extends Component {
         };
     }
 
+
     handleDefaultSelect = (type) => {
         this.setState({ type, data: theme[type] });
     };
 
-    handleDataChange = (key, value) => {
+    handleDataChange = (key, newValue) => {
         this.setState({
             type: 'custom',
             data: {
                 ...this.state.data,
-                [key]: value,
+                [key]: newValue,
             },
         });
     };
@@ -59,16 +61,20 @@ class Theme extends Component {
                     <styled.ColumnTitle>Properties</styled.ColumnTitle>
                     <styled.Row>
                         <styled.Text>Background:</styled.Text>
-                        <styled.Input
-                            onChange={e => this.handleDataChange('background', e.target.value)}
+                        <Input
+                            onChange={(value) => this.handleDataChange('background', value)}
                             value={data.background}
+                            width="120px"
+                            border={true}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Main Text:</styled.Text>
-                        <styled.Input
-                            onChange={e => this.handleDataChange('mainText', e.target.value)}
-                            value={data.mainText}
+                        <Input
+                            onChange={(value) => this.handleDataChange('mainText', value)}
+                            value={data.background}
+                            width="120px"
+                            border={true}
                         />
                     </styled.Row>
                     <styled.Row>
