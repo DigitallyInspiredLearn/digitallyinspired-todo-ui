@@ -26,17 +26,15 @@ class Input extends Component {
     };
 
     render() {
-        const { width, border, style, onBlur } = this.props;
+        const { border, style, onBlur } = this.props;
         return (
             <InputStyles
                 value={this.state.value}
                 onChange={this.handleChange}
-                width={width}
                 border={border}
                 style={style}
                 onKeyPress={ (e) => e.key === 'Enter' && e.target.blur() }
                 onBlur={onBlur}
-
             />
         )}
 }
