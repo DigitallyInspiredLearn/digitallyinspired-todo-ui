@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from '../LogIn.styled';
+import Button from '../../../components/button/Button';
 
 class Registration extends Component {
     constructor(props) {
@@ -87,7 +88,12 @@ class Registration extends Component {
                     </styled.Form>
                     <styled.HrefButton>
                         <Link to="/auth">
-                            <styled.NavigationButton type="button">Return to the login page</styled.NavigationButton>
+                            <Button
+                                value="Return to the login page"
+                                style={{
+                                    color: 'black', marginTop: '0', width: '100%', padding: '5px', fontWeight: 'normal',
+                                }}
+                            />
                         </Link>
                     </styled.HrefButton>
                 </styled.NavigationForm>

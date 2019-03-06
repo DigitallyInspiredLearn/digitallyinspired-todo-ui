@@ -132,7 +132,7 @@ class Profile extends Component {
                 <Button
                     onClick={this.handleClickSave}
                     value="Save"
-                    
+                    style={{ width: '50px', alignSelf: 'flex-end', padding: '6px 8px' }}
                 >
                 Save
                 </Button>

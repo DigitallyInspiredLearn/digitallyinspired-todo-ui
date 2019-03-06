@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export default styled.button`
-        align-self: flex-end;   
-        width: 115px;
+        width: ${p => (p.width ? p.width : '115px')};
         height: 30px;
         outline: none;
         border: none;
+        -moz-border-radius:10px;
+        -webkit-border-radius:10px;
         border-radius:6px;
         cursor:pointer;
         background-color: ${p => p.theme.backgroundButton};
@@ -13,8 +14,13 @@ export default styled.button`
         font-family:Arial;
         font-size:15px;
         font-weight:bold;
-        padding:6px 8px;
-        &:hover{
+
+        &:hover {
             background-color: ${p => p.theme.hoverButton};
+        }
+    
+        &:active{
+            position:relative;
+            top: 1px;
         }
 `;

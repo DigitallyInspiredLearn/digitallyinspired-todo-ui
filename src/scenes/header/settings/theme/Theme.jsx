@@ -4,7 +4,8 @@ import dayImage from '../../../../image/day.png';
 import nightImage from '../../../../image/night.png';
 import paint from '../../../../image/paint.svg';
 import theme from '../../../../config/theme';
-import Input from "../../../../components/input/Input";
+import Input from '../../../../components/input/Input';
+import Button from '../../../../components/button/Button';
 
 class Theme extends Component {
     constructor(props) {
@@ -167,11 +168,13 @@ class Theme extends Component {
                             border={true}
                         />
                     </styled.Row>
-                    <styled.ApplyButton
+                    <Button
                         onClick={this.handleApply}
+                        value="Apply"
+                        style={{ marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center' }}
                     >
                         Apply
-                    </styled.ApplyButton>
+                    </Button>
                 </styled.ColumnContainer>
             </styled.Theme>
         );

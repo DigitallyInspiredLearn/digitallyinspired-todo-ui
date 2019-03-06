@@ -14,21 +14,13 @@ class Button extends Component {
         onClick: undefined,
     };
 
-    // handleClick = () => {
-    //     const checked = !this.state.checked;
-    //     this.setState({ checked });
-    //     if (this.props.onChange) {
-    //         this.props.onChange(checked);
-    //     }
-    // };
-
     render() {
-        // console.log(this.props);
-        const { value, onClick } = this.props;
+        const { value, onClick, style } = this.props;
         return (
             <ButtonStyle
                 type="submit"
                 onClick={onClick}
+                style={style}
             >
                 {value}
             </ButtonStyle>
