@@ -9,6 +9,7 @@ import {
     updateList,
     getSharedLists,
     shareTodoListToUser,
+    getAllList,
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -115,7 +116,7 @@ export const reducer = handleActions({
 
 function* fetchAllLists() {
     const { selectedMy, selectedShared } = yield select(state => state.dashboard);
-    const myLists = selectedMy ? (yield call(getMyList)).data : [];
+    const myLists = selectedMy ? (yield call(getMyList)).data.content : [];
     yield put(actions.fetchMyListsSuccess(myLists));
     const sharedLists = selectedShared
         ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true }))
