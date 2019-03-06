@@ -31,10 +31,10 @@ export const reducer = handleActions({
 
 function* mutate() {
     const { searchRaw, search } = yield select(state => state.subscribe);
-    const listAll = searchRaw.filter(list => list.username.toLowerCase().includes(
+    const res = searchRaw.filter(list => list.username.toLowerCase().includes(
         search.toLowerCase(),
     ));
-    yield put(actions.mutateSuccess(listAll));
+    yield put(actions.mutateSuccess(res));
 }
 
 function* getSubscribers() {

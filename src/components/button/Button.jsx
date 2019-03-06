@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import ButtonStyle from './Button.styles';
 
 class Button extends Component {
-    // static propTypes = {
-    //     checked: PropTypes.bool,
-    //     onChange: PropTypes.func,
-    // };
+    static propTypes = {
+        value: PropTypes.string,
+        onClick: PropTypes.func,
+    };
 
-    // static defaultProps = {
-    //     checked: false,
-    //     onChange: undefined,
-    // };
+    static defaultProps = {
+        value: 'button',
+        onClick: undefined,
+    };
 
     // handleClick = () => {
     //     const checked = !this.state.checked;
@@ -24,8 +24,14 @@ class Button extends Component {
 
     render() {
         // console.log(this.props);
+        const { value, onClick } = this.props;
         return (
-            <ButtonStyle type="submit">Delete</ButtonStyle>
+            <ButtonStyle
+                type="submit"
+                onClick={onClick}
+            >
+                {value}
+            </ButtonStyle>
         );
     }
 }

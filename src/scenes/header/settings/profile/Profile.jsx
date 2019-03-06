@@ -35,9 +35,25 @@ class Profile extends Component {
 
     avatarSelectHandler = e => this.setState({ selectedAvatar: e.target.files[0] });
 
-    handleClick = () => {
-        console.log('handle!');
+    handleClickDelete = () => {
+        const { actions, toggleSettings } = this.props;
+        toggleSettings();
+        actions.deleteProfile();
     };
+
+    handleClickSave = () => {
+        const { actions, currentUser } = this.props;
+        const { newPassword, newRepeatPassword } = this.state;
+        if (newPassword === newRepeatPassword
+            && newPassword.length >= 6) {
+            actions.editProfile({
+                email: currentUser.email,
+                name: currentUser.name,
+                password: newPassword,
+                username: currentUser.username,
+            });
+        }
+    }
 
     /* avatarUploadHandler = () => {
         const fd = new FormData();
@@ -48,28 +64,19 @@ class Profile extends Component {
     }); */
 
     render() {
-        const { currentUser, actions, toggleSettings } = this.props;
+        const { currentUser } = this.props;
         const { newPassword, newRepeatPassword } = this.state;
         return (
             <styled.Profile>
                 <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
                 <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
-                
                 <styled.DeleteProfile>
                     <Link to="/auth">
-                        <styled.DeleteButton
-                            type="submit"
-                            onClick={() => {
-                                toggleSettings();
-                                actions.deleteProfile();
-                            }}
-                        >
-                            Delete profile
-                        </styled.DeleteButton>
+                        <Button
+                            onClick={this.handleClickDelete}
+                            value="Delete profile"
+                        />
                     </Link>
-                    <Button
-                        onClick={this.handleClick}
-                    />
                 </styled.DeleteProfile>
                 <styled.Account>Account</styled.Account>
                 <styled.EditProfile>
@@ -122,22 +129,13 @@ class Profile extends Component {
                         </div>
                     </styled.ProfileInput>
                 </styled.EditProfile>
-                <styled.SaveButton
-                    type="submit"
-                    onClick={() => {
-                        if (newPassword === newRepeatPassword
-                            && newPassword.length >= 6) {
-                            actions.editProfile({
-                                email: currentUser.email,
-                                name: currentUser.name,
-                                password: newPassword,
-                                username: currentUser.username,
-                            });
-                        }
-                    }}
+                <Button
+                    onClick={this.handleClickSave}
+                    value="Save"
+                    
                 >
                 Save
-                </styled.SaveButton>
+                </Button>
             </styled.Profile>
         );
     }

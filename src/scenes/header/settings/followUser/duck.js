@@ -1,39 +1,47 @@
 /* eslint-disable no-unused-expressions */
 import { createAction, handleActions } from 'redux-actions';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { safeTakeEvery } from '../../../../helpers/saga';
 import { followUser as followUserApi, searchUserByUsername } from '../../../../api/userController';
 
-export const SEARCH_USERS_FOR_FOLLOWING = 'followUserReducer/SEARCH_USERS_FOR_FOLLOWING';
-export const FETCH_USERS_FOR_FOLLOWING = 'followUserReducer/FETCH_USERS_FOR_FOLLOWING';
+export const SEARCH = 'followUserReducer/SEARCH';
+export const FETCH_USERS = 'followUserReducer/FETCH_USERS_SUCCESS';
+export const FETCH_USERS_SUCCESS = 'followUserReducer/FETCH_USERS';
+export const MUTATE = 'followUserReducer/MUTATE';
+export const MUTATE_SUCCESS = 'followUserReducer/MUTATE_SUCCESS';
 export const FOLLOW_USER = 'followUserReducer/FOLLOW_USER';
-export const GET_MESSAGE_ON_SUCCESS_FOLLOWING = 'followUserReducer/GET_MESSAGE_ON_SUCCESS_FOLLOWING';
+export const GET_MESSAGE_ON_ACCESS_FOLLOWING = 'followUserReducer/GET_MESSAGE_ON_ACCESS_FOLLOWING';
 
 export const actions = {
-    searchUserForFollowing: createAction(SEARCH_USERS_FOR_FOLLOWING),
-    followUser: createAction(FOLLOW_USER),
-    fetchUser: createAction(FETCH_USERS_FOR_FOLLOWING),
-    getMessageOnAccessFollowing: createAction(GET_MESSAGE_ON_SUCCESS_FOLLOWING),
+    searchUsers: createAction(SEARCH),
+    followUsers: createAction(FOLLOW_USER),
+    fetchUsers: createAction(FETCH_USERS),
+    fetchUsersSuccess: createAction(FETCH_USERS_SUCCESS),
+    getMessageOnAccessFollowing: createAction(GET_MESSAGE_ON_ACCESS_FOLLOWING),
+    mutate: createAction(MUTATE),
+    mutateSuccess: createAction(MUTATE_SUCCESS),
 };
 
 const initialState = {
     search: '',
-    userNameList: [],
+    usersNamesRaw: [],
+    usersNames: [],
     message: '',
 };
 
 export const reducer = handleActions({
-    [SEARCH_USERS_FOR_FOLLOWING]: (state, action) => ({ ...state, search: action.payload }),
-    [FETCH_USERS_FOR_FOLLOWING]: (state, action) => ({ ...state, userNameList: action.payload }),
-    [GET_MESSAGE_ON_SUCCESS_FOLLOWING]: (state, action) => ({ ...state, message: action.payload }),
+    [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
+    [FETCH_USERS_SUCCESS]: (state, action) => ({ ...state, usersNamesRaw: action.payload }),
+    [MUTATE_SUCCESS]: (state, action) => ({ ...state, usersNames: action.payload }),
+    [GET_MESSAGE_ON_ACCESS_FOLLOWING]: (state, action) => ({ ...state, message: action.payload }),
 }, initialState);
 
-function* serchUsersForFollowing(action) {
-    const res = yield call(searchUserByUsername, action.payload);
-    yield put(actions.fetchUser(res.data));
+function* fetchUsersNames() {
+    const res = yield call(searchUserByUsername, ' ');
+    yield put(actions.fetchUsersSuccess(res.data));
 }
 
-function* followUser(action) {
+function* followUsers(action) {
     try {
         const res = yield call(followUserApi, action.payload);
         yield put(actions.getMessageOnAccessFollowing(res.data.message));
@@ -42,7 +50,14 @@ function* followUser(action) {
     }
 }
 
+function* mutate() {
+    const { usersNamesRaw, search } = yield select(state => state.followUser);
+    const res = usersNamesRaw.filter(list => list.toLowerCase().includes(search.toLowerCase()));
+    yield put(actions.mutateSuccess(res));
+}
+
 export function* saga() {
-    yield safeTakeEvery(SEARCH_USERS_FOR_FOLLOWING, serchUsersForFollowing);
-    yield safeTakeEvery(FOLLOW_USER, followUser);
+    yield safeTakeEvery(FETCH_USERS, fetchUsersNames);
+    yield safeTakeEvery([FETCH_USERS_SUCCESS, SEARCH], mutate);
+    yield safeTakeEvery(FOLLOW_USER, followUsers);
 }

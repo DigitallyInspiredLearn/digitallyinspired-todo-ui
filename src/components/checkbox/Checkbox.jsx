@@ -30,6 +30,7 @@ class Checkbox extends Component {
     };
 
     render() {
+        const { checked } = this.state;
         return (
             <CheckboxStyle
                 selected={this.state.checked}

@@ -4,9 +4,7 @@ import {
     call, put, delay, select,
 } from 'redux-saga/effects';
 import getOneList from '../../api/list';
-import {
-    updateList, deleteList, getMyList, getSharedLists,
-} from '../../api/dashboard';
+import { updateList, deleteList } from '../../api/dashboard';
 import { addTask, deleteTask, updateTask } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 
@@ -22,6 +20,8 @@ export const DELETE_LIST = 'list/DELETE_LIST';
 export const UPDATE_CHECKBOX_LIST = 'list/UPDATE_CHECKBOX_LIST';
 export const SELECTED_DONE = 'list/SELECTED_DONE';
 export const SELECTED_NOT_DONE = 'list/SELECTED_NOT_DONE';
+export const MUTATE = 'list/MUTATE';
+export const MUTATE_SUCCESS = 'list/MUTATE_SUCCESS';
 
 export const actions = {
     fetchList: createAction(FETCH_LIST),
@@ -36,10 +36,13 @@ export const actions = {
     deleteTaskList: createAction(DELETE_TASK_LIST),
     selectDoneAction: createAction(SELECTED_DONE),
     selectedNotDoneAction: createAction(SELECTED_NOT_DONE),
+    mutate: createAction(MUTATE),
+    mutateSuccess: createAction(MUTATE_SUCCESS),
 };
 
 const initialState = {
     data: {},
+    dataRaw: {},
     search: '',
     selectedDone: true,
     selectedNotDone: true,
@@ -90,6 +93,7 @@ export const reducer = handleActions({
 
 function* fetchList(action) {
     const { selectedDone, selectedNotDone } = yield select(state => state.list);
+    console.log(action.payload, 'll');
     const r = yield call(getOneList, action.payload);
     const allTasks = r.data.tasks;
     console.log(selectedDone, selectedNotDone, allTasks);
