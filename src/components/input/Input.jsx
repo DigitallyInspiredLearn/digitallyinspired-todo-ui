@@ -17,26 +17,33 @@ class Input extends Component {
         }
     };
 
-    handleChange = (e) => {
+    handleChange = (e, { onChange } = this.props) => {
         const { target: { value } } = e;
         this.setState({ value });
-        if (this.props.onChange) {
-            this.props.onChange(value);
+        if (onChange) {
+            onChange(value);
         }
+    };
+    handleBlur = (e, { onBlur } = this.props) => {
+        const { target: { value } } = e;
+        this.setState({ value: (value || 'New value') });
+        onBlur(value);
     };
 
     render() {
         const { border, style, onBlur } = this.props;
+        const { value } = this.state;
         return (
             <InputStyles
-                value={this.state.value}
+                value={value}
                 onChange={this.handleChange}
                 border={border}
                 style={style}
-                onKeyPress={ (e) => e.key === 'Enter' && e.target.blur() }
-                onBlur={onBlur}
+                onKeyPress={e => e.key === 'Enter' && e.target.blur()}
+                onBlur={this.handleBlur}
             />
-        )}
+        );
+    }
 }
 
 export default Input;

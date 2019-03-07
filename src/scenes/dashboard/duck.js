@@ -75,6 +75,9 @@ const initialState = {
     selectedMy: true,
     selectedShared: false,
     search: '',
+    currentPade: 0,
+    pageSize: 4,
+    totalElement: 0,
 };
 
 export const reducer = handleActions({
@@ -132,9 +135,10 @@ function* deleteDashboard(action) {
 }
 
 function* updateTitle(action) {
-    const list = yield select(state => state.dashboard.toDoBoardRaw.find(l => l.id === action.payload.id));
-    const updatedList = { ...list, todoListName: list.todoListName === '' ? 'New Title' : list.todoListName };
-    yield call(updateList, action.payload.id, updatedList);
+    const { payload: { newTitle, id } } = action;
+    const list = yield select(state => state.dashboard.toDoBoardRaw.find(l => l.id === id));
+    const updatedList = { ...list, todoListName: newTitle || 'New value' };
+    yield call(updateList, id, updatedList);
     yield call(fetchAllLists);
 }
 
@@ -148,9 +152,10 @@ function* updateSelectedTask(action) {
 }
 
 function* updateNameTask(action) {
-    yield call(updateTask, action.payload.idTask, {
-        body: action.payload.newTaskName,
-        isComplete: action.payload.selected,
+    const { payload: { idTask, newTaskName, selected } } = action;
+    yield call(updateTask, idTask, {
+        body: newTaskName || 'New value',
+        isComplete: selected,
     });
     yield call(fetchAllLists);
 }
