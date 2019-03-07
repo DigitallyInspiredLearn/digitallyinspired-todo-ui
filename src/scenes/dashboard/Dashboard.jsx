@@ -24,7 +24,6 @@ export const getTaskList = (tasks, props) => (
             <Task
                 idTask={i.id}
                 idList={props.idList}
-                key={i.id}
                 selected={i.isComplete}
                 nameTask={i.body}
                 actions={props.actions}
