@@ -50,13 +50,14 @@ function* rehydrateSaga() {
 }
 
 function* logout() {
-    yield put(actions.loginSuccess({
-        user: '',
-        token: '',
-    }));
-    alert('Вы точно хотите выйти?');
-    yield call(setDefaultApiToken, '');
-    history.replace('/auth');
+    confirm('Вы точно хотите выйти?') && (
+        yield call(setDefaultApiToken, ''),
+        history.replace('/auth'),
+        yield put(actions.loginSuccess({
+            user: '',
+            token: '',
+        }))
+    );
 }
 
 export function* saga() {
