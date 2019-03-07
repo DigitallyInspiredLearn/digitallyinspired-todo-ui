@@ -9,7 +9,7 @@ class Checkbox extends Component {
         onChange: PropTypes.func,
     };
 
-    static defaultProps ={
+    static defaultProps = {
         checked: false,
         onChange: undefined,
     };
@@ -32,7 +32,10 @@ class Checkbox extends Component {
     render() {
         const { checked } = this.state;
         return (
-            <CheckboxStyle selected={checked} onClick={this.handleClick} />
+            <CheckboxStyle
+                selected={this.state.checked}
+                onClick={this.handleClick}
+            />
         );
     }
 }

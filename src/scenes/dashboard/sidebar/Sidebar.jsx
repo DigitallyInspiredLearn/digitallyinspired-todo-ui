@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
 import * as styled from './Sidebar.styles';
-// tasks: [{ body: '', id: new Date().valueOf(), isComplete: false }],
+
 class Sidebar extends Component {
     constructor(props) {
         super(props);
