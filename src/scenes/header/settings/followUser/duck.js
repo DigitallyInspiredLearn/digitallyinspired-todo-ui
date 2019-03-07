@@ -47,12 +47,18 @@ function* followUsers(action) {
         yield put(actions.getMessageOnAccessFollowing(res.data.message));
     } catch (e) {
         e.response.status === 404 && (yield put(actions.getMessageOnAccessFollowing("You can't follow this user!")));
+        e.response.status === 403 && (yield put(actions.getMessageOnAccessFollowing('You are'
+            + ' already subscribed to this user!')));
     }
 }
 
 function* mutate() {
     const { usersNamesRaw, search } = yield select(state => state.followUser);
-    const res = usersNamesRaw.filter(list => list.toLowerCase().includes(search.toLowerCase()));
+    const currentUserName = yield select(state => state.profile.currentUser.username);
+    const res = usersNamesRaw.filter(list => (
+        list.toLowerCase().includes(search.toLowerCase()),
+        list !== currentUserName
+    ));
     yield put(actions.mutateSuccess(res));
 }
 

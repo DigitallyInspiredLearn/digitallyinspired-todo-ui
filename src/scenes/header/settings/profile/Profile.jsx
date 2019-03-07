@@ -18,10 +18,10 @@ class Profile extends Component {
         };
     }
 
-    // componentDidMount = () => {
-    //     const { fetchCurrentUser } = this.props.actions;
-    //     fetchCurrentUser();
-    // };
+    componentDidMount = () => {
+        const { fetchCurrentUser } = this.props.actions;
+        fetchCurrentUser();
+    };
 
     changeValueNewName = e => this.setState({ newName: e.target.value });
 

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types,react/require-default-props */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import trash from '../../../image/trash.svg';
 import * as styled from './Task.styled';
@@ -11,13 +11,13 @@ class Task extends Component {
         super(props);
         this.state = {
             display: 'none',
-            newTaskName: props.nameTask
+            newTaskName: props.nameTask,
         };
     }
 
-    updateDisplayFlex = () => this.setState({display: 'flex'});
+    updateDisplayFlex = () => this.setState({ display: 'flex' });
 
-    updateDisplayNone = () => this.setState({display: 'none'});
+    updateDisplayNone = () => this.setState({ display: 'none' });
 
     handleSelectTask = (newValue) => {
         console.log(newValue);
@@ -27,7 +27,6 @@ class Task extends Component {
         actions.updateCheckbox({
             nameTask, idTask, selected, body: nameTask,
         });
-
     };
 
     handleUpdateTask = (newValue) => {
@@ -41,7 +40,6 @@ class Task extends Component {
         actions.updateTaskName({
             idDashboard: idList, idTask, newTaskName,
         });
-
     };
 
     handleUpdateTaskSuccess = () => {
@@ -50,15 +48,15 @@ class Task extends Component {
         } = this.props;
         const { newTaskName } = this.state;
         actions.updateTaskNameSuccess({
-            newTaskName: !newTaskName? 'New task' : newTaskName,
+            newTaskName,
             selected,
             idTask,
         });
     };
 
     render() {
-        const {display} = this.state;
-        const displayStyle = {display};
+        const { display } = this.state;
+        const displayStyle = { display };
         const {
             idTask, selected, actions, nameTask,
         } = this.props;
@@ -80,14 +78,14 @@ class Task extends Component {
                         value={nameTask}
                         onBlur={this.handleUpdateTaskSuccess}
                         border={false}
-                        style={{textDecoration: selected ? 'line-through' : 'none', width: '100%'}}
+                        style={{ textDecoration: selected ? 'line-through' : 'none', width: '100%' }}
                     />
                 </styled.NameAdnCheckedTask>
                 <styled.DeleteTask
                     src={trash}
                     alt="Delete this task"
                     style={displayStyle}
-                    onClick={() => actions.deleteTask({idTask})}
+                    onClick={() => actions.deleteTask({ idTask })}
                 />
             </styled.Task>
         );
