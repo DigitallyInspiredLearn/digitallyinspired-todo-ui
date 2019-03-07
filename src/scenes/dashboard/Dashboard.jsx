@@ -11,7 +11,7 @@ import info from '../../image/information.svg';
 import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
 import PopupContainer from '../popup/PopupContainer';
-
+import Input from '../../components/input/Input';
 
 export const getTaskList = (tasks, props) => (
     tasks.length === 0
@@ -24,7 +24,6 @@ export const getTaskList = (tasks, props) => (
             <Task
                 idTask={i.id}
                 idList={props.idList}
-                key={i.id}
                 selected={i.isComplete}
                 nameTask={i.body}
                 actions={props.actions}
@@ -37,6 +36,7 @@ export class Dashboard extends Component {
         this.state = {
             valueNewTask: '',
             statePopup: false,
+            newTitle: props.title,
         };
     }
 
@@ -63,8 +63,23 @@ export class Dashboard extends Component {
         });
     };
 
+    handleUpdateTitle = (newValue) => {
+        const { actions, idList } = this.props;
+        const { newTitle } = this.state;
+        this.setState({ newTitle: newValue });
+        actions.updateTitleDashboard({
+            id: idList, newTitle,
+        });
+    };
+
+    handleUpdateTitleSuccess = () => {
+        const { actions, idList } = this.props;
+        const { newTitle } = this.state;
+        actions.updateTitleSuccess({ id: idList, newTitle });
+    };
+
     render() {
-        const {valueNewTask, statePopup} = this.state;
+        const { valueNewTask, statePopup } = this.state;
         const {
             idList, title, tasks, actions, shared,
         } = this.props;
@@ -77,17 +92,12 @@ export class Dashboard extends Component {
             />,
             <styled.Dashboard id={idList}>
                 <styled.DashboardHeader>
-                    <styled.Title
-                        type="text"
+                    <Input
+                        onChange={this.handleUpdateTitle}
                         value={title}
-                        onChange={e => actions.updateTitleDashboard({
-                            id: idList, newTitle: e.target.value,
-                        })}
-                        onBlur={(e) => {
-                            e.target.value = !e.target.value ? (e.target.value = 'New Title') : e.target.value;
-                            actions.updateTitleSuccess({ id: idList });
-                        }}
-                        onKeyDown={e => (e.key === 'Enter' && e.target.blur())}
+                        onBlur={this.handleUpdateTitleSuccess}
+                        border={false}
+                        style={{ textDecoration: 'none', width: '100%', fontWeight: 'bold' }}
                     />
                     {
                         shared

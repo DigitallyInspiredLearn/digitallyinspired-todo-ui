@@ -14,7 +14,7 @@ class FollowUser extends Component {
 
     componentWillMount = ({ actions } = this.props) => actions.fetchUsers();
 
-    // componentWillUnmount = ({ actions } = this.props) => actions.searchUserForFollowing('');
+    componentWillUnmount = ({ actions } = this.props) => actions.searchUserForFollowing('');
 
     render() {
         const {
