@@ -75,6 +75,9 @@ const initialState = {
     selectedMy: true,
     selectedShared: false,
     search: '',
+    currentPade: 0,
+    pageSize: 4,
+    totalElement: 0,
 };
 
 export const reducer = handleActions({
