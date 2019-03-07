@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dashboard } from './Dashboard';
-import VisibleSidebar from './sidebar/SidebarContainer';
 import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
 
@@ -62,9 +61,7 @@ class DashboardList extends Component {
                             ))
                     }
                 </styled.DashboardList>
-                <VisibleSidebar />
             </styled.App>
-
         );
     }
 }
