@@ -92,6 +92,7 @@ export class Dashboard extends Component {
             />,
             <styled.Dashboard id={idList}>
                 <styled.DashboardHeader>
+                    <styled.Avatar src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp" />
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}

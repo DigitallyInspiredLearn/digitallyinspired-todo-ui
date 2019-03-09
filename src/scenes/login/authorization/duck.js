@@ -50,8 +50,9 @@ function* rehydrateSaga() {
 }
 
 function* logout() {
-    confirm('Вы точно хотите выйти?') && (
-        yield call(setDefaultApiToken, ''),
+    ( history.location.pathname === '/auth' || history.location.pathname === '/reg') || (
+        confirm('Do you want to logout?') && (
+            yield call(setDefaultApiToken, '')),
         history.replace('/auth'),
         yield put(actions.loginSuccess({
             user: '',

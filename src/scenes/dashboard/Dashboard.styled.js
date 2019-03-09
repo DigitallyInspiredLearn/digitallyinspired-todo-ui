@@ -96,3 +96,9 @@ export const NullLenghtTask = styled.p`
      margin: 10px;
      opacity: 0.6
 `;
+export const Avatar = styled.img`
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+`;
