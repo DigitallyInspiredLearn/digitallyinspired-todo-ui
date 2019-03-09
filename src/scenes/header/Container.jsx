@@ -53,6 +53,9 @@ class Container extends Component {
                             alt="list"
                             onClick={this.toggleSettings}
                         />
+                        <styled.Avatar
+                            src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp"
+                        />
                         <styled.Logout
                             src={logout}
                             alt="logout"

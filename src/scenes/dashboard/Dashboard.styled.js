@@ -98,7 +98,6 @@ export const NullLenghtTask = styled.p`
 `;
 export const Avatar = styled.img`
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 5px;
+    width: 30px;
+    height: 30px;
 `;

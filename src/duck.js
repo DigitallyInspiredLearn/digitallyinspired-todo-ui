@@ -16,10 +16,10 @@ export function* errorHandler(gen) {
         if (e.response.status === 401) {
             (history.location.pathname === '/auth' || history.location.pathname === '/reg')
                 || (alert('You are not log in!'),
-                    console.log('Error 401'),
-                    history.push('/auth'),
-                    location.reload(true)
-            );
+                console.log('Error 401'),
+                history.push('/auth'),
+                location.reload(true)
+                );
         } else if (e.response.status === 500) {
             console.log('Error 500');
             history.push('/error500');
