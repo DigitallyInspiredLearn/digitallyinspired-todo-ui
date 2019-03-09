@@ -1,15 +1,46 @@
 import styled, { keyframes } from 'styled-components';
 
+import ReactPaginate from 'react-paginate';
 export const Container = styled.div`
    display: flex;
    flex-direction: column;
-   height:100vh;
+   height:95vh;
    width:100%;
    background-color: ${p => p.theme.background};
    input{
          border: none;
          background-color: inherit;
          color: grey;
+   }
+`;
+
+export const Footer = styled.div`
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   width:100%;
+   background-color: ${p => p.theme.background};
+   .pagination-container {
+        display: flex;
+   }
+   li {
+        margin: 0 10px;
+   }
+`;
+
+export const Pagination = styled(ReactPaginate)`
+   display: flex;
+   width: 400px;
+   background-color: ${p => p.theme.background};
+   .pagination-container {
+        display: flex;
+        li {
+        margin: 0 10px;
+   }
+   }
+   
+   li {
+        margin: 0 10px;
    }
 `;
 

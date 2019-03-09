@@ -4,6 +4,7 @@ export const Styled = styled.div`
     margin-top: 20%;
     margin-left: 35%;
     display: flex;
+    flex:auto;
     flex-direction: column;
     opacity:0;
     transition: 500ms;
