@@ -92,3 +92,10 @@ export const Logout = styled.img`
     margin-left: 10px;
     cursor: pointer;
 `;
+export const Avatar = styled.img`
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+`;

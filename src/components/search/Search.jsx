@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import InputStyles from './Input.styles';
+import SearchStyles from './Search.styles';
 
-class Input extends Component {
+class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,26 +25,15 @@ class Input extends Component {
         }
     };
 
-    handleBlur = (e, { onBlur } = this.props) => {
-        const { target: { value } } = e;
-        this.setState({ value: (value || 'New value') });
-        onBlur(value);
-    };
-
     render() {
-        const { border, style, onBlur } = this.props;
         const { value } = this.state;
         return (
-            <InputStyles
-                value={value}
+            <SearchStyles
+                placeholder='Search dashboard'
                 onChange={this.handleChange}
-                border={border}
-                style={style}
-                onKeyPress={e => e.key === 'Enter' && e.target.blur()}
-                onBlur={this.handleBlur}
             />
         );
     }
 }
 
-export default Input;
+export default Search;
