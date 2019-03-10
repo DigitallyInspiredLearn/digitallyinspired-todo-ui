@@ -59,6 +59,25 @@ export const Icon = styled.img`
     color: ${ p => p.theme.mainText };
     opacity: 0.5; 
     margin-right:5px;
+    }
+`;
+export const IconInfo = styled.div`
+    p{
+    display:none;
+    padding:10px;
+    }
+    &:hover p{
+    display:block;
+    position:absolute;
+    top:200px;
+    z-index:9999;
+    width:100px;
+    margin-top:17px;
+    background:#f3f3f3;
+    height:100px;
+    -moz-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+    -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+    box-shadow:0 5px 5px rgba(0,0,0,0.3);
 `;
 
 export const TaskList = styled.div`

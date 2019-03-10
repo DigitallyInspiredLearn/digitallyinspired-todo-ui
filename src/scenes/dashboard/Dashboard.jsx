@@ -112,7 +112,10 @@ export class Dashboard extends Component {
                             : (
                                 <styled.IconContainer>
                                     <Link to={`/list/${idList}`}>
-                                        <styled.Icon src={info} alt="Information about this list" />
+                                        <styled.IconInfo>
+                                            <p>Information</p>
+                                            <styled.Icon src={info} alt="Information about this list" />
+                                        </styled.IconInfo>
                                     </Link>
                                     <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
                                     <styled.Icon
