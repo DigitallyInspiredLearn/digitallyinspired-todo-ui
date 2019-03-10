@@ -92,6 +92,9 @@ export class Dashboard extends Component {
             />,
             <styled.Dashboard id={idList}>
                 <styled.DashboardHeader>
+                    <styled.Avatar
+                        src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp"
+                    />
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
@@ -109,7 +112,10 @@ export class Dashboard extends Component {
                             : (
                                 <styled.IconContainer>
                                     <Link to={`/list/${idList}`}>
-                                        <styled.Icon src={info} alt="Information about this list" />
+                                        <styled.IconInfo>
+                                            <p>Information</p>
+                                            <styled.Icon src={info} alt="Information about this list" />
+                                        </styled.IconInfo>
                                     </Link>
                                     <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
                                     <styled.Icon
