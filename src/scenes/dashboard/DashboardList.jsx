@@ -57,6 +57,10 @@ class DashboardList extends Component {
                                     toDoBoard={toDoBoard}
                                     actions={actions}
                                     shared={i.shared}
+                                    createdBy={i.createdBy}
+                                    modifiedBy={i.modifiedBy}
+                                    createdDate={i.createdDate}
+                                    modifiedDate={i.modifiedDate}
                                 />
                             ))
                     }

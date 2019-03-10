@@ -63,21 +63,24 @@ export const Icon = styled.img`
 `;
 export const IconInfo = styled.div`
     p{
-    display:none;
-    padding:10px;
+        display:none;
+        padding:10px;
     }
     &:hover p{
-    display:block;
-    position:absolute;
-    top:200px;
-    z-index:9999;
-    width:100px;
-    margin-top:17px;
-    background:#f3f3f3;
-    height:100px;
-    -moz-box-shadow:0 5px 5px rgba(0,0,0,0.3);
-    -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.3);
-    box-shadow:0 5px 5px rgba(0,0,0,0.3);
+        display:block;
+        position:absolute;
+        top:200px;
+        right: 800px;
+        font-size:12px;
+        z-index:9999;
+        width:200px;
+        margin-top:17px;
+        background:#f3f3f3;
+        height:70px;
+        -moz-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+        -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+        box-shadow:0 5px 5px rgba(0,0,0,0.3);
+    }
 `;
 
 export const TaskList = styled.div`
@@ -104,7 +107,7 @@ export const TaskList = styled.div`
 export const InputAddingTask = styled.input`
     display:flex;
     flex-direction: row;
-    align=item:center;
+    align-self:flex-start;
     font-size: 16px;
     outline: none;
     margin: 10px;
