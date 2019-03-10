@@ -29,7 +29,6 @@ class Container extends Component {
     }
 
     render() {
-        console.log(this.props);
         const { visible } = this.state;
         const { children, data, actions } = this.props;
         return (
