@@ -8,8 +8,7 @@ import Settings from './settings/Settings';
 import list from '../../image/list-menu.svg';
 import * as styled from './Component.styles';
 import { actions } from '../login/authorization/duck';
-//import { actions } as actionsPagination from '../dashboard/duck';
-import VisibleSidebar from '../dashboard/sidebar/SidebarContainer';
+//import { actions  as actionsPagination } from '../dashboard/duck';
 
 
 class Container extends Component {
@@ -23,10 +22,6 @@ class Container extends Component {
         this.setState({ visible: !visible });
     };
 
-    handlePageChange = (a) => {
-		//actionsPagination.changePagination(a);
-        console.log(a);
-    };
 
     render() {
         const { visible } = this.state;
@@ -61,18 +56,6 @@ class Container extends Component {
                     </styled.Header>
                     <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }
-                    <styled.Footer>
-
-                        <styled.Pagination
-                            pageCount={30}
-                            pageRangeDisplayed={3}
-                            marginPagesDisplayed={1}
-                            containerClassName="pagination-container"
-                            onPageChange={this.handlePageChange}
-                        />
-
-                        <VisibleSidebar />
-                    </styled.Footer>
                 </styled.Container>
             </ThemeProvider>
         );

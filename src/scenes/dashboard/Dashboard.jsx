@@ -27,6 +27,7 @@ export const getTaskList = (tasks, props) => (
                 selected={i.isComplete}
                 nameTask={i.body}
                 actions={props.actions}
+                key={i.id}
             />
         )));
 
@@ -79,7 +80,6 @@ export class Dashboard extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { valueNewTask, statePopup } = this.state;
         const {
             idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate,
@@ -90,8 +90,12 @@ export class Dashboard extends Component {
                 statePopup={statePopup}
                 closePopup={this.closePopup}
                 idList={idList}
+                key="popup"
             />,
-            <styled.Dashboard id={idList}>
+            <styled.Dashboard
+                key={idList}
+                id={idList}
+            >
                 <styled.DashboardHeader>
                     <styled.Avatar
                         src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp"
