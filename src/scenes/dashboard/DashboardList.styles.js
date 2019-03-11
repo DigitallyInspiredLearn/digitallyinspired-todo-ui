@@ -60,6 +60,7 @@ export const Footer = styled.div`
 		padding: 0 5px;
 		padding-top:3px;
 		outline: none !important;
+		list-style-type: none;
 		text-decoration: none !important;
 		&:hover {
 			background-color: ${p => p.theme.hoverButton};
