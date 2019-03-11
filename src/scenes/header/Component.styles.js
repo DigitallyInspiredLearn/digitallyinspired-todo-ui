@@ -14,50 +14,6 @@ export const Container = styled.div`
    }
 `;
 
-export const Footer = styled.div`
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   width:100%;
-   background-color: ${p => p.theme.background};
-   .pagination-container {
-	    outline: none;
-        display: flex;
-   }
-   li {
-        margin: 0 10px;
-		cursor: pointer;
-		background-color: ${p => p.theme.backgroundButton};
-		border-radius: 3px;
-		height: 20px;
-		width: auto;
-		text-align: center;
-		padding: 0 5px;
-		padding-top:3px;
-		outline: none;
-		&:hover {
-			background-color: ${p => p.theme.hoverButton};
-		}
-   }
-   
-`;
-
-export const Pagination = styled(ReactPaginate)`
-   display: flex;
-   width: 400px;
-   background-color: ${p => p.theme.background};
-   .pagination-container {
-        display: flex;
-        li {
-        margin: 0 10px;
-   }
-   }
-   
-   li {
-        margin: 0 10px;
-		
-   }
-`;
 
 export const Header = styled.header`
     display: flex;

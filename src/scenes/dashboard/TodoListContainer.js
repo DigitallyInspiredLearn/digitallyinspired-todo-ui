@@ -9,6 +9,8 @@ const mapStateToProps = state => ({
     selectedShared: state.dashboard.selectedShared,
     selectedMy: state.dashboard.selectedMy,
     pageSize: state.dashboard.pageSize,
+    currentPage: state.dashboard.currentPage,
+    totalPages: state.dashboard.totalPages,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
         search: actions.search,
         togglePopup: actions.togglePopup,
         changeSize: actions.changeSize,
+        changePagination: actions.changePagination,
     }, dispatch),
 });
 
