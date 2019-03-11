@@ -42,9 +42,8 @@ export const Footer = styled.div`
    display: flex;
    flex-direction: row;
    justify-content: space-between;
+   align-content: space-between;
    width:100%;
-   height: 150px;
-   z-index: 10;
    background-color: ${p => p.theme.background};
    .pagination-container {
 	    outline: none;
@@ -76,10 +75,9 @@ export const Pagination = styled(ReactPaginate)`
    .pagination-container {
         display: flex;
         li {
-        margin: 0 10px;
+             margin: 0 10px;
+        }
    }
-   }
-   
    li {
         margin: 0 10px;
 		

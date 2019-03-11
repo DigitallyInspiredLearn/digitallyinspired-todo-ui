@@ -16,64 +16,66 @@ class DashboardList extends Component {
 
     render() {
         const {
-            selectedMy, selectedShared, actions, toDoBoard, pageSize,
+            selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages
         } = this.props;
         return (
-            <styled.App>
-                <styled.SearchAndChecked>
-                    <styled.SearchDiv>
-                        <styled.Search
-                            type="text"
-                            placeholder="Search dashboard"
-                            onChange={e => actions.search(e.target.value)}
-                        />
-                        <styled.IconSearch src={loupe} />
-                    </styled.SearchDiv>
-                    <styled.CheckboxDiv>
-                        <styled.ShowButton
-                            checked={selectedMy}
-                            onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                            style={{ marginRight: '10px' }}
-                        >
-                            Show my
-                        </styled.ShowButton>
-                        <styled.ShowButton
-                            checked={selectedShared}
-                            onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
-                        >
-                            Show shared
-                        </styled.ShowButton>
-                    </styled.CheckboxDiv>
-                </styled.SearchAndChecked>
-                <styled.DashboardList>
-                    {
-                        toDoBoard.length === 0
-                            ? (
-                                <styled.NullLenghtDashboards>
-                                    You don't have to-do yet. Plan your tasks with DI To-do! Press to +
-                                </styled.NullLenghtDashboards>
-                            )
-                            : toDoBoard.map(i => (
-                                <Dashboard
-                                    userOwnerId={i.userOwnerId}
-                                    idList={i.id}
-                                    key={i.id}
-                                    title={i.todoListName}
-                                    tasks={i.tasks}
-                                    toDoBoard={toDoBoard}
-                                    actions={actions}
-                                    shared={i.shared}
-                                    createdBy={i.createdBy}
-                                    modifiedBy={i.modifiedBy}
-                                    createdDate={i.createdDate}
-                                    modifiedDate={i.modifiedDate}
-                                />
-                            ))
-                    }
-                </styled.DashboardList>
-                <styled.Footer>
+            [
+                <styled.App key="app">
+                    <styled.SearchAndChecked>
+                        <styled.SearchDiv>
+                            <styled.Search
+                                type="text"
+                                placeholder="Search dashboard"
+                                onChange={e => actions.search(e.target.value)}
+                            />
+                            <styled.IconSearch src={loupe} />
+                        </styled.SearchDiv>
+                        <styled.CheckboxDiv>
+                            <styled.ShowButton
+                                checked={selectedMy}
+                                onClick={() => actions.updateSelectedMyLists(!selectedMy)}
+                                style={{ marginRight: '10px' }}
+                            >
+                                Show my
+                            </styled.ShowButton>
+                            <styled.ShowButton
+                                checked={selectedShared}
+                                onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
+                            >
+                                Show shared
+                            </styled.ShowButton>
+                        </styled.CheckboxDiv>
+                    </styled.SearchAndChecked>
+                    <styled.DashboardList>
+                        {
+                            toDoBoard.length === 0
+                                ? (
+                                    <styled.NullLenghtDashboards>
+                                        You don't have to-do yet. Plan your tasks with DI To-do! Press to +
+                                    </styled.NullLenghtDashboards>
+                                )
+                                : toDoBoard.map(i => (
+                                    <Dashboard
+                                        userOwnerId={i.userOwnerId}
+                                        idList={i.id}
+                                        key={i.id}
+                                        title={i.todoListName}
+                                        tasks={i.tasks}
+                                        toDoBoard={toDoBoard}
+                                        actions={actions}
+                                        shared={i.shared}
+                                        createdBy={i.createdBy}
+                                        modifiedBy={i.modifiedBy}
+                                        createdDate={i.createdDate}
+                                        modifiedDate={i.modifiedDate}
+                                    />
+                                ))
+                        }
+                    </styled.DashboardList>
+                </styled.App>,
+                <styled.Footer key="footer">
                     <styled.Pagination
-                        pageCount={this.props.totalPages}
+                        pageCount={totalPages}
                         pageRangeDisplayed={3}
                         marginPagesDisplayed={1}
                         containerClassName="pagination-container"
@@ -81,8 +83,9 @@ class DashboardList extends Component {
                     />
                     <CheckSize changeSize={actions.changeSize} pageSize={pageSize}/>
                     <VisibleSidebar />
-                </styled.Footer>
-            </styled.App>
+                </styled.Footer>,
+            ]
+
         );
     }
 }
