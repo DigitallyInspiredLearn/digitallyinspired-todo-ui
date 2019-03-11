@@ -9,7 +9,6 @@ import {
     updateList,
     getSharedLists,
     shareTodoListToUser,
-    getAllList,
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -44,7 +43,10 @@ export const MUTATE_SUCCESS = 'dashboard/MUTATE_SUCCESS';
 
 export const SHARE_LIST = 'dashboard/SHARE_LIST';
 
+export const CHANGE_SIZE = 'dashboard/CHANGE_SIZE';
+
 export const actions = {
+    changeSize: createAction(CHANGE_SIZE),
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
     updateSelectedMyLists: createAction(SELECTED_MY_LISTS),
@@ -85,6 +87,7 @@ export const reducer = handleActions({
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({ ...state, myList: action.payload }),
     [FETCH_SHARED_LISTS_SUCCESS]: (state, action) => ({ ...state, sharedList: action.payload }),
+    [CHANGE_SIZE]: (state, action) => ({ ...state, pageSize: action.payload }),
 
     [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
         ...state,
@@ -118,8 +121,8 @@ export const reducer = handleActions({
 }, initialState);
 
 function* fetchAllLists() {
-    const { selectedMy, selectedShared } = yield select(state => state.dashboard);
-    const myLists = selectedMy ? (yield call(getMyList)).data.content : [];
+    const { selectedMy, selectedShared, pageSize } = yield select(state => state.dashboard);
+    const myLists = selectedMy ? (yield call(getMyList, 0, pageSize)).data.content : [];
     yield put(actions.fetchMyListsSuccess(myLists));
     const sharedLists = selectedShared
         ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true }))
@@ -187,7 +190,7 @@ function* shareList(action) {
 }
 
 export function* saga() {
-    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS], fetchAllLists);
+    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
     yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);
