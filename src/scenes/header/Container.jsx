@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import ReactPaginate from 'react-paginate';
 import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
 import Settings from './settings/Settings';
 import list from '../../image/list-menu.svg';
 import * as styled from './Component.styles';
 import { actions } from '../login/authorization/duck';
+//import { actions } as actionsPagination from '../dashboard/duck';
 import VisibleSidebar from '../dashboard/sidebar/SidebarContainer';
-import history from "../../config/history";
 
 
 class Container extends Component {
@@ -25,8 +24,9 @@ class Container extends Component {
     };
 
     handlePageChange = (a) => {
+		//actionsPagination.changePagination(a);
         console.log(a);
-    }
+    };
 
     render() {
         const { visible } = this.state;
@@ -90,6 +90,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         logout: actions.logout,
+    }, dispatch),
+	actionsPagination: bindActionCreators({
+        changePagination: actions.changePagination,
     }, dispatch),
 });
 

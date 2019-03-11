@@ -27,7 +27,6 @@ export const reducer = handleActions({
         user: action.payload.user,
         token: action.payload.token,
     }),
-
 }, initialState);
 
 function setDefaultApiToken(token) {
