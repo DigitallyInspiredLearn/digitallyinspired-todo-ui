@@ -10,6 +10,7 @@ import list from '../../image/list-menu.svg';
 import * as styled from './Component.styles';
 import { actions } from '../login/authorization/duck';
 import VisibleSidebar from '../dashboard/sidebar/SidebarContainer';
+import history from "../../config/history";
 
 
 class Container extends Component {
@@ -28,7 +29,6 @@ class Container extends Component {
     }
 
     render() {
-        console.log(this.props);
         const { visible } = this.state;
         const { children, data, actions } = this.props;
         return (

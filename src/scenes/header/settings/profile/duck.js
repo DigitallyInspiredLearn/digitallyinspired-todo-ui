@@ -39,6 +39,7 @@ function* editProfile(action) {
 }
 
 function* deleteProfile() {
+    confirm('Delete the profile?');
     console.log('=== delete profile ===');
     yield call(deleteProfileApi);
     yield call(fetchUser);

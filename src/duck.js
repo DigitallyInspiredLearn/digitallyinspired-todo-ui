@@ -14,11 +14,12 @@ export function* errorHandler(gen) {
         yield* gen();
     } catch (e) {
         if (e.response.status === 401) {
-            history.location.pathname === '/auth' || (alert('Вы не авторизировались!'),
-                    console.log('Error 401'),
-                    history.push('/auth'),
-                    location.reload(true)
-            );
+            (history.location.pathname === '/auth' || history.location.pathname === '/reg')
+                || (alert('You are not log in!'),
+                console.log('Error 401'),
+                history.push('/auth'),
+                location.reload(true)
+                );
         } else if (e.response.status === 500) {
             console.log('Error 500');
             history.push('/error500');
