@@ -21,11 +21,25 @@ export const Footer = styled.div`
    width:100%;
    background-color: ${p => p.theme.background};
    .pagination-container {
+	    outline: none;
         display: flex;
    }
    li {
         margin: 0 10px;
+		cursor: pointer;
+		background-color: ${p => p.theme.backgroundButton};
+		border-radius: 3px;
+		height: 20px;
+		width: auto;
+		text-align: center;
+		padding: 0 5px;
+		padding-top:3px;
+		outline: none;
+		&:hover {
+			background-color: ${p => p.theme.hoverButton};
+		}
    }
+   
 `;
 
 export const Pagination = styled(ReactPaginate)`
@@ -41,6 +55,7 @@ export const Pagination = styled(ReactPaginate)`
    
    li {
         margin: 0 10px;
+		
    }
 `;
 

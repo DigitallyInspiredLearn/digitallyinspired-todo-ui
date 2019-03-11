@@ -44,6 +44,8 @@ export const MUTATE_SUCCESS = 'dashboard/MUTATE_SUCCESS';
 
 export const SHARE_LIST = 'dashboard/SHARE_LIST';
 
+export const CHANGE_PAGINATION = 'CHANGE_PAGINATION';
+
 export const actions = {
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
@@ -64,6 +66,7 @@ export const actions = {
     mutate: createAction(MUTATE),
     mutateSuccessDashboard: createAction(MUTATE_SUCCESS),
     shareList: createAction(SHARE_LIST),
+	changePagination: createAction(CHANGE_PAGINATION),
 };
 
 
@@ -75,7 +78,7 @@ const initialState = {
     selectedMy: true,
     selectedShared: false,
     search: '',
-    currentPade: 0,
+    currentPage: 0,
     pageSize: 4,
     totalElement: 0,
 };
@@ -115,6 +118,7 @@ export const reducer = handleActions({
     [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
     [SELECTED_SHARED_LISTS]: (state, action) => ({ ...state, selectedShared: action.payload }),
     [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
+	[CHANGE_PAGINATION]: (state, action) => ({ ...state, currentPage: action.payload }),
 }, initialState);
 
 function* fetchAllLists() {
