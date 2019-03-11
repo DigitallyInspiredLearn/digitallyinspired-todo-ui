@@ -8,6 +8,7 @@ import Settings from './settings/Settings';
 import list from '../../image/list-menu.svg';
 import * as styled from './Component.styles';
 import { actions } from '../login/authorization/duck';
+//import { actions } as actionsPagination from '../dashboard/duck';
 import VisibleSidebar from '../dashboard/sidebar/SidebarContainer';
 
 
@@ -23,8 +24,9 @@ class Container extends Component {
     };
 
     handlePageChange = (a) => {
+		//actionsPagination.changePagination(a);
         console.log(a);
-    }
+    };
 
     render() {
         const { visible } = this.state;
@@ -88,6 +90,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         logout: actions.logout,
+    }, dispatch),
+	actionsPagination: bindActionCreators({
+        changePagination: actions.changePagination,
     }, dispatch),
 });
 
