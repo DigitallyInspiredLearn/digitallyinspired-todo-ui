@@ -49,13 +49,15 @@ function* rehydrateSaga() {
 }
 
 function* logout() {
-    yield put(actions.loginSuccess({
-        user: '',
-        token: '',
-    }));
-    alert('Вы точно хотите выйти?');
-    yield call(setDefaultApiToken, '');
-    history.replace('/auth');
+    (history.location.pathname === '/auth' || history.location.pathname === '/reg') ||
+    confirm('Do you want to logout?') && (
+        yield call(setDefaultApiToken, ''),
+        history.replace('/auth'),
+        yield put(actions.loginSuccess({
+            user: '',
+            token: '',
+        }))
+    );
 }
 
 export function* saga() {

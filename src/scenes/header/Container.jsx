@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import ReactPaginate from 'react-paginate';
 import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
 import Settings from './settings/Settings';
@@ -30,7 +29,6 @@ class Container extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { visible } = this.state;
         const { children, data, actions } = this.props;
         return (

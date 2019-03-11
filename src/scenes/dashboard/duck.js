@@ -9,7 +9,6 @@ import {
     updateList,
     getSharedLists,
     shareTodoListToUser,
-    getAllList,
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -43,10 +42,12 @@ export const MUTATE = 'dashboard/MUTATE';
 export const MUTATE_SUCCESS = 'dashboard/MUTATE_SUCCESS';
 
 export const SHARE_LIST = 'dashboard/SHARE_LIST';
+export const CHANGE_SIZE = 'dashboard/CHANGE_SIZE';
 
 export const CHANGE_PAGINATION = 'CHANGE_PAGINATION';
 
 export const actions = {
+    changeSize: createAction(CHANGE_SIZE),
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
     updateSelectedMyLists: createAction(SELECTED_MY_LISTS),
@@ -78,15 +79,20 @@ const initialState = {
     selectedMy: true,
     selectedShared: false,
     search: '',
-    currentPage: 0,
     pageSize: 4,
-    totalElement: 0,
+    totalElements: 0,
 };
 
 export const reducer = handleActions({
+    [CHANGE_SIZE]: (state, action) => ({ ...state, pageSize: action.payload }),
     [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
-    [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({ ...state, myList: action.payload }),
+    [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({
+        ...state,
+        myList: action.payload.myLists,
+        totalElements: action.payload.countElements,
+        totalPages: action.payload.countPages,
+    }),
     [FETCH_SHARED_LISTS_SUCCESS]: (state, action) => ({ ...state, sharedList: action.payload }),
 
     [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
@@ -118,16 +124,19 @@ export const reducer = handleActions({
     [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
     [SELECTED_SHARED_LISTS]: (state, action) => ({ ...state, selectedShared: action.payload }),
     [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
-	[CHANGE_PAGINATION]: (state, action) => ({ ...state, currentPage: action.payload }),
 }, initialState);
 
 function* fetchAllLists() {
-    const { selectedMy, selectedShared } = yield select(state => state.dashboard);
-    const myLists = selectedMy ? (yield call(getMyList)).data.content : [];
-    yield put(actions.fetchMyListsSuccess(myLists));
-    const sharedLists = selectedShared
-        ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true }))
-        : [];
+    const {
+        selectedMy, selectedShared, pageSize, currentPage,
+    } = yield select(state => state.dashboard);
+    const countElements = selectedMy
+        ? (yield call(getMyList, currentPage, pageSize)).data.totalElements : [];
+    const myLists = selectedMy
+        ? (yield call(getMyList, currentPage, pageSize)).data.content : [];
+    const countPages = Math.ceil(countElements / pageSize);
+    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
+    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
@@ -191,7 +200,7 @@ function* shareList(action) {
 }
 
 export function* saga() {
-    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS], fetchAllLists);
+    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
     yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);

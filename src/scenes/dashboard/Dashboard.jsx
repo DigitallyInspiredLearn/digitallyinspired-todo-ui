@@ -79,9 +79,10 @@ export class Dashboard extends Component {
     };
 
     render() {
+        console.log(this.props);
         const { valueNewTask, statePopup } = this.state;
         const {
-            idList, title, tasks, actions, shared,
+            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate,
         } = this.props;
 
         return ([
@@ -92,6 +93,9 @@ export class Dashboard extends Component {
             />,
             <styled.Dashboard id={idList}>
                 <styled.DashboardHeader>
+                    <styled.Avatar
+                        src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp"
+                    />
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
@@ -109,7 +113,17 @@ export class Dashboard extends Component {
                             : (
                                 <styled.IconContainer>
                                     <Link to={`/list/${idList}`}>
-                                        <styled.Icon src={info} alt="Information about this list" />
+                                        <styled.IconInfo>
+                                            <p>
+                                                <b>Information:</b><br />
+                                                Created by: {createdBy}<br />
+                                                Created time: {new Date(createdDate).toLocaleString()}<br />
+                                                Modyfied by: {modifiedBy}<br />
+                                                Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                
+                                            </p>
+                                            <styled.Icon src={info} alt="Information about this list" />
+                                        </styled.IconInfo>
                                     </Link>
                                     <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
                                     <styled.Icon

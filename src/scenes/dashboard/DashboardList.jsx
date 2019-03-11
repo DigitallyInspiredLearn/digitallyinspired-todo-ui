@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CheckSize from '../../components/checkSize/CheckSize';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
@@ -10,7 +11,7 @@ class DashboardList extends Component {
 
     render() {
         const {
-            selectedMy, selectedShared, actions, toDoBoard,
+            selectedMy, selectedShared, actions, toDoBoard, pageSize,
         } = this.props;
         return (
             <styled.App>
@@ -57,10 +58,15 @@ class DashboardList extends Component {
                                     toDoBoard={toDoBoard}
                                     actions={actions}
                                     shared={i.shared}
+                                    createdBy={i.createdBy}
+                                    modifiedBy={i.modifiedBy}
+                                    createdDate={i.createdDate}
+                                    modifiedDate={i.modifiedDate}
                                 />
                             ))
                     }
                 </styled.DashboardList>
+                <CheckSize changeSize={actions.changeSize} pageSize={pageSize} />
             </styled.App>
         );
     }
