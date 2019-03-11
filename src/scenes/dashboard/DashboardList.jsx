@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Sorting from '../../components/sorting/Sorting';
 import CheckSize from '../../components/checkSize/CheckSize';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -10,11 +11,12 @@ import VisibleSidebar from '../dashboard/sidebar/SidebarContainer';
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
-    handlePageChange = (value) => {
-        this.props.actions.changePagination(value.selected);
+    handlePageChange = ({ actions } = this.props, value) => {
+        actions.changePagination(value.selected);
     };
 
     render() {
+        console.log(this.props);
         const {
             selectedMy, selectedShared, actions, toDoBoard, pageSize,
         } = this.props;
@@ -30,10 +32,11 @@ class DashboardList extends Component {
                         <styled.IconSearch src={loupe} />
                     </styled.SearchDiv>
                     <styled.CheckboxDiv>
+                        <Sorting />
                         <styled.ShowButton
                             checked={selectedMy}
                             onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                            style={{ marginRight: '10px' }}
+                            style={{ marginRight: '10px', marginLeft: '10px' }}
                         >
                             Show my
                         </styled.ShowButton>
@@ -79,7 +82,7 @@ class DashboardList extends Component {
                         containerClassName="pagination-container"
                         onPageChange={this.handlePageChange}
                     />
-                    <CheckSize changeSize={actions.changeSize} pageSize={pageSize}/>
+                    <CheckSize changeSize={actions.changeSize} pageSize={pageSize} />
                     <VisibleSidebar />
                 </styled.Footer>
             </styled.App>

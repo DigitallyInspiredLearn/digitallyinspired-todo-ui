@@ -30,6 +30,6 @@ export const Li = styled.div`
     &:hover {
       background-color: gray;
     }
-    background-color:${p => (p.checked ? 'black' : 'inherit')}
+    background-color:${p => (p.checked ? 'black' : 'inherit')};
     color:${p => (p.checked ? 'white' : 'inherit')}
 `;
