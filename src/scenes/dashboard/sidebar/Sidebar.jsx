@@ -72,10 +72,14 @@ class Sidebar extends Component {
         return (
 
             [
-                <styled.Plus className="plus" onClick={this.updateDisplaySidebar}>
+                <styled.Plus
+                    key="plus"
+                    className="plus"
+                    onClick={this.updateDisplaySidebar}
+                >
                     <styled.ButtonPlus src={plus} alt="Plus" />
                 </styled.Plus>,
-                <styled.Sidebar style={{ display: displayStyle, zIndex: 5 }}>
+                <styled.Sidebar key="sidebar" style={{ display: displayStyle, zIndex: 5 }}>
                     <styled.Background
                         onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                     />
@@ -95,6 +99,7 @@ class Sidebar extends Component {
                                 <styled.AddTaskPlace
                                     onMouseOut={this.updateDisplayTrashHide}
                                     onMouseOver={this.updateDisplayTrashVisible}
+                                    key={i}
                                 >
                                     <styled.InputTask
                                         type="text"

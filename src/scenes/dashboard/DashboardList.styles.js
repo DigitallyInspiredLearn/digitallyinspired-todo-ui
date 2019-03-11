@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ReactPaginate from 'react-paginate';
 
 export const App = styled.div`
     display: flex;
@@ -35,6 +36,54 @@ export const SearchDiv = styled.div`
         padding: 5px;   
      }
      
+`;
+
+export const Footer = styled.div`
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   width:100%;
+   height: 150px;
+   z-index: 10;
+   background-color: ${p => p.theme.background};
+   .pagination-container {
+	    outline: none;
+        display: flex;
+   }
+   li {
+        margin: 0 10px;
+		cursor: pointer;
+		background-color: ${p => p.theme.backgroundButton};
+		border-radius: 3px;
+		height: 20px;
+		width: auto;
+		text-align: center;
+		padding: 0 5px;
+		padding-top:3px;
+		outline: none !important;
+		text-decoration: none !important;
+		&:hover {
+			background-color: ${p => p.theme.hoverButton};
+		}
+   }
+   
+`;
+
+export const Pagination = styled(ReactPaginate)`
+   display: flex;
+   width: 400px;
+   background-color: ${p => p.theme.background};
+   .pagination-container {
+        display: flex;
+        li {
+        margin: 0 10px;
+   }
+   }
+   
+   li {
+        margin: 0 10px;
+		
+   }
 `;
 
 export const Search = styled.input`

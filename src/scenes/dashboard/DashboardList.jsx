@@ -5,9 +5,14 @@ import CheckSize from '../../components/checkSize/CheckSize';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
+import VisibleSidebar from '../dashboard/sidebar/SidebarContainer';
 
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
+
+    handlePageChange = (value) => {
+        this.props.actions.changePagination(value.selected);
+    };
 
     render() {
         const {
@@ -66,7 +71,17 @@ class DashboardList extends Component {
                             ))
                     }
                 </styled.DashboardList>
-                <CheckSize changeSize={actions.changeSize} pageSize={pageSize} />
+                <styled.Footer>
+                    <styled.Pagination
+                        pageCount={this.props.totalPages}
+                        pageRangeDisplayed={3}
+                        marginPagesDisplayed={1}
+                        containerClassName="pagination-container"
+                        onPageChange={this.handlePageChange}
+                    />
+                    <CheckSize changeSize={actions.changeSize} pageSize={pageSize}/>
+                    <VisibleSidebar />
+                </styled.Footer>
             </styled.App>
         );
     }
