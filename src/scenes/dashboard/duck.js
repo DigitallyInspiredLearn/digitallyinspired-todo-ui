@@ -42,7 +42,6 @@ export const MUTATE = 'dashboard/MUTATE';
 export const MUTATE_SUCCESS = 'dashboard/MUTATE_SUCCESS';
 
 export const SHARE_LIST = 'dashboard/SHARE_LIST';
-
 export const CHANGE_SIZE = 'dashboard/CHANGE_SIZE';
 
 export const actions = {
@@ -77,17 +76,22 @@ const initialState = {
     selectedMy: true,
     selectedShared: false,
     search: '',
-    currentPade: 0,
+    currentPage: 1,
     pageSize: 4,
-    totalElement: 0,
+    totalElements: 0,
 };
 
 export const reducer = handleActions({
+    [CHANGE_SIZE]: (state, action) => ({ ...state, pageSize: action.payload }),
     [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
-    [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({ ...state, myList: action.payload }),
+    [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({
+        ...state,
+        myList: action.payload.myLists,
+        totalElements: action.payload.countElements,
+        totalPages: action.payload.countPages,
+    }),
     [FETCH_SHARED_LISTS_SUCCESS]: (state, action) => ({ ...state, sharedList: action.payload }),
-    [CHANGE_SIZE]: (state, action) => ({ ...state, pageSize: action.payload }),
 
     [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
         ...state,
@@ -118,15 +122,20 @@ export const reducer = handleActions({
     [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
     [SELECTED_SHARED_LISTS]: (state, action) => ({ ...state, selectedShared: action.payload }),
     [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
+
 }, initialState);
 
 function* fetchAllLists() {
-    const { selectedMy, selectedShared, pageSize } = yield select(state => state.dashboard);
-    const myLists = selectedMy ? (yield call(getMyList, 0, pageSize)).data.content : [];
-    yield put(actions.fetchMyListsSuccess(myLists));
-    const sharedLists = selectedShared
-        ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true }))
-        : [];
+    const {
+        selectedMy, selectedShared, pageSize, currentPage,
+    } = yield select(state => state.dashboard);
+    const countElements = selectedMy
+        ? (yield call(getMyList, currentPage, pageSize)).data.totalElements : [];
+    const myLists = selectedMy
+        ? (yield call(getMyList, currentPage, pageSize)).data.content : [];
+    const countPages = Math.ceil(countElements / pageSize);
+    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
+    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
