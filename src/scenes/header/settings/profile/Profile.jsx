@@ -9,9 +9,9 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newName: '',
-            newUsername: '',
-            newEmail: '',
+            newName: props.currentUser.name || '',
+            newUsername: props.currentUser.username || '',
+            newEmail: props.currentUser.email || '',
             newPassword: '',
             newRepeatPassword: '',
             selectedAvatar: null,
@@ -64,12 +64,14 @@ class Profile extends Component {
     }); */
 
     render() {
-        const { currentUser } = this.props;
-        const { newPassword, newRepeatPassword } = this.state;
+        const { currentUser: { name, email } } = this.props;
+        const {
+            newPassword, newRepeatPassword, newName, newUsername, newEmail,
+        } = this.state;
         return (
             <styled.Profile>
-                <styled.Username> Hello, {currentUser.name ? currentUser.name : 'name'} !</styled.Username>
-                <styled.Email>{currentUser.email ? currentUser.email : 'email'}</styled.Email>
+                <styled.Username> Hello, {name || 'name'} !</styled.Username>
+                <styled.Email>{email || 'email'}</styled.Email>
                 <styled.DeleteProfile>
                     <Link to="/auth">
                         <Button
@@ -84,7 +86,7 @@ class Profile extends Component {
                     <styled.AvatarInput
                         type="file"
                         onChange={this.avatarSelectHandler}
-                        ref={avatarInput => this.avatarInput = avatarInput }
+                        ref={avatarInput => this.avatarInput = avatarInput}
                     />
                     <styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />
                     <styled.ProfileValues>
@@ -99,19 +101,19 @@ class Profile extends Component {
                             <input
                                 type="text"
                                 placeholder="Name"
-                                value={currentUser.name}
+                                value={newName}
                                 onChange={this.changeValueNewName}
                             />
                             <input
                                 type="text"
                                 placeholder="Username"
-                                value={currentUser.username}
+                                value={newUsername}
                                 onChange={this.changeValueNewUsername}
                             />
                             <input
                                 type="email"
                                 placeholder="Email"
-                                value={currentUser.email}
+                                value={newEmail}
                                 onChange={this.changeValueNewEmail}
                             />
                             <input

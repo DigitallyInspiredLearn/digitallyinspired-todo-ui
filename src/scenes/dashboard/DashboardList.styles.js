@@ -45,6 +45,8 @@ export const Footer = styled.div`
    justify-content: space-between;
    align-content: space-between;
    width:100%;
+   z-index: 5;
+   box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
    background-color: ${p => p.theme.background};
    .pagination-container {
 	    outline: none;

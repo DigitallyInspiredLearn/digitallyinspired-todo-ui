@@ -19,8 +19,7 @@ class Task extends Component {
 
     updateDisplayNone = () => this.setState({ display: 'none' });
 
-    handleSelectTask = (newValue) => {
-        console.log(newValue);
+    handleSelectTask = () => {
         const {
             idTask, selected, actions, nameTask,
         } = this.props;

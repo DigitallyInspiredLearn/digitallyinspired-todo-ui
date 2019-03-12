@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import Sorting from '../../components/sorting/Sorting';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -12,8 +11,9 @@ import VisibleSidebar from './sidebar/SidebarContainer';
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
-    handlePageChange = ({ actions } = this.props, value) => {
-        actions.changePagination(value.selected);
+    handlePageChange = ({ selected }) => {
+        const { actions } = this.props;
+        actions.changePagination(selected);
     };
 
     render() {

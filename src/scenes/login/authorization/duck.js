@@ -1,19 +1,21 @@
 /* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select, delay } from 'redux-saga/effects';
 import history from '../../../config/history';
-import { authorization as authorizationApi } from '../../../api/auth';
+import { authorization as authorizationApi, refreshToken } from '../../../api/auth';
 import { safeTakeEvery } from '../../../helpers/saga';
 
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
+export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 
 export const actions = {
     login: createAction(LOGIN),
     loginSuccess: createAction(LOGIN_SUCCESS),
     logout: createAction(LOGOUT),
+    refreshToken: createAction(REFRESH_TOKEN),
 };
 
 const initialState = {
@@ -43,14 +45,23 @@ function* authorization(action) {
     history.replace('/lists');
 }
 
+function* refreshTokenProcess() {
+    yield delay(600000);
+    const { data: { accessToken } } = yield call(refreshToken);
+    yield call(setDefaultApiToken, accessToken);
+    yield put(actions.refreshToken());
+}
+
 function* rehydrateSaga() {
     const { token } = yield select(state => state.auth);
     yield call(setDefaultApiToken, token);
+
+    yield call(refreshTokenProcess);
 }
 
 function* logout() {
-    (history.location.pathname === '/auth' || history.location.pathname === '/reg') ||
-    confirm('Do you want to logout?') && (
+    (history.location.pathname === '/auth' || history.location.pathname === '/reg')
+    || confirm('Do you want to logout?') && (
         yield call(setDefaultApiToken, ''),
         history.replace('/auth'),
         yield put(actions.loginSuccess({
@@ -64,4 +75,5 @@ export function* saga() {
     yield safeTakeEvery(LOGIN, authorization);
     yield safeTakeEvery('persist/REHYDRATE', rehydrateSaga);
     yield safeTakeEvery(LOGOUT, logout);
+    yield safeTakeEvery(REFRESH_TOKEN, refreshTokenProcess)
 }
