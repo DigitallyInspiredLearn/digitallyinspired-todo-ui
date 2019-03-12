@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
- position: relative;
- 
+    position: relative;
+    padding:16px;
 `;
 
 export const Button = styled.button`
@@ -18,7 +18,7 @@ export const Button = styled.button`
 `;
 export const Ul = styled.div`
     position:absolute;
-    top:-105px;
+    top:-90px;
     width: 80px;
     border-radius: 5px 5px 0 0;
     background-color: lightgray;

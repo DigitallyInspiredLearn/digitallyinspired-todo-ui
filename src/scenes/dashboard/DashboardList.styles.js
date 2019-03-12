@@ -41,6 +41,7 @@ export const SearchDiv = styled.div`
 export const Footer = styled.div`
    display: flex;
    flex-direction: row;
+   height:50px;
    justify-content: space-between;
    align-content: space-between;
    width:100%;
@@ -89,7 +90,6 @@ export const Search = styled.input`
     flex: auto;
     outline: none;
     font-size: 1.1em;
-    
 `;
 
 export const IconSearch = styled.img`
