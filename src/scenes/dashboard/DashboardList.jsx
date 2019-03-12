@@ -7,28 +7,34 @@ import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
 import VisibleSidebar from "./sidebar/SidebarContainer";
+import Search from '../../components/search/Search';
 
 class DashboardList extends Component {
+
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
     handlePageChange = ({ actions } = this.props, value) => {
         actions.changePagination(value.selected);
     };
 
+    handleChange = (newValue) => {
+        const { actions } = this.props;
+        actions.search(newValue);
+    };
+
     render() {
         console.log(this.props);
         const {
-            selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages,
+            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages,
         } = this.props;
         return (
             [
                 <styled.App key="app">
                     <styled.SearchAndChecked>
                         <styled.SearchDiv>
-                            <styled.Search
-                                type="text"
-                                placeholder="Search dashboard"
-                                onChange={e => actions.search(e.target.value)}
+                            <Search
+                                onChange={this.handleChange}
+                                value={search}
                             />
                             <styled.IconSearch src={loupe} />
                         </styled.SearchDiv>
