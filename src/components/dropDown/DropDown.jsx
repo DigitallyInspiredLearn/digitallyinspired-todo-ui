@@ -6,18 +6,21 @@ class DropDown extends Component {
     static propTypes = {
         changeValue: PropTypes.func,
         titleButton: PropTypes.string,
-        possibleValues: PropTypes.array,
+        possibleValues: PropTypes.arrayOf(PropTypes.number),
         drop: PropTypes.string,
         stylesValues: PropTypes.string,
         stylesButton: PropTypes.string,
+        currentValue: PropTypes.string,
     };
 
     static defaultProps = {
         changeValue: undefined,
         titleButton: 'Check',
+        possibleValues: undefined,
         drop: 'down',
         stylesValues: '',
         stylesButton: '',
+        currentValue: '',
     };
 
     constructor(props) {
@@ -33,6 +36,7 @@ class DropDown extends Component {
     };
 
     render() {
+        console.log(this.props);
         const { visible } = this.state;
         const {
             changeValue,
@@ -41,7 +45,6 @@ class DropDown extends Component {
             drop,
             stylesValues,
             titleButton,
-            width,
             stylesButton,
         } = this.props;
         return (
@@ -57,10 +60,9 @@ class DropDown extends Component {
                         possibleValues.map(value => (
 
                             <styled.Li
-                                onClick={() => changeValue(value)}
+                                onClick={() => { changeValue(value); this.changeVisible(); }}
                                 checked={currentValue === value}
                                 key={value}
-                                width={width}
                                 stylesValues={stylesValues}
                             >
                                 {value}
@@ -71,7 +73,6 @@ class DropDown extends Component {
                 <styled.Button
                     onClick={this.changeVisible}
                     stylesButton={stylesButton}
-                    width={width}
                 >
                     { titleButton }
                 </styled.Button>

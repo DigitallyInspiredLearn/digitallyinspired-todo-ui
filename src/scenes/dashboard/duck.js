@@ -43,11 +43,13 @@ export const MUTATE_SUCCESS = 'dashboard/MUTATE_SUCCESS';
 
 export const SHARE_LIST = 'dashboard/SHARE_LIST';
 export const CHANGE_SIZE = 'dashboard/CHANGE_SIZE';
+export const CHANGE_SORT = 'dashboard/CHANGE_SORT';
 
 export const CHANGE_PAGINATION = 'CHANGE_PAGINATION';
 
 export const actions = {
     changeSize: createAction(CHANGE_SIZE),
+    changeSort: createAction(CHANGE_SORT),
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
     updateSelectedMyLists: createAction(SELECTED_MY_LISTS),
@@ -82,10 +84,12 @@ const initialState = {
     search: '',
     pageSize: 4,
     totalElements: 0,
+    sort: 'id,asc',
 };
 
 export const reducer = handleActions({
     [CHANGE_SIZE]: (state, action) => ({ ...state, pageSize: action.payload, currentPage: 0 }),
+    [CHANGE_SORT]: (state, action) => ({ ...state, sort: action.payload }),
     [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({
@@ -130,10 +134,10 @@ export const reducer = handleActions({
 
 function* fetchAllLists() {
     const {
-        selectedMy, selectedShared, pageSize, currentPage,
+        selectedMy, selectedShared, pageSize, currentPage, sort,
     } = yield select(state => state.dashboard);
     const data = selectedMy
-        ? (yield call(getMyList, currentPage, pageSize)).data : {};
+        ? (yield call(getMyList, currentPage, pageSize, sort)).data : {};
     const countElements = data.totalElements;
     const myLists = selectedMy ? data.content : [];
     const countPages = data.totalPages;
@@ -202,7 +206,7 @@ function* shareList(action) {
 }
 
 export function* saga() {
-    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE, CHANGE_PAGINATION], fetchAllLists);
+    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
     yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);

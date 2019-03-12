@@ -120,6 +120,7 @@ export const ShowButton = styled.div`
     }
     width: auto;
     padding: 15px 5px;
+    cursor: pointer;
     @media (max-width: 600px) {
         flex: 1;
         text-align: center;
