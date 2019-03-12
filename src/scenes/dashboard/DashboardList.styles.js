@@ -41,6 +41,7 @@ export const SearchDiv = styled.div`
 export const Footer = styled.div`
    display: flex;
    flex-direction: row;
+   flex:auto;
    justify-content: space-between;
    align-content: space-between;
    width:100%;
@@ -69,7 +70,7 @@ export const Footer = styled.div`
    
 `;
 
-export const Pagination = styled(ReactPaginate)`
+export const Pagination = styled.div`
    display: flex;
    width: 400px;
    background-color: ${p => p.theme.background};
@@ -90,7 +91,6 @@ export const Search = styled.input`
     flex: auto;
     outline: none;
     font-size: 1.1em;
-    
 `;
 
 export const IconSearch = styled.img`

@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import Sorting from '../../components/sorting/Sorting';
-import CheckSize from '../../components/checkSize/CheckSize';
+import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
-import VisibleSidebar from "./sidebar/SidebarContainer";
+import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
@@ -16,7 +17,6 @@ class DashboardList extends Component {
     };
 
     render() {
-        console.log(this.props);
         const {
             selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages,
         } = this.props;
@@ -33,7 +33,23 @@ class DashboardList extends Component {
                             <styled.IconSearch src={loupe} />
                         </styled.SearchDiv>
                         <styled.CheckboxDiv>
-                            <Sorting />
+                            <DropDown
+                                changeValue={actions.changeSize}
+                                titleButton="Sorting"
+                                currentValue={pageSize}
+                                possibleValues={['createdDate,asc', 'other']}
+                                stylesValues=" margin-left: 10px; width: 130px;"
+                                stylesButton="
+                                     padding: 15px 5px;
+                                     margin-left: 10px ;
+                                     width: 145px;
+                                     @media (max-width: 600px) {
+                                        flex: 1;
+                                        text-align: center;
+                                         padding:5px;
+                                     }
+                                "
+                            />
                             <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
@@ -77,14 +93,24 @@ class DashboardList extends Component {
                     </styled.DashboardList>
                 </styled.App>,
                 <styled.Footer key="footer">
-                    <styled.Pagination
-                        pageCount={totalPages}
-                        pageRangeDisplayed={3}
-                        marginPagesDisplayed={1}
-                        containerClassName="pagination-container"
-                        onPageChange={this.handlePageChange}
+                    <styled.Pagination>
+                        <ReactPaginate
+                            pageCount={totalPages}
+                            pageRangeDisplayed={3}
+                            marginPagesDisplayed={1}
+                            containerClassName="pagination-container"
+                            onPageChange={this.handlePageChange}
+                        />
+                    </styled.Pagination>
+                    <DropDown
+                        changeValue={actions.changeSize}
+                        currentValue={pageSize}
+                        titleButton="Check size"
+                        possibleValues={[4, 8, 16]}
+                        drop="up"
+                        stylesValues="width: 80px;margin-left: 8px ;"
+                        stylesButton="padding: 15px 5px; margin: 8px; width: 95px;"
                     />
-                    <CheckSize changeSize={actions.changeSize} pageSize={pageSize} />
                     <VisibleSidebar />
                 </styled.Footer>,
             ]
