@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 export const Container = styled.div`
    display: flex;
    flex-direction: column;
-   height:95vh;
+   height:100vh;
    width:100%;
    background-color: ${p => p.theme.background};
    input{

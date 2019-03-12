@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as styled from './CheckSize.styled';
+import * as styled from './Sorting.styled';
 
 class CheckSize extends Component {
     static propTypes = {
@@ -16,13 +16,14 @@ class CheckSize extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            checked: false,
             visibleUl: false,
         };
     }
 
     changevisibleUl = () => {
         const { visibleUl } = this.state;
-        this.setState({ visibleUl: !visibleUl });
+        this.setState({ visible: !visibleUl });
     };
 
     render() {
@@ -53,7 +54,7 @@ class CheckSize extends Component {
                 <styled.Button
                     onClick={this.changevisibleUl}
                 >
-                    Check size
+                    Sorting
                 </styled.Button>
             </styled.Container>
         );

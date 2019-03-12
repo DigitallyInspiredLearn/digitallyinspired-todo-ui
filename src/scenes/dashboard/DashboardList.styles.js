@@ -41,7 +41,7 @@ export const SearchDiv = styled.div`
 export const Footer = styled.div`
    display: flex;
    flex-direction: row;
-   height:50px;
+   flex:auto;
    justify-content: space-between;
    align-content: space-between;
    width:100%;
@@ -61,6 +61,7 @@ export const Footer = styled.div`
 		padding: 0 5px;
 		padding-top:3px;
 		outline: none !important;
+		list-style-type: none;
 		text-decoration: none !important;
 		&:hover {
 			background-color: ${p => p.theme.hoverButton};
@@ -69,7 +70,7 @@ export const Footer = styled.div`
    
 `;
 
-export const Pagination = styled(ReactPaginate)`
+export const Pagination = styled.div`
    display: flex;
    width: 400px;
    background-color: ${p => p.theme.background};

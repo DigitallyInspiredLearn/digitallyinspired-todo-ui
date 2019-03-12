@@ -62,6 +62,7 @@ export const Icon = styled.img`
     }
 `;
 export const IconInfo = styled.div`
+    position: relative;
     p{
         display:none;
         padding:10px;
@@ -69,8 +70,8 @@ export const IconInfo = styled.div`
     &:hover p{
         display:block;
         position:absolute;
-        top:200px;
-        right: 800px;
+        top:10px;
+        right:10px;
         font-size:12px;
         z-index:9999;
         width:200px;
