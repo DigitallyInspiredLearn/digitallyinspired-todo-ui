@@ -6,21 +6,21 @@ class DropDown extends Component {
     static propTypes = {
         changeValue: PropTypes.func,
         titleButton: PropTypes.string,
-        possibleValues: PropTypes.arrayOf(PropTypes.number),
+        // possibleValues: PropTypes.arrayOf(PropTypes.number),
         drop: PropTypes.string,
         stylesValues: PropTypes.string,
         stylesButton: PropTypes.string,
-        currentValue: PropTypes.string,
+        // currentValue: PropTypes.string,
     };
 
     static defaultProps = {
         changeValue: undefined,
         titleButton: 'Check',
-        possibleValues: undefined,
+        // possibleValues: undefined,
         drop: 'down',
         stylesValues: '',
         stylesButton: '',
-        currentValue: '',
+        // currentValue: '',
     };
 
     constructor(props) {
@@ -36,7 +36,6 @@ class DropDown extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { visible } = this.state;
         const {
             changeValue,
