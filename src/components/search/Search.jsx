@@ -16,14 +16,14 @@ class Search extends Component {
     };
 
     render() {
-        const { style } = this.props;
+        const { style, placeholder } = this.props;
         const { value } = this.state;
 
         return (
             <SearchStyles
                 value={value}
                 onChange={this.handleChange}
-                placeholder="Search dashboard"
+                placeholder={placeholder}
                 style={style}
             />
         );
