@@ -23,7 +23,7 @@ class CheckSize extends Component {
 
     changevisibleUl = () => {
         const { visibleUl } = this.state;
-        this.setState({ visibleUl: !visibleUl });
+        this.setState({ visible: !visibleUl });
     };
 
     render() {

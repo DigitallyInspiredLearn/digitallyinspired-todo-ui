@@ -3,7 +3,6 @@ import * as styled from './Subscribes.styles';
 import Search from '../../../../components/search/Search';
 
 class Subscribes extends Component {
-
     componentWillMount = ({ actions } = this.props) => actions.fetchSubscribers();
 
     handleChange = (newValue) => {
@@ -25,28 +24,30 @@ class Subscribes extends Component {
                         marginLeft: '10px', borderRadius: '5px', paddingLeft: '10px', height: '34px' }}
                 />
                 <styled.TableSubscribers>
+                    <tbody>
                     <styled.NullTr>
                         <th style={{ padding: '10px' }}>Name</th>
                         <th>Username</th>
                         <th>Email</th>
                     </styled.NullTr>
-                    {
-                        subscribers.length === 0
-                            ? (
-                                <styled.NullTr>
-                                    <td colSpan="3">
+                        {
+                            subscribers.length === 0
+                                ? (
+                                    <styled.NullTr>
+                                        <td colSpan="3">
                                             You have not subscribers
-                                    </td>
-                                </styled.NullTr>
-                            )
-                            : subscribers.map(subscriber => (
-                                <styled.Tr>
-                                    <styled.Td>{subscriber.name}</styled.Td>
-                                    <styled.Td>{subscriber.username}</styled.Td>
-                                    <styled.Td>{subscriber.email}</styled.Td>
-                                </styled.Tr>
-                            ))
-                    }
+                                        </td>
+                                    </styled.NullTr>
+                                )
+                                : subscribers.map(subscriber => (
+                                    <styled.Tr key={subscriber}>
+                                        <styled.Td key={subscriber.name}>{subscriber.name}</styled.Td>
+                                        <styled.Td key={subscriber.username}>{subscriber.username}</styled.Td>
+                                        <styled.Td key={subscriber.email}>{subscriber.email}</styled.Td>
+                                    </styled.Tr>
+                                ))
+                        }
+                    </tbody>
                 </styled.TableSubscribers>
             </styled.Subscribes>
         );

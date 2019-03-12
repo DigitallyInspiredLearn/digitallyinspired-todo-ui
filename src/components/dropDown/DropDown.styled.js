@@ -1,42 +1,40 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
- position: relative;
- padding-top: 12px;
- padding-right:750px;
- 
+    position: relative;
 `;
 
 export const Button = styled.button`
-    background-color: ${ p => p.theme.backgroundButton };
 	border: none;
-    color:black;
-    padding: 8px 4px;
+	background-color: ${p => (p.checked ? p.theme.activeButton : p.theme.backgroundButton)};
+    box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
+    color: ${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)};
     border-radius:5px;
 	font-size: 14px;
-    width: 80px;
 	cursor:pointer;
 	outline: none !important;
     &:hover, &:active{
         background-color: ${ p => p.theme.hoverButton }; 
     }
+    ${p => p.stylesButton}
 `;
 export const Ul = styled.div`
     position:absolute;
-    top:-105px;
+    top: ${p => (p.drop === 'up' ? '-87px' : '45px')};
 	text-size: 20px;
 	cursor:pointer;
-    width: 80px;
+	z-index:5;
     display: ${p => (p.visible ? 'block' : 'none')}
 `;
 
 export const Li = styled.div`
+    ${p => p.stylesValues}
     padding:8px;
 	text-size: 20px;
 	cursor:pointer;
     &:hover {
-      background-color: ${ p => p.theme.hoverButton };
+      background-color: grey;
     }
     background-color:${p => (p.checked ? 'black' : p.theme.backgroundButton)}
-    color:${p => (p.checked ? 'white' : 'inherit')}
+    color:${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)}}
 `;
