@@ -10,7 +10,6 @@ import Search from '../../components/search/Search';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
-
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -25,7 +24,7 @@ class DashboardList extends Component {
 
     render() {
         const {
-            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages,
+            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort,
         } = this.props;
         return (
             [
@@ -41,20 +40,23 @@ class DashboardList extends Component {
                         </styled.SearchDiv>
                         <styled.CheckboxDiv>
                             <DropDown
-                                changeValue={actions.changeSize}
+                                changeValue={actions.changeSort}
                                 titleButton="Sorting"
-                                currentValue={pageSize}
-                                possibleValues={['createdDate,asc', 'other']}
+                                currentValue={sort}
+                                possibleValues={[
+                                    'id,asc', 'id,desc', 'todoListName,asc', 'todoListName,desc', 'createdDate,asc', 'createdDate,desc', 'modifiedDate,asc', 'modifiedDate,desc',
+                                ]}
                                 stylesValues=" margin-left: 10px; width: 130px;"
                                 stylesButton="
-                                     padding: 15px 5px;
-                                     margin-left: 10px ;
-                                     width: 145px;
-                                     @media (max-width: 600px) {
+                                    padding: 15px 5px;
+                                    margin-left: 10px ;
+                                    width: auto;
+                                    font-weight: bold;
+                                    @media (max-width: 600px) {
                                         flex: 1;
                                         text-align: center;
-                                         padding:5px;
-                                     }
+                                        padding:5px;
+                                    }
                                 "
                             />
                             <styled.ShowButton
@@ -112,7 +114,7 @@ class DashboardList extends Component {
                     <DropDown
                         changeValue={actions.changeSize}
                         currentValue={pageSize}
-                        titleButton="Check size"
+                        titleButton="Change size"
                         possibleValues={[4, 8, 16]}
                         drop="up"
                         stylesValues="width: 80px;margin-left: 8px ;"
