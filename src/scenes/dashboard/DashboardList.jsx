@@ -35,6 +35,7 @@ class DashboardList extends Component {
                             <Search
                                 onChange={this.handleChange}
                                 value={search}
+                                placeholder="Search dashboard"
                             />
                             <styled.IconSearch src={loupe} />
                         </styled.SearchDiv>
