@@ -6,9 +6,11 @@ import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
+import Search from '../../components/search/Search';
 import VisibleSidebar from './sidebar/SidebarContainer';
 
 class DashboardList extends Component {
+
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -16,19 +18,24 @@ class DashboardList extends Component {
         actions.changePagination(selected);
     };
 
+    handleChange = (newValue) => {
+        const { actions } = this.props;
+        actions.search(newValue);
+    };
+
     render() {
         const {
-            selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages,
+            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages,
         } = this.props;
         return (
             [
                 <styled.App key="app">
                     <styled.SearchAndChecked>
                         <styled.SearchDiv>
-                            <styled.Search
-                                type="text"
+                            <Search
+                                onChange={this.handleChange}
+                                value={search}
                                 placeholder="Search dashboard"
-                                onChange={e => actions.search(e.target.value)}
                             />
                             <styled.IconSearch src={loupe} />
                         </styled.SearchDiv>
