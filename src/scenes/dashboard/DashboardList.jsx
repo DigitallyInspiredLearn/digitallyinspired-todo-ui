@@ -13,8 +13,9 @@ class DashboardList extends Component {
 
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
-    handlePageChange = ({ actions } = this.props, value) => {
-        actions.changePagination(value.selected);
+    handlePageChange = ({ selected }) => {
+        const { actions } = this.props;
+        actions.changePagination(selected);
     };
 
     handleChange = (newValue) => {

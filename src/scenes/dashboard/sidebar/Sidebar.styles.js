@@ -13,7 +13,6 @@ export const Close = styled.span`
 `;
 export const Plus = styled.div`
     width: 50px;
-    
     cursor: pointer;
     margin: 10px ;
 `;
@@ -153,8 +152,8 @@ export const TrashTask = styled.img`
 }
 `;
 export const ButtonPlus = styled.img`
-   width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     -moz-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);

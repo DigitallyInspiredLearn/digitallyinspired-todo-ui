@@ -5,6 +5,7 @@ import history from './config/history';
 
 export const ERROR = 'ERROR';
 
+
 export const actions = {
     error: createAction(ERROR),
 };
