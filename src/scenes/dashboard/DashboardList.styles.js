@@ -41,10 +41,12 @@ export const SearchDiv = styled.div`
 export const Footer = styled.div`
    display: flex;
    flex-direction: row;
+   flex:auto;
    justify-content: space-between;
+   align-content: space-between;
    width:100%;
-   height: 150px;
-   z-index: 10;
+   z-index: 5;
+   box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
    background-color: ${p => p.theme.background};
    .pagination-container {
 	    outline: none;
@@ -61,6 +63,7 @@ export const Footer = styled.div`
 		padding: 0 5px;
 		padding-top:3px;
 		outline: none !important;
+		list-style-type: none;
 		text-decoration: none !important;
 		&:hover {
 			background-color: ${p => p.theme.hoverButton};
@@ -69,17 +72,16 @@ export const Footer = styled.div`
    
 `;
 
-export const Pagination = styled(ReactPaginate)`
+export const Pagination = styled.div`
    display: flex;
    width: 400px;
    background-color: ${p => p.theme.background};
    .pagination-container {
         display: flex;
         li {
-        margin: 0 10px;
+             margin: 0 10px;
+        }
    }
-   }
-   
    li {
         margin: 0 10px;
 		
@@ -91,7 +93,6 @@ export const Search = styled.input`
     flex: auto;
     outline: none;
     font-size: 1.1em;
-    
 `;
 
 export const IconSearch = styled.img`
@@ -119,6 +120,7 @@ export const ShowButton = styled.div`
     }
     width: auto;
     padding: 15px 5px;
+    cursor: pointer;
     @media (max-width: 600px) {
         flex: 1;
         text-align: center;

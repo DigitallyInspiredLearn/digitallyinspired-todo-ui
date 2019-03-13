@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as styled from './Popup.styles';
+import Search from '../../components/search/Search';
 
 
 export class Popup extends Component {
+
+    handleChange = (newValue) => {
+        const { actions } = this.props;
+        actions.searchUser(newValue);
+    };
+
     render() {
         const {statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
         return (
@@ -18,13 +25,11 @@ export class Popup extends Component {
                         </styled.closeWindow>
                         <styled.title>Share list with</styled.title>
                         <styled.searchTask>
-                            <styled.searchUser
-                                   type="text"
+                            <Search
                                    placeholder="Enter username"
                                    value={search}
-                                   onChange={e => {
-                                       actions.searchUser(e.target.value);
-                                   }}
+                                   onChange={this.handleChange}
+                                   style={{ width: '93%', height: '50px' }}
                             />
                             <styled.btnSearch className="fa fa-search fa-2x" />
                         </styled.searchTask>

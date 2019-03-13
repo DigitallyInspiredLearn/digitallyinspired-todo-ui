@@ -46,6 +46,7 @@ class FollowUser extends Component {
                                         : usersNames.map((username, i) => i < 15
                                     && (
                                         <li
+                                            key={username}
                                             onClick={() => {
                                                 actions.searchUserForFollowing(username);
                                                 this.setState({ display: 'none' });
