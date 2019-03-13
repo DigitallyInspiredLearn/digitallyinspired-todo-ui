@@ -44,13 +44,17 @@ class DashboardList extends Component {
                                 titleButton="Sorting"
                                 currentValue={sort}
                                 possibleValues={[
-                                    'id,asc', 'id,desc', 'todoListName,asc', 'todoListName,desc', 'createdDate,asc', 'createdDate,desc', 'modifiedDate,asc', 'modifiedDate,desc',
+                                    'id,asc',
+                                    'id,desc',
+                                    'todoListName,asc',
+                                    'todoListName,desc', 'createdDate,asc', 'createdDate,desc', 'modifiedDate,asc', 'modifiedDate,desc',
                                 ]}
-                                stylesValues=" margin-left: 10px; width: 130px;"
+                                stylesValues=" margin-left: 12px; width: 130px;"
                                 stylesButton="
                                     padding: 15px 5px;
                                     margin-left: 10px ;
                                     width: auto;
+                                    min-width: 150px;
                                     font-weight: bold;
                                     @media (max-width: 600px) {
                                         flex: 1;
@@ -117,8 +121,8 @@ class DashboardList extends Component {
                         titleButton="Change size"
                         possibleValues={[4, 8, 16]}
                         drop="up"
-                        stylesValues="width: 80px;margin-left: 8px ;"
-                        stylesButton="padding: 15px 5px; margin: 8px; width: 95px;"
+                        stylesValues="width: 75px;margin-left: 17px ;"
+                        stylesButton="padding: 5px ; margin: 15px; width: 95px;"
                     />
                     <VisibleSidebar />
                 </styled.Footer>,
