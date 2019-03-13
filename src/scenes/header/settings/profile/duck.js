@@ -20,7 +20,7 @@ export const actions = {
 };
 
 const initialState = {
-    currentUser: {},
+    currentUser: undefined,
 };
 
 export const reducer = handleActions({
@@ -33,14 +33,12 @@ function* fetchUser() {
 }
 
 function* editProfile(action) {
-    console.log('=== editProfile ===');
     yield call(editProfileApi, action.payload);
     yield call(fetchUser);
 }
 
 function* deleteProfile() {
     confirm('Delete the profile?');
-    console.log('=== delete profile ===');
     yield call(deleteProfileApi);
     yield call(fetchUser);
 }
