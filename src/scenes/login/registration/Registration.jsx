@@ -4,6 +4,28 @@ import { Link } from 'react-router-dom';
 import * as styled from '../LogIn.styled';
 import Button from '../../../components/button/Button';
 
+const validatedFields = ['email', 'username', 'password'];
+
+const validateEmail = email => email.length === 0 ? 'Invalid' : undefined;
+
+const validateUsername = username => username.length === 0 ? 'Invalid' : undefined;
+
+const validatePassword = password => password.length === 0 ? 'Invalid' : undefined;
+
+const registryValidator = {
+    email: validateEmail,
+    username: validateUsername,
+    password: validatePassword,
+};
+
+const validation = (object, keys, validator) => {
+    let errors = {};
+    keys.forEach((key) => {
+        errors = { ...errors, [key]: validator[key](object[key]) };
+    });
+    return errors;
+};
+
 class Registration extends Component {
     constructor(props) {
         super(props);
@@ -11,11 +33,17 @@ class Registration extends Component {
             email: '',
             name: '',
             password: '',
+            repeatPassword: '',
             username: '',
+            errors: {},
         };
     }
 
-    onChangeEmail = e => this.setState({ email: e.target.value });
+    onChangeEmail = (e) => {
+        this.setState({ email: e.target.value }, () => {
+            this.setState({errors: validation(this.state, validatedFields, registryValidator)})
+        });
+    };
 
     onChangeName = e => this.setState({ name: e.target.value });
 
@@ -26,6 +54,7 @@ class Registration extends Component {
     onChangePassword2 = e => this.setState({ repeatPassword: e.target.value });
 
     render() {
+        console.log(this.state);
         const { actions } = this.props;
         const { email, name, password, username } = this.state;
 
@@ -39,7 +68,7 @@ class Registration extends Component {
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
-                                onChange={this.onChangeEmail}
+                                onBlur={this.onChangeEmail}
                                 required
                             />
                         </styled.EnterInformation>

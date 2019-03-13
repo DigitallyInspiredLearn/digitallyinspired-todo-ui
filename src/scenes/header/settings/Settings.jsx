@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import down from '../../../image/caret-down.svg';
 import up from '../../../image/caret-arrow-up.svg';
 import Profile from './profile/ProfileContainer';
@@ -8,6 +10,7 @@ import Theme from './theme/ThemeContainer';
 import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
 import * as styled from './Settings.styles';
+import { actions as profileActions } from './profile/duck';
 
 class Settings extends Component {
     constructor(props) {
@@ -21,6 +24,10 @@ class Settings extends Component {
         };
     }
 
+    componentWillMount = () => {
+        const { fetchCurrentUser } = this.props.actions;
+        fetchCurrentUser();
+    };
 
     handleSelectTab = (value) => {
         this.setState({
@@ -37,7 +44,7 @@ class Settings extends Component {
     }
 
     render() {
-        const { visible, toggleSettings } = this.props;
+        const { visible, toggleSettings, currentUser } = this.props;
         const {
             tab1,
             tab2,
@@ -150,7 +157,7 @@ class Settings extends Component {
                                     </styled.TabContainerForComp>
                                     <main>
                                         {selectedTab === 'profile'
-                                        && <Profile toggleSettings={toggleSettings} />}
+                                        && currentUser && <Profile toggleSettings={toggleSettings} />}
                                         {selectedTab === 'theme' && <Theme />}
                                         {selectedTab === 'subscribes' && <Subscribes />}
                                         {selectedTab === 'followers' && <FollowUser />}
@@ -165,4 +172,14 @@ class Settings extends Component {
     }
 }
 
-export default Settings;
+const mapStateToProps = state => ({
+    currentUser: state.profile.currentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({
+        fetchCurrentUser: profileActions.fetchCurrentUser,
+    }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
