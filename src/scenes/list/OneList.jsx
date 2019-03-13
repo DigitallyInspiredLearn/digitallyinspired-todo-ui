@@ -30,7 +30,7 @@ class OneList extends Component {
         });
     };
 
-    componentWillMount = ({ match, actions } = this.props) => actions.fetchList(match.params.id);
+    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({idList:match.params.id});
 
     render() {
         const { valueNewTask } = this.state;
@@ -77,14 +77,14 @@ class OneList extends Component {
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
-                                onClick={() => actions.selectedNotDoneAction(notDone)}
+                                onClick={() => actions.selectedNotDoneAction({notDone: notDone, idList:  match.params.id})}
                                 style={{ marginRight: '5px', borderRadius: 0}}
                             >
                                 not done
                             </styledDashboard.ShowButton>
                             <styledDashboard.ShowButton
                                 checked={done}
-                                onClick={() => actions.selectDoneAction(done)}
+                                onClick={() => actions.selectDoneAction({done: done, idList:  match.params.id})}
                                 style={{ borderRadius: '0 5px 5px 0' }}
                             >
                                 done
