@@ -18,7 +18,7 @@ class Profile extends Component {
         };
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         const { fetchCurrentUser } = this.props.actions;
         fetchCurrentUser();
     };
@@ -43,14 +43,16 @@ class Profile extends Component {
 
     handleClickSave = () => {
         const { actions, currentUser } = this.props;
-        const { newPassword, newRepeatPassword } = this.state;
+        const {
+            newName, newUsername, newEmail, newPassword, newRepeatPassword,
+        } = this.state;
         if (newPassword === newRepeatPassword
             && newPassword.length >= 6) {
             actions.editProfile({
-                email: currentUser.email,
-                name: currentUser.name,
+                email: newEmail,
+                name: newName,
                 password: newPassword,
-                username: currentUser.username,
+                username: newUsername,
             });
         }
     }
