@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Container from './scenes/header/Container';
-import VisibleTodoList from './scenes/dashboard/TodoListContainer';
+import VisibleTodoList from './scenes/dashboard/DashboardContainer';
 import Authorization from './scenes/login/authorization/AutorizationCortainer';
 import Registration from './scenes/login/registration/RegistrationContainer';
 import OneList from './scenes/list/OneListContainer';

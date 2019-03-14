@@ -20,10 +20,10 @@ class Container extends Component {
         this.setState({ visible: !visible });
     };
 
-
     render() {
         const { visible } = this.state;
         const { children, data, actions } = this.props;
+
         return (
             <ThemeProvider theme={data}>
                 <styled.Container>
@@ -70,6 +70,7 @@ class Container extends Component {
                             alt="logout"
                             onClick={actions.logout}
                         />
+
                     </styled.Header>
                     <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }
@@ -93,6 +94,7 @@ const mapDispatchToProps = dispatch => ({
     }, dispatch),
     actionsPagination: bindActionCreators({
         changePagination: actions.changePagination,
+        refreshToken: actions.refreshToken,
     }, dispatch),
 });
 

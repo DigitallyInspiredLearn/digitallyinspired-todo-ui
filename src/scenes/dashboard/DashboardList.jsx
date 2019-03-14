@@ -106,6 +106,7 @@ class DashboardList extends Component {
                     </styled.DashboardList>
                 </styled.App>,
                 <styled.Footer key="footer">
+                    <div style={{display: 'flex'}}>
                     <styled.Pagination>
                         <ReactPaginate
                             pageCount={totalPages}
@@ -124,6 +125,7 @@ class DashboardList extends Component {
                         stylesValues="width: 75px;margin-left: 17px ;"
                         stylesButton="padding: 5px ; margin: 15px; width: 95px;"
                     />
+                    </div>
                     <VisibleSidebar />
                 </styled.Footer>,
             ]

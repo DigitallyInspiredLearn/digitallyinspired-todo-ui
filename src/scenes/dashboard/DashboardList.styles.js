@@ -74,7 +74,7 @@ export const Footer = styled.div`
 
 export const Pagination = styled.div`
    display: flex;
-   width: 400px;
+   width: auto;
    background-color: ${p => p.theme.background};
    .pagination-container {
         display: flex;
