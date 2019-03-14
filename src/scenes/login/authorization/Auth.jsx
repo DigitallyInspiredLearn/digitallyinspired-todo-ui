@@ -5,20 +5,49 @@ import { Link } from 'react-router-dom';
 import * as styled from '../LogIn.styled';
 import Button from '../../../components/button/Button';
 
+const validateFields = ['login', 'password'];
+
+const validateLogIn = login => login.length === 0 ? 'Invalid' : undefined;
+
+const validatePassword = password => password === 0 ? 'Invalid' : undefined;
+
+const authValidator = {
+    login: validateLogIn,
+    password: validatePassword,
+};
+
+const validation = (object, keys, validator) => {
+    let errors = {};
+    keys.forEach((key) => {
+        errors = { ...errors, [key]: validator[key](object[key]) };
+    });
+    return errors;
+};
+
 class Authorization extends Component {
     constructor(props) {
         super(props);
         this.state = {
             password: '',
             login: '',
+            errors: {},
         };
     }
 
-    onChangeLogin = e => this.setState({ login: e.target.value });
+    onChangeLogin = (e) => {
+        this.setState({ login: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validateFields, authValidator) });
+        });
+    };
 
-    onChangePassword = e => this.setState({ password: e.target.value });
+    onChangePassword = (e) => {
+        this.setState({ password: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validateFields, authValidator) });
+        });
+    };
 
     render() {
+        console.log(this.state);
         const { actions } = this.props;
         const { password, login } = this.state;
         return (
@@ -30,8 +59,8 @@ class Authorization extends Component {
                             <styled.Input
                                 type="email"
                                 name="loginEx"
-                                placeholder="Enter your email"
-                                onChange={this.onChangeLogin}
+                                placeholder="Enter your email or username"
+                                onBlur={this.onChangeLogin}
                                 required
                             />
                         </styled.EnterInformation>
@@ -40,7 +69,7 @@ class Authorization extends Component {
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
-                                onChange={this.onChangePassword}
+                                onBlur={this.onChangePassword}
                                 required
                             />
                         </styled.EnterInformation>
