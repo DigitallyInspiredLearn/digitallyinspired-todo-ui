@@ -7,7 +7,7 @@ import logout from '../../image/logout.svg';
 import Settings from './settings/Settings';
 import list from '../../image/list-menu.svg';
 import * as styled from './Container.styles';
-import { actions } from '../login/authorization/duck';
+import { actions } from '../account/authorization/duck';
 
 class Container extends Component {
     constructor(props) {

@@ -5,13 +5,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import { mainReducer } from './reducer';
-import { saga as followSaga } from '../scenes/header/settings/followUser/duck';
+import { saga as followSaga } from '../scenes/container/settings/followUser/duck';
 import { saga as listSaga } from '../scenes/list/duck';
 import { saga as popupSaga } from '../scenes/popup/duck';
-import loginPageSaga from '../scenes/login/duck';
-import { saga as profileSaga } from '../scenes/header/settings/profile/duck';
+import loginPageSaga from '../scenes/account/duck';
+import { saga as profileSaga } from '../scenes/container/settings/profile/duck';
 import { saga } from '../scenes/dashboard/duck';
-import { saga as subscribeSaga } from '../scenes/header/settings/subscribes/duck';
+import { saga as subscribeSaga } from '../scenes/container/settings/subscribes/duck';
 
 const persistConfig = {
     key: 'app',
