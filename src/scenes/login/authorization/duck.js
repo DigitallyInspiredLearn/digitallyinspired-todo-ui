@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
-import { call, put, select, delay } from 'redux-saga/effects';
+import {
+    call, put, select, delay,
+} from 'redux-saga/effects';
 import history from '../../../config/history';
 import { authorization as authorizationApi, refreshToken } from '../../../api/auth';
 import { safeTakeEvery } from '../../../helpers/saga';
@@ -10,12 +12,14 @@ export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 
 export const actions = {
     login: createAction(LOGIN),
     loginSuccess: createAction(LOGIN_SUCCESS),
     logout: createAction(LOGOUT),
     refreshToken: createAction(REFRESH_TOKEN),
+    refreshTokenSuccess: createAction(REFRESH_TOKEN_SUCCESS),
 };
 
 const initialState = {
@@ -29,6 +33,7 @@ export const reducer = handleActions({
         user: action.payload.user,
         token: action.payload.token,
     }),
+    [REFRESH_TOKEN_SUCCESS]: (state, action) => ({ ...state, token: action.payload }),
 }, initialState);
 
 function setDefaultApiToken(token) {
@@ -46,16 +51,17 @@ function* authorization(action) {
 }
 
 function* refreshTokenProcess() {
-    yield delay(600000);
+    yield delay(800000);
     const { data: { accessToken } } = yield call(refreshToken);
     yield call(setDefaultApiToken, accessToken);
+    console.log(accessToken);
     yield put(actions.refreshToken());
+    yield put(actions.refreshTokenSuccess(accessToken));
 }
 
 function* rehydrateSaga() {
     const { token } = yield select(state => state.auth);
     yield call(setDefaultApiToken, token);
-
     yield call(refreshTokenProcess);
 }
 
@@ -73,7 +79,7 @@ function* logout() {
 
 export function* saga() {
     yield safeTakeEvery(LOGIN, authorization);
-    yield safeTakeEvery('persist/REHYDRATE', rehydrateSaga);
+    yield safeTakeEvery(['persist/REHYDRATE'], rehydrateSaga);
     yield safeTakeEvery(LOGOUT, logout);
-    yield safeTakeEvery(REFRESH_TOKEN, refreshTokenProcess)
+    yield safeTakeEvery(REFRESH_TOKEN, refreshTokenProcess);
 }
