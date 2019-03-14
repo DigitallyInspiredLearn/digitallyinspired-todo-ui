@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import * as styled from '../LogIn.styled';
 import Button from '../../../components/button/Button';
 
-const validatedFields = ['email', 'username', 'password'];
+const validatedFields = ['email', 'username', 'password', 'name'];
 
 const validateEmail = email => email.length === 0 ? 'Invalid' : undefined;
 
@@ -12,10 +12,14 @@ const validateUsername = username => username.length === 0 ? 'Invalid' : undefin
 
 const validatePassword = password => password.length === 0 ? 'Invalid' : undefined;
 
+const validateName = name => name.length === 0 ? 'Invalid' : undefined;
+
+
 const registryValidator = {
     email: validateEmail,
     username: validateUsername,
     password: validatePassword,
+    name: validateName,
 };
 
 const validation = (object, keys, validator) => {
@@ -41,17 +45,34 @@ class Registration extends Component {
 
     onChangeEmail = (e) => {
         this.setState({ email: e.target.value }, () => {
-            this.setState({errors: validation(this.state, validatedFields, registryValidator)})
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
         });
     };
 
-    onChangeName = e => this.setState({ name: e.target.value });
+    onChangeName = (e) => {
+        this.setState({ name: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        });
+    };
 
-    onChangePassword1 = e => this.setState({ password: e.target.value });
+    onChangePassword1 = (e) => {
+        this.setState({ password: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        });
+    };
 
-    onChangeUserName = e => this.setState({ username: e.target.value });
+    onChangeUserName = (e) => {
+        this.setState({ username: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        });
+    };
 
-    onChangePassword2 = e => this.setState({ repeatPassword: e.target.value });
+
+    onChangePassword2 = (e) => {
+        this.setState({ repeatPassword: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        });
+    };
 
     render() {
         console.log(this.state);
@@ -77,7 +98,7 @@ class Registration extends Component {
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your name"
-                                onChange={this.onChangeName}
+                                onBlur={this.onChangeName}
                                 required
                             />
                         </styled.EnterInformation>
@@ -86,7 +107,7 @@ class Registration extends Component {
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your username"
-                                onChange={this.onChangeUserName}
+                                onBlur={this.onChangeUserName}
                                 required
                             />
                         </styled.EnterInformation>
@@ -95,7 +116,7 @@ class Registration extends Component {
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
-                                onChange={this.onChangePassword1}
+                                onBlur={this.onChangePassword1}
                                 required
                             />
                         </styled.EnterInformation>
@@ -104,7 +125,7 @@ class Registration extends Component {
                                 type="password"
                                 name="passEx"
                                 placeholder="Repeat password"
-                                onChange={this.onChangePassword2}
+                                onBlur={this.onChangePassword2}
                                 required
                             />
                         </styled.EnterInformation>
