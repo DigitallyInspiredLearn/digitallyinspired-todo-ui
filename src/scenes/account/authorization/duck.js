@@ -51,7 +51,7 @@ function* authorization(action) {
 }
 
 function* refreshTokenProcess() {
-    yield delay(800000);
+    yield delay(60000);
     const { data: { accessToken } } = yield call(refreshToken);
     yield call(setDefaultApiToken, accessToken);
     console.log(accessToken);

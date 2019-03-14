@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Container from './scenes/header/Container';
+import Container from './scenes/container/Container';
 import VisibleTodoList from './scenes/dashboard/DashboardContainer';
-import Authorization from './scenes/login/authorization/AutorizationCortainer';
-import Registration from './scenes/login/registration/RegistrationContainer';
+import Authorization from './scenes/account/authorization/AutorizationCortainer';
+import Registration from './scenes/account/registration/RegistrationContainer';
 import OneList from './scenes/list/OneListContainer';
 import PageError404 from './scenes/errors/pageError404';
 import PageError500 from './scenes/errors/pageError500';
