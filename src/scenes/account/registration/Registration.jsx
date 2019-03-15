@@ -1,18 +1,20 @@
 /* eslint-disable react/prop-types,react/no-unused-state */
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import * as styled from '../Acconut.styled';
 import Button from '../../../components/button/Button';
 
-const validatedFields = ['email', 'username', 'password', 'name'];
+const validatedFields = ['email', 'username', 'password', 'name', 'repeatPassword'];
 
-const validateEmail = email => email.length === 0 ? 'Invalid' : undefined;
+const validateEmail = email => email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$') ? 'Invalid' : 'Ok';
 
-const validateUsername = username => username.length === 0 ? 'Invalid' : undefined;
+const validateUsername = username => username.length === 0 || username.length < 6 ? 'Invalid' : 'Ok';
 
-const validatePassword = password => password.length === 0 ? 'Invalid' : undefined;
+const validatePassword = password => password.length === 0 || password.length < 6 ? 'Invalid' : 'Ok';
 
-const validateName = name => name.length === 0 ? 'Invalid' : undefined;
+const validateRepeatPassword = repeatPassword => repeatPassword.length === 0 ? 'Invalid' : 'Ok';
+
+const validateName = name => name.length === 0 ? 'Invalid' : 'Ok';
 
 
 const registryValidator = {
@@ -20,12 +22,13 @@ const registryValidator = {
     username: validateUsername,
     password: validatePassword,
     name: validateName,
+    repeatPassword: validateRepeatPassword,
 };
 
 const validation = (object, keys, validator) => {
     let errors = {};
     keys.forEach((key) => {
-        errors = { ...errors, [key]: validator[key](object[key]) };
+        errors = {...errors, [key]: validator[key](object[key])};
     });
     return errors;
 };
@@ -44,40 +47,40 @@ class Registration extends Component {
     }
 
     onChangeEmail = (e) => {
-        this.setState({ email: e.target.value }, () => {
-            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        this.setState({email: e.target.value}, () => {
+            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
         });
     };
 
     onChangeName = (e) => {
-        this.setState({ name: e.target.value }, () => {
-            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        this.setState({name: e.target.value}, () => {
+            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
         });
     };
 
     onChangePassword1 = (e) => {
-        this.setState({ password: e.target.value }, () => {
-            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        this.setState({password: e.target.value}, () => {
+            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
         });
     };
 
     onChangeUserName = (e) => {
-        this.setState({ username: e.target.value }, () => {
-            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        this.setState({username: e.target.value}, () => {
+            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
         });
     };
 
 
     onChangePassword2 = (e) => {
-        this.setState({ repeatPassword: e.target.value }, () => {
-            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
+        this.setState({repeatPassword: e.target.value}, () => {
+            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
         });
     };
 
     render() {
         console.log(this.state);
-        const { actions } = this.props;
-        const { email, name, password, username } = this.state;
+        const {actions} = this.props;
+        const {email, name, password, username} = this.state;
 
         return (
             <styled.Styled>
@@ -130,9 +133,29 @@ class Registration extends Component {
                             />
                         </styled.EnterInformation>
                         <styled.SuccessButton
-                            onClick={() => actions.registration({
-                                email, name, password, username,
-                            })}
+                            onClick={() => {
+                                if (this.state.errors.email !== 'Invalid'
+                                    && this.state.errors.name !== 'Invalid'
+                                    && this.state.errors.username !== 'Invalid'
+                                    && this.state.errors.password !== 'Invalid'
+                                    && this.state.password === this.state.repeatPassword
+                                ) {
+                                    actions.registration({
+                                        email, name, password, username,
+                                    })
+                                } else {
+                                    const error = "Email: " + this.state.errors.email +
+                                        "\nName: " + this.state.errors.name +
+                                        "\nUsername: " + this.state.errors.username +
+                                        "\nPassword: " + this.state.errors.password +
+                                        "\nRepeat password";
+                                    alert(
+                                        error
+                                    );
+                                }
+
+                            }
+                            }
                         >GO
                         </styled.SuccessButton>
                     </styled.Form>
