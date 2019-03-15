@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types,react/no-unused-state */
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import * as styled from '../Acconut.styled';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import * as styled from '../Account.styled';
 import Button from '../../../components/button/Button';
 
 const validatedFields = ['email', 'username', 'password', 'name', 'repeatPassword'];

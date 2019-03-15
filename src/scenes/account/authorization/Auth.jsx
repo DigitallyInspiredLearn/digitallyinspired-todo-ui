@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as styled from '../Acconut.styled';
+import * as styled from '../Account.styled';
 import Button from '../../../components/button/Button';
 
 const validateFields = ['login', 'password'];

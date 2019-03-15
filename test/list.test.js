@@ -25,7 +25,7 @@ describe('List test', () => {
         };
         const prevState2 = {
             ...initialState,
-            search: 'null'
+            search: 'null',
         };
         const action2 = actions.changeSearch('mama');
         const expected2 = {
