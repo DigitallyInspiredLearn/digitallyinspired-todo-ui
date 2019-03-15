@@ -1,4 +1,4 @@
-import {actions, reducer, UPDATE_CHECKBOX_LIST} from '../src/scenes/list/duck';
+import {actions, reducer} from '../src/scenes/list/duck';
 
 const initialState = {
     data: {
