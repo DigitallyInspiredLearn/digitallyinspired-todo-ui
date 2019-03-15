@@ -1,6 +1,15 @@
 import { actions, reducer } from '../src/scenes/dashboard/duck';
 
 const initialState = {
+    data: {
+        todoTaskName: 'List',
+        tasks: [
+            {
+                id: 12,
+                body: 'Task',
+            },
+        ]
+    },
     myList: [],
     sharedList: [],
     toDoBoardRaw: [],
@@ -93,9 +102,9 @@ describe('Dashboard test', () => {
         const action = actions.updateTaskName({idTask: 12, newTaskName: 'Task'});
         const expected = {
             ...initialState,
-            toDoBoardRaw: {
-                ...initialState.toDoBoardRaw,
-                tasks: initialState.toDoBoardRaw.map(e => (e.id === 12
+            data: {
+                ...initialState.data,
+                tasks: initialState.data.tasks.map(e => (e.id === 12
                     ? {
                         ...e, body: 'Task',
                     } : e)),
@@ -103,9 +112,9 @@ describe('Dashboard test', () => {
         };
         const prevState2 = {
             ...initialState,
-            toDoBoardRaw: {
-                ...initialState.toDoBoardRaw,
-                tasks: initialState.toDoBoardRaw.map(e => (e.id === 1
+            data: {
+                ...initialState.data,
+                tasks: initialState.data.tasks.map(e => (e.id === 1
                     ? {
                         ...e, body: 'Test',
                     } : e)),
@@ -114,9 +123,9 @@ describe('Dashboard test', () => {
         const action2 = actions.updateTaskName({idTask: 1, newTaskName: 'NewTask'});
         const expected2 = {
             ...initialState,
-            toDoBoardRaw: {
-                ...initialState.toDoBoardRaw,
-                tasks: initialState.toDoBoardRaw.map(e => (e.id === 1
+            data: {
+                ...initialState.data,
+                tasks: initialState.data.tasks.map(e => (e.id === 1
                     ? {
                         ...e, body: 'NewTask',
                     } : e)),
@@ -125,5 +134,4 @@ describe('Dashboard test', () => {
         expect(reducer(initialState, action)).toEqual(expected);
         expect(reducer(prevState2, action2)).toEqual(expected2);
     });
-});
 });
