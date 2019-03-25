@@ -11,7 +11,6 @@ import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
 import * as styled from './Settings.styles';
 import { actions as profileActions } from './profile/duck';
-import history from '../../../config/history';
 
 class Settings extends Component {
     constructor(props) {
@@ -26,13 +25,8 @@ class Settings extends Component {
     }
 
     componentWillMount = () => {
-        const { location: { pathname } } = history;
-        if (pathname === '/reg' || pathname === '/auth') {
-            // no authorization
-        } else {
-            const { actions: { fetchCurrentUser } } = this.props;
-            fetchCurrentUser();
-        }
+        const { actions: { fetchCurrentUser } } = this.props;
+        fetchCurrentUser();
     };
 
     handleSelectTab = (value) => {

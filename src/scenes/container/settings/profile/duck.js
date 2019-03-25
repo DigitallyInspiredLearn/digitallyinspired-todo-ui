@@ -6,6 +6,7 @@ import { safeTakeEvery, safeTakeLatest } from '../../../../helpers/saga';
 import {
     getCurrentUser, editProfile as editProfileApi, deleteProfile as deleteProfileApi,
 } from '../../../../api/userController';
+import history from '../../../../config/history';
 
 export const FETCH_CURRENT_USER = 'settings/FETCH_CURRENT_USER';
 export const FETCH_CURRENT_USER_SUCCESS = 'settings/FETCH_CURRENT_USER_SUCCESS';
@@ -28,8 +29,13 @@ export const reducer = handleActions({
 }, initialState);
 
 function* fetchUser() {
-    const res = yield call(getCurrentUser);
-    yield put(actions.fetchCurrentUserSuccess(res.data));
+    const { location: { pathname } } = history;
+    if (pathname === '/reg' || pathname === '/auth') {
+        // no authorization
+    } else {
+        const res = yield call(getCurrentUser);
+        yield put(actions.fetchCurrentUserSuccess(res.data));
+    }
 }
 
 function* editProfile(action) {

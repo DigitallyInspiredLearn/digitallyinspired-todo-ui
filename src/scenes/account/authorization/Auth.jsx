@@ -56,7 +56,7 @@ class Authorization extends Component {
                         <styled.Title>Sign in</styled.Title>
                         <styled.EnterInformation>
                             <styled.Input
-                                type="email"
+                                type="text"
                                 name="loginEx"
                                 placeholder="Enter your email or username"
                                 onBlur={this.onChangeLogin}
