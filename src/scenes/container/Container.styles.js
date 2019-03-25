@@ -1,10 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 
-import ReactPaginate from 'react-paginate';
 export const Container = styled.div`
    display: flex;
    flex-direction: column;
-   height:100vh;
    width:100%;
    background-color: ${p => p.theme.background};
    input{
@@ -17,9 +15,8 @@ export const Container = styled.div`
 
 export const Header = styled.header`
     display: flex;
-    flex-direction: row;
-    padding:10px;
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+    padding:8px;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.2);
     z-index:1;
     background-color: ${ p => p.theme.backgroundHeader };
     & > b{

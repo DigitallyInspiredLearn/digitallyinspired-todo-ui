@@ -1,138 +1,97 @@
 import styled from 'styled-components';
 
-export const Styled = styled.div`
-    margin-top: 20%;
-    margin-left: 35%;
-    display: flex;
-    flex:auto;
-    flex-direction: column;
+export const Content = styled.div`
+    display:flex;
+    justify-content:center; 
+    overflow:auto;
+    height:80vh;
     opacity:0;
     transition: 500ms;
     animation: show 500ms 1;
     animation-fill-mode: forwards;
     animation-delay: 0s;
-    cursor: default;
-    
     @keyframes show {
-    0%{
-        opacity:0;
+        0%{ opacity:0; }
+        100% { opacity:1; }
     }
-
-    100% {
-        opacity:1;
+    @media (max-width: 300px) {
+         height:60vh;
     }
-}
-
-    @media (min-width: 500px) {
-            margin-top: 0;
-    }
-    
-    @media (min-width: 700px) {
-            width: 30%;
-}
 `;
 
 export const NavigationForm = styled.nav`
-     margin-bottom: 20%;
-     width: 98%;
+    width:100%;
+    @media (min-width: 500px) {
+         width:40%;
+    }
  `;
+
+export const Form = styled.form`
+    margin: 24px 8px 8px 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    background: ${p => p.theme.backgroundWindow};
+    box-shadow: 0 0  42px 0  rgba(0,0,0,0.2);
+    border-radius: 8px;
+`;
 
 export const Title = styled.h2`
      width: auto;
-     margin:15px auto;
-     cursor: default;
+     margin:8px auto;
      color: ${p => p.theme.textHeader};
  `;
 
 export const EnterInformation = styled.div`
     position: relative;
-    border-bottom: 1px solid gray;
-    
+    width:100%;
+    border-bottom: 1px solid ${p => p.theme.backgroundButton};
     &:before {
         position: absolute;
         z-index:1;
-        display: flex;
         bottom: 0;
         content: "";
-        opacity: 0.8;
-        border-bottom: 2px solid grey;
+        border-bottom: 2px solid ${p => p.theme.backgroundButton};
         transition:  width 0.2s ease-in-out;
         width: 0;
     }
-    
-    &:hover:before {
-    width: 100%;
-    }
+    &:hover:before { width: 100%; }
+    margin: 8px 0;
+    display:flex;
+    justify-content:center;
 `;
 
 export const Input = styled.input`
     outline:none;
-    padding: 5px;
-    width: 90%;
-    margin: 10px;
+    padding: 8px;
+    width:95%;
  `;
 
 export const SuccessButton = styled.p`
     outline:none;
-    width: 90%;
-    margin: 10px;
-    margin-top: 20px;
-    
+    margin: 8px;
     &:hover {
          background-color: ${p => p.theme.hoverButton};
          color: white;
     }
-    
     &:disabled {
         background-color: ${p => p.theme.activeButton};
         cursor: pointer;
     }
-    
     text-align: center;
-    font-size: 15px;
-    color: activeButton;
+    font-size: 16px;
+    color: ${p => p.theme.activeButton};
     background: ${p => p.theme.backgroundButton};
-    padding: 10px;
-    border-radius: 5px;
+    padding: 8px;
+    border-radius: 8px;
     border: none;
-    cursor: pointer;
  `;
 
-export const Form = styled.form`
-    margin: 5px;
-    margin-top: 50px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: ${p => p.theme.backgroundWindow};
-    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
-    border-radius: 5px;
-`;
-
-export const HrefButton = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0  5px ;
-    padding: 15px;
+export const HrefButton = styled.p`
+    margin: 8px;
+    padding: 16px;
     background: ${p => p.theme.hrefButton};
-    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
-    border-radius: 5px;
-`;
-
-export const NavigationButton = styled.button`
-    color: black;
-    background-color: ${p => p.theme.navButton};
-    margin-top: 0;
-    width: 100%;
-    padding: 5px;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-    
-    &:hover {
-        color: white;
-        background: ${p => p.theme.activeButton};
-    }
+    box-shadow: 0 0  42px 0  rgba(0,0,0,0.2);
+    border-radius: 8px;
+    font-size: 16px;
 `;

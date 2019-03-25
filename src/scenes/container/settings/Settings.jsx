@@ -11,6 +11,7 @@ import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
 import * as styled from './Settings.styles';
 import { actions as profileActions } from './profile/duck';
+import history from '../../../config/history';
 
 class Settings extends Component {
     constructor(props) {
@@ -25,15 +26,20 @@ class Settings extends Component {
     }
 
     componentWillMount = () => {
-        const { fetchCurrentUser } = this.props.actions;
-        fetchCurrentUser();
+        const { location: { pathname } } = history;
+        if (pathname === '/reg' || pathname === '/auth') {
+            // no authorization
+        } else {
+            const { actions: { fetchCurrentUser } } = this.props;
+            fetchCurrentUser();
+        }
     };
 
     handleSelectTab = (value) => {
         this.setState({
             selectedTab: value,
         });
-    }
+    };
 
     handlerOnClick = (e) => {
         e.target.blur();
@@ -41,7 +47,7 @@ class Settings extends Component {
 
     closeSetting = () => {
         this.props.visible = false;
-    }
+    };
 
     render() {
         const { visible, toggleSettings, currentUser } = this.props;
@@ -57,62 +63,62 @@ class Settings extends Component {
             <div style={{ display: visible ? 'flex' : 'none' }}>
                 <div id="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000 }} />
                 <styled.SettingsWindow>
-                    <MediaQuery maxWidth={649}>
-                        <styled.TabContainer>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Profile</h2>
-                                    <styled.MobileToggle
-                                        src={tab1}
-                                        onClick={() => this.setState({ tab1: tab1 === down ? up : down })}
-                                        alt="profile"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab1 === up ? 'flex' : 'none' }}>
-                                    <Profile />
-                                </styled.MobileContent>
-                            </div>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Theme</h2>
-                                    <styled.MobileToggle
-                                        src={tab2}
-                                        onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
-                                        alt="Theme"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab2 === up ? 'flex' : 'none' }}>
-                                    <div>Theme</div>
-                                </styled.MobileContent>
-                            </div>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Subscribes </h2>
-                                    <styled.MobileToggle
-                                        src={tab3}
-                                        onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
-                                        alt="Subscribes"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab3 === up ? 'flex' : 'none' }}>
-                                    <div>Subscribes</div>
-                                </styled.MobileContent>
-                            </div>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Followers</h2>
-                                    <styled.MobileToggle
-                                        src={tab4}
-                                        onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
-                                        alt="Followers"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab4 === up ? 'flex' : 'none' }}>
-                                    <FollowUser />
-                                </styled.MobileContent>
-                            </div>
-                        </styled.TabContainer>
-                    </MediaQuery>
+                    {/* <MediaQuery maxWidth={649}> */}
+                    {/* <styled.TabContainer> */}
+                    {/* <div> */}
+                    {/* <styled.Tab> */}
+                    {/* <h2>Profile</h2> */}
+                    {/* <styled.MobileToggle */}
+                    {/* src={tab1} */}
+                    {/* onClick={() => this.setState({ tab1: tab1 === down ? up : down })} */}
+                    {/* alt="profile" */}
+                    {/* /> */}
+                    {/* </styled.Tab> */}
+                    {/* <styled.MobileContent style={{ display: tab1 === up ? 'flex' : 'none' }}> */}
+                    {/* <Profile /> */}
+                    {/* </styled.MobileContent> */}
+                    {/* </div> */}
+                    {/* <div> */}
+                    {/* <styled.Tab> */}
+                    {/* <h2>Theme</h2> */}
+                    {/* <styled.MobileToggle */}
+                    {/* src={tab2} */}
+                    {/* onClick={() => this.setState({ tab2: tab2 === down ? up : down })} */}
+                    {/* alt="Theme" */}
+                    {/* /> */}
+                    {/* </styled.Tab> */}
+                    {/* <styled.MobileContent style={{ display: tab2 === up ? 'flex' : 'none' }}> */}
+                    {/* <div>Theme</div> */}
+                    {/* </styled.MobileContent> */}
+                    {/* </div> */}
+                    {/* <div> */}
+                    {/* <styled.Tab> */}
+                    {/* <h2>Subscribes </h2> */}
+                    {/* <styled.MobileToggle */}
+                    {/* src={tab3} */}
+                    {/* onClick={() => this.setState({ tab3: tab3 === down ? up : down })} */}
+                    {/* alt="Subscribes" */}
+                    {/* /> */}
+                    {/* </styled.Tab> */}
+                    {/* <styled.MobileContent style={{ display: tab3 === up ? 'flex' : 'none' }}> */}
+                    {/* <div>Subscribes</div> */}
+                    {/* </styled.MobileContent> */}
+                    {/* </div> */}
+                    {/* <div> */}
+                    {/* <styled.Tab> */}
+                    {/* <h2>Followers</h2> */}
+                    {/* <styled.MobileToggle */}
+                    {/* src={tab4} */}
+                    {/* onClick={() => this.setState({ tab4: tab4 === down ? up : down })} */}
+                    {/* alt="Followers" */}
+                    {/* /> */}
+                    {/* </styled.Tab> */}
+                    {/* <styled.MobileContent style={{ display: tab4 === up ? 'flex' : 'none' }}> */}
+                    {/* <FollowUser /> */}
+                    {/* </styled.MobileContent> */}
+                    {/* </div> */}
+                    {/* </styled.TabContainer> */}
+                    {/* </MediaQuery> */}
                     <MediaQuery minWidth={650}>
                         <styled.SettingsWindowForComp>
                             <styled.settingsContent>
