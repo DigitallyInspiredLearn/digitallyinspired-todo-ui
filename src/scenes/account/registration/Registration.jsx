@@ -6,15 +6,15 @@ import Button from '../../../components/button/Button';
 
 const validatedFields = ['email', 'username', 'password', 'name', 'repeatPassword'];
 
-const validateEmail = email => email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$') ? 'Invalid' : 'Ok';
+const validateEmail = email => (email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$') ? 'Invalid' : 'Ok');
 
-const validateUsername = username => username.length === 0 || username.length < 6 ? 'Invalid' : 'Ok';
+const validateUsername = username => (username.length === 0 || username.length < 6 ? 'Invalid' : 'Ok');
 
-const validatePassword = password => password.length === 0 || password.length < 6 ? 'Invalid' : 'Ok';
+const validatePassword = password => (password.length === 0 || password.length < 6 ? 'Invalid' : 'Ok');
 
-const validateRepeatPassword = repeatPassword => repeatPassword.length === 0 ? 'Invalid' : 'Ok';
+const validateRepeatPassword = repeatPassword => (repeatPassword.length === 0 ? 'Invalid' : 'Ok');
 
-const validateName = name => name.length === 0 ? 'Invalid' : 'Ok';
+const validateName = name => (name.length === 0 ? 'Invalid' : 'Ok');
 
 
 const registryValidator = {
@@ -28,7 +28,7 @@ const registryValidator = {
 const validation = (object, keys, validator) => {
     let errors = {};
     keys.forEach((key) => {
-        errors = {...errors, [key]: validator[key](object[key])};
+        errors = { ...errors, [key]: validator[key](object[key]) };
     });
     return errors;
 };
@@ -47,43 +47,44 @@ class Registration extends Component {
     }
 
     onChangeEmail = (e) => {
-        this.setState({email: e.target.value}, () => {
-            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
+        this.setState({ email: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
         });
     };
 
     onChangeName = (e) => {
-        this.setState({name: e.target.value}, () => {
-            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
+        this.setState({ name: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
         });
     };
 
     onChangePassword1 = (e) => {
-        this.setState({password: e.target.value}, () => {
-            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
+        this.setState({ password: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
         });
     };
 
     onChangeUserName = (e) => {
-        this.setState({username: e.target.value}, () => {
-            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
+        this.setState({ username: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
         });
     };
 
 
     onChangePassword2 = (e) => {
-        this.setState({repeatPassword: e.target.value}, () => {
-            this.setState({errors: validation(this.state, validatedFields, registryValidator)});
+        this.setState({ repeatPassword: e.target.value }, () => {
+            this.setState({ errors: validation(this.state, validatedFields, registryValidator) });
         });
     };
 
     render() {
-        console.log(this.state);
-        const {actions} = this.props;
-        const {email, name, password, username} = this.state;
+        const { actions } = this.props;
+        const {
+            email, name, password, username,
+        } = this.state;
 
         return (
-            <styled.Styled>
+            <styled.Content>
                 <styled.NavigationForm>
                     <styled.Form action="" method="post">
                         <styled.Title>Registration</styled.Title>
@@ -142,18 +143,17 @@ class Registration extends Component {
                                 ) {
                                     actions.registration({
                                         email, name, password, username,
-                                    })
+                                    });
                                 } else {
-                                    const error = "Email: " + this.state.errors.email +
-                                        "\nName: " + this.state.errors.name +
-                                        "\nUsername: " + this.state.errors.username +
-                                        "\nPassword: " + this.state.errors.password +
-                                        "\nRepeat password";
+                                    const error = `Email: ${this.state.errors.email
+                                    }\nName: ${this.state.errors.name
+                                    }\nUsername: ${this.state.errors.username
+                                    }\nPassword: ${this.state.errors.password
+                                    }\nRepeat password`;
                                     alert(
-                                        error
+                                        error,
                                     );
                                 }
-
                             }
                             }
                         >GO
@@ -164,13 +164,19 @@ class Registration extends Component {
                             <Button
                                 value="Return to the login page"
                                 style={{
-                                    color: 'black', marginTop: '0', width: '100%', padding: '5px', fontWeight: 'normal',
+                                    color: 'black',
+                                    width: '100%',
+                                    padding: '8px',
+                                    fontWeight: 'normal',
+                                    height: 'auto',
+                                    borderRadius: '8px',
                                 }}
                             />
                         </Link>
                     </styled.HrefButton>
                 </styled.NavigationForm>
-            </styled.Styled>
+            </styled.Content>
+
         );
     }
 }

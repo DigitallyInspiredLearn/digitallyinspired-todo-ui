@@ -51,12 +51,17 @@ function* authorization(action) {
 }
 
 function* refreshTokenProcess() {
-    yield delay(60000);
-    const { data: { accessToken } } = yield call(refreshToken);
-    yield call(setDefaultApiToken, accessToken);
-    console.log(accessToken);
-    yield put(actions.refreshToken());
-    yield put(actions.refreshTokenSuccess(accessToken));
+    const { location: { pathname } } = history;
+    if (pathname === '/reg' || pathname === '/auth') {
+        // no authorization
+    } else {
+        yield delay(60000);
+        const { data: { accessToken } } = yield call(refreshToken);
+        yield call(setDefaultApiToken, accessToken);
+        console.log(accessToken);
+        yield put(actions.refreshToken());
+        yield put(actions.refreshTokenSuccess(accessToken));
+    }
 }
 
 function* rehydrateSaga() {

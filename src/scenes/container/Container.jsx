@@ -8,6 +8,7 @@ import Settings from './settings/Settings';
 import list from '../../image/list-menu.svg';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
+import history from '../../config/history';
 
 class Container extends Component {
     constructor(props) {
@@ -22,8 +23,9 @@ class Container extends Component {
 
     render() {
         const { visible } = this.state;
+        const { location: { pathname } } = history;
         const { children, data, actions } = this.props;
-
+        const iconVisible = (pathname === '/reg' || pathname === '/auth') ? 'none' : 'inherit';
         return (
             <ThemeProvider theme={data}>
                 <styled.Container>
@@ -64,11 +66,13 @@ class Container extends Component {
                             src={list}
                             alt="list"
                             onClick={this.toggleSettings}
+                            style={{ display: iconVisible }}
                         />
                         <styled.Logout
                             src={logout}
                             alt="logout"
                             onClick={actions.logout}
+                            style={{ display: iconVisible }}
                         />
 
                     </styled.Header>
