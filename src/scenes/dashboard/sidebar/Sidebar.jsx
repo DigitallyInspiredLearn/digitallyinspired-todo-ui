@@ -32,7 +32,7 @@ class Sidebar extends Component {
         // const taskValue = tasks === {} ? { body: '', isComplete: false } : tasks;
         addNewDashboard({
             todoListName: titleValue,
-            tasks: tasks,
+            tasks,
         });
         this.setState({
             todoListName: '',
@@ -72,6 +72,7 @@ class Sidebar extends Component {
         return (
 
             [
+                <div className="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 10 }} />,
                 <styled.Plus
                     key="plus"
                     className="plus"
