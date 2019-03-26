@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
-import Settings from './settings/Settings';
+import Settings from './settings/SettingsContainer';
 import list from '../../image/list-menu.svg';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
@@ -62,13 +62,13 @@ class Container extends Component {
                         <b>To</b>
                         <styled.Line />
                         <b>do</b>
-                        <styled.Burger
+                        <styled.Icon
                             src={list}
                             alt="list"
                             onClick={this.toggleSettings}
                             style={{ display: iconVisible }}
                         />
-                        <styled.Logout
+                        <styled.Icon
                             src={logout}
                             alt="logout"
                             onClick={actions.logout}

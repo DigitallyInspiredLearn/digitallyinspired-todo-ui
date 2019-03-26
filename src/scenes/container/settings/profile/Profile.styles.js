@@ -7,9 +7,7 @@ export const Profile = styled.div`
     height: 100%;
 `;
 export const Avatar = styled.img`
-    position: absolute;
-    left: 200px;
-    bottom: 350px;
+
     border-radius: 50%;
     
 `;
