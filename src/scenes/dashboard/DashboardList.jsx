@@ -51,7 +51,7 @@ class DashboardList extends Component {
                                 ]}
                                 stylesValues=" margin-left: 12px; width: 130px;"
                                 stylesButton="
-                                    padding: 15px 5px;
+                                    padding: 16px 8px;
                                     margin-left: 10px ;
                                     width: auto;
                                     min-width: 150px;

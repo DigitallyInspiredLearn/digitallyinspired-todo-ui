@@ -5,8 +5,8 @@ export const Dashboard = styled.section`
     flex-direction: column;
     background-color: ${ p => p.theme.backgroundList };
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
-    width: 48.5%;
-    margin-bottom: 3%;
+    flex:1;
+    margin: 8px;
     border-radius: 5px;
     min-height: 300px;
     max-height: 300px;
@@ -32,7 +32,7 @@ export const DashboardHeader = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    margin: 10px;
+    margin: 8px;
     width:100%
 `;
 

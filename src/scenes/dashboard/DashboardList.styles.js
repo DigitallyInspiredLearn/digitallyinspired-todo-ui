@@ -13,7 +13,7 @@ export const SearchAndChecked = styled.div`
     display: flex;
     flex-direction:row;
     height: auto;
-    margin:1% 10px 3% 10px;
+    margin:8px;
     justify-content: space-between;
     @media (max-width: 600px) {
         flex-direction: column-reverse;
@@ -30,7 +30,7 @@ export const SearchDiv = styled.div`
     min-height: 15px;
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
-    padding:15px 5px;
+    padding:8px;
     align-items: center;
     @media (max-width: 600px) {
         padding: 5px;   
