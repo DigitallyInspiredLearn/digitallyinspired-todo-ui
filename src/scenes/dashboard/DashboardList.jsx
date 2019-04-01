@@ -106,25 +106,27 @@ class DashboardList extends Component {
                     </styled.DashboardList>
                 </styled.App>,
                 <styled.Footer key="footer">
-                    <div style={{display: 'flex'}}>
-                    <styled.Pagination>
-                        <ReactPaginate
-                            pageCount={totalPages}
-                            pageRangeDisplayed={3}
-                            marginPagesDisplayed={1}
-                            containerClassName="pagination-container"
-                            onPageChange={this.handlePageChange}
+                    <div style={{ display: 'flex', marginLeft: '30%' }}>
+                        <styled.Pagination>
+                            <ReactPaginate
+                                pageCount={totalPages}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={1}
+                                previousLabel="&laquo;"
+                                nextLabel="&raquo;"
+                                containerClassName="pagination-container"
+                                onPageChange={this.handlePageChange}
+                            />
+                        </styled.Pagination>
+                        <DropDown
+                            changeValue={actions.changeSize}
+                            currentValue={pageSize}
+                            titleButton="Change size"
+                            possibleValues={[4, 8, 16]}
+                            drop="up"
+                            stylesValues="width: 75px;margin-left: 28px ;"
+                            stylesButton="padding: 12px 10px; margin: 15px 25px;"
                         />
-                    </styled.Pagination>
-                    <DropDown
-                        changeValue={actions.changeSize}
-                        currentValue={pageSize}
-                        titleButton="Change size"
-                        possibleValues={[4, 8, 16]}
-                        drop="up"
-                        stylesValues="width: 75px;margin-left: 17px ;"
-                        stylesButton="padding: 5px ; margin: 15px; width: 95px;"
-                    />
                     </div>
                     <VisibleSidebar />
                 </styled.Footer>,

@@ -79,12 +79,20 @@ export const Pagination = styled.div`
    .pagination-container {
         display: flex;
         li {
-             margin: 0 10px;
+            transition: background-color .3s;
+            padding: 10px 15px;
+            background-color: ${p => p.theme.backgroundButton};
+        };
+        li:hover {
+            background-color: ${p => p.theme.hoverButton};
+        }
+        li.selected {
+            background-color: ${p => p.theme.activeButton};
+            color: ${p => p.theme.activeButtonText};
         }
    }
    li {
-        margin: 0 10px;
-		
+        margin: 0 4px;
    }
 `;
 
