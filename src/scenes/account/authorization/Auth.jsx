@@ -47,7 +47,6 @@ class Authorization extends Component {
     };
 
     render() {
-        console.log(this.state);
         const { actions } = this.props;
         const { password, login } = this.state;
         return (
