@@ -18,11 +18,6 @@ class Profile extends Component {
         };
     }
 
-    componentWillMount = () => {
-        const { fetchCurrentUser } = this.props.actions;
-        fetchCurrentUser();
-    };
-
     changeValueNewName = e => this.setState({ newName: e.target.value });
 
     changeValueNewUsername = e => this.setState({ newUsername: e.target.value });
@@ -42,7 +37,7 @@ class Profile extends Component {
     };
 
     handleClickSave = () => {
-        const { actions, currentUser } = this.props;
+        const { actions } = this.props;
         const {
             newName, newUsername, newEmail, newPassword, newRepeatPassword,
         } = this.state;
@@ -55,7 +50,7 @@ class Profile extends Component {
                 username: newUsername,
             });
         }
-    }
+    };
 
     /* avatarUploadHandler = () => {
         const fd = new FormData();
@@ -72,18 +67,7 @@ class Profile extends Component {
         } = this.state;
         return (
             <styled.Profile>
-                <styled.Username> Hello, {name || 'name'} !</styled.Username>
-                <styled.Email>{email || 'email'}</styled.Email>
-                <styled.DeleteProfile>
-                    <Link to="/auth">
-                        <Button
-                            onClick={this.handleClickDelete}
-                            value="Delete profile"
-                        />
-                    </Link>
-                </styled.DeleteProfile>
-                <styled.Account>Account</styled.Account>
-                <styled.EditProfile>
+                <styled.GreetingUser>
                     <styled.Avatar src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp" />
                     <styled.AvatarInput
                         type="file"
@@ -91,55 +75,77 @@ class Profile extends Component {
                         ref={avatarInput => this.avatarInput = avatarInput}
                     />
                     <styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />
-                    <styled.ProfileValues>
+                    <styled.CurrentUser>
+                        <p> Hello, {name || 'name'} !</p>
+                        <p>{email || 'email'}</p>
+                    </styled.CurrentUser>
+                    <styled.DeleteProfile>
+                        <Link to="/auth">
+                            <Button
+                                onClick={this.handleClickDelete}
+                                value="Delete profile"
+                                style={{ height: 'auto', padding: '4px 8px' }}
+                            />
+                        </Link>
+                    </styled.DeleteProfile>
+                </styled.GreetingUser>
+                <styled.Account>Account</styled.Account>
+                <styled.Info>
+                    <styled.EditProfile>
                         <p> Name </p>
+                        <input
+                            type="text"
+                            placeholder="Name"
+                            value={newName}
+                            onChange={this.changeValueNewName}
+                        />
+                    </styled.EditProfile>
+                    <styled.EditProfile>
                         <p> Username </p>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={newUsername}
+                            onChange={this.changeValueNewUsername}
+                        />
+                    </styled.EditProfile>
+                    <styled.EditProfile>
                         <p> Email </p>
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={newEmail}
+                            onChange={this.changeValueNewEmail}
+                        />
+                    </styled.EditProfile>
+                    <styled.EditProfile>
                         <p> Password </p>
+                        <input
+                            type="password"
+                            placeholder="Enter new password"
+                            value={newPassword}
+                            onChange={this.changeValueNewPassword}
+                        />
+                    </styled.EditProfile>
+                    <styled.EditProfile>
                         <p> Repeat password </p>
-                    </styled.ProfileValues>
-                    <styled.ProfileInput>
-                        <div>
-                            <input
-                                type="text"
-                                placeholder="Name"
-                                value={newName}
-                                onChange={this.changeValueNewName}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                value={newUsername}
-                                onChange={this.changeValueNewUsername}
-                            />
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={newEmail}
-                                onChange={this.changeValueNewEmail}
-                            />
-                            <input
-                                type="password"
-                                placeholder="Enter new password"
-                                value={newPassword}
-                                onChange={this.changeValueNewPassword}
-                            />
-                            <input
-                                type="password"
-                                placeholder="Repeat new password"
-                                value={newRepeatPassword}
-                                onChange={this.changeValueNewRepeatPassword}
-                            />
-                        </div>
-                    </styled.ProfileInput>
-                </styled.EditProfile>
-                <Button
-                    onClick={this.handleClickSave}
-                    value="Save"
-                    style={{ width: '50px', alignSelf: 'flex-end', padding: '6px 8px' }}
-                >
-                Save
-                </Button>
+                        <input
+                            type="password"
+                            placeholder="Repeat new password"
+                            value={newRepeatPassword}
+                            onChange={this.changeValueNewRepeatPassword}
+                        />
+                    </styled.EditProfile>
+                    <Button
+                        onClick={this.handleClickSave}
+                        value="Save"
+                        style={{
+                            width: 'auto', minWidth: '80px', alignSelf: 'flex-end', padding: '4px 8px', margin: '8px',
+                        }}
+                    >
+                            Save
+                    </Button>
+                </styled.Info>
             </styled.Profile>
         );
     }
