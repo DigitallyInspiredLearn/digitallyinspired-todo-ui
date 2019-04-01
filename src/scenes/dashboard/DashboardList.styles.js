@@ -131,9 +131,10 @@ export const ShowButton = styled.div`
 export const DashboardList = styled.main`
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-content: flex-start;
     flex: auto;
+    
     margin: 10px 10px;
     height: 100vh;
     @media (max-width: 600px) {

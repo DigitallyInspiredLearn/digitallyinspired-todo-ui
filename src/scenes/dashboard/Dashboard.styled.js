@@ -6,6 +6,8 @@ export const Dashboard = styled.section`
     background-color: ${ p => p.theme.backgroundList };
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
     flex:1;
+    min-width:500px;
+    
     margin: 8px;
     border-radius: 5px;
     min-height: 300px;
