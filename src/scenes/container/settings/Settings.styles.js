@@ -31,7 +31,7 @@ export const Window = styled.div`
     width: 70%; 
     height: 70vh;
     font-family: Helvetica;
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
         width: 100%; 
         height: 100vh;
         border-radius: 0;
@@ -43,7 +43,7 @@ export const Main = styled.div`
     flex: auto;
     border: 1px solid whitesmoke;
     border-radius: 8px;
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
         flex-direction: column;
         overflow:auto;
     }
@@ -55,7 +55,7 @@ export const TabContainer = styled.nav`
     flex-direction: column;
     justify-content: space-between;  
     align-content:stretch;
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
         flex-direction: row wrap;
         height:auto;
         min-height:128px;
@@ -82,8 +82,10 @@ export const Content = styled.main`
     overflow:auto;
     display: flex;
     flex:auto;
-    @media (max-width: 400px) {
+    height:100%;
+    @media (max-width: 500px) {
         overflow:hidden;
         flex: none;
+        height:auto;
     }
 `;

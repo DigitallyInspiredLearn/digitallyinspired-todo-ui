@@ -118,6 +118,9 @@ export const Aside = styled.aside`
     flex-direction: column;
     z-index:  20;
     width: 30%;
+    @media (max-width: 500px) {
+        width: 100%;
+    }
 `;
 export const Sidebar = styled.div`
     width: 100%;
