@@ -1,31 +1,22 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import MediaQuery from 'react-responsive';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import down from '../../../image/caret-down.svg';
-import up from '../../../image/caret-arrow-up.svg';
 import Profile from './profile/ProfileContainer';
 import Theme from './theme/ThemeContainer';
 import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
 import * as styled from './Settings.styles';
-import { actions as profileActions } from './profile/duck';
+
 
 class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab1: down,
-            tab2: down,
-            tab3: down,
-            tab4: down,
             selectedTab: 'profile',
         };
     }
 
     componentWillMount = () => {
-        const { fetchCurrentUser } = this.props.actions;
+        const { actions: { fetchCurrentUser } } = this.props;
         fetchCurrentUser();
     };
 
@@ -33,7 +24,7 @@ class Settings extends Component {
         this.setState({
             selectedTab: value,
         });
-    }
+    };
 
     handlerOnClick = (e) => {
         e.target.blur();
@@ -41,145 +32,64 @@ class Settings extends Component {
 
     closeSetting = () => {
         this.props.visible = false;
-    }
+    };
 
     render() {
         const { visible, toggleSettings, currentUser } = this.props;
-        const {
-            tab1,
-            tab2,
-            tab3,
-            tab4,
-            selectedTab,
-        } = this.state;
-
+        const { selectedTab } = this.state;
         return (
-            <div style={{ display: visible ? 'flex' : 'none' }}>
-                <div id="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 1000 }} />
-                <styled.SettingsWindow>
-                    <MediaQuery maxWidth={649}>
+            <styled.Background style={{ display: visible ? 'flex' : 'none' }}>
+                <styled.Window>
+                    <styled.CloseWindow onClick={() => toggleSettings()}>
+                                &times;
+                    </styled.CloseWindow>
+                    <styled.Main>
                         <styled.TabContainer>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Profile</h2>
-                                    <styled.MobileToggle
-                                        src={tab1}
-                                        onClick={() => this.setState({ tab1: tab1 === down ? up : down })}
-                                        alt="profile"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab1 === up ? 'flex' : 'none' }}>
-                                    <Profile />
-                                </styled.MobileContent>
-                            </div>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Theme</h2>
-                                    <styled.MobileToggle
-                                        src={tab2}
-                                        onClick={() => this.setState({ tab2: tab2 === down ? up : down })}
-                                        alt="Theme"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab2 === up ? 'flex' : 'none' }}>
-                                    <div>Theme</div>
-                                </styled.MobileContent>
-                            </div>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Subscribes </h2>
-                                    <styled.MobileToggle
-                                        src={tab3}
-                                        onClick={() => this.setState({ tab3: tab3 === down ? up : down })}
-                                        alt="Subscribes"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab3 === up ? 'flex' : 'none' }}>
-                                    <div>Subscribes</div>
-                                </styled.MobileContent>
-                            </div>
-                            <div>
-                                <styled.Tab>
-                                    <h2>Followers</h2>
-                                    <styled.MobileToggle
-                                        src={tab4}
-                                        onClick={() => this.setState({ tab4: tab4 === down ? up : down })}
-                                        alt="Followers"
-                                    />
-                                </styled.Tab>
-                                <styled.MobileContent style={{ display: tab4 === up ? 'flex' : 'none' }}>
-                                    <FollowUser />
-                                </styled.MobileContent>
-                            </div>
+                            <styled.Tab selected={selectedTab === 'profile'}>
+                                <input
+                                    type="radio"
+                                    style={{ visibility: 'hidden' }}
+                                    onClick={() => this.handleSelectTab('profile')}
+                                />
+                                    Profile
+                            </styled.Tab>
+                            <styled.Tab selected={selectedTab === 'theme'}>
+                                <input
+                                    type="radio"
+                                    style={{ visibility: 'hidden' }}
+                                    onClick={() => this.handleSelectTab('theme')}
+                                />
+                                    Theme
+                            </styled.Tab>
+                            <styled.Tab selected={selectedTab === 'subscribes'}>
+                                <input
+                                    type="radio"
+                                    style={{ visibility: 'hidden' }}
+                                    onClick={() => this.handleSelectTab('subscribes')}
+                                />
+                                    Subscribers
+                            </styled.Tab>
+                            <styled.Tab selected={selectedTab === 'followers'}>
+                                <input
+                                    type="radio"
+                                    style={{ visibility: 'hidden' }}
+                                    onClick={() => this.handleSelectTab('followers')}
+                                />
+                                    Follow
+                            </styled.Tab>
                         </styled.TabContainer>
-                    </MediaQuery>
-                    <MediaQuery minWidth={650}>
-                        <styled.SettingsWindowForComp>
-                            <styled.settingsContent>
-                                <styled.CloseWindow
-                                    onClick={() => toggleSettings()}
-                                >&times;
-                                </styled.CloseWindow>
-                                <styled.Main>
-                                    <styled.TabContainerForComp>
-                                        <styled.TabLabel selected={selectedTab === 'profile'}>
-                                            <input
-                                                type="radio"
-                                                style={{ visibility: 'hidden' }}
-                                                onClick={() => this.handleSelectTab('profile')}
-                                            />
-                                            Profile
-                                        </styled.TabLabel>
-                                        <styled.TabLabel selected={selectedTab === 'theme'}>
-                                            <input
-                                                type="radio"
-                                                style={{ visibility: 'hidden' }}
-                                                onClick={() => this.handleSelectTab('theme')}
-                                            />
-                                            Theme
-                                        </styled.TabLabel>
-                                        <styled.TabLabel selected={selectedTab === 'subscribes'}>
-                                            <input
-                                                type="radio"
-                                                style={{ visibility: 'hidden' }}
-                                                onClick={() => this.handleSelectTab('subscribes')}
-                                            />
-                                            Subscribers
-                                        </styled.TabLabel>
-                                        <styled.TabLabel selected={selectedTab === 'followers'}>
-                                            <input
-                                                type="radio"
-                                                style={{ visibility: 'hidden' }}
-                                                onClick={() => this.handleSelectTab('followers')}
-                                            />
-                                            Follow
-                                        </styled.TabLabel>
-                                    </styled.TabContainerForComp>
-                                    <main>
-                                        {selectedTab === 'profile'
+                        <styled.Content>
+                            {selectedTab === 'profile'
                                         && currentUser && <Profile toggleSettings={toggleSettings} />}
-                                        {selectedTab === 'theme' && <Theme />}
-                                        {selectedTab === 'subscribes' && <Subscribes />}
-                                        {selectedTab === 'followers' && <FollowUser />}
-                                    </main>
-                                </styled.Main>
-                            </styled.settingsContent>
-                        </styled.SettingsWindowForComp>
-                    </MediaQuery>
-                </styled.SettingsWindow>
-            </div>
+                            {selectedTab === 'theme' && <Theme />}
+                            {selectedTab === 'subscribes' && <Subscribes />}
+                            {selectedTab === 'followers' && <FollowUser />}
+                        </styled.Content>
+                    </styled.Main>
+                </styled.Window>
+            </styled.Background>
         );
     }
 }
 
-const mapStateToProps = state => ({
-    currentUser: state.profile.currentUser,
-});
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({
-        fetchCurrentUser: profileActions.fetchCurrentUser,
-    }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default Settings;

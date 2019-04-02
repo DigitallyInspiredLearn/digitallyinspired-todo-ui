@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default styled.button`
         width: ${p => (p.width ? p.width : '115px')};
-        height: 30px;
+        
         outline: none;
         border: none;
         -moz-border-radius:10px;

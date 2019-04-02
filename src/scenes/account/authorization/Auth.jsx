@@ -2,14 +2,14 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as styled from '../Acconut.styled';
+import * as styled from '../Account.styled';
 import Button from '../../../components/button/Button';
 
 const validateFields = ['login', 'password'];
 
-const validateLogIn = login => login.length === 0 ? 'Invalid' : undefined;
+const validateLogIn = login => (login.length === 0 ? 'Invalid' : undefined);
 
-const validatePassword = password => password === 0 ? 'Invalid' : undefined;
+const validatePassword = password => (password === 0 ? 'Invalid' : undefined);
 
 const authValidator = {
     login: validateLogIn,
@@ -50,13 +50,13 @@ class Authorization extends Component {
         const { actions } = this.props;
         const { password, login } = this.state;
         return (
-            <styled.Styled>
+            <styled.Content>
                 <styled.NavigationForm>
                     <styled.Form action="" method="post">
                         <styled.Title>Sign in</styled.Title>
                         <styled.EnterInformation>
                             <styled.Input
-                                type="email"
+                                type="text"
                                 name="loginEx"
                                 placeholder="Enter your email or username"
                                 onBlur={this.onChangeLogin}
@@ -82,13 +82,18 @@ class Authorization extends Component {
                             <Button
                                 value="Registration"
                                 style={{
-                                    color: 'black', marginTop: '0', width: '100%', padding: '5px', fontWeight: 'normal',
+                                    color: 'black',
+                                    width: '100%',
+                                    padding: '8px',
+                                    height: 'auto',
+                                    fontWeight: 'normal',
+                                    borderRadius: '8px',
                                 }}
                             />
                         </Link>
                     </styled.HrefButton>
                 </styled.NavigationForm>
-            </styled.Styled>
+            </styled.Content>
         );
     }
 }

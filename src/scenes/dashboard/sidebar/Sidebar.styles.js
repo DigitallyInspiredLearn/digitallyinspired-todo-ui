@@ -97,7 +97,7 @@ export const Background = styled.div`
     width: 100%;
     z-index: 10;
     flex-direction: row;
-    background-color: ${p => p.theme.mainTextпше};
+    background-color: ${p => p.theme.mainText};
     opacity: 0.8;
     width: 100%;
     height: 100%;
@@ -118,6 +118,9 @@ export const Aside = styled.aside`
     flex-direction: column;
     z-index:  20;
     width: 30%;
+    @media (max-width: 500px) {
+        width: 100%;
+    }
 `;
 export const Sidebar = styled.div`
     width: 100%;
