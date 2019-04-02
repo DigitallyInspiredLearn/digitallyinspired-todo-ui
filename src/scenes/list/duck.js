@@ -133,7 +133,6 @@ function* addNewTask(action) {
     console.log(list.data);
     yield call(addTask, action.payload.idDashboard, {body: action.payload.nameTask});
     const r = yield call(getOneList, action.payload.idDashboard);
-    console.log(r.data);
     yield put(actions.fetchListSuccess(r.data));
 }
 
