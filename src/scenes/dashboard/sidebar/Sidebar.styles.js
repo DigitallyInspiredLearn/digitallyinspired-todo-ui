@@ -14,7 +14,8 @@ export const Close = styled.span`
 export const Plus = styled.div`
     width: 50px;
     cursor: pointer;
-    margin: 10px ;
+    margin: 10px;
+    align-self: center;
 `;
 export const AddButton = styled.div`
     position: absolute;
