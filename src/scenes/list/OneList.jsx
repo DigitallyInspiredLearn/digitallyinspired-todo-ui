@@ -1,8 +1,10 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types,new-cap */
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReactDOMServer from 'react-dom/server';
+import jsPDF from 'jspdf';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
@@ -30,7 +32,13 @@ class OneList extends Component {
         });
     };
 
-    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({idList:match.params.id});
+    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
+
+    pdfToHTML() {
+        var doc = new jsPDF();
+        doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+        doc.save("myDocument.pdf");
+    }
 
     render() {
         const { valueNewTask } = this.state;
@@ -58,9 +66,10 @@ class OneList extends Component {
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
-                    <styled.animationButton
-                        className="fa fa-download fa-2x"
+                    <div
+                        className="download fa fa-download fa-3x"
                         title="download"
+                        onClick={this.pdfToHTML}
                     />
                 </styled.inputBlock>
                 <styled.blockTask>
@@ -77,21 +86,21 @@ class OneList extends Component {
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
-                                onClick={() => actions.selectedNotDoneAction({notDone: notDone, idList:  match.params.id})}
-                                style={{ marginRight: '5px', borderRadius: 0}}
+                                onClick={() => actions.selectedNotDoneAction({ notDone, idList: match.params.id })}
+                                style={{ marginRight: '5px', borderRadius: 0 }}
                             >
                                 not done
                             </styledDashboard.ShowButton>
                             <styledDashboard.ShowButton
                                 checked={done}
-                                onClick={() => actions.selectDoneAction({done: done, idList:  match.params.id})}
+                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
                                 style={{ borderRadius: '0 5px 5px 0' }}
                             >
                                 done
                             </styledDashboard.ShowButton>
                         </styledDashboard.CheckboxDiv>
                     </styled.inputDiv>
-                    <div>
+                    <div id="HTMLtoPDF">
                         {
                             data.tasks && (data.tasks.length === 0
                                 ? (
