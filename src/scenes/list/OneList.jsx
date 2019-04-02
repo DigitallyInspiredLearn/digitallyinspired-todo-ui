@@ -32,13 +32,14 @@ class OneList extends Component {
         });
     };
 
+    pdfToHTML() {
+        const doc = new jsPDF();
+        doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+        doc.save('myDocument.pdf');
+    }
+
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
-    pdfToHTML() {
-        var doc = new jsPDF();
-        doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-        doc.save("myDocument.pdf");
-    }
 
     render() {
         const { valueNewTask } = this.state;
@@ -86,7 +87,10 @@ class OneList extends Component {
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
-                                onClick={() => actions.selectedNotDoneAction({ notDone, idList: match.params.id })}
+                                onClick={() => actions.selectedNotDoneAction({
+                                    notDone,
+                                    idList: match.params.id,
+                                })}
                                 style={{ marginRight: '5px', borderRadius: 0 }}
                             >
                                 not done
@@ -105,7 +109,7 @@ class OneList extends Component {
                             data.tasks && (data.tasks.length === 0
                                 ? (
                                     <styled.nullTask>
-                                    You have no tasks yet, it's time to be active!
+                                        You have no tasks yet, it's time to be active!
                                     </styled.nullTask>
                                 )
                                 : data.tasks.map(i => (

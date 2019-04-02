@@ -2,7 +2,7 @@
 import {createAction, handleActions} from 'redux-actions';
 import {call, put, delay} from 'redux-saga/effects';
 import {safeTakeEvery, safeTakeLatest} from '../../helpers/saga';
-import {searchUserByUsername} from "../../api/userController";
+import {followUser as followUserApi, searchUserByUsername} from "../../api/userController";
 
 export const SEARCH_USERS = 'popup/SEARCH_USERS';
 export const FETCH_USERS = 'popup/FETCH_USERS';
@@ -25,13 +25,11 @@ export const reducer = handleActions({
 }, initialState);
 
 function* fetchUser(action) {
-    console.log(action.payload);
+    const array = ["User is not found!"];
     const res = yield call(searchUserByUsername, action.payload);
-    console.log(res.data);
-    yield put(actions.fetchUser(res.data));
+    res.data.length === 0 ? yield put(actions.fetchUser(array)): yield put(actions.fetchUser(res.data));
 }
 
 export function* saga() {
     yield safeTakeEvery(SEARCH_USERS, fetchUser);
-
 }

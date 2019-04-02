@@ -7,65 +7,77 @@ import Search from '../../components/search/Search';
 export class Popup extends Component {
 
     handleChange = (newValue) => {
-        const { actions } = this.props;
+        const {actions} = this.props;
         actions.searchUser(newValue);
     };
 
     render() {
         const {statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
         return (
-                <styled.showPopup show={statePopup}>
-                    <styled.popupContent>
-                        <styled.closeWindow
+            <styled.showPopup show={statePopup}>
+                <styled.popupContent>
+                    <styled.closeWindow
+                        onClick={() => {
+                            closePopup();
+                            actions.searchUser('');
+                        }}
+                    >&times;
+                    </styled.closeWindow>
+                    <styled.title>Share list with</styled.title>
+                    <styled.searchTask>
+                        <Search
+                            placeholder="Enter username"
+                            value={search}
+                            onChange={this.handleChange}
+                            style={{width: '93%', height: '50px'}}
+                            key='searchPop'
+                        />
+                        <styled.btnSearch className="fa fa-search fa-2x"/>
+                    </styled.searchTask>
+                    <styled.buttonBlock>
+                        <styled.buttonCloSeOk
                             onClick={() => {
                                 closePopup();
                                 actions.searchUser('');
                             }}
-                        >&times;
-                        </styled.closeWindow>
-                        <styled.title>Share list with</styled.title>
-                        <styled.searchTask>
-                            <Search
-                                   placeholder="Enter username"
-                                   value={search}
-                                   onChange={this.handleChange}
-                                   style={{ width: '93%', height: '50px' }}
-                            />
-                            <styled.btnSearch className="fa fa-search fa-2x" />
-                        </styled.searchTask>
-                        <styled.buttonBlock>
-                            <styled.buttonCloSeOk
-                                    onClick={() => {
-                                    closePopup();
-                                    actions.searchUser('');
-                                }}
-                            >Cancel
-                            </styled.buttonCloSeOk>
-                            <styled.buttonCloSeOk
-                                onClick={() => {
+                        >Cancel
+                        </styled.buttonCloSeOk>
+                        <styled.buttonCloSeOk
+                            onClick={() => {
+                                if (users[0] === "User is not found!") {
+                                    alert("Data is not correct!");
+                                }
+                                else {
                                     actionsBoard.shareList({idList: idList, userName: search});
                                     closePopup();
                                     actions.searchUser('');
                                     alert("Successfully shared!");
-                                }}
-                            >Ok
-                            </styled.buttonCloSeOk>
-                        </styled.buttonBlock>
-                        <styled.users search={search}>
-                            {
-                                users.map(i => (
+                                }
+                            }}
+                        >Ok
+                        </styled.buttonCloSeOk>
+                    </styled.buttonBlock>
+                    <styled.users search={search}>
+                        {
+                            users.map(i => (
                                     search === i ? null :
-                                        <div  onClick={() => actions.searchUser(i)}>
-                                            <input
-                                                value={i}
-                                            />
-                                        </div>
-                                    )
+                                        i === "User is not found!" ? <div>
+                                                <input
+                                                    value={i}
+                                                />
+                                            </div> :
+                                            <div onClick={() => actions.searchUser(i)}>
+                                                <input
+                                                    value={i}
+                                                    key='user'
+                                                />
+                                            </div>
                                 )
-                            }
-                        </styled.users>
-                    </styled.popupContent>
-                </styled.showPopup>
+                            )
+                        }
+                    </styled.users>
+                </styled.popupContent>
+            </styled.showPopup>
 
         );
     }
