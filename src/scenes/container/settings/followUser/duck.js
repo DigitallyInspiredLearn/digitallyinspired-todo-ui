@@ -55,10 +55,9 @@ function* followUsers(action) {
 function* mutate() {
     const { usersNamesRaw, search } = yield select(state => state.followUser);
     const currentUserName = yield select(state => state.profile.currentUser.username);
-    const res = usersNamesRaw.filter(list => (
-        list.toLowerCase().includes(search.toLowerCase()),
-        list !== currentUserName
-    ));
+    const followUsers = usersNamesRaw.filter(i => i !== currentUserName);
+    yield put(actions.mutateSuccess(followUsers));
+    const res = followUsers.filter(s => s.indexOf(search) >= 0);
     yield put(actions.mutateSuccess(res));
 }
 

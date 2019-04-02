@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
@@ -30,10 +30,10 @@ class OneList extends Component {
         });
     };
 
-    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({idList:match.params.id});
+    componentWillMount = ({match, actions} = this.props) => actions.fetchList({idList: match.params.id});
 
     render() {
-        const { valueNewTask } = this.state;
+        const {valueNewTask} = this.state;
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
@@ -41,13 +41,13 @@ class OneList extends Component {
             <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
-                        <styled.animationButton className="fa fa-arrow-left fa-2x" />
+                        <styled.animationButton className="fa fa-arrow-left fa-2x"/>
                     </Link>
                     <styled.titleNameOneList
                         type="text"
                         placeholder="Enter dashboard title"
                         value={data.todoListName}
-                        onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
+                        onChange={e => actions.updateTitleList({idDashboard: data.id, newTitle: e.target.value})}
                     />
                     <Link to="/lists">
 
@@ -55,7 +55,7 @@ class OneList extends Component {
                             className="iconTrash"
                             src={trash}
                             id={match.params.id}
-                            onClick={() => actions.deleteList({ idDashboard: match.params.id })}
+                            onClick={() => actions.deleteList({idDashboard: match.params.id})}
                         />
                     </Link>
                     <styled.animationButton
@@ -73,19 +73,22 @@ class OneList extends Component {
                                 search: e.target.value,
                             })}
                         />
-                        <styledPopup.btnSearch className="fa fa-search fa-2x" />
+                        <styledPopup.btnSearch className="fa fa-search fa-2x"/>
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
-                                onClick={() => actions.selectedNotDoneAction({notDone: notDone, idList:  match.params.id})}
-                                style={{ marginRight: '5px', borderRadius: 0}}
+                                onClick={() => actions.selectedNotDoneAction({
+                                    notDone: notDone,
+                                    idList: match.params.id
+                                })}
+                                style={{marginRight: '5px', borderRadius: 0}}
                             >
                                 not done
                             </styledDashboard.ShowButton>
                             <styledDashboard.ShowButton
                                 checked={done}
-                                onClick={() => actions.selectDoneAction({done: done, idList:  match.params.id})}
-                                style={{ borderRadius: '0 5px 5px 0' }}
+                                onClick={() => actions.selectDoneAction({done: done, idList: match.params.id})}
+                                style={{borderRadius: '0 5px 5px 0'}}
                             >
                                 done
                             </styledDashboard.ShowButton>
@@ -96,7 +99,7 @@ class OneList extends Component {
                             data.tasks && (data.tasks.length === 0
                                 ? (
                                     <styled.nullTask>
-                                    You have no tasks yet, it's time to be active!
+                                        You have no tasks yet, it's time to be active!
                                     </styled.nullTask>
                                 )
                                 : data.tasks.map(i => (
@@ -122,7 +125,7 @@ class OneList extends Component {
                                 nameTask: valueNewTask,
                                 idTask: `${randomInteger(1, 100000, todo)}`,
                             }),
-                            this.setState({ valueNewTask: '' })
+                                this.setState({valueNewTask: ''})
                         )}
                     />
                 </styled.blockTask>

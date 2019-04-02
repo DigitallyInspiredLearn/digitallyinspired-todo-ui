@@ -11,13 +11,12 @@ class Search extends Component {
 
     handleChange = (e, { onChange } = this.props) => {
         const { target: { value } } = e;
-        this.setState({ value: e.target.value });
+        this.setState({ value: value });
         onChange(value);
     };
 
     render() {
-        const { style, placeholder } = this.props;
-        const { value } = this.state;
+        const { style, placeholder, value } = this.props;
 
         return (
             <SearchStyles
