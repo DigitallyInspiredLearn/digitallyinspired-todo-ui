@@ -17,31 +17,32 @@ export const Container = styled.div`
 export const Header = styled.header`
     display: flex;
     align-items: center;
-    padding:8px;
+    padding: 8px;
     box-shadow: 0 0 16px 0 rgba(0,0,0,0.2);
     z-index:1;
     background-color: ${ p => p.theme.backgroundHeader };
     & > b{
-        font-size: 42px;
+        font-size: 40px;
         color: ${ p => p.theme.textHeader };
     }
 `;
 
 export const Logo = styled.svg`
-    width: 50px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     fill: ${ p => p.theme.textHeader };
 `;
 
 export const Line = styled.div`
     height: 5px;
     display: flex;
-    flex:auto;
+    flex: auto;
     background-color: ${ p => p.theme.textHeader };
 `;
 
 export const Icon = styled.img`
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     margin-left: 8px;
+    cursor: pointer;
 `;

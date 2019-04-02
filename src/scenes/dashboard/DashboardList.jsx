@@ -54,8 +54,8 @@ class DashboardList extends Component {
                                 stylesContainer="top: 50px;"
                                 stylesValues="margin-left: -15px; width: 180px;"
                                 stylesButton="
-                                    padding: 16px 10px;
-                                    margin-left: 10px ;
+                                    padding: 16px 8px;
+                                    margin-left: 10px;
                                     width: auto;
                                     min-width: 150px;
                                     font-weight: bold;
@@ -69,7 +69,7 @@ class DashboardList extends Component {
                             <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                                style={{ marginRight: '10px', marginLeft: '10px' }}
+                                style={{ marginRight: '8px', marginLeft: '8px' }}
                             >
                             Show my
                             </styled.ShowButton>
