@@ -90,6 +90,9 @@ export const Pagination = styled.div`
             background-color: ${p => p.theme.activeButton};
             color: ${p => p.theme.activeButtonText};
         }
+        li a {
+            outline: none;
+        }
    }
    li {
         margin: 0 4px;

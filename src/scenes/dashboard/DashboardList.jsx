@@ -44,14 +44,17 @@ class DashboardList extends Component {
                                 titleButton="Sorting"
                                 currentValue={sort}
                                 possibleValues={[
-                                    'id,asc',
-                                    'id,desc',
-                                    'todoListName,asc',
-                                    'todoListName,desc', 'createdDate,asc', 'createdDate,desc', 'modifiedDate,asc', 'modifiedDate,desc',
+                                    'todoListName, A - Z',
+                                    'todoListName, Z - A',
+                                    'createdDate, low to high',
+                                    'createdDate, high to low',
+                                    'modifiedDate, low to high',
+                                    'modifiedDate, high to low',
                                 ]}
-                                stylesValues=" margin-left: 12px; width: 130px;"
+                                stylesContainer="top: 50px;"
+                                stylesValues="margin-left: -15px; width: 180px;"
                                 stylesButton="
-                                    padding: 16px 8px;
+                                    padding: 16px 10px;
                                     margin-left: 10px ;
                                     width: auto;
                                     min-width: 150px;
@@ -106,7 +109,7 @@ class DashboardList extends Component {
                     </styled.DashboardList>
                 </styled.App>,
                 <styled.Footer key="footer">
-                    <div style={{ display: 'flex', marginLeft: '30%' }}>
+                    <div style={{ display: 'flex' }}>
                         <styled.Pagination>
                             <ReactPaginate
                                 pageCount={totalPages}
@@ -124,6 +127,7 @@ class DashboardList extends Component {
                             titleButton="Change size"
                             possibleValues={[4, 8, 16]}
                             drop="up"
+                            stylesContainer="top: -87px;"
                             stylesValues="width: 75px;margin-left: 28px ;"
                             stylesButton="padding: 12px 10px; margin: 15px 25px;"
                         />
