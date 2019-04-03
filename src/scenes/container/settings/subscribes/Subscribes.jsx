@@ -21,12 +21,12 @@ class Subscribes extends Component {
                     type="text"
                     onChange={this.handleChange}
                     style={{ flex: 'none', border: '5px', boxShadow: '0 0 15px 0 rgba(0,0,0,0.2)', width: '97%',
-                        marginLeft: '10px', borderRadius: '5px', paddingLeft: '10px', height: '34px' }}
+                        marginLeft: '8px', borderRadius: '5px', paddingLeft: '8px', height: '34px' }}
                 />
                 <styled.TableSubscribers>
                     <tbody>
                     <styled.NullTr>
-                        <th style={{ padding: '10px' }}>Name</th>
+                        <th style={{ padding: '8px' }}>Name</th>
                         <th>Username</th>
                         <th>Email</th>
                     </styled.NullTr>

@@ -105,7 +105,9 @@ export class Dashboard extends Component {
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         border={false}
-                        style={{ textDecoration: 'none', width: '100%', fontWeight: 'bold' }}
+                        style={{
+                            textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px'
+                        }}
                     />
                     {
                         shared

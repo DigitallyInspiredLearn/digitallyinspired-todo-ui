@@ -13,9 +13,9 @@ export const searchTask = styled.div`
     display: flex;
     background-color: ${p => p.theme.backgroundList};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
-    margin: 5px;
+    margin: 8px;
     border-radius: 5px;
-    padding-left: 20px;
+    padding-left: 16px;
     font-size: 15px;
     cursor: pointer;
     width: 97%;
@@ -52,14 +52,14 @@ export const popupContent = styled.div`
     right: 15%;
     background: ${p => p.theme.backgroundList};
     border-radius: 5px;
-    padding: 10px;
+    padding: 8px;
     width: 70%; 
 `;
 
 export const title = styled.div`
     display: flex;
     align-self: center;
-    margin-top: 10px;
+    margin-top: 8px;
     font-size: 32px;
     color: ${p => p.theme.mainText}
 `;
@@ -77,8 +77,8 @@ export const btnSearch = styled.div`
     background-color: ${p => p.theme.backgroundList};
     color: ${p => p.theme.mainText};
     width: 2%;
-    padding-right: 20px;
-    padding-top: 10px;
+    padding-right: 16px;
+    padding-top: 8px;
 `;
 
 export const buttonBlock = styled.div`
@@ -95,10 +95,9 @@ export const buttonBlock = styled.div`
 export const buttonCloSeOk = styled.button`
     width: 150px;
     height: 40px;
-    margin: 20px;
+    margin: 16px;
     text-decoration:none;
     text-align:center;
-    padding: 11px 32px;
     border:none;
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
@@ -129,7 +128,7 @@ export const users = styled.div`
     top: 170px;
     left: 18px;
     right: 18px;
-    padding: 10px;
+    padding: 8px;
     width: 94%;
     background: ${p => p.theme.backgroundList};
     opacity: 0.9;

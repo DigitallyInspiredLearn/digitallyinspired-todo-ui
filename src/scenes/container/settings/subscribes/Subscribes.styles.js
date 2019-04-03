@@ -4,13 +4,13 @@ export const Subscribes = styled.div`
     display: flex;
     flex-direction: column;    
     width: 100%;
-    height 100%;
+    height: 100%;
 `;
+
 export const Title = styled.div`
     font-family: Helvetica;
     align-self: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin: 8px 0px 16px;
     font-size: 30px;
     font-weight: bold;
     color: ${p => p.theme.mainText};
@@ -19,22 +19,22 @@ export const Title = styled.div`
 export const SearchInput = styled.input`
     width: 97%;
     margin-left: 10px;
-    border-radius:5px;
-    padding-left:10px;
-    outline:none;
-    height:34px;
+    border-radius: 5px;
+    padding-left: 10px;
+    outline: none;
+    height: 32px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
 `;
 
 export const TableSubscribers = styled.table`
-    margin-left: 10px;
-    margin-top: 10px;
-    border-radius:5px;
-    height:100px;
+    margin: 8px 12px 8px 8px;
+    border-radius: 5px;
+    height: 100px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
     overflow: auto;
     font-family: Helvetica;
 `;
+
 export const Tr = styled.tr`
     width:100%;
     border-radius:5px;
@@ -44,6 +44,7 @@ export const Tr = styled.tr`
         color:white;
     }
 `;
+
 export const Td = styled.td`
     font-family: Helvetica;
     padding:5px;
@@ -54,11 +55,14 @@ export const Td = styled.td`
         border-radius:0 5px 5px 0;
     }
 `;
+
 export const NullArray = styled.td`
     color: grey;
     text-align: center;
     height:20px;
 `;
+
 export const NullTr = styled.tr`
     color: gray;
+    padding: 8px;
 `;
