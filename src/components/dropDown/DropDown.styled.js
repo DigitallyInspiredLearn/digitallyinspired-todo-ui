@@ -25,6 +25,8 @@ export const Ul = styled.div`
 	cursor:pointer;
 	z-index:5;
     display: ${p => (p.visible ? 'block' : 'none')}
+    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    border-radius: 8px;
 `;
 
 export const Li = styled.div`
@@ -35,6 +37,12 @@ export const Li = styled.div`
     &:hover {
       background-color: grey;
     }
-    background-color:${p => (p.checked ? 'black' : p.theme.backgroundButton)}
+    background-color:${p => (p.checked ? 'black' : p.theme.backgroundList)}
     color:${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)}}
+`;
+
+export const Icon = styled.img`
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
 `;
