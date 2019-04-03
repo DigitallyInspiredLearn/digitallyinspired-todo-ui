@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as styled from './DropDown.styled';
+import list from '../../image/list-menu.svg';
 
 class DropDown extends Component {
     static propTypes = {
         changeValue: PropTypes.func,
+        changeSections: PropTypes.func,
         titleButton: PropTypes.string,
         // possibleValues: PropTypes.arrayOf(PropTypes.number),
         drop: PropTypes.string,
@@ -15,6 +17,7 @@ class DropDown extends Component {
 
     static defaultProps = {
         changeValue: undefined,
+        changeSections: undefined,
         titleButton: 'Check',
         // possibleValues: undefined,
         drop: 'down',
@@ -35,6 +38,7 @@ class DropDown extends Component {
         this.setState({ visible: !visible });
     };
 
+
     render() {
         const { visible } = this.state;
         const {
@@ -46,6 +50,7 @@ class DropDown extends Component {
             stylesValues,
             titleButton,
             stylesButton,
+            iconVisible,
         } = this.props;
         return (
             <styled.Container>
@@ -68,13 +73,23 @@ class DropDown extends Component {
                         ))
                     }
                 </styled.Ul>
-                <styled.Button
-                    onClick={this.changeVisible}
-                    stylesButton={stylesButton}
-                >
-                    { titleButton }
-                </styled.Button>
+                {
+                    titleButton !== '' ? <styled.Button
+                            onClick={this.changeVisible}
+                            stylesButton={stylesButton}
+                        >
+                            { titleButton }
+                        </styled.Button>
+                         : <styled.Icon
+                            src={list}
+                            alt="list"
+                            onClick={this.changeVisible}
+                            style={{ display: iconVisible }}
+                        />
+
+                }
             </styled.Container>
+
         );
     }
 }
