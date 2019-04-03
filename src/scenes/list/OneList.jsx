@@ -3,8 +3,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ReactDOMServer from 'react-dom/server';
+import Pdf from 'react-to-pdf';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
@@ -12,6 +13,7 @@ import trash from '../../image/trash.svg';
 import * as styledPopup from '../popup/Popup.styles';
 import * as styledDashboard from '../dashboard/DashboardList.styles';
 
+const ref = React.createRef();
 
 class OneList extends Component {
     constructor(props) {
@@ -32,14 +34,23 @@ class OneList extends Component {
         });
     };
 
-    pdfToHTML() {
-        const doc = new jsPDF();
-        doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-        doc.save('myDocument.pdf');
-    }
-
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
+    downloadToPDF = (data) => {
+        const doc = new jsPDF();
+        doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
+
+        // data.tasks.length
+        //     ? doc.autoTable({
+        //         head: [['+/-', 'name tasks', 'priority', 'do up']],
+        //         body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019'])),
+        //         headStyles: { fillColor: 'lightblue' },
+        //     })
+        //     : doc.autoTable({
+        //         body: [['You have no tasks yet, it\'s time to be active!']],
+        //     });
+        doc.save('table.pdf');
+    };
 
     render() {
         const { valueNewTask } = this.state;
@@ -47,7 +58,7 @@ class OneList extends Component {
             match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
         return (
-            <styled.List>
+            <styled.List ref={ref}>
                 <styled.inputBlock>
                     <Link to="/lists">
                         <styled.animationButton className="fa fa-arrow-left fa-2x" />
@@ -67,11 +78,14 @@ class OneList extends Component {
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
+                    {/* <Pdf targetRef={ref} filename="code-example.pdf"> */}
+                    {/* {({ toPdf }) => <button className="download fa fa-download fa-3x" onClick={toPdf}></button>} */}
+                    {/* </Pdf> */}
                     <div
-                        className="download fa fa-download fa-3x"
-                        title="download"
-                        onClick={this.pdfToHTML}
-                    />
+                        onClick={() => this.downloadToPDF(data)}
+                    >jjj
+                    </div>
+
                 </styled.inputBlock>
                 <styled.blockTask>
                     <styled.inputDiv>
@@ -104,7 +118,7 @@ class OneList extends Component {
                             </styledDashboard.ShowButton>
                         </styledDashboard.CheckboxDiv>
                     </styled.inputDiv>
-                    <div id="HTMLtoPDF">
+                    <div>
                         {
                             data.tasks && (data.tasks.length === 0
                                 ? (
