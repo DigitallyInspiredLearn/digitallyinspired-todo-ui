@@ -9,6 +9,7 @@ import list from '../../image/list-menu.svg';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
+import DropDown from "../../components/dropDown/DropDown";
 
 class Container extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Container extends Component {
         this.state = { visible: false };
     }
 
-    toggleSettings = () => {
+    toggleSettings = (newValue) => {
         const { visible } = this.state;
         this.setState({ visible: !visible });
     };
@@ -24,7 +25,8 @@ class Container extends Component {
     render() {
         const { visible } = this.state;
         const { location: { pathname } } = history;
-        const { children, data, actions } = this.props;
+        const { children, data, actions, sections } = this.props;
+        console.log(sections);
         const iconVisible = (pathname === '/reg' || pathname === '/auth') ? 'none' : 'inherit';
         return (
             <ThemeProvider theme={data}>
@@ -68,6 +70,18 @@ class Container extends Component {
                             onClick={this.toggleSettings}
                             style={{ display: iconVisible }}
                         />
+                        {/*<DropDown*/}
+                            {/*changeValue={actions.changeSort}*/}
+                            {/*titleButton=""*/}
+                            {/*currentValue={sections}*/}
+                            {/*possibleValues={[*/}
+                                {/*'Settings',*/}
+                                {/*'Basket',*/}
+                            {/*]}*/}
+                            {/*stylesContainer="top: 40px;"*/}
+                            {/*stylesValues="margin-left: -78px; width: 100px;"*/}
+                            {/*iconVisible={iconVisible}*/}
+                        {/*/>*/}
                         <styled.Icon
                             src={logout}
                             alt="logout"
@@ -90,6 +104,7 @@ Container.propTypes = {
 
 const mapStateToProps = state => ({
     data: state.theme.data,
+    sections: state.auth.sections,
 });
 
 const mapDispatchToProps = dispatch => ({

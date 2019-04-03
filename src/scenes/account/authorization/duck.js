@@ -13,6 +13,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const SELECTION_SECTIONS = 'SELECTION_SECTIONS';
 
 export const actions = {
     login: createAction(LOGIN),
@@ -20,11 +21,13 @@ export const actions = {
     logout: createAction(LOGOUT),
     refreshToken: createAction(REFRESH_TOKEN),
     refreshTokenSuccess: createAction(REFRESH_TOKEN_SUCCESS),
+    freshSelectionSections: createAction(SELECTION_SECTIONS),
 };
 
 const initialState = {
     user: '',
     token: '',
+    sections: 'settings',
 };
 
 export const reducer = handleActions({
@@ -34,6 +37,7 @@ export const reducer = handleActions({
         token: action.payload.token,
     }),
     [REFRESH_TOKEN_SUCCESS]: (state, action) => ({ ...state, token: action.payload }),
+    [SELECTION_SECTIONS]: (state, action) => ({...state, sections: action.payload }),
 }, initialState);
 
 function setDefaultApiToken(token) {
@@ -86,4 +90,5 @@ export function* saga() {
     yield safeTakeEvery(['persist/REHYDRATE'], rehydrateSaga);
     yield safeTakeEvery(LOGOUT, logout);
     yield safeTakeEvery(REFRESH_TOKEN, refreshTokenProcess);
+    // yield safeTakeEvery(SELECTION_SECTIONS, freshSelectionSections)
 }
