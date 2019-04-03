@@ -19,8 +19,8 @@ export const Button = styled.button`
     ${p => p.stylesButton}
 `;
 export const Ul = styled.div`
+    ${p => p.stylesContainer}  
     position:absolute;
-    top: ${p => (p.drop === 'up' ? '-87px' : '45px')};
 	text-size: 20px;
 	cursor:pointer;
 	z-index:5;

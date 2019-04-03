@@ -42,6 +42,7 @@ class DropDown extends Component {
             currentValue,
             possibleValues,
             drop,
+            stylesContainer,
             stylesValues,
             titleButton,
             stylesButton,
@@ -51,9 +52,7 @@ class DropDown extends Component {
                 <styled.Ul
                     visible={visible}
                     drop={drop}
-                    stylesValues={stylesValues}
-
-
+                    stylesContainer={stylesContainer}
                 >
                     {
                         possibleValues.map(value => (

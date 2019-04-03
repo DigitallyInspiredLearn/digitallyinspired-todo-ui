@@ -3,7 +3,7 @@ const path = require('path');
 const history = require('connect-history-api-fallback');
 
 const PORT = 7700;
-const PUBLIC_PATH = path.join(__dirname, '/assets');
+const PUBLIC_PATH = path.join(__dirname, '/assets/index.html');
 const app = express();
 
 const isDevelopment = process.env.NODE_ENV === 'development';
