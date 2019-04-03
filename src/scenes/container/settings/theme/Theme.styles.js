@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Theme = styled.div`
     display: flex;   
     width: 100%;
+    height: fit-content;
     justify-content: space-around;
 `;
 
@@ -66,7 +67,7 @@ export const ImageTheme = styled.img`
     width: 70%;
     height: 70%;
     border-radius: 10px;
-    margin: 20px 0;
+    margin: 16px 0;
     cursor: pointer;
     align-self: center;
 `;

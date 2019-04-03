@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './css/taskStyle.css';
+import trash from '../../../image/trash.svg';
 import * as stylesTask from '../../dashboard/task/Task.styled';
 
 class TaskForList extends Component {
@@ -44,13 +44,17 @@ class TaskForList extends Component {
                             idDashboard: idList, idTask, selected, newTaskName: e.target.value,
                         })}
                     />
-                     <div
-                        className="trashTaskOneList"
-                        style={displayStyle}
+                    <stylesTask.TrashTaskOneList
                         onClick={() => actionsList.deleteTaskList({
                             idDashboard: idList, idTask,
                         })}
-                    />
+                    >
+                        <img
+                            src={trash}
+                            alt="trash"
+                            style={displayStyle}
+                        />
+                    </stylesTask.TrashTaskOneList>
                 </stylesTask.NameAdnCheckedTask>
             </stylesTask.Task>
         );

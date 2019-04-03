@@ -31,9 +31,6 @@ class OneList extends Component {
         });
     };
 
-<<<<<<< HEAD
-    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
-=======
     pdfToHTML() {
         const doc = new jsPDF();
         doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
@@ -42,7 +39,6 @@ class OneList extends Component {
 
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
->>>>>>> c22a4692c11cd5df6e600c12a6f13bbe3b117e83
 
     render() {
         const { valueNewTask } = this.state;
@@ -64,6 +60,9 @@ class OneList extends Component {
                     <Link to="/lists">
 
                         <styled.animationButton
+                            // style={{
+                            //     backgroundImage: 'url("../../image/trash.svg")', marginTop: '5px', marginLeft: '10px', width: '30px', height: '30px',
+                            // }}
                             className="iconTrash"
                             src={trash}
                             id={match.params.id}
@@ -71,6 +70,7 @@ class OneList extends Component {
                         />
                     </Link>
                     <div
+                        style={{ fontSize: '2.4em', marginTop: '8px' }}
                         className="download fa fa-download fa-3x"
                         title="download"
                         onClick={this.pdfToHTML}
@@ -86,23 +86,15 @@ class OneList extends Component {
                                 search: e.target.value,
                             })}
                         />
-<<<<<<< HEAD
                         <styledPopup.btnSearch style={{ paddingTop: '0px' }} className="fa fa-search fa-2x" />
-=======
-                        <styledPopup.btnSearch className="fa fa-search fa-2x" />
->>>>>>> c22a4692c11cd5df6e600c12a6f13bbe3b117e83
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
                                 onClick={() => actions.selectedNotDoneAction({
-<<<<<<< HEAD
-                                    notDone: notDone,
-=======
                                     notDone,
->>>>>>> c22a4692c11cd5df6e600c12a6f13bbe3b117e83
                                     idList: match.params.id,
                                 })}
-                                style={{ marginRight: '5px', borderRadius: 0 }}
+                                style={{ marginRight: '5px', borderRadius: '5px 0 0 5px' }}
                             >
                                 not done
                             </styledDashboard.ShowButton>

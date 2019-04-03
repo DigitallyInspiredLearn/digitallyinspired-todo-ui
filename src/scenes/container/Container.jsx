@@ -76,7 +76,10 @@ class Container extends Component {
                         />
 
                     </styled.Header>
-                    <Settings visible={visible} toggleSettings={this.toggleSettings} />
+                    <Settings
+                        visible={visible}
+                        toggleSettings={this.toggleSettings}
+                    />
                     { children }
                 </styled.Container>
             </ThemeProvider>

@@ -12,7 +12,6 @@ export const Dashboard = styled.section`
     min-height: 300px;
     max-height: 300px;
     height: auto;
-    transition: 500ms;
     animation: show 500ms 1;
     animation-fill-mode: forwards;
     animation-delay: 0s;

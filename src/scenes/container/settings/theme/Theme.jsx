@@ -165,13 +165,15 @@ class Theme extends Component {
                             onChange={(value) => this.handleDataChange('activeCheckbox', value)}
                             value={data.activeCheckbox}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <Button
                         onClick={this.handleApply}
                         value="Apply"
-                        style={{ marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center' }}
+                        style={{
+                            marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px'
+                        }}
                     >
                         Apply
                     </Button>

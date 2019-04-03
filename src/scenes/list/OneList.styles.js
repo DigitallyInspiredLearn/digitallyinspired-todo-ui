@@ -23,14 +23,15 @@ export const inputBlock = styled.span`
     cursor: pointer;
     height: auto;
     min-height: 40px;
+    max-height: 40px;
     align-items: center;
     width: auto;
 `;
 
 export const animationButton = styled.div`
     color: ${p => p.theme.mainText};
-    height: 20px;
-    width: 20px;
+    height: 10px;
+    width: 10px;
     margin-right: 8px;
     &:hover {
         animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
@@ -38,10 +39,10 @@ export const animationButton = styled.div`
 `;
 
 export const iconTrash = styled.img`
-    margin-top: 5px;
-    margin-left: 10px;
-    width: 30px;
-    height: 30px;
+    margin-top: -2px;
+    margin-left: 8px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     color: ${p => p.theme.mainText}
 `;
@@ -52,7 +53,7 @@ export const titleNameOneList = styled.input`
     outline: none;
     display: flex;
     width: 97%;
-    margin-left: 8px;
+    margin-left: 16px;
     text-overflow: ellipsis;
     color: ${p => p.theme.mainText}
 `;
@@ -60,12 +61,12 @@ export const titleNameOneList = styled.input`
 export const inputDiv = styled.main`
     display: flex;
     flex-direction: row;
-    padding: 8px ;
+    padding: 8px;
     border-radius: 5px;
     box-shadow: 0 0  10px 0  rgba(0,0,0,0.2);
     height: 40px;
     align-items: center;
-    width:auto;
+    width: auto;
 `;
 
 export const searchToDo = styled.input`
@@ -88,17 +89,18 @@ export const blockTask = styled.article`
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
-    height: 70vh;
+    height: 78vh;
     padding: 8px;
     & > div {
         height: 85vh;
         overflow: auto;
+        margin: 8px 0px;
     }
 `;
 
 export const addNewTask = styled.input`
-    font-size: 24px;
-    margin: 10px;
+    font-size: 20px;
+    margin: 8px;
     outline: none;
 `;
 
