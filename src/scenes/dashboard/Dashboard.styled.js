@@ -51,7 +51,7 @@ export const IconContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    margin-right: 20px;
+    margin-right: 16px;
 `;
 
 export const Icon = styled.img`
@@ -59,14 +59,14 @@ export const Icon = styled.img`
     height: 22px;
     color: ${p => p.theme.mainText};
     opacity: 0.5; 
-    margin-right: 5px;
+    margin-right: 4px;
 `;
 
 export const IconInfo = styled.div`
     position: relative;
     p{
         display: none;
-        padding: 10px;
+        padding: 8px;
     }
     &:hover p{
         display: block;
@@ -111,7 +111,8 @@ export const InputAddingTask = styled.input`
     align-self: flex-start;
     font-size: 16px;
     outline: none;
-    margin: 10px;
+    margin: 8px;
+    width: 95%;
 `;
 
 export const NullLenghtTask = styled.p`

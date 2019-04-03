@@ -13,7 +13,7 @@ export const SearchAndChecked = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
-    margin: 8px 16px;
+    margin: 8px;
     justify-content: space-between;
     @media (max-width: 600px) {
         flex-direction: column-reverse;
@@ -79,7 +79,7 @@ export const Pagination = styled.div`
        display: flex;
        li {
             transition: background-color .3s;
-           padding: 10px 16px;
+           padding: 12px 16px;
            background-color: ${p => p.theme.backgroundButton};
        };
        li:hover {
@@ -144,7 +144,7 @@ export const DashboardList = styled.main`
     justify-content: flex-start;
     align-content: flex-start;
     flex: auto;
-    margin: 8px 8px;
+    margin: -8px 0px;
     height: 100vh;
     @media (max-width: 600px) {
         flex-flow: column nowrap;

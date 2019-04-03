@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
@@ -9,7 +9,6 @@ import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
 import * as styledPopup from '../popup/Popup.styles';
 import * as styledDashboard from '../dashboard/DashboardList.styles';
-
 
 class OneList extends Component {
     constructor(props) {
@@ -30,10 +29,10 @@ class OneList extends Component {
         });
     };
 
-    componentWillMount = ({match, actions} = this.props) => actions.fetchList({idList: match.params.id});
+    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
     render() {
-        const {valueNewTask} = this.state;
+        const { valueNewTask } = this.state;
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
@@ -41,13 +40,13 @@ class OneList extends Component {
             <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
-                        <styled.animationButton className="fa fa-arrow-left fa-2x"/>
+                        <styled.animationButton className="fa fa-arrow-left fa-2x" />
                     </Link>
                     <styled.titleNameOneList
                         type="text"
                         placeholder="Enter dashboard title"
                         value={data.todoListName}
-                        onChange={e => actions.updateTitleList({idDashboard: data.id, newTitle: e.target.value})}
+                        onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
 
@@ -55,7 +54,7 @@ class OneList extends Component {
                             className="iconTrash"
                             src={trash}
                             id={match.params.id}
-                            onClick={() => actions.deleteList({idDashboard: match.params.id})}
+                            onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
                     <styled.animationButton
@@ -73,15 +72,15 @@ class OneList extends Component {
                                 search: e.target.value,
                             })}
                         />
-                        <styledPopup.btnSearch className="fa fa-search fa-2x"/>
+                        <styledPopup.btnSearch style={{ paddingTop: '0px' }} className="fa fa-search fa-2x" />
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
                                 onClick={() => actions.selectedNotDoneAction({
                                     notDone: notDone,
-                                    idList: match.params.id
+                                    idList: match.params.id,
                                 })}
-                                style={{marginRight: '5px', borderRadius: 0}}
+                                style={{ marginRight: '5px', borderRadius: 0 }}
                             >
                                 not done
                             </styledDashboard.ShowButton>

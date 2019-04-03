@@ -55,7 +55,8 @@ class DashboardList extends Component {
                                 stylesValues="margin-left: -15px; width: 180px;"
                                 stylesButton="
                                     padding: 16px 8px;
-                                    margin-left: 10px;
+                                    margin-left: 8px;
+                                    font-size: 16px;
                                     width: auto;
                                     min-width: 150px;
                                     font-weight: bold;
@@ -69,7 +70,7 @@ class DashboardList extends Component {
                             <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                                style={{ marginRight: '8px', marginLeft: '8px' }}
+                                style={{ margin: '0px 8px' }}
                             >
                             Show my
                             </styled.ShowButton>
@@ -129,7 +130,7 @@ class DashboardList extends Component {
                             drop="up"
                             stylesContainer="top: -87px;"
                             stylesValues="width: 75px;margin-left: 28px ;"
-                            stylesButton="padding: 12px 10px; margin: 15px 25px;"
+                            stylesButton="padding: 12px 10px; margin: 16px;"
                         />
                     </div>
                     <VisibleSidebar />
