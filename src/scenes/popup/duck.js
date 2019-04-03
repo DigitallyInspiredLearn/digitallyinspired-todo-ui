@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import {createAction, handleActions} from 'redux-actions';
-import {call, put, delay} from 'redux-saga/effects';
-import {safeTakeEvery, safeTakeLatest} from '../../helpers/saga';
-import {followUser as followUserApi, searchUserByUsername} from "../../api/userController";
+import {call, put, select} from 'redux-saga/effects';
+import {safeTakeEvery} from '../../helpers/saga';
+import {searchUserByUsername} from "../../api/userController";
 
 export const SEARCH_USERS = 'popup/SEARCH_USERS';
 export const FETCH_USERS = 'popup/FETCH_USERS';
-
 
 export const actions = {
     searchUser: createAction(SEARCH_USERS),
@@ -27,8 +26,11 @@ export const reducer = handleActions({
 function* fetchUser(action) {
     const array = ["User is not found!"];
     const res = yield call(searchUserByUsername, action.payload);
-    res.data.length === 0 ? yield put(actions.fetchUser(array)): yield put(actions.fetchUser(res.data));
+    const currentUserName = yield select(state => state.profile.currentUser.username);
+    const users = res.data.filter(i => i !== currentUserName);
+    users.length === 0 ? yield put(actions.fetchUser(array)) : yield put(actions.fetchUser(users));
 }
+
 
 export function* saga() {
     yield safeTakeEvery(SEARCH_USERS, fetchUser);
