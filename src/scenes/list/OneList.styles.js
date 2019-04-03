@@ -32,7 +32,7 @@ export const animationButton = styled.div`
     weight:20px;
     margin-right: 10px;
     &:hover {
-        animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+        
     }    
 `;
 

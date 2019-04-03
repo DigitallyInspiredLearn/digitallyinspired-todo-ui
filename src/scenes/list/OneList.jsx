@@ -3,9 +3,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Pdf from 'react-to-pdf';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import DropDown from '../../components/dropDown/DropDown';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
@@ -39,18 +39,19 @@ class OneList extends Component {
     downloadToPDF = (data) => {
         const doc = new jsPDF();
         doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
-
-        // data.tasks.length
-        //     ? doc.autoTable({
-        //         head: [['+/-', 'name tasks', 'priority', 'do up']],
-        //         body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019'])),
-        //         headStyles: { fillColor: 'lightblue' },
-        //     })
-        //     : doc.autoTable({
-        //         body: [['You have no tasks yet, it\'s time to be active!']],
-        //     });
-        doc.save('table.pdf');
+        data.tasks.length
+            ? doc.autoTable({
+                head: [['+/-', 'name tasks', 'priority', 'do up']],
+                body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019'])),
+                headStyles: { fillColor: 'lightblue' },
+            })
+            : doc.autoTable({
+                body: [['You have no tasks yet, it\'s time to be active!']],
+            });
+        doc.save(`${data.todoListName}.pdf`);
     };
+
+    downloadToXLS = (data) => {};
 
     render() {
         const { valueNewTask } = this.state;
@@ -78,14 +79,17 @@ class OneList extends Component {
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
-                    {/* <Pdf targetRef={ref} filename="code-example.pdf"> */}
-                    {/* {({ toPdf }) => <button className="download fa fa-download fa-3x" onClick={toPdf}></button>} */}
-                    {/* </Pdf> */}
-                    <div
+                    <div className="fa fa-download fa-3x" />
+                    <styled.animationButton
                         onClick={() => this.downloadToPDF(data)}
-                    >jjj
-                    </div>
-
+                    >
+                        pdf
+                    </styled.animationButton>
+                    <styled.animationButton
+                        onClick={() => this.downloadToXLS(data)}
+                    >
+                        xls
+                    </styled.animationButton>
                 </styled.inputBlock>
                 <styled.blockTask>
                     <styled.inputDiv>
