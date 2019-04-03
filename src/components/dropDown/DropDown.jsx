@@ -6,7 +6,6 @@ import list from '../../image/list-menu.svg';
 class DropDown extends Component {
     static propTypes = {
         changeValue: PropTypes.func,
-        changeSections: PropTypes.func,
         titleButton: PropTypes.string,
         // possibleValues: PropTypes.arrayOf(PropTypes.number),
         drop: PropTypes.string,
@@ -17,7 +16,6 @@ class DropDown extends Component {
 
     static defaultProps = {
         changeValue: undefined,
-        changeSections: undefined,
         titleButton: 'Check',
         // possibleValues: undefined,
         drop: 'down',
