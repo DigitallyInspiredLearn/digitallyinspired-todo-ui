@@ -1,8 +1,10 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types,new-cap */
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReactDOMServer from 'react-dom/server';
+import jsPDF from 'jspdf';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
@@ -29,7 +31,18 @@ class OneList extends Component {
         });
     };
 
+<<<<<<< HEAD
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
+=======
+    pdfToHTML() {
+        const doc = new jsPDF();
+        doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
+        doc.save('myDocument.pdf');
+    }
+
+    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
+
+>>>>>>> c22a4692c11cd5df6e600c12a6f13bbe3b117e83
 
     render() {
         const { valueNewTask } = this.state;
@@ -57,9 +70,10 @@ class OneList extends Component {
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
-                    <styled.animationButton
-                        className="fa fa-download fa-2x"
+                    <div
+                        className="download fa fa-download fa-3x"
                         title="download"
+                        onClick={this.pdfToHTML}
                     />
                 </styled.inputBlock>
                 <styled.blockTask>
@@ -72,12 +86,20 @@ class OneList extends Component {
                                 search: e.target.value,
                             })}
                         />
+<<<<<<< HEAD
                         <styledPopup.btnSearch style={{ paddingTop: '0px' }} className="fa fa-search fa-2x" />
+=======
+                        <styledPopup.btnSearch className="fa fa-search fa-2x" />
+>>>>>>> c22a4692c11cd5df6e600c12a6f13bbe3b117e83
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
                                 onClick={() => actions.selectedNotDoneAction({
+<<<<<<< HEAD
                                     notDone: notDone,
+=======
+                                    notDone,
+>>>>>>> c22a4692c11cd5df6e600c12a6f13bbe3b117e83
                                     idList: match.params.id,
                                 })}
                                 style={{ marginRight: '5px', borderRadius: 0 }}
@@ -86,14 +108,14 @@ class OneList extends Component {
                             </styledDashboard.ShowButton>
                             <styledDashboard.ShowButton
                                 checked={done}
-                                onClick={() => actions.selectDoneAction({done: done, idList: match.params.id})}
-                                style={{borderRadius: '0 5px 5px 0'}}
+                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
+                                style={{ borderRadius: '0 5px 5px 0' }}
                             >
                                 done
                             </styledDashboard.ShowButton>
                         </styledDashboard.CheckboxDiv>
                     </styled.inputDiv>
-                    <div>
+                    <div id="HTMLtoPDF">
                         {
                             data.tasks && (data.tasks.length === 0
                                 ? (
@@ -124,7 +146,7 @@ class OneList extends Component {
                                 nameTask: valueNewTask,
                                 idTask: `${randomInteger(1, 100000, todo)}`,
                             }),
-                                this.setState({valueNewTask: ''})
+                            this.setState({ valueNewTask: '' })
                         )}
                     />
                 </styled.blockTask>

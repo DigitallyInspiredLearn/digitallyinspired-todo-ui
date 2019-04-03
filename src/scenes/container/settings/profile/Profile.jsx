@@ -30,6 +30,11 @@ class Profile extends Component {
 
     avatarSelectHandler = e => this.setState({ selectedAvatar: e.target.files[0] });
 
+    componentWillMount = () => {
+        const { actions: { fetchCurrentUser } } = this.props;
+        fetchCurrentUser();
+    };
+
     handleClickDelete = () => {
         const { actions, toggleSettings } = this.props;
         toggleSettings();
