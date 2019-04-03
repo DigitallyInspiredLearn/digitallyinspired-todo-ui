@@ -44,14 +44,16 @@ export class Popup extends Component {
                         </styled.buttonCloSeOk>
                         <styled.buttonCloSeOk
                             onClick={() => {
-                                if (users[0] === "User is not found!") {
+                                let conformity = users.map(i => {
+                                    return search !== i;
+                                });
+                                if (users[0] === "User is not found!" || search === '' || conformity[0] === true) {
                                     alert("Data is not correct!");
                                 }
                                 else {
                                     actionsBoard.shareList({idList: idList, userName: search});
                                     closePopup();
                                     actions.searchUser('');
-                                    alert("Successfully shared!");
                                 }
                             }}
                         >Ok
