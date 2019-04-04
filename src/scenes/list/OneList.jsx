@@ -46,6 +46,7 @@ class OneList extends Component {
     };
 
     render() {
+        console.log(this.props);
         const { valueNewTask } = this.state;
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
@@ -175,16 +176,14 @@ class OneList extends Component {
                         style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
                         value={valueNewTask}
                         onChange={this.changeValueNewTask}
-                        onKeyPress={e => (valueNewTask !== ''
-                            ? (e.key === 'Enter'
-                                ? (e.target.blur(), actionsBoard.addTask({
-                                    idDashboard: match.params.id,
-                                    nameTask: valueNewTask,
-                                    idTask: `${randomInteger(1, 100000, todo)}`,
-                                })
-                                ) : false)
-                            : false)
-                        }
+                        onKeyPress={event => event.key === 'Enter' && (
+                            event.target.blur(),
+                            actions.addTaskList({
+                                idDashboard: match.params.id,
+                                nameTask: valueNewTask,
+                            }),
+                            this.setState({ valueNewTask: '' })
+                        )}
                         onBlur={(e) => {
                             this.handlerOnBlur(e);
                             actions.fetchList(match.params.id);
