@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types,new-cap */
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -21,9 +19,7 @@ class OneList extends Component {
         };
     }
 
-    changeValueNewTask = e => this.setState({
-        valueNewTask: e.target.value,
-    });
+    changeValueNewTask = e => this.setState({ valueNewTask: e.target.value });
 
     handlerOnBlur = (e) => {
         e.target.blur();
@@ -109,16 +105,9 @@ class OneList extends Component {
                             </styled.animationButton>
                             <Workbook
                                 filename="list.xlsx"
-                                element={(
-                                    <styled.animationButton>
-                                        xls
-                                    </styled.animationButton>
-                                )}
+                                element={(<styled.animationButton>xls</styled.animationButton>)}
                             >
-                                <Workbook.Sheet
-                                    data={dataXLS}
-                                    name="list"
-                                >
+                                <Workbook.Sheet data={dataXLS} name="list">
                                     <Workbook.Column label="+/-" value="doneOrNot" />
                                     <Workbook.Column label="name tasks" value="nameTasks" />
                                     <Workbook.Column label="priority" value="priority" />
@@ -181,23 +170,32 @@ class OneList extends Component {
                         }
                     </div>
                     <styled.addNewTask
-                        placeholder="Add to-do"
+                        className="addNewTask"
+                        placeholder="add to-do"
+                        style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
                         value={valueNewTask}
                         onChange={this.changeValueNewTask}
-                        onKeyPress={event => event.key === 'Enter' && (
-                            actions.addTaskList({
-                                idDashboard: match.params.id,
-                                nameTask: valueNewTask,
-                                idTask: `${randomInteger(1, 100000, todo)}`,
-                            }),
-                            this.setState({ valueNewTask: '' })
-                        )}
+                        onKeyPress={e => (valueNewTask !== ''
+                            ? (e.key === 'Enter'
+                                ? (e.target.blur(), actionsBoard.addTask({
+                                    idDashboard: match.params.id,
+                                    nameTask: valueNewTask,
+                                    idTask: `${randomInteger(1, 100000, todo)}`,
+                                })
+                                ) : false)
+                            : false)
+                        }
+                        onBlur={(e) => {
+                            this.handlerOnBlur(e);
+                            actions.fetchList(match.params.id);
+                        }}
                     />
                 </styled.blockTask>
             </styled.List>
         );
     }
 }
+
 
 OneList.propTypes = {
     data: PropTypes.object,

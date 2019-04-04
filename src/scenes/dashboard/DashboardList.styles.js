@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ReactPaginate from 'react-paginate';
 
 export const App = styled.div`
     display: flex;
@@ -9,7 +8,7 @@ export const App = styled.div`
     height: 100vh;
     overflow: auto;
 `;
-export const SearchAndChecked = styled.div`
+export const Head = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
