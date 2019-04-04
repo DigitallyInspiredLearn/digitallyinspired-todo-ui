@@ -54,52 +54,21 @@ class OneList extends Component {
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
-        const datasXLSRaw = [];
-        const dataXLS = data.tasks && data.tasks.length
-            ?
-        // {
-        //     doneOrNot: 'null',
-        //     nameTasks: 'null',
-        //     priority: 'null',
-        //     doUp: 'null',
-        // },
-        // {
-        //     doneOrNot: 'null',
-        //     nameTasks: 'null',
-        //     priority: 'null',
-        //     doUp: 'null',
-        // },
-        // {
-        //     doneOrNot: 'null',
-        //     nameTasks: 'null',
-        //     priority: 'null',
-        //     doUp: 'null',
-        // },
 
-            data.tasks.map((i) => {
-                datasXLSRaw.push(
-                    {
-                        // doneOrNot: i.isComplete ? '+' : '-',
-                        // nameTasks: i.body,
-                        // priority: 'null',
-                        // doUp: 'null',
-                        doneOrNot: 'null',
-                        nameTasks: 'null',
-                        priority: 'null',
-                        doUp: 'null',
-                    },
-                );
-                console.log(datasXLSRaw);
-                return datasXLSRaw;
-            })
-            : [
-                {
-                    doneOrNot: 'null',
-                    nameTasks: 'null',
-                    priority: 'null',
-                    doUp: 'null',
-                },
-            ];
+        const dataXLS = data.tasks && data.tasks.length
+            ? data.tasks.map(i => ({
+                doneOrNot: i.isComplete ? '+' : '-',
+                nameTasks: i.body,
+                priority: 'null',
+                doUp: 'null',
+            }))
+            : [{
+                doneOrNot: 'null',
+                nameTasks: 'null',
+                priority: 'null',
+                doUp: 'null',
+            }];
+
         return (
             <styled.List>
                 <styled.inputBlock>
