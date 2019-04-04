@@ -50,6 +50,7 @@ class OneList extends Component {
     };
 
     render() {
+        console.log(this.props);
         const { valueNewTask } = this.state;
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
@@ -188,7 +189,6 @@ class OneList extends Component {
                             actions.addTaskList({
                                 idDashboard: match.params.id,
                                 nameTask: valueNewTask,
-                                idTask: `${randomInteger(1, 100000, todo)}`,
                             }),
                             this.setState({ valueNewTask: '' })
                         )}
