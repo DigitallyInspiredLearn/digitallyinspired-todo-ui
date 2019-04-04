@@ -14,7 +14,7 @@ export const Close = styled.span`
 export const Plus = styled.div`
     width: 50px;
     cursor: pointer;
-    margin: 10px;
+    margin: 8px;
     align-self: center;
 `;
 export const AddButton = styled.div`
@@ -23,7 +23,7 @@ export const AddButton = styled.div`
     height: 30px;
     margin: 0 -5px;
     bottom: 0;
-    padding: 7px;
+    padding: 8px;
     text-align: center;
     cursor: pointer;
     color: #3c3c3c;
@@ -64,11 +64,11 @@ export const AddTask = styled.div`
     }
 `;
 export const InputTitle = styled.input`
-    margin-top:40px;
+    margin-top: 40px;
+    margin-left: 8px;
     border: none;
     width: 470px;
     height: 25px;
-    margin-left: 5px;
     outline: none;
     font-size: 20px;
     font-weight: bold;
@@ -76,10 +76,10 @@ export const InputTitle = styled.input`
     cursor: pointer; 
 `;
 export const InputTask = styled.input`
-    margin-top: 10px;
+    margin-top: 8px;
+    margin-left: 16px;
     width: 500px;
     height: 25px;
-    margin-left: 15px;
     outline: none;
     font-size: 15px;
     font-weight: bold;
@@ -138,8 +138,8 @@ export const TrashTask = styled.img`
     width: 20px;
     padding: 7px 15px;
     font-size: 14px;
-    cursor:pointer;
-    z-index:1;
+    cursor: pointer;
+    z-index: 1;
     &:hover {
         animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
     }
@@ -156,8 +156,8 @@ export const TrashTask = styled.img`
 }
 `;
 export const ButtonPlus = styled.img`
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
     -moz-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);

@@ -51,11 +51,12 @@ class DashboardList extends Component {
                                     'modifiedDate, low to high',
                                     'modifiedDate, high to low',
                                 ]}
-                                stylesContainer="top: 50px;"
-                                stylesValues="margin-left: -15px; width: 180px;"
+                                stylesContainer="top: 49px;"
+                                stylesValues="margin-left: 9px; width: 180px; font-size: 14px;"
                                 stylesButton="
-                                    padding: 16px 10px;
-                                    margin-left: 10px ;
+                                    padding: 16px 8px;
+                                    margin-left: 8px;
+                                    font-size: 16px;
                                     width: auto;
                                     min-width: 150px;
                                     font-weight: bold;
@@ -69,7 +70,7 @@ class DashboardList extends Component {
                             <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                                style={{ marginRight: '10px', marginLeft: '10px' }}
+                                style={{ margin: '0px 8px' }}
                             >
                             Show my
                             </styled.ShowButton>
@@ -128,8 +129,8 @@ class DashboardList extends Component {
                             possibleValues={[4, 8, 16]}
                             drop="up"
                             stylesContainer="top: -87px;"
-                            stylesValues="width: 75px;margin-left: 28px ;"
-                            stylesButton="padding: 12px 10px; margin: 15px 25px;"
+                            stylesValues="width: 75px; margin-left: 17px;"
+                            stylesButton="padding: 12px 10px; margin: 16px;"
                         />
                     </div>
                     <VisibleSidebar />

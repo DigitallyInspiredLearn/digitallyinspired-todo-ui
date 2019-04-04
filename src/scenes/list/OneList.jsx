@@ -114,6 +114,9 @@ class OneList extends Component {
                     />
                     <Link to="/lists">
                         <styled.animationButton
+                            // style={{
+                            //     backgroundImage: 'url("../../image/trash.svg")', marginTop: '5px', marginLeft: '10px', width: '30px', height: '30px',
+                            // }}
                             className="iconTrash"
                             src={trash}
                             id={match.params.id}
@@ -166,7 +169,7 @@ class OneList extends Component {
                                 search: e.target.value,
                             })}
                         />
-                        <styledPopup.btnSearch className="fa fa-search fa-2x" />
+                        <styledPopup.btnSearch style={{ paddingTop: '0px' }} className="fa fa-search fa-2x" />
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}
@@ -174,7 +177,7 @@ class OneList extends Component {
                                     notDone,
                                     idList: match.params.id,
                                 })}
-                                style={{ marginRight: '5px', borderRadius: 0 }}
+                                style={{ marginRight: '5px', borderRadius: '5px 0 0 5px' }}
                             >
                                 not done
                             </styledDashboard.ShowButton>
