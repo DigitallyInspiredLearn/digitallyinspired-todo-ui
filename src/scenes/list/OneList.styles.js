@@ -30,11 +30,16 @@ export const inputBlock = styled.span`
 
 export const animationButton = styled.div`
     color: ${p => p.theme.mainText};
-    height: 10px;
-    width: 10px;
-    margin-right: 8px;
+
+    height: auto;
+    weight:20px;
+    padding: 2px 3px;
+    margin:2px;
+
     &:hover {
-        animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+         box-shadow: 3px 3px  8px 0  rgba(0,0,0,0.1);
+         border-radius: 4px;
+         background-color:white;
     }    
 `;
 

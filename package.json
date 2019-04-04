@@ -8,7 +8,6 @@
     "build-dev": "cross-env NODE_ENV=development node server.js",
     "build-prod": "cross-env NODE_ENV=production webpack --config webpack.production.config.js && node server.js",
     "lint": "eslint -c .eslintrc ./src/**/*.js ./src/**/*.jsx"
-
   },
   "jest": {
     "modulePaths": [
@@ -32,13 +31,16 @@
     "express": "^4.16.3",
     "history": "^4.7.2",
     "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-excel-workbook": "^0.0.4",
     "react-paginate": "^6.3.0",
     "react-redux": "^5.0.7",
     "react-responsive": "^6.1.1",
     "react-router-dom": "^4.3.1",
+    "react-to-pdf": "^0.0.6",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.3",
     "redux-devtools-extension": "^2.13.5",
