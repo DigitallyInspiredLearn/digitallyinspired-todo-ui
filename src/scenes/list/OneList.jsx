@@ -3,8 +3,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ReactDOMServer from 'react-dom/server';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import Workbook from 'react-excel-workbook';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
@@ -31,14 +32,22 @@ class OneList extends Component {
         });
     };
 
-    pdfToHTML() {
-        const doc = new jsPDF();
-        doc.fromHTML(ReactDOMServer.renderToStaticMarkup(this.render()));
-        doc.save('myDocument.pdf');
-    }
-
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
+    downloadToPDF = (data) => {
+        const doc = new jsPDF();
+        doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
+        data.tasks.length
+            ? doc.autoTable({
+                head: [['+/-', 'name tasks', 'priority', 'do up']],
+                body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019'])),
+                headStyles: { fillColor: 'lightblue' },
+            })
+            : doc.autoTable({
+                body: [['You have no tasks yet, it\'s time to be active!']],
+            });
+        doc.save(`${data.todoListName}.pdf`);
+    };
 
     render() {
         console.log(this.props);
@@ -46,6 +55,21 @@ class OneList extends Component {
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
+
+        const dataXLS = data.tasks && data.tasks.length
+            ? data.tasks.map(i => ({
+                doneOrNot: i.isComplete ? '+' : '-',
+                nameTasks: i.body,
+                priority: 'null',
+                doUp: 'null',
+            }))
+            : [{
+                doneOrNot: 'null',
+                nameTasks: 'null',
+                priority: 'null',
+                doUp: 'null',
+            }];
+
         return (
             <styled.List>
                 <styled.inputBlock>
@@ -59,7 +83,6 @@ class OneList extends Component {
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
-
                         <styled.animationButton
                             // style={{
                             //     backgroundImage: 'url("../../image/trash.svg")', marginTop: '5px', marginLeft: '10px', width: '30px', height: '30px',
@@ -71,11 +94,40 @@ class OneList extends Component {
                         />
                     </Link>
                     <div
-                        style={{ fontSize: '2.4em', marginTop: '8px' }}
-                        className="download fa fa-download fa-3x"
-                        title="download"
-                        onClick={this.pdfToHTML}
-                    />
+                        style={{
+                            textAlign: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '22px',
+                            color: 'gray',
+                            marginLeft: '8px',
+                        }}
+                        className="fa fa-download"
+                    >
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <styled.animationButton onClick={() => this.downloadToPDF(data)}>
+                                pdf
+                            </styled.animationButton>
+                            <Workbook
+                                filename="list.xlsx"
+                                element={(
+                                    <styled.animationButton>
+                                        xls
+                                    </styled.animationButton>
+                                )}
+                            >
+                                <Workbook.Sheet
+                                    data={dataXLS}
+                                    name="list"
+                                >
+                                    <Workbook.Column label="+/-" value="doneOrNot" />
+                                    <Workbook.Column label="name tasks" value="nameTasks" />
+                                    <Workbook.Column label="priority" value="priority" />
+                                    <Workbook.Column label="do up" value="doUp" />
+                                </Workbook.Sheet>
+                            </Workbook>
+                        </div>
+                    </div>
                 </styled.inputBlock>
                 <styled.blockTask>
                     <styled.inputDiv>
@@ -108,7 +160,7 @@ class OneList extends Component {
                             </styledDashboard.ShowButton>
                         </styledDashboard.CheckboxDiv>
                     </styled.inputDiv>
-                    <div id="HTMLtoPDF">
+                    <div>
                         {
                             data.tasks && (data.tasks.length === 0
                                 ? (

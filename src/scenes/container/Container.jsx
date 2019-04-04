@@ -1,45 +1,47 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ThemeProvider} from 'styled-components';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
-import {actions} from '../account/authorization/duck';
+import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
-import DropDown from "../../components/dropDown/DropDown";
+import DropDown from '../../components/dropDown/DropDown';
 
 class Container extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
-            sections: ''
+            sections: '',
         };
     }
 
     selectSection = (newValue) => {
-        const {visible} = this.state;
+        const { visible } = this.state;
         if (newValue === 'Settings') {
-            this.setState({visible: !visible, sections: newValue});
+            this.setState({ visible: !visible, sections: newValue });
         }
         if (newValue === 'Basket') {
-            this.setState({sections: newValue});
+            this.setState({ sections: newValue });
             console.log('Basket');
         }
     };
 
     toggleSettings = () => {
-        const {visible} = this.state;
-        this.setState({visible: !visible});
+        const { visible } = this.state;
+        this.setState({ visible: !visible });
     };
 
 
     render() {
-        const {visible} = this.state;
-        const {location: {pathname}} = history;
-        const {children, data, actions, sections} = this.props;
+        const { visible } = this.state;
+        const { location: { pathname } } = history;
+        const {
+            children, data, actions, sections,
+        } = this.props;
         const iconVisible = (pathname === '/reg' || pathname === '/auth') ? 'none' : 'inherit';
         return (
             <ThemeProvider theme={data}>
@@ -75,7 +77,7 @@ class Container extends Component {
                             />
                         </styled.Logo>
                         <b>To</b>
-                        <styled.Line/>
+                        <styled.Line />
                         <b>do</b>
                         <DropDown
                             changeValue={this.selectSection}
@@ -93,14 +95,11 @@ class Container extends Component {
                             src={logout}
                             alt="logout"
                             onClick={actions.logout}
-                            style={{display: iconVisible}}
+                            style={{ display: iconVisible }}
                         />
 
                     </styled.Header>
-                    <Settings
-                        visible={visible}
-                        toggleSettings={this.toggleSettings}
-                    />
+                    <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }
                 </styled.Container>
             </ThemeProvider>
