@@ -129,9 +129,7 @@ function* fetchChangeSearch(action) {
 }
 
 function* addNewTask(action) {
-    const list = yield call(getOneList, action.payload.idDashboard);
-    console.log(list.data);
-    yield call(addTask, action.payload.idDashboard, {body: action.payload.nameTask});
+    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask, isComplete: false });
     const r = yield call(getOneList, action.payload.idDashboard);
     yield put(actions.fetchListSuccess(r.data));
 }
