@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import DropDown from '../../components/dropDown/DropDown';
+import Workbook from 'react-excel-workbook';
 import TaskForList from './tasksForList/TaskForList';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
 import * as styledPopup from '../popup/Popup.styles';
 import * as styledDashboard from '../dashboard/DashboardList.styles';
-
-const ref = React.createRef();
 
 class OneList extends Component {
     constructor(props) {
@@ -51,15 +49,59 @@ class OneList extends Component {
         doc.save(`${data.todoListName}.pdf`);
     };
 
-    downloadToXLS = (data) => {};
-
     render() {
         const { valueNewTask } = this.state;
         const {
             match, actions, data, actionsBoard, todo, done, notDone,
         } = this.props;
+        const datasXLSRaw = [];
+        const dataXLS = data.tasks && data.tasks.length
+            ?
+        // {
+        //     doneOrNot: 'null',
+        //     nameTasks: 'null',
+        //     priority: 'null',
+        //     doUp: 'null',
+        // },
+        // {
+        //     doneOrNot: 'null',
+        //     nameTasks: 'null',
+        //     priority: 'null',
+        //     doUp: 'null',
+        // },
+        // {
+        //     doneOrNot: 'null',
+        //     nameTasks: 'null',
+        //     priority: 'null',
+        //     doUp: 'null',
+        // },
+
+            data.tasks.map((i) => {
+                datasXLSRaw.push(
+                    {
+                        // doneOrNot: i.isComplete ? '+' : '-',
+                        // nameTasks: i.body,
+                        // priority: 'null',
+                        // doUp: 'null',
+                        doneOrNot: 'null',
+                        nameTasks: 'null',
+                        priority: 'null',
+                        doUp: 'null',
+                    },
+                );
+                console.log(datasXLSRaw);
+                return datasXLSRaw;
+            })
+            : [
+                {
+                    doneOrNot: 'null',
+                    nameTasks: 'null',
+                    priority: 'null',
+                    doUp: 'null',
+                },
+            ];
         return (
-            <styled.List ref={ref}>
+            <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
                         <styled.animationButton className="fa fa-arrow-left fa-2x" />
@@ -71,7 +113,6 @@ class OneList extends Component {
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
-
                         <styled.animationButton
                             className="iconTrash"
                             src={trash}
@@ -79,17 +120,41 @@ class OneList extends Component {
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}
                         />
                     </Link>
-                    <div className="fa fa-download fa-3x" />
-                    <styled.animationButton
-                        onClick={() => this.downloadToPDF(data)}
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '22px',
+                            color: 'gray',
+                            marginLeft: '8px',
+                        }}
+                        className="fa fa-download"
                     >
-                        pdf
-                    </styled.animationButton>
-                    <styled.animationButton
-                        onClick={() => this.downloadToXLS(data)}
-                    >
-                        xls
-                    </styled.animationButton>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <styled.animationButton onClick={() => this.downloadToPDF(data)}>
+                                pdf
+                            </styled.animationButton>
+                            <Workbook
+                                filename="list.xlsx"
+                                element={(
+                                    <styled.animationButton>
+                                        xls
+                                    </styled.animationButton>
+                                )}
+                            >
+                                <Workbook.Sheet
+                                    data={dataXLS}
+                                    name="list"
+                                >
+                                    <Workbook.Column label="+/-" value="doneOrNot" />
+                                    <Workbook.Column label="name tasks" value="nameTasks" />
+                                    <Workbook.Column label="priority" value="priority" />
+                                    <Workbook.Column label="do up" value="doUp" />
+                                </Workbook.Sheet>
+                            </Workbook>
+                        </div>
+                    </div>
                 </styled.inputBlock>
                 <styled.blockTask>
                     <styled.inputDiv>
