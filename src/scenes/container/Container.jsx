@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
@@ -9,6 +10,7 @@ import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
 import DropDown from '../../components/dropDown/DropDown';
+import Basket from '../basket/Basket';
 
 class Container extends Component {
     constructor(props) {
@@ -26,7 +28,7 @@ class Container extends Component {
         }
         if (newValue === 'Basket') {
             this.setState({ sections: newValue });
-            console.log('Basket');
+            history.push('/basket');
         }
     };
 
@@ -37,10 +39,10 @@ class Container extends Component {
 
 
     render() {
-        const { visible } = this.state;
+        const { visible, sections } = this.state;
         const { location: { pathname } } = history;
         const {
-            children, data, actions, sections,
+            children, data, actions,
         } = this.props;
         const iconVisible = (pathname === '/reg' || pathname === '/auth') ? 'none' : 'inherit';
         return (
