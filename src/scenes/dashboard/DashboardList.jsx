@@ -23,9 +23,14 @@ class DashboardList extends Component {
     };
 
     render() {
+        console.log(this.props);
         const {
             search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort,
         } = this.props;
+        let sortValue = 'By id, low to high';
+        (sort !== 'id,asc') ? sortValue === sort : sortValue === 'By id, low to high';
+        console.log(sort);
+        console.log(sortValue);
         return (
             [
                 <styled.App key="app">
@@ -42,17 +47,19 @@ class DashboardList extends Component {
                             <DropDown
                                 changeValue={actions.changeSort}
                                 titleButton="Sorting"
-                                currentValue={sort}
+                                currentValue={sortValue}
                                 possibleValues={[
-                                    'todoListName, A - Z',
-                                    'todoListName, Z - A',
-                                    'createdDate, low to high',
-                                    'createdDate, high to low',
-                                    'modifiedDate, low to high',
-                                    'modifiedDate, high to low',
+                                    'By id, low to high',
+                                    'By id, high to low',
+                                    'By Name, a - Z',
+                                    'By Name, Z - a',
+                                    'By Created Date, low to high',
+                                    'By Created Date, high to low',
+                                    'By Modified Date, low to high',
+                                    'By Modified Date, high to low',
                                 ]}
-                                stylesContainer="top: 49px;"
-                                stylesValues="margin-left: 9px; width: 180px; font-size: 14px;"
+                                stylesContainer="top: 50px; right: 0px;"
+                                stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;"
                                 stylesButton="
                                     padding: 16px 8px;
                                     margin-left: 8px;
@@ -67,7 +74,7 @@ class DashboardList extends Component {
                                     }
                                 "
                             />
-                            <styled.ShowButton
+                            {/* <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
                                 style={{ margin: '0px 8px' }}
@@ -79,7 +86,7 @@ class DashboardList extends Component {
                                 onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
                             >
                             Show shared
-                            </styled.ShowButton>
+                            </styled.ShowButton> */}
                         </styled.CheckboxDiv>
                     </styled.SearchAndChecked>
                     <styled.DashboardList>

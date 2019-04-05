@@ -138,22 +138,28 @@ function* fetchAllLists() {
     } = yield select(state => state.dashboard);
     let sortValue;
     switch (sort) {
-        case 'todoListName, A - Z':
+        case 'By id, low to high':
+            sortValue = 'id,asc';
+            break;
+        case 'By id, high to low':
+            sortValue = 'id,desc';
+            break;
+        case 'By Name, a - Z':
             sortValue = 'todoListName,asc';
             break;
-        case 'todoListName, Z - A':
+        case 'By Name, Z - a':
             sortValue = 'todoListName,desc';
             break;
-        case 'createdDate, low to high':
+        case 'By Created Date, low to high':
             sortValue = 'createdDate,asc';
             break;
-        case 'createdDate, high to low':
+        case 'By Created Date, high to low':
             sortValue = 'createdDate,desc';
             break;
-        case 'modifiedDate, low to high':
+        case 'By Modified Date, low to high':
             sortValue = 'modifiedDate,asc';
             break;
-        case 'modifiedDate, high to low':
+        case 'By Modified Date, high to low':
             sortValue = 'modifiedDate,desc';
             break;
         default:

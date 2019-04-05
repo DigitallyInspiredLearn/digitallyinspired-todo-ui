@@ -14,31 +14,31 @@ export const Button = styled.button`
 	cursor:pointer;
 	outline: none !important;
     &:hover, &:active{
-        background-color: ${ p => p.theme.hoverButton }; 
+        background-color: ${p => p.theme.hoverButton}; 
     }
     ${p => p.stylesButton}
 `;
 export const Ul = styled.div`
     ${p => p.stylesContainer}  
-    position:absolute;
-	text-size: 20px;
-	cursor:pointer;
-	z-index:5;
-    display: ${p => (p.visible ? 'block' : 'none')}
+    position: absolute;
+	font-size: 20px;
+	cursor: pointer;
+	z-index: 5;
+    display: ${p => (p.visible ? 'block' : 'none')};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
     border-radius: 8px;
 `;
 
 export const Li = styled.div`
     ${p => p.stylesValues}
-    padding:8px;
+    padding: 8px;
 	text-size: 20px;
-	cursor:pointer;
+	cursor: pointer;
     &:hover {
       background-color: grey;
     }
-    background-color:${p => (p.checked ? 'black' : p.theme.backgroundList)}
-    color:${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)}}
+    background-color: ${p => (p.checked ? 'black' : p.theme.backgroundList)};
+    color: ${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)}  ;
 `;
 
 export const Icon = styled.img`
