@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ReactPaginate from 'react-paginate';
 
 export const App = styled.div`
     display: flex;
@@ -23,7 +22,7 @@ export const SearchAndChecked = styled.div`
 
 export const SearchDiv = styled.div`
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     flex: auto;
     background-color: ${p => p.theme.backgroundList};
     height: auto;

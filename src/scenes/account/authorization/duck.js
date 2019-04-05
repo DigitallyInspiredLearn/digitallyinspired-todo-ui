@@ -41,7 +41,7 @@ function setDefaultApiToken(token) {
     axios.defaults.headers.common.authorization = `Bearer ${token}`;
 }
 
-function* authorization(action) {
+export function* authorization(action) {
     const token = yield call(authorizationApi, action.payload);
     yield put(actions.loginSuccess({
         user: action.payload.usernameOrEmail,

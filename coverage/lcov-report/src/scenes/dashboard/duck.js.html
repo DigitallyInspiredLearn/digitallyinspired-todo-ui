@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">27.27% </span>
+        <span class="strong">26.32% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>30/110</span>
+        <span class='fraction'>30/114</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/29</span>
+        <span class='fraction'>0/31</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">14.29% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>5/35</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">28.85% </span>
+        <span class="strong">27.78% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>30/104</span>
+        <span class='fraction'>30/108</span>
       </div>
     </div>
     <p class="quiet">
@@ -294,7 +294,13 @@
 <a name='L246'></a><a href='#L246'>246</a>
 <a name='L247'></a><a href='#L247'>247</a>
 <a name='L248'></a><a href='#L248'>248</a>
-<a name='L249'></a><a href='#L249'>249</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -433,6 +439,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -682,22 +694,28 @@ function* <span class="fstat-no" title="function not covered" >fetchAllLists(</s
     } = <span class="cstat-no" title="statement not covered" >yield select(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.dashboard)</span>;</span>
     let sortValue;
 <span class="cstat-no" title="statement not covered" >    switch (sort) {</span>
-        case 'todoListName, A - Z':
+        case 'By id, low to high':
+<span class="cstat-no" title="statement not covered" >            sortValue = 'id,asc';</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        case 'By id, high to low':
+<span class="cstat-no" title="statement not covered" >            sortValue = 'id,desc';</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        case 'By Name, a - Z':
 <span class="cstat-no" title="statement not covered" >            sortValue = 'todoListName,asc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
-        case 'todoListName, Z - A':
+        case 'By Name, Z - a':
 <span class="cstat-no" title="statement not covered" >            sortValue = 'todoListName,desc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
-        case 'createdDate, low to high':
+        case 'By Created Date, low to high':
 <span class="cstat-no" title="statement not covered" >            sortValue = 'createdDate,asc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
-        case 'createdDate, high to low':
+        case 'By Created Date, high to low':
 <span class="cstat-no" title="statement not covered" >            sortValue = 'createdDate,desc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
-        case 'modifiedDate, low to high':
+        case 'By Modified Date, low to high':
 <span class="cstat-no" title="statement not covered" >            sortValue = 'modifiedDate,asc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
-        case 'modifiedDate, high to low':
+        case 'By Modified Date, high to low':
 <span class="cstat-no" title="statement not covered" >            sortValue = 'modifiedDate,desc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
         default:
@@ -796,7 +814,7 @@ export function* <span class="fstat-no" title="function not covered" >saga(</spa
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Apr 05 2019 12:27:57 GMT+0300 (GMT+03:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Apr 05 2019 13:52:37 GMT+0300 (GMT+03:00)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

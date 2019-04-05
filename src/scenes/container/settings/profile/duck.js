@@ -28,7 +28,7 @@ export const reducer = handleActions({
     [FETCH_CURRENT_USER_SUCCESS]: (state, action) => ({ ...state, currentUser: action.payload }),
 }, initialState);
 
-function* fetchUser() {
+export function* fetchUser() {
     const { location: { pathname } } = history;
     if (pathname === '/reg' || pathname === '/auth') {
         // no authorization
@@ -38,7 +38,7 @@ function* fetchUser() {
     }
 }
 
-function* editProfile(action) {
+export function* editProfile(action) {
     yield call(editProfileApi, action.payload);
     yield call(fetchUser);
 }
