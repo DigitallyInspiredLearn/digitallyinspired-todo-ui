@@ -118,7 +118,7 @@ function* fetchUpdateTask(action) {
     yield put(actions.fetchListSuccess(r.data));
 }
 
-function* fetchChangeSearch(action) {
+export function* fetchChangeSearch(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
     const mutateTask = action.payload.search === '' ? actions.fetchListSuccess(list.data)
         : yield actions.changeListSuccess({

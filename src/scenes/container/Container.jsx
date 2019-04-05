@@ -28,7 +28,7 @@ class Container extends Component {
         }
         if (newValue === 'Basket') {
             this.setState({ sections: newValue });
-            history.push('/basket');
+            history.push('/lists/basket');
         }
     };
 
@@ -86,6 +86,7 @@ class Container extends Component {
                             titleButton=""
                             currentValue={sections}
                             possibleValues={[
+                                'Account',
                                 'Settings',
                                 'Basket',
                             ]}
