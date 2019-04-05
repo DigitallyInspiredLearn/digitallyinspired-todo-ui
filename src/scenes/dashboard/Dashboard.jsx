@@ -118,7 +118,7 @@ export class Dashboard extends Component {
                             )
                             : (
                                 <styled.IconContainer>
-                                    <Link to={`/list/${idList}`}>
+                                    <Link to={`/lists/${idList}`}>
                                         <styled.IconInfo>
                                             <p>
                                                 <b>Information:</b><br />
