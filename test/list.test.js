@@ -1,7 +1,13 @@
-import {actions, reducer} from '../src/scenes/list/duck';
+import {
+    call, put, delay, select,
+} from 'redux-saga/effects';
+import {actions, reducer, fetchChangeSearch} from '../src/scenes/list/duck';
+import getOneList from "../src/api/list";
+
 
 const initialState = {
     data: {
+        idDashboard: 5,
         todoListName: 'List',
         tasks: [
             {
@@ -174,5 +180,14 @@ describe('List test', () => {
         };
         expect(reducer(initialState, action)).toEqual(expected);
         expect(reducer(prevState2, action2)).toEqual(expected2);
+    });
+});
+
+describe('List saga test', () => {
+    const action = {payload: { idDashboard: 10}};
+    const generator = fetchChangeSearch(action);
+
+    it('Call getOneList', () => {
+        expect(generator.next(action).value).toEqual(call(getOneList, action.payload.idDashboard));
     });
 });
