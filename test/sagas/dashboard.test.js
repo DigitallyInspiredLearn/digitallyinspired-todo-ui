@@ -116,22 +116,19 @@ describe('updateSelectedTask  test', () => {
 //-----------------------------------------------------------
 // describe('fetchAllLists saga test', () => {
 //     const generator = fetchAllLists();
-//     const action = { currentPage: 0, pageSize: 4, sortValue: 'todoListName,asc' };
+//     const r = { currentPage: 0, pageSize: 4, sortValue: 'todoListName,asc' };
 //     it('Select getDashboard', () => { expect(generator.next().value).toEqual(select(getDashboard)); });
 //     it('Call getMyList', () => {
 //         expect(
-//             generator.next(
-//             ).value,
-//         ).toEqual(call(getMyList, action.currentPage, action.pageSize, action.sortValue));
+//             generator.next(r).value,
+//         ).toEqual(call(getMyList, r.currentPage, r.pageSize, r.sortValue));
 //     });
 //     it('Put FETCH_MY_LISTS_SUCCESS', () => {
 //         expect(
-//             generator.next({}).value,
-//         ).toEqual(put({
+//             generator.next(r).value).toEqual(put({
 //             type: 'dashboard/FETCH_MY_LISTS_SUCCESS',
 //             payload: {
-//                 myLists: [
-//                 ],
+//                 myLists: r,
 //                 countElements: 2,
 //                 countPages: 1,
 //             },
@@ -167,7 +164,7 @@ describe('updateSelectedTask  test', () => {
 //         expect(generator.next().done).toBe(true);
 //     });
 // });
-//
+
 // describe('updateTitleDashboard  test', () => {
 //     const action = { payload: { newTitle: 'new', id: 1 } };
 //     const generator = updateTitle(action);
@@ -184,29 +181,17 @@ describe('updateSelectedTask  test', () => {
 //     it('fetchAllLists updateTitleDashboard call', () => { expect(generator.next().value).toEqual(call(fetchAllLists)); });
 //     it('Saga done', () => { expect(generator.next().done).toBe(true); });
 // });
-//
-// describe('mutate  test', () => {
-//     const generator = mutate();
-//     const res = [{
-//         createdBy: 58,
-//         createdDate: 1554110943375,
-//         id: 69,
-//         modifiedBy: 58,
-//         modifiedDate: 1554110943470,
-//         tasks:[
-//             {id: 118, body: "hlhli", isComplete: false},
-//         ],
-//         todoListName: "DashboardList"}].filter();
-//     it('mutate  select', () => { expect(generator.next().value).toEqual(select(getDashboard)); });
-//     it('put dashboard/MUTATE_SUCCESS', () => {
-//         expect(
-//             generator.next(res).value
-//         ).toEqual(
-//             put({
-//                 type: 'dashboard/MUTATE_SUCCESS',
-//                 payload: res,
-//             }),
-//         );
-//     });
-//     it('Saga done', () => {expect(generator.next().done).toBe(true);});
-// });
+
+describe('mutate  test', () => {
+    const generator = mutate();
+    it('mutate  select', () => { expect(generator.next().value).toEqual(select(getDashboard)); });
+    it('put dashboard/MUTATE_SUCCESS', () => {
+        expect(generator.next().value).toEqual(
+            put({
+                type: 'dashboard/MUTATE_SUCCESS',
+                payload: {},
+            }),
+        );
+    });
+    it('Saga done', () => { expect(generator.next().done).toBe(true); });
+});

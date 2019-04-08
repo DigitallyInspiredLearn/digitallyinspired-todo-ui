@@ -182,7 +182,7 @@ export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.
 export function* updateTitle(action) {
     const { payload: { newTitle, id } } = action;
     const list = yield select(getToDoBoardFiltered(id));
-    const updatedList = {...list, todoListName: newTitle || 'New value'};
+    const updatedList = { ...list, todoListName: newTitle || 'New value' };
     yield call(updateList, id, updatedList);
     yield call(fetchAllLists);
 }
