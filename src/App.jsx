@@ -7,13 +7,13 @@ import Registration from './scenes/account/registration/RegistrationContainer';
 import OneList from './scenes/list/OneListContainer';
 import PageError404 from './scenes/errors/pageError404';
 import PageError500 from './scenes/errors/pageError500';
-import Basket from "./scenes/basket/Basket";
+import Basket from './scenes/basket/Basket';
 
 const App = () => (
 
     <Container>
         <Switch>
-            <Route path="/lists/basket" component={Basket}/>
+            <Route path="/lists/basket" component={Basket} />
             <Route path="/lists/:id" component={OneList} />
             <Route path="/lists" component={VisibleTodoList} />
             <Route path="/auth" component={Authorization} />
@@ -23,7 +23,6 @@ const App = () => (
             <Redirect to="/auth" />
         </Switch>
     </Container>
-
 );
 
 export default App;

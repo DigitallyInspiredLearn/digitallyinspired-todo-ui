@@ -14,7 +14,7 @@ describe('Popup test', () => {
         };
         const prevState2 = {
             ...initialState,
-            search: 'null'
+            search: 'null',
         };
         const action2 = actions.searchUser('mama');
         const expected2 = {
@@ -44,4 +44,3 @@ describe('Popup test', () => {
         expect(reducer(prevState2, action2)).toEqual(expected2);
     });
 });
-
