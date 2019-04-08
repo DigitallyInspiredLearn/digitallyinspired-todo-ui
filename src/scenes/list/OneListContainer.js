@@ -21,6 +21,7 @@ const getTasks = createSelector(
 
 const mapStateToProps = state => (
     {
+
         data: state.list.data,
         tasks: getTasks(state),
         done: state.list.selectedDone,
