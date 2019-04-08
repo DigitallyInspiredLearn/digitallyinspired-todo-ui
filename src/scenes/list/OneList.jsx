@@ -49,7 +49,7 @@ class OneList extends Component {
         console.log(this.props);
         const { valueNewTask } = this.state;
         const {
-            match, actions, data, actionsBoard, done, notDone,
+            match, actions, data, actionsBoard, done, notDone, tasks,
         } = this.props;
 
         const dataXLS = data.tasks && data.tasks.length
@@ -151,13 +151,13 @@ class OneList extends Component {
                     </styled.inputDiv>
                     <div>
                         {
-                            data.tasks && (data.tasks.length === 0
+                            tasks.length === 0
                                 ? (
                                     <styled.nullTask>
                                         You have no tasks yet, it's time to be active!
                                     </styled.nullTask>
                                 )
-                                : data.tasks.map(i => (
+                                : tasks.map(i => (
                                     <TaskForList
                                         idTask={i.id}
                                         idList={match.params.id}
@@ -167,7 +167,7 @@ class OneList extends Component {
                                         actionsBoard={actionsBoard}
                                         actionsList={actions}
                                     />
-                                )))
+                                ))
                         }
                     </div>
                     <styled.addNewTask
