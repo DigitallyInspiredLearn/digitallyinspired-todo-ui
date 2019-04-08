@@ -4,10 +4,10 @@ import {
 import {
     fetchChangeSearch, fetchDeleteList, fetchDeleteTask, fetchList, getList, updateTitle,
     fetchUpdateTask, addNewTask, fetchUpdateCheckbox,
-} from '../src/scenes/list/duck';
-import getOneList from '../src/api/list';
-import { deleteList, updateList } from '../src/api/dashboard';
-import { addTask, deleteTask, updateTask } from '../src/api/task';
+} from '../../src/scenes/list/duck';
+import getOneList from '../../src/api/list';
+import { deleteList, updateList } from '../../src/api/dashboard';
+import { addTask, deleteTask, updateTask } from '../../src/api/task';
 
 describe('List saga test fetchList', () => {
     const action = { payload: { idList: 4, idTask: 2 } };

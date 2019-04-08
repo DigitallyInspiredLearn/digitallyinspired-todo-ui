@@ -1,6 +1,6 @@
 import { call, select, put } from 'redux-saga/effects';
-import { searchUserByUsername } from '../src/api/userController';
-import { fetchUser, getUser } from '../src/scenes/popup/duck';
+import { searchUserByUsername } from '../../src/api/userController';
+import { fetchUser, getUser } from '../../src/scenes/popup/duck';
 
 describe('Popup saga test fetchUser', () => {
     const action = {
