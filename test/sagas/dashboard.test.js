@@ -14,11 +14,11 @@ import {
     shareList,
     getDashboard,
     getToDoBoardFiltered,
-} from '../src/scenes/dashboard/duck';
+} from '../../src/scenes/dashboard/duck';
 import {
     addDashboard, deleteList, getMyList, getSharedLists, shareTodoListToUser, updateList,
-} from '../src/api/dashboard';
-import { addTask, deleteTask as deleteTaskApi, updateTask } from '../src/api/task';
+} from '../../src/api/dashboard';
+import { addTask, deleteTask as deleteTaskApi, updateTask } from '../../src/api/task';
 
 describe('shareList  test', () => {
     const action = { payload: { idList: 69, userName: 'anna1206a' } };
