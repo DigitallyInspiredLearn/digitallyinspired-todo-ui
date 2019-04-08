@@ -162,7 +162,6 @@ export function* fetchAllLists() {
     }
     const data = selectedMy
         ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
-    console.log(data)
     const countElements = data.totalElements;
     const myLists = selectedMy ? data.content : [];
     const countPages = data.totalPages;
@@ -183,6 +182,13 @@ export function* updateTitle(action) {
     yield call(fetchAllLists);
 }
 
+export function* mutate() {
+    const { toDoBoardRaw, search } = yield select(getDashboard);
+    const allList = toDoBoardRaw.filter(list => list.todoListName.toLowerCase().includes(search.toLowerCase()));
+    yield put(actions.mutateSuccessDashboard(allList));
+}
+
+//success test
 export function* updateSelectedTask(action) {
     yield delay(150);
     yield call(updateTask, action.payload.idTask, {
@@ -190,12 +196,6 @@ export function* updateSelectedTask(action) {
         isComplete: !action.payload.selected,
     });
     yield call(fetchAllLists);
-}
-
-export function* mutate() {
-    const {toDoBoardRaw, search} = yield select(state => state.dashboard);
-    const allList = toDoBoardRaw.filter(list => list.todoListName.toLowerCase().includes(search.toLowerCase()));
-    yield put(actions.mutateSuccessDashboard(allList));
 }
 
 //success test
