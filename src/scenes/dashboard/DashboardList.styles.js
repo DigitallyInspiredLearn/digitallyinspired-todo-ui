@@ -22,7 +22,7 @@ export const Head = styled.div`
 
 export const SearchDiv = styled.div`
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     flex: auto;
     background-color: ${p => p.theme.backgroundList};
     height: auto;

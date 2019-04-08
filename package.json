@@ -7,7 +7,8 @@
     "test": "jest",
     "build-dev": "cross-env NODE_ENV=development node server.js",
     "build-prod": "cross-env NODE_ENV=production webpack --config webpack.production.config.js && node server.js",
-    "lint": "eslint -c .eslintrc ./src/**/*.js ./src/**/*.jsx"
+    "lint": "eslint -c .eslintrc ./src/**/*.js ./src/**/*.jsx",
+    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner"
   },
   "author": "",
   "license": "ISC",

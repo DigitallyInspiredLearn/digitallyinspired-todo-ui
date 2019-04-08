@@ -49,7 +49,7 @@ class OneList extends Component {
         console.log(this.props);
         const { valueNewTask } = this.state;
         const {
-            match, actions, data, actionsBoard, todo, done, notDone,
+            match, actions, data, actionsBoard, done, notDone,
         } = this.props;
 
         const dataXLS = data.tasks && data.tasks.length

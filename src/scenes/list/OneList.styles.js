@@ -22,7 +22,7 @@ export const inputBlock = styled.span`
     font-size: 15px;
     cursor: pointer;
     height: auto;
-    min-height: 40px;
+    min-height: 34.4px;
     max-height: 40px;
     align-items: center;
     width: auto;
@@ -32,9 +32,9 @@ export const animationButton = styled.div`
     color: ${p => p.theme.mainText};
 
     height: auto;
-    weight:20px;
+    width: 20px;
     padding: 2px 3px;
-    margin:2px;
+    margin: 2px;
 
     &:hover {
          box-shadow: 3px 3px  8px 0  rgba(0,0,0,0.1);
