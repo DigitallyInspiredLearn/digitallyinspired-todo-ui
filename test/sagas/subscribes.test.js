@@ -13,5 +13,19 @@ describe('Follow user saga test', () => {
         expect(generatorMutate.next().value).toEqual(select(getSubscribe));
     });
 
-    
+    const res = [
+        {
+            username: 'rostiktest',
+            name: 'test',
+            email: 'test@test.test',
+            gravatarUrl: 'https://www.gravatar.com/avatar/dd46a756faad4727fb679320751f6dea',
+        },
+    ];
+
+    it('Fetch user put saga test', () => {
+        expect(generatorMutate.next(res).value).toEqual(put({
+            type: 'settings/FETCH_CURRENT_USER_SUCCESS',
+            payload: res,
+        }));
+    });
 });

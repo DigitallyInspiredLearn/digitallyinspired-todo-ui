@@ -36,12 +36,12 @@ export function* mutate() {
     const res = searchRaw.filter(list => list.username.toLowerCase().includes(
         search.toLowerCase(),
     ));
-    console.log(res);
     yield put(actions.mutateSuccess(res));
 }
 
 function* getSubscribers() {
     const res = yield call(getFollowers);
+    console.log(res);
     yield put(actions.fetchSubscribersSuccess(res.data));
 }
 
