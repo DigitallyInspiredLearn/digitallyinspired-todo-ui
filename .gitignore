@@ -2,7 +2,6 @@ node_modules/
 public/
 .idea/
 yarn-error.log
-coverage/Icov-report/
-coverage/clover.xml
+coverage/
 .scannerwork/
 .vscode/

@@ -6,7 +6,6 @@ import { authorization, refreshTokenProcess, setDefaultApiToken, rehydrateSaga, 
 
 
 describe('Auth saga test', () => {
-
     const action = {
         type: 'LOGIN_SUCCESS',
         payload: {
@@ -18,7 +17,7 @@ describe('Auth saga test', () => {
     const generatorAuth = authorization(action);
 
     it('Auth saga test', () => {
-        expect(generatorAuth.next(action.payload).value).toEqual(call(authorizationApi, action.payload));
+        expect(generatorAuth.next().value).toEqual(call(authorizationApi, action.payload));
     });
 
     // const token = {
@@ -30,20 +29,27 @@ describe('Auth saga test', () => {
     const res = {
         data: {
             user: action.payload.usernameOrEmail,
-            token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU0NzE3ODcwLCJleHAiOjE1NTQ3MTg3NzB9.eGhIZzp6BolVT1W6s6Mv0BkgukgTJbnOI-h__j4aglCHfRfyqF61vMo3piHI5UWeyP83AwP9P85nipwVxbsQUA',
+            accessToken: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU0NzE3ODcwLCJleHAiOjE1NTQ3MTg3NzB9.eGhIZzp6BolVT1W6s6Mv0BkgukgTJbnOI-h__j4aglCHfRfyqF61vMo3piHI5UWeyP83AwP9P85nipwVxbsQUA',
         },
     };
 
-    // it('Auth put saga test', () => {
-    //     expect(generatorAuth.next(res).value).toEqual(put({
-    //         type: 'LOGIN_SUCCESS',
-    //         payload: res.data,
-    //     }));
-    // });
+    it('Auth put saga test', () => {
+        expect(generatorAuth.next(res).value).toEqual(put({
+            type: 'LOGIN_SUCCESS',
+            payload: {
+                user: 'rostik',
+                token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU0NzE3ODcwLCJleHAiOjE1NTQ3MTg3NzB9.eGhIZzp6BolVT1W6s6Mv0BkgukgTJbnOI-h__j4aglCHfRfyqF61vMo3piHI5UWeyP83AwP9P85nipwVxbsQUA',
+            },
+        }));
+    });
 
-    // it('Auth saga test', () => {
-    //     expect(generatorAuth.next().next(action.payload).value).toEqual(call(authorizationApi, action.payload));
-    // });
+    it('Auth saga test', () => {
+        expect(generatorAuth.next().value).toEqual(call(setDefaultApiToken, res.data.accessToken));
+    });
+
+    it('Saga done', () => {
+        expect(generatorAuth.next().done).toBe(true);
+    });
 
     const generatorRefreshToken = refreshTokenProcess();
 

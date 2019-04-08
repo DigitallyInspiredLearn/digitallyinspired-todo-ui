@@ -1,13 +1,29 @@
 import { withRouter } from 'react-router-dom';
+import { createSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { actions as actionsBoard } from '../dashboard/duck';
 import { actions } from './duck';
 import OneList from './OneList';
 
+const getDoneFilter = state => state.list.selectedDone;
+
+const getNotDoneFilter = state => state.list.selectedNotDone;
+
+const getTasksRaw = state => state.list.data.tasks;
+
+const getTasks = createSelector(
+    getTasksRaw,
+    getDoneFilter,
+    getNotDoneFilter,
+    (tasks, done, notDone) => !(done ^ notDone) ? tasks : tasks.filter(task => task.isComplete === done),
+);
+
 const mapStateToProps = state => (
     {
+
         data: state.list.data,
+        tasks: getTasks(state),
         done: state.list.selectedDone,
         notDone: state.list.selectedNotDone,
         todo: state.dashboard.toDoBoardRow,

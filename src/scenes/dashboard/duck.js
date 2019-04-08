@@ -242,9 +242,9 @@ export function* shareList(action) {
     try {
         yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
         yield call(fetchAllLists);
-        alert('Successfully shared!');
+        // alert('Successfully shared!');
     } catch (e) {
-        e.response.status === 409 ? alert('This list is already shared with the selected user.') : null;
+        // e.response.status === 409 ? alert('This list is already shared with the selected user.') : null;
     }
 }
 
