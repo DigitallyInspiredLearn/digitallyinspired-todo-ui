@@ -1,4 +1,4 @@
-import { actions, reducer } from '../src/scenes/popup/duck';
+import { actions, reducer } from '../../src/scenes/popup/duck';
 
 const initialState = {
     users: [],
