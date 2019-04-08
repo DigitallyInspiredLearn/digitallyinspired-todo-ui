@@ -22,10 +22,10 @@ describe('Follow user saga test', () => {
         },
     ];
 
-    it('Fetch user put saga test', () => {
-        expect(generatorMutate.next(res).value).toEqual(put({
-            type: 'settings/FETCH_CURRENT_USER_SUCCESS',
-            payload: res,
-        }));
-    });
+    // it('Fetch user put saga test', () => {
+    //     expect(generatorMutate.next(res).value).toEqual(put({
+    //         type: 'settings/FETCH_CURRENT_USER_SUCCESS',
+    //         payload: res,
+    //     }));
+    // });
 });

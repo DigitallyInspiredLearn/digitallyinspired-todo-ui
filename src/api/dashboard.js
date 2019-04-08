@@ -2,8 +2,6 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
-// export const getMyList = () => axios.get('/api/todolists/my');
-
 export const getMyList = (page, size, sort) => (
     axios.get(`/api/todolists/my?page=${page}&size=${size}&sort=${sort}`)
 );

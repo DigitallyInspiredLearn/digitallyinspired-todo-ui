@@ -13,7 +13,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
-export const SELECTION_SECTIONS = 'SELECTION_SECTIONS';
 
 export const actions = {
     login: createAction(LOGIN),

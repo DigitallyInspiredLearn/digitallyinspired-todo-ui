@@ -29,7 +29,7 @@ class DashboardList extends Component {
         return (
             [
                 <styled.App key="app">
-                    <styled.SearchAndChecked>
+                    <styled.Head>
                         <styled.SearchDiv>
                             <Search
                                 onChange={this.handleChange}
@@ -83,7 +83,7 @@ class DashboardList extends Component {
                             Show shared
                             </styled.ShowButton> */}
                         </styled.CheckboxDiv>
-                    </styled.SearchAndChecked>
+                    </styled.Head>
                     <styled.DashboardList>
                         {
                             toDoBoard.length === 0
@@ -138,7 +138,6 @@ class DashboardList extends Component {
                     <VisibleSidebar />
                 </styled.Footer>,
             ]
-
         );
     }
 }
