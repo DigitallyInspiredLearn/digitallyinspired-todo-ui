@@ -23,14 +23,16 @@ const initialState = {
     searchRaw: [],
 };
 
+export const getSubscribe = state => state.subscribe;
+
 export const reducer = handleActions({
     [SEARCH_SUBSCRIBERS]: (state, action) => ({ ...state, search: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, subscribers: action.payload }),
     [FETCH_SUBSCRIBERS_SUCCESS]: (state, action) => ({ ...state, searchRaw: action.payload }),
 }, initialState);
 
-function* mutate() {
-    const { searchRaw, search } = yield select(state => state.subscribe);
+export function* mutate() {
+    const { searchRaw, search } = yield select(getSubscribe);
     const res = searchRaw.filter(list => list.username.toLowerCase().includes(
         search.toLowerCase(),
     ));
@@ -39,6 +41,7 @@ function* mutate() {
 
 function* getSubscribers() {
     const res = yield call(getFollowers);
+    console.log(res);
     yield put(actions.fetchSubscribersSuccess(res.data));
 }
 
