@@ -29,6 +29,10 @@ const initialState = {
     message: '',
 };
 
+export const getFollowUser = state => state.followUser;
+
+export const getUsername = state => state.profile.currentUser.username;
+
 export const reducer = handleActions({
     [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
     [FETCH_USERS_SUCCESS]: (state, action) => ({ ...state, usersNamesRaw: action.payload }),
@@ -36,12 +40,12 @@ export const reducer = handleActions({
     [GET_MESSAGE_ON_ACCESS_FOLLOWING]: (state, action) => ({ ...state, message: action.payload }),
 }, initialState);
 
-function* fetchUsersNames() {
+export function* fetchUsersNames() {
     const res = yield call(searchUserByUsername, ' ');
     yield put(actions.fetchUsersSuccess(res.data));
 }
 
-function* followUsers(action) {
+export function* followUsers(action) {
     try {
         const res = yield call(followUserApi, action.payload);
         yield put(actions.getMessageOnAccessFollowing(res.data.message));
@@ -52,9 +56,9 @@ function* followUsers(action) {
     }
 }
 
-function* mutate() {
-    const { usersNamesRaw, search } = yield select(state => state.followUser);
-    const currentUserName = yield select(state => state.profile.currentUser.username);
+export function* mutate() {
+    const { usersNamesRaw, search } = yield select(getFollowUser);
+    const currentUserName = yield select(getUsername);
     const followUsers = usersNamesRaw.filter(i => i !== currentUserName);
     yield put(actions.mutateSuccess(followUsers));
     const res = followUsers.filter(s => s.indexOf(search) >= 0);

@@ -23,14 +23,9 @@ class DashboardList extends Component {
     };
 
     render() {
-        console.log(this.props);
         const {
             search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort,
         } = this.props;
-        let sortValue = 'By id, low to high';
-        (sort !== 'id,asc') ? sortValue === sort : sortValue === 'By id, low to high';
-        console.log(sort);
-        console.log(sortValue);
         return (
             [
                 <styled.App key="app">
@@ -47,7 +42,7 @@ class DashboardList extends Component {
                             <DropDown
                                 changeValue={actions.changeSort}
                                 titleButton="Sorting"
-                                currentValue={sortValue}
+                                currentValue={sort}
                                 possibleValues={[
                                     'By id, low to high',
                                     'By id, high to low',

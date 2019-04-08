@@ -1,4 +1,4 @@
-import {createAction, handleActions} from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, select, delay,
 } from 'redux-saga/effects';
@@ -15,7 +15,7 @@ import {
     addTask,
     deleteTask as deleteTaskApi,
 } from '../../api/task';
-import {safeTakeEvery, safeTakeLatest} from '../../helpers/saga';
+import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 
 export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
@@ -88,22 +88,22 @@ const initialState = {
 };
 
 export const reducer = handleActions({
-    [CHANGE_SIZE]: (state, action) => ({...state, pageSize: action.payload, currentPage: 0}),
-    [CHANGE_SORT]: (state, action) => ({...state, sort: action.payload}),
-    [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({...state, toDoBoardRaw: action.payload}),
-    [MUTATE_SUCCESS]: (state, action) => ({...state, toDoBoard: action.payload}),
+    [CHANGE_SIZE]: (state, action) => ({ ...state, pageSize: action.payload, currentPage: 0 }),
+    [CHANGE_SORT]: (state, action) => ({ ...state, sort: action.payload }),
+    [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
+    [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({
         ...state,
         myList: action.payload.myLists,
         totalElements: action.payload.countElements,
         totalPages: action.payload.countPages,
     }),
-    [FETCH_SHARED_LISTS_SUCCESS]: (state, action) => ({...state, sharedList: action.payload}),
+    [FETCH_SHARED_LISTS_SUCCESS]: (state, action) => ({ ...state, sharedList: action.payload }),
 
     [UPDATE_TITLE_DASHBOARD]: (state, action) => ({
         ...state,
         toDoBoardRaw: state.toDoBoardRaw.map(e => (e.id === action.payload.id
-            ? {...e, todoListName: action.payload.newTitle} : e)),
+            ? { ...e, todoListName: action.payload.newTitle } : e)),
     }),
     [UPDATE_CHECKBOX]: (state, action) => ({
         ...state,
@@ -111,7 +111,7 @@ export const reducer = handleActions({
             i.id === action.payload.idDashboard ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
-                    ? {...e, isComplete: !action.payload.selected} : e)),
+                    ? { ...e, isComplete: !action.payload.selected } : e)),
             } : i
         )),
     }),
@@ -121,15 +121,15 @@ export const reducer = handleActions({
             i.id === action.payload.idDashboard ? {
                 ...i,
                 tasks: i.tasks.map(e => (e.id === action.payload.idTask
-                    ? {...e, body: action.payload.newTaskName} : e)),
+                    ? { ...e, body: action.payload.newTaskName } : e)),
             } : i
         )),
     }),
 
-    [SELECTED_MY_LISTS]: (state, action) => ({...state, selectedMy: action.payload}),
-    [SELECTED_SHARED_LISTS]: (state, action) => ({...state, selectedShared: action.payload}),
-    [SEARCH]: (state, action) => ({...state, search: action.payload}),
-    [CHANGE_PAGINATION]: (state, action) => ({...state, currentPage: action.payload}),
+    [SELECTED_MY_LISTS]: (state, action) => ({ ...state, selectedMy: action.payload }),
+    [SELECTED_SHARED_LISTS]: (state, action) => ({ ...state, selectedShared: action.payload }),
+    [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
+    [CHANGE_PAGINATION]: (state, action) => ({ ...state, currentPage: action.payload }),
 }, initialState);
 
 export const getDashboard = state => state.dashboard;
@@ -164,7 +164,7 @@ export function* fetchAllLists() {
             sortValue = 'modifiedDate,desc';
             break;
         default:
-            sortValue = 'id,asc';
+            sortValue = 'todoListName,asc';
     }
     const data = selectedMy
         ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
@@ -172,7 +172,7 @@ export function* fetchAllLists() {
     const myLists = selectedMy ? data.content : [];
     const countPages = data.totalPages;
     yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
-    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({...l, shared: true})) : [];
+    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
@@ -182,7 +182,6 @@ export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.
 export function* updateTitle(action) {
     const { payload: { newTitle, id } } = action;
     const list = yield select(getToDoBoardFiltered(id));
-    console.log(list);
     const updatedList = {...list, todoListName: newTitle || 'New value'};
     yield call(updateList, id, updatedList);
     yield call(fetchAllLists);
@@ -243,15 +242,16 @@ export function* shareList(action) {
     try {
         yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
         yield call(fetchAllLists);
-        alert("Successfully shared!");
-    }
-    catch (e) {
-        e.response.status === 409 ? alert("This list is already shared with the selected user.") : null;
+        alert('Successfully shared!');
+    } catch (e) {
+        e.response.status === 409 ? alert('This list is already shared with the selected user.') : null;
     }
 }
 
 export function* saga() {
-    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT], fetchAllLists);
+    yield safeTakeEvery([
+        FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT,
+    ], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
     yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);
