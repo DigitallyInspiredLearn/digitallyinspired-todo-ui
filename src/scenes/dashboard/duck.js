@@ -132,10 +132,11 @@ export const reducer = handleActions({
     [CHANGE_PAGINATION]: (state, action) => ({...state, currentPage: action.payload}),
 }, initialState);
 
-function* fetchAllLists() {
+export const getDashboard = state => state.dashboard;
+export function* fetchAllLists() {
     const {
         selectedMy, selectedShared, pageSize, currentPage, sort,
-    } = yield select(state => state.dashboard);
+    } = yield select(getDashboard);
     let sortValue;
     switch (sort) {
         case 'By id, low to high':
@@ -170,27 +171,31 @@ function* fetchAllLists() {
     const countElements = data.totalElements;
     const myLists = selectedMy ? data.content : [];
     const countPages = data.totalPages;
-    yield put(actions.fetchMyListsSuccess({myLists, countElements, countPages}));
+    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({...l, shared: true})) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
 }
 
-function* deleteDashboard(action) {
-    yield call(deleteList, action.payload.id);
-    yield call(fetchAllLists);
-}
-
-function* updateTitle(action) {
-    const {payload: {newTitle, id}} = action;
-    const list = yield select(state => state.dashboard.toDoBoardRaw.find(l => l.id === id));
+export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.find(l => l.id === id);
+export function* updateTitle(action) {
+    const { payload: { newTitle, id } } = action;
+    const list = yield select(getToDoBoardFiltered(id));
+    console.log(list);
     const updatedList = {...list, todoListName: newTitle || 'New value'};
     yield call(updateList, id, updatedList);
     yield call(fetchAllLists);
 }
 
-function* updateSelectedTask(action) {
+export function* mutate() {
+    const { toDoBoardRaw, search } = yield select(getDashboard);
+    const allList = toDoBoardRaw.filter(list => list.todoListName.toLowerCase().includes(search.toLowerCase()));
+    yield put(actions.mutateSuccessDashboard(allList));
+}
+
+//success test
+export function* updateSelectedTask(action) {
     yield delay(150);
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
@@ -199,8 +204,9 @@ function* updateSelectedTask(action) {
     yield call(fetchAllLists);
 }
 
-function* updateNameTask(action) {
-    const {payload: {idTask, newTaskName, selected}} = action;
+//success test
+export function* updateNameTask(action) {
+    const { payload: { idTask, newTaskName, selected } } = action;
     yield call(updateTask, idTask, {
         body: newTaskName || 'New value',
         isComplete: selected,
@@ -208,28 +214,32 @@ function* updateNameTask(action) {
     yield call(fetchAllLists);
 }
 
-function* deleteTask(action) {
+//success test
+export function* deleteDashboard(action) {
+    yield call(deleteList, action.payload.id);
+    yield call(fetchAllLists);
+}
+
+//success test
+export function* deleteTask(action) {
     yield call(deleteTaskApi, action.payload.idTask);
     yield call(fetchAllLists);
 }
 
-function* addNewTask(action) {
+//success test
+export function* addNewTask(action) {
     yield call(addTask, action.payload.idDashboard, {body: action.payload.nameTask, isComplete: false});
     yield call(fetchAllLists);
 }
 
-function* addList(action) {
+//success test
+export function* addList(action) {
     yield call(addDashboard, action.payload);
     yield call(fetchAllLists);
 }
 
-function* mutate() {
-    const {toDoBoardRaw, search} = yield select(state => state.dashboard);
-    const allList = toDoBoardRaw.filter(list => list.todoListName.toLowerCase().includes(search.toLowerCase()));
-    yield put(actions.mutateSuccessDashboard(allList));
-}
-
-function* shareList(action) {
+//success test but problem with alert
+export function* shareList(action) {
     try {
         yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
         yield call(fetchAllLists);
