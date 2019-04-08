@@ -300,7 +300,8 @@
 <a name='L252'></a><a href='#L252'>252</a>
 <a name='L253'></a><a href='#L253'>253</a>
 <a name='L254'></a><a href='#L254'>254</a>
-<a name='L255'></a><a href='#L255'>255</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -537,13 +538,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -554,7 +556,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {createAction, handleActions} from 'redux-actions';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, select, delay,
 } from 'redux-saga/effects';
@@ -571,7 +573,7 @@ import {
     addTask,
     deleteTask as deleteTaskApi,
 } from '../../api/task';
-import {safeTakeEvery, safeTakeLatest} from '../../helpers/saga';
+import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 &nbsp;
 export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
@@ -644,22 +646,22 @@ const initialState = {
 };
 &nbsp;
 export const reducer = handleActions({
-    [CHANGE_SIZE]: (state, action) =&gt; ({...state, pageSize: action.payload, currentPage: 0}),
-    [CHANGE_SORT]: (state, action) =&gt; ({...state, sort: action.payload}),
-    [FETCH_DASHBOARD_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{...state, toDoBoardRaw: action.payload})</span>,
-    [MUTATE_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{...state, toDoBoard: action.payload})</span>,
+    [CHANGE_SIZE]: (state, action) =&gt; ({ ...state, pageSize: action.payload, currentPage: 0 }),
+    [CHANGE_SORT]: (state, action) =&gt; ({ ...state, sort: action.payload }),
+    [FETCH_DASHBOARD_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...state, toDoBoardRaw: action.payload })</span>,
+    [MUTATE_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...state, toDoBoard: action.payload })</span>,
     [FETCH_MY_LISTS_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         ...state,
         myList: action.payload.myLists,
         totalElements: action.payload.countElements,
         totalPages: action.payload.countPages,
     }),
-    [FETCH_SHARED_LISTS_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{...state, sharedList: action.payload})</span>,
+    [FETCH_SHARED_LISTS_SUCCESS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...state, sharedList: action.payload })</span>,
 &nbsp;
     [UPDATE_TITLE_DASHBOARD]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         ...state,
         toDoBoardRaw: state.toDoBoardRaw.map(<span class="fstat-no" title="function not covered" >e </span>=&gt; (<span class="cstat-no" title="statement not covered" >e.id === action.payload.id</span>
-            ? {...e, todoListName: action.payload.newTitle} : e)),
+            ? { ...e, todoListName: action.payload.newTitle } : e)),
     }),
     [UPDATE_CHECKBOX]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         ...state,
@@ -667,7 +669,7 @@ export const reducer = handleActions({
 <span class="cstat-no" title="statement not covered" >            i.id === action.payload.idDashboard ? {</span>
                 ...i,
                 tasks: i.tasks.map(<span class="fstat-no" title="function not covered" >e </span>=&gt; (<span class="cstat-no" title="statement not covered" >e.id === action.payload.idTask</span>
-                    ? {...e, isComplete: !action.payload.selected} : e)),
+                    ? { ...e, isComplete: !action.payload.selected } : e)),
             } : i
         )),
     }),
@@ -677,15 +679,15 @@ export const reducer = handleActions({
 <span class="cstat-no" title="statement not covered" >            i.id === action.payload.idDashboard ? {</span>
                 ...i,
                 tasks: i.tasks.map(<span class="fstat-no" title="function not covered" >e </span>=&gt; (<span class="cstat-no" title="statement not covered" >e.id === action.payload.idTask</span>
-                    ? {...e, body: action.payload.newTaskName} : e)),
+                    ? { ...e, body: action.payload.newTaskName } : e)),
             } : i
         )),
     }),
 &nbsp;
-    [SELECTED_MY_LISTS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{...state, selectedMy: action.payload})</span>,
-    [SELECTED_SHARED_LISTS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{...state, selectedShared: action.payload})</span>,
-    [SEARCH]: (state, action) =&gt; ({...state, search: action.payload}),
-    [CHANGE_PAGINATION]: (state, action) =&gt; ({...state, currentPage: action.payload}),
+    [SELECTED_MY_LISTS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...state, selectedMy: action.payload })</span>,
+    [SELECTED_SHARED_LISTS]: <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...state, selectedShared: action.payload })</span>,
+    [SEARCH]: (state, action) =&gt; ({ ...state, search: action.payload }),
+    [CHANGE_PAGINATION]: (state, action) =&gt; ({ ...state, currentPage: action.payload }),
 }, initialState);
 &nbsp;
 function* <span class="fstat-no" title="function not covered" >fetchAllLists(</span>) {
@@ -719,15 +721,15 @@ function* <span class="fstat-no" title="function not covered" >fetchAllLists(</s
 <span class="cstat-no" title="statement not covered" >            sortValue = 'modifiedDate,desc';</span>
 <span class="cstat-no" title="statement not covered" >            break;</span>
         default:
-<span class="cstat-no" title="statement not covered" >            sortValue = 'id,asc';</span>
+<span class="cstat-no" title="statement not covered" >            sortValue = 'todoListName,asc';</span>
     }
     const data = <span class="cstat-no" title="statement not covered" >selectedMy</span>
         ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
     const countElements = <span class="cstat-no" title="statement not covered" >data.totalElements;</span>
     const myLists = <span class="cstat-no" title="statement not covered" >selectedMy ? data.content : [];</span>
     const countPages = <span class="cstat-no" title="statement not covered" >data.totalPages;</span>
-<span class="cstat-no" title="statement not covered" >    yield put(actions.fetchMyListsSuccess({myLists, countElements, countPages}));</span>
-    const sharedLists = <span class="cstat-no" title="statement not covered" >selectedShared ? (yield call(getSharedLists)).data.map(<span class="fstat-no" title="function not covered" >l </span>=&gt; (<span class="cstat-no" title="statement not covered" >{...l, shared: true})</span>) : [];</span>
+<span class="cstat-no" title="statement not covered" >    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));</span>
+    const sharedLists = <span class="cstat-no" title="statement not covered" >selectedShared ? (yield call(getSharedLists)).data.map(<span class="fstat-no" title="function not covered" >l </span>=&gt; (<span class="cstat-no" title="statement not covered" >{ ...l, shared: true })</span>) : [];</span>
 <span class="cstat-no" title="statement not covered" >    yield put(actions.fetchSharedListsSuccess(sharedLists));</span>
     const allList = <span class="cstat-no" title="statement not covered" >myLists.concat(sharedLists);</span>
 <span class="cstat-no" title="statement not covered" >    yield put(actions.fetchDashboardSuccess(allList));</span>
@@ -739,9 +741,9 @@ function* <span class="fstat-no" title="function not covered" >deleteDashboard(<
 }
 &nbsp;
 function* <span class="fstat-no" title="function not covered" >updateTitle(</span>action) {
-    const {payload: {newTitle, id}} = <span class="cstat-no" title="statement not covered" >action;</span>
+    const { payload: { newTitle, id } } = <span class="cstat-no" title="statement not covered" >action;</span>
     const list = <span class="cstat-no" title="statement not covered" >yield select(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.dashboard.toDoBoardRaw.find(<span class="fstat-no" title="function not covered" >l </span>=&gt; <span class="cstat-no" title="statement not covered" >l.id === id)</span>)</span>;</span>
-    const updatedList = <span class="cstat-no" title="statement not covered" >{...list, todoListName: newTitle || 'New value'};</span>
+    const updatedList = <span class="cstat-no" title="statement not covered" >{ ...list, todoListName: newTitle || 'New value' };</span>
 <span class="cstat-no" title="statement not covered" >    yield call(updateList, id, updatedList);</span>
 <span class="cstat-no" title="statement not covered" >    yield call(fetchAllLists);</span>
 }
@@ -756,7 +758,7 @@ function* <span class="fstat-no" title="function not covered" >updateSelectedTas
 }
 &nbsp;
 function* <span class="fstat-no" title="function not covered" >updateNameTask(</span>action) {
-    const {payload: {idTask, newTaskName, selected}} = <span class="cstat-no" title="statement not covered" >action;</span>
+    const { payload: { idTask, newTaskName, selected } } = <span class="cstat-no" title="statement not covered" >action;</span>
 <span class="cstat-no" title="statement not covered" >    yield call(updateTask, idTask, {</span>
         body: newTaskName || 'New value',
         isComplete: selected,
@@ -770,7 +772,7 @@ function* <span class="fstat-no" title="function not covered" >deleteTask(</span
 }
 &nbsp;
 function* <span class="fstat-no" title="function not covered" >addNewTask(</span>action) {
-<span class="cstat-no" title="statement not covered" >    yield call(addTask, action.payload.idDashboard, {body: action.payload.nameTask, isComplete: false});</span>
+<span class="cstat-no" title="statement not covered" >    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask, isComplete: false });</span>
 <span class="cstat-no" title="statement not covered" >    yield call(fetchAllLists);</span>
 }
 &nbsp;
@@ -780,7 +782,7 @@ function* <span class="fstat-no" title="function not covered" >addList(</span>ac
 }
 &nbsp;
 function* <span class="fstat-no" title="function not covered" >mutate(</span>) {
-    const {toDoBoardRaw, search} = <span class="cstat-no" title="statement not covered" >yield select(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.dashboard)</span>;</span>
+    const { toDoBoardRaw, search } = <span class="cstat-no" title="statement not covered" >yield select(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.dashboard)</span>;</span>
     const allList = <span class="cstat-no" title="statement not covered" >toDoBoardRaw.filter(<span class="fstat-no" title="function not covered" >li</span>st =&gt; <span class="cstat-no" title="statement not covered" >list.todoListName.toLowerCase().includes(search.toLowerCase()))</span>;</span>
 <span class="cstat-no" title="statement not covered" >    yield put(actions.mutateSuccessDashboard(allList));</span>
 }
@@ -789,15 +791,16 @@ function* <span class="fstat-no" title="function not covered" >shareList(</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >        yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);</span>
 <span class="cstat-no" title="statement not covered" >        yield call(fetchAllLists);</span>
-<span class="cstat-no" title="statement not covered" >        alert("Successfully shared!");</span>
-    }
-    catch (e) {
-<span class="cstat-no" title="statement not covered" >        e.response.status === 409 ? alert("This list is already shared with the selected user.") : null;</span>
+<span class="cstat-no" title="statement not covered" >        alert('Successfully shared!');</span>
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >        e.response.status === 409 ? alert('This list is already shared with the selected user.') : null;</span>
     }
 }
 &nbsp;
 export function* <span class="fstat-no" title="function not covered" >saga(</span>) {
-<span class="cstat-no" title="statement not covered" >    yield safeTakeEvery([FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT], fetchAllLists);</span>
+<span class="cstat-no" title="statement not covered" >    yield safeTakeEvery([</span>
+        FETCH_DASHBOARD, SELECTED_MY_LISTS, SELECTED_SHARED_LISTS, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT,
+    ], fetchAllLists);
 <span class="cstat-no" title="statement not covered" >    yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);</span>
 <span class="cstat-no" title="statement not covered" >    yield safeTakeEvery(ADD_DASHBOARD, addList);</span>
 <span class="cstat-no" title="statement not covered" >    yield safeTakeLatest(UPDATE_CHECKBOX, updateSelectedTask);</span>
@@ -814,7 +817,7 @@ export function* <span class="fstat-no" title="function not covered" >saga(</spa
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Apr 05 2019 13:52:37 GMT+0300 (GMT+03:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Apr 08 2019 13:41:40 GMT+0300 (GMT+03:00)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

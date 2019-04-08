@@ -10,7 +10,7 @@ export const actions = {
     registration: createAction(REGISTRATION),
 };
 
-function* registration(action) {
+export function* registration(action) {
     yield call(registrationApi, action.payload);
     history.replace('/list');
 }

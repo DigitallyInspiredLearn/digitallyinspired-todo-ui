@@ -28,6 +28,8 @@ const initialState = {
     token: '',
 };
 
+export const getToken = state => state.auth;
+
 export const reducer = handleActions({
     [LOGIN_SUCCESS]: (state, action) => ({
         ...state,
@@ -37,7 +39,7 @@ export const reducer = handleActions({
     [REFRESH_TOKEN_SUCCESS]: (state, action) => ({ ...state, token: action.payload }),
 }, initialState);
 
-function setDefaultApiToken(token) {
+export function setDefaultApiToken(token) {
     axios.defaults.headers.common.authorization = `Bearer ${token}`;
 }
 
@@ -51,7 +53,7 @@ export function* authorization(action) {
     history.replace('/lists');
 }
 
-function* refreshTokenProcess() {
+export function* refreshTokenProcess() {
     const { location: { pathname } } = history;
     if (pathname === '/reg' || pathname === '/auth') {
         // no authorization
@@ -64,13 +66,13 @@ function* refreshTokenProcess() {
     }
 }
 
-function* rehydrateSaga() {
-    const { token } = yield select(state => state.auth);
+export function* rehydrateSaga() {
+    const { token } = yield select(getToken);
     yield call(setDefaultApiToken, token);
     yield call(refreshTokenProcess);
 }
 
-function* logout() {
+export function* logout() {
     (history.location.pathname === '/auth' || history.location.pathname === '/reg')
     || confirm('Do you want to logout?') && (
         yield call(setDefaultApiToken, ''),
