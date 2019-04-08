@@ -7,12 +7,12 @@ import Search from '../../components/search/Search';
 export class Popup extends Component {
 
     handleChange = (newValue) => {
-        const {actions} = this.props;
+        const { actions } = this.props;
         actions.searchUser(newValue);
     };
 
     render() {
-        const {statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
+        const { statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
         return (
             <styled.showPopup show={statePopup}>
                 <styled.popupContent>
@@ -29,10 +29,10 @@ export class Popup extends Component {
                             placeholder="Enter username"
                             value={search}
                             onChange={this.handleChange}
-                            style={{width: '93%', height: '50px'}}
-                            key='searchPop'
+                            style={{ width: '93%', height: '50px' }}
+                            key="searchPop"
                         />
-                        <styled.btnSearch className="fa fa-search fa-2x"/>
+                        <styled.btnSearch className="fa fa-search fa-2x" />
                     </styled.searchTask>
                     <styled.buttonBlock>
                         <styled.buttonCloSeOk
@@ -44,14 +44,14 @@ export class Popup extends Component {
                         </styled.buttonCloSeOk>
                         <styled.buttonCloSeOk
                             onClick={() => {
-                                let conformity = users.map(i => {
+                                const conformity = users.map(i => {
                                     return search !== i;
                                 });
-                                if (users[0] === "User is not found!" || search === '' || conformity[0] === true) {
-                                    alert("Data is not correct!");
+                                if (users[0] === 'User is not found!' || search === '' || conformity[0] === true) {
+                                    alert('Data is not correct!');
                                 }
                                 else {
-                                    actionsBoard.shareList({idList: idList, userName: search});
+                                    actionsBoard.shareList({ idList: idList, userName: search });
                                     closePopup();
                                     actions.searchUser('');
                                 }
@@ -62,19 +62,18 @@ export class Popup extends Component {
                     <styled.users search={search}>
                         {
                             users.map(i => (
-                                    search === i ? null :
-                                        i === "User is not found!" ? <div>
-                                                <input
-                                                    value={i}
-                                                />
-                                            </div> :
-                                            <div onClick={() => actions.searchUser(i)}>
-                                                <input
-                                                    value={i}
-                                                    key='user'
-                                                />
-                                            </div>
-                                )
+                                search === i ? null : i === 'User is not found!' ?
+                                    <div>
+                                        <input
+                                            value={i}
+                                        />
+                                    </div> :
+                                    <div onClick={() => actions.searchUser(i)}>
+                                        <input
+                                            value={i}
+                                            key='user'
+                                        />
+                                    </div>),
                             )
                         }
                     </styled.users>
