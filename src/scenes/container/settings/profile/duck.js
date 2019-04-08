@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import {
-    call, put,
+    call, put, take,
 } from 'redux-saga/effects';
 import { safeTakeEvery, safeTakeLatest } from '../../../../helpers/saga';
 import {
@@ -43,8 +43,8 @@ export function* editProfile(action) {
     yield call(fetchUser);
 }
 
-function* deleteProfile() {
-    confirm('Delete the profile?');
+export function* deleteProfile() {
+    // confirm('Delete the profile?');
     yield call(deleteProfileApi);
     yield call(fetchUser);
 }

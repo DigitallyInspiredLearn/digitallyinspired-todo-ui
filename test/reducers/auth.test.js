@@ -1,11 +1,7 @@
 import {
-    call, put, select, delay,
-} from 'redux-saga/effects';
-import { actions, reducer, authorization } from '../src/scenes/account/authorization/duck';
-import { authorization as authorizationApi, refreshToken } from '../src/api/auth';
+    actions, reducer,
+} from '../../src/scenes/account/authorization/duck';
 
-
-const generator = authorization();
 const initialState = {
     user: '',
     token: '',
@@ -44,9 +40,3 @@ describe('Authorization test', () => {
         expect(reducer(initialState, action)).toEqual(expected);
     });
 });
-
-// describe('Auth saga test', () => {
-//     it('Fetch saga test', () => {
-//         expect(generator.next({ password: 'rostik', usernameOrEmail: 'rostik' }).value).toEqual(call(authorizationApi, { password: 'rostik', usernameOrEmail: 'rostik' }));
-//     });
-// });
