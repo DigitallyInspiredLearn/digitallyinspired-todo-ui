@@ -39,7 +39,7 @@ export function* mutate() {
     yield put(actions.mutateSuccess(res));
 }
 
-function* getSubscribers() {
+export function* getSubscribers() {
     const res = yield call(getFollowers);
     console.log(res);
     yield put(actions.fetchSubscribersSuccess(res.data));
