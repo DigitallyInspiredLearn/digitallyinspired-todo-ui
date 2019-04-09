@@ -1,4 +1,4 @@
-import { actions, reducer } from '../src/scenes/container/settings/subscribes/duck';
+import { actions, reducer } from '../../src/scenes/container/settings/subscribes/duck';
 
 const initialState = {
     search: '',

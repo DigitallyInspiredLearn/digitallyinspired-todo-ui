@@ -1,6 +1,6 @@
 import {
     actions, reducer,
-} from '../src/scenes/list/duck';
+} from '../../src/scenes/list/duck';
 
 const initialState = {
     data: {

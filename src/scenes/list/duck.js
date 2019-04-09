@@ -40,7 +40,7 @@ export const actions = {
 };
 
 const initialState = {
-    data: {},
+    data: { tasks: [] },
     dataRaw: {},
     search: '',
     selectedDone: true,
@@ -89,16 +89,11 @@ export const reducer = handleActions({
 }, initialState);
 
 export function* fetchList(action) {
-    const { selectedDone, selectedNotDone } = yield select(getList);
     const r = yield call(getOneList, action.payload.idList);
-    (selectedDone && selectedNotDone) ? yield put(actions.fetchListSuccess(r.data))
-        : selectedDone ? yield put(actions.fetchListSuccess({
-            ...r.data,
-            tasks: r.data.tasks.filter(task => task.isComplete === true),
-        })) : selectedNotDone ? yield put(actions.fetchListSuccess({
-            ...r.data,
-            tasks: r.data.tasks.filter(task => task.isComplete === false),
-        })) : yield put(actions.fetchListSuccess({}));
+    yield put(actions.fetchListSuccess({
+        ...r.data,
+        tasks: r.data.tasks,
+    }));
 }
 
 export function* updateTitle(action) {
