@@ -24,13 +24,19 @@ describe('Profile saga test', () => {
         },
     };
 
-    // it('Fetch user put saga test', () => {
-    //     expect(generatorFetch.next(res.data).value).toEqual(put({
-    //         type: 'settings/FETCH_CURRENT_USER_SUCCESS',
-    //         payload: res.data,
-    //     }));
-    // });
+    it('Fetch user put saga test', () => {
+        expect(generatorFetch.next(res).value).toEqual(put({
+            type: 'settings/FETCH_CURRENT_USER_SUCCESS',
+            payload: res.data,
+        }));
+    });
 
+    it('Saga done', () => {
+        expect(generatorFetch.next().done).toBe(true);
+    });
+});
+
+describe('Edit profile saga test', () => {
     const action = {
         payload: {
             email: 'test@ssss.ru',
@@ -53,7 +59,9 @@ describe('Profile saga test', () => {
     it('Saga done', () => {
         expect(generatorEdit.next().done).toBe(true);
     });
+});
 
+describe('Delete profile saga test', () => {
     const generatorDelete = deleteProfile();
 
     it('Delete profile call saga test', () => {
@@ -67,10 +75,4 @@ describe('Profile saga test', () => {
     it('Saga done', () => {
         expect(generatorDelete.next().done).toBe(true);
     });
-
-    const generatorSaga = saga();
-    // it('TakeEvery fetchUser saga test', () => {
-    //     expect(generatorSaga.next().value).toEqual(safeTakeEvery(FETCH_CURRENT_USER, fetchUser));
-    // });
-
 });

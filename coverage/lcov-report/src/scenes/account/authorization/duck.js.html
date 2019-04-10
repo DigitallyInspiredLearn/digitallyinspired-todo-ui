@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.5% </span>
+        <span class="strong">82.35% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>20/32</span>
+        <span class='fraction'>28/34</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">37.5% </span>
+        <span class="strong">75% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>3/8</span>
+        <span class='fraction'>3/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55.56% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/9</span>
+        <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.52% </span>
+        <span class="strong">84.85% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>20/31</span>
+        <span class='fraction'>28/33</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -134,10 +134,7 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,25 +195,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,28 +283,25 @@ export function* refreshTokenProcess() {
     } else {
         yield delay(60000);
         const { data: { accessToken } } = yield call(refreshToken);
-<span class="cstat-no" title="statement not covered" >        yield call(setDefaultApiToken, accessToken);</span>
-<span class="cstat-no" title="statement not covered" >        yield put(actions.refreshToken());</span>
-<span class="cstat-no" title="statement not covered" >        yield put(actions.refreshTokenSuccess(accessToken));</span>
+        yield call(setDefaultApiToken, accessToken);
+        yield put(actions.refreshToken());
+        yield put(actions.refreshTokenSuccess(accessToken));
     }
 }
 &nbsp;
 export function* rehydrateSaga() {
     const { token } = yield select(getToken);
-<span class="cstat-no" title="statement not covered" >    yield call(setDefaultApiToken, token);</span>
-<span class="cstat-no" title="statement not covered" >    yield call(refreshTokenProcess);</span>
+    yield call(setDefaultApiToken, token);
+    yield call(refreshTokenProcess);
 }
 &nbsp;
-export function* <span class="fstat-no" title="function not covered" >logout(</span>) {
-<span class="cstat-no" title="statement not covered" >    (history.location.pathname === '/auth' || history.location.pathname === '/reg')</span>
-    || confirm('Do you want to logout?') &amp;&amp; (
-        yield call(setDefaultApiToken, ''),
-        history.replace('/auth'),
-        yield put(actions.loginSuccess({
-            user: '',
-            token: '',
-        }))
-    );
+export function* logout() {
+    yield call(setDefaultApiToken, '');
+    history.replace('/auth');
+    yield put(actions.loginSuccess({
+        user: '',
+        token: '',
+    }));
 }
 &nbsp;
 export function* <span class="fstat-no" title="function not covered" >saga(</span>) {
@@ -325,7 +316,7 @@ export function* <span class="fstat-no" title="function not covered" >saga(</spa
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Apr 10 2019 15:23:40 GMT+0300 (GMT+03:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Apr 10 2019 15:32:09 GMT+0300 (GMT+03:00)
 </div>
 </div>
 <script src="..\..\..\..\prettify.js"></script>

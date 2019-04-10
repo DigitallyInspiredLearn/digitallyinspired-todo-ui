@@ -34,7 +34,9 @@ describe('Follow user saga test', () => {
     it('Saga done', () => {
         expect(generatorFetchUserNames.next().done).toBe(true);
     });
+});
 
+describe('Follow users saga test', () => {
     const action = {
         type: 'followUserReducer/FOLLOW_USER',
         payload: 'test',
@@ -48,11 +50,11 @@ describe('Follow user saga test', () => {
 
     const generatorFollowUsers = followUsers(action);
 
-    it('Follow user call saga test', () => {
+    it('Call followUserApi saga test', () => {
         expect(generatorFollowUsers.next().value).toEqual(call(followUserApi, action.payload));
     });
 
-    it('Follow user put saga test', () => {
+    it('Put getMessageOnAccessFollowing saga test', () => {
         expect(generatorFollowUsers.next(r).value).toEqual(put({
             type: 'followUserReducer/GET_MESSAGE_ON_ACCESS_FOLLOWING',
             payload: r.data.message,
@@ -62,14 +64,48 @@ describe('Follow user saga test', () => {
     it('Saga done', () => {
         expect(generatorFollowUsers.next().done).toBe(true);
     });
+});
 
+describe('Mutate saga test', () => {
     const generatorMutate = mutate();
 
-    it('Fetch follow user select saga test', () => {
+    it('Select getFollowUser saga test', () => {
         expect(generatorMutate.next().value).toEqual(select(getFollowUser));
     });
 
-    // it('Fetch username select saga test', () => {
-    //     expect(generatorMutate.next().value).toEqual(select(getUsername));
+    const resSelect = {
+        userNameRaw: 'test',
+        search: 't',
+    };
+
+    it('Select getUsername saga test', () => {
+        expect(generatorMutate.next(resSelect).value).toEqual(select(getUsername));
+    });
+
+    const followUserArray = {
+        followUserArray: [
+            {
+                user: 'test',
+            },
+            {
+                user: 'testtest',
+            },
+        ],
+    };
+
+    const userNamesRaw = [
+        {
+            user: 'test',
+        },
+        {
+            user: 'testtest',
+        },
+    ];
+
+    // it('Put mutate success saga test', () => {
+    //     expect(generatorMutate.next(userNamesRaw).value).toEqual(put({
+    //         type: 'followUserReducer/MUTATE_SUCCESS',
+    //         payload: followUserArray.followUserArray,
+    //     }));
     // });
 });

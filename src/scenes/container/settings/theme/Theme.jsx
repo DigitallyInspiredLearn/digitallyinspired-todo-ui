@@ -18,7 +18,7 @@ class Theme extends Component {
 
 
     handleDefaultSelect = (type) => {
-        this.setState({type, data: theme[type]});
+        this.setState({ type, data: theme[type] });
     };
 
     handleDataChange = (key, newValue) => {
