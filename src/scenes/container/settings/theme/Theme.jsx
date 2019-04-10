@@ -32,7 +32,6 @@ class Theme extends Component {
     };
 
     handleApply = () => {
-        console.log(this.state);
         this.props.actions.changeTheme(this.state);
     };
 
