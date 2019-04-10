@@ -72,97 +72,97 @@ class Theme extends Component {
                     <styled.Row>
                         <styled.Text>Main Text:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('mainText', value)}
+                            onChange={value => this.handleDataChange('mainText', value)}
                             value={data.mainText}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Background List:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('backgroundList', value)}
+                            onChange={value => this.handleDataChange('backgroundList', value)}
                             value={data.backgroundList}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Background Header:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('backgroundHeader', value)}
+                            onChange={value => this.handleDataChange('backgroundHeader', value)}
                             value={data.backgroundHeader}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Text Header:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('textHeader', value)}
+                            onChange={value => this.handleDataChange('textHeader', value)}
                             value={data.textHeader}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Background Button:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('backgroundButton', value)}
+                            onChange={value => this.handleDataChange('backgroundButton', value)}
                             value={data.backgroundButton}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Hover Button:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('hoverButton', value)}
+                            onChange={value => this.handleDataChange('hoverButton', value)}
                             value={data.hoverButton}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Active Button:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('activeButton', value)}
+                            onChange={value => this.handleDataChange('activeButton', value)}
                             value={data.activeButton}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Button Text:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('buttonText', value)}
+                            onChange={value => this.handleDataChange('buttonText', value)}
                             value={data.buttonText}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Active Button Text:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('activeButtonText', value)}
+                            onChange={value => this.handleDataChange('activeButtonText', value)}
                             value={data.activeButtonText}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Checkbox Background:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('checkboxBackground', value)}
+                            onChange={value => this.handleDataChange('checkboxBackground', value)}
                             value={data.checkboxBackground}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>
                         <styled.Text>Active Checkbox:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('activeCheckbox', value)}
+                            onChange={value => this.handleDataChange('activeCheckbox', value)}
                             value={data.activeCheckbox}
                             border={true}
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}

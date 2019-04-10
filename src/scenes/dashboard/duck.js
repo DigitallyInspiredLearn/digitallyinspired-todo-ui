@@ -141,29 +141,7 @@ export function* fetchAllLists() {
     const {
         selectedMy, selectedShared, pageSize, currentPage, sort,
     } = yield select(state => state.dashboard);
-    let sortValue;
-    switch (sort) {
-        case 'todoListName, A - Z':
-            sortValue = 'todoListName,asc';
-            break;
-        case 'todoListName, Z - A':
-            sortValue = 'todoListName,desc';
-            break;
-        case 'createdDate, low to high':
-            sortValue = 'createdDate,asc';
-            break;
-        case 'createdDate, high to low':
-            sortValue = 'createdDate,desc';
-            break;
-        case 'modifiedDate, low to high':
-            sortValue = 'modifiedDate,asc';
-            break;
-        case 'modifiedDate, high to low':
-            sortValue = 'modifiedDate,desc';
-            break;
-        default:
-            sortValue = 'id,asc';
-    }
+    const sortValue = getSorting(sort);
     const data = selectedMy
         ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
     const countElements = data.totalElements;
