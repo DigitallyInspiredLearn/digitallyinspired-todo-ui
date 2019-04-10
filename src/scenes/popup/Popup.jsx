@@ -12,7 +12,7 @@ export class Popup extends Component {
     };
 
     render() {
-        const { statePopup, closePopup, actions, actionsBoard, users, search, idList} = this.props;
+        const { statePopup, closePopup, actions, actionsBoard, users, search, idList } = this.props;
         return (
             <styled.showPopup show={statePopup}>
                 <styled.popupContent>
@@ -51,7 +51,7 @@ export class Popup extends Component {
                                     alert('Data is not correct!');
                                 }
                                 else {
-                                    actionsBoard.shareList({ idList: idList, userName: search });
+                                    actionsBoard.shareList({ idList, userName: search });
                                     closePopup();
                                     actions.searchUser('');
                                 }

@@ -53,8 +53,6 @@ export const reducer = handleActions({
 
     [FETCH_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
 
-    [FETCH_CHANGE_LIST_SUCCESS]: (state, action) => ({ ...state, data: action.payload }),
-
     [UPDATE_TITLE_LIST]: (state, action) => ({
         ...state,
         data: { ...state.data, todoListName: action.payload.newTitle },
@@ -88,6 +86,7 @@ export const reducer = handleActions({
 
 }, initialState);
 
+
 export function* fetchList(action) {
     const r = yield call(getOneList, action.payload.idList);
     yield put(actions.fetchListSuccess({
@@ -114,12 +113,7 @@ export function* fetchUpdateTask(action) {
 
 export function* fetchChangeSearch(action) {
     const list = yield call(getOneList, action.payload.idDashboard);
-    const mutateTask = action.payload.search === '' ? actions.fetchListSuccess(list.data)
-        : actions.changeListSuccess({
-            ...list.data,
-            tasks: list.data.tasks.filter(i => i.body.indexOf(action.payload.search) >= 0),
-        });
-    yield put(mutateTask);
+    yield put(actions.fetchListSuccess(list.data));
 }
 
 export function* addNewTask(action) {
