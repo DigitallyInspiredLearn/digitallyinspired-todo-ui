@@ -73,12 +73,12 @@ class DropDown extends Component {
                 </styled.Ul>
                 {
                     titleButton !== '' ? <styled.Button
-                            onClick={this.changeVisible}
-                            stylesButton={stylesButton}
-                        >
-                            { titleButton }
-                        </styled.Button>
-                         : <styled.Icon
+                        onClick={this.changeVisible}
+                        stylesButton={stylesButton}
+                    >
+                        { titleButton }
+                        <styled.Down className="fa fa-angle-down" />                    </styled.Button>
+                        : <styled.Icon
                             src={list}
                             alt="list"
                             onClick={this.changeVisible}

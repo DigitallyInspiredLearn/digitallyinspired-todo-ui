@@ -10,10 +10,18 @@ const getDoneFilter = state => state.list.selectedDone;
 
 const getNotDoneFilter = state => state.list.selectedNotDone;
 
+const getSearch = state => state.list.search;
+
 const getTasksRaw = state => state.list.data.tasks;
 
-const getTasks = createSelector(
+const getFindingTasks = createSelector(
     getTasksRaw,
+    getSearch,
+    (tasks, search) => search === '' ? tasks : tasks.filter(i => i.body.indexOf(search.search) >= 0),
+);
+
+const getTasks = createSelector(
+    getFindingTasks,
     getDoneFilter,
     getNotDoneFilter,
     (tasks, done, notDone) => !(done ^ notDone) ? tasks : tasks.filter(task => task.isComplete === done),
@@ -21,12 +29,12 @@ const getTasks = createSelector(
 
 const mapStateToProps = state => (
     {
-
         data: state.list.data,
         tasks: getTasks(state),
         done: state.list.selectedDone,
         notDone: state.list.selectedNotDone,
         todo: state.dashboard.toDoBoardRow,
+        search: state.list.search,
     }
 );
 

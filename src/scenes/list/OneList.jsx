@@ -46,7 +46,6 @@ class OneList extends Component {
     };
 
     render() {
-        console.log(this.props);
         const { valueNewTask } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks,
@@ -81,7 +80,7 @@ class OneList extends Component {
                     <Link to="/lists">
                         <styled.animationButton
                             // style={{
-                            //     backgroundImage: 'url("../../image/trash.svg")', marginTop: '5px', marginLeft: '10px', width: '30px', height: '30px',
+                            // backgroundImage: 'url("../../image/trash.svg")', marginTop: '5px', marginLeft: '10px', width: '30px', height: '30px',
                             // }}
                             className="iconTrash"
                             src={trash}

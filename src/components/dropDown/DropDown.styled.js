@@ -5,8 +5,10 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
+    display: flex;
+    justify-content: space-between;
 	border: none;
-	background-color: ${p => (p.checked ? p.theme.activeButton : p.theme.backgroundButton)};
+	background-color: ${p => (p.checked ? p.theme.activeButton : p.theme.backgroundList)};
     box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
     color: ${p => (p.checked ? p.theme.activeButtonText : p.theme.buttonText)};
     border-radius:5px;
@@ -18,8 +20,12 @@ export const Button = styled.button`
     }
     ${p => p.stylesButton}
 `;
+
+export const Down = styled.div`
+    font-size: 20px;
+`;
 export const Ul = styled.div`
-    ${p => p.stylesContainer}  
+    ${p => p.stylesContainer}
     position: absolute;
 	font-size: 20px;
 	cursor: pointer;
