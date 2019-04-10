@@ -1,6 +1,4 @@
-import {
-    call, put, select, delay,
-} from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import {
     fetchAllLists,
     deleteDashboard,
@@ -14,6 +12,8 @@ import {
     shareList,
     getDashboard,
     getToDoBoardFiltered,
+    getMutateList,
+    getSorting, reducer, actions,
 } from '../../src/scenes/dashboard/duck';
 import {
     addDashboard, deleteList, getMyList, getSharedLists, shareTodoListToUser, updateList,
@@ -98,9 +98,6 @@ describe('deleteDashboard  test', () => {
 describe('updateSelectedTask  test', () => {
     const action = { payload: { idTask: 1 } };
     const generator = updateSelectedTask(action);
-    it('delay test updateSelectedTask', () => {
-        expect(generator.next().value).toEqual(delay(150));
-    });
     it('updateSelectedTask  call', () => {
         expect(generator.next(action).value).toEqual(call(
             updateTask, action.payload.idTask, {
@@ -109,104 +106,125 @@ describe('updateSelectedTask  test', () => {
             },
         ));
     });
-    it('fetchAllLists updateNameTask Selectedcall', () => { expect(generator.next().value).toEqual(call(fetchAllLists)); });
+    it('fetchAllLists updateNameTask Selectedcall',
+        () => expect(generator.next().value).toEqual(call(fetchAllLists)));
     it('Saga done', () => { expect(generator.next().done).toBe(true); });
 });
 
-//-----------------------------------------------------------
-// describe('fetchAllLists saga test', () => {
-//     const generator = fetchAllLists();
-//     const action = { currentPage: 0, pageSize: 4, sortValue: 'todoListName,asc' };
-//     it('Select getDashboard', () => { expect(generator.next().value).toEqual(select(getDashboard)); });
-//     it('Call getMyList', () => {
-//         expect(
-//             generator.next(
-//             ).value,
-//         ).toEqual(call(getMyList, action.currentPage, action.pageSize, action.sortValue));
-//     });
-//     it('Put FETCH_MY_LISTS_SUCCESS', () => {
-//         expect(
-//             generator.next({}).value,
-//         ).toEqual(put({
-//             type: 'dashboard/FETCH_MY_LISTS_SUCCESS',
-//             payload: {
-//                 myLists: [
-//                 ],
-//                 countElements: 2,
-//                 countPages: 1,
-//             },
-//         }));
-//     });
-//     it('Call getSharedLists', () => { expect(generator.next({}).value).toEqual(call(getSharedLists)); });
-//     it('Put FETCH_SHARED_LISTS_SUCCESS', () => {
-//         expect(generator.next({ sharedList: [] }).value).toEqual(
-//             put({
-//                 type: 'dashboard/FETCH_SHARED_LISTS_SUCCESS',
-//                 payload: {
-//                     sharedList: [],
-//                 },
-//             }),
-//         );
-//     });
-//     it('Put FETCH_DASHBOARD_SUCCESS', () => {
-//         expect(
-//             generator.next({
-//                 toDoBoardRaw: [],
-//             }).value,
-//         ).toEqual(
-//             put({
-//                 type: 'dashboard/FETCH_DASHBOARD_SUCCESS',
-//                 payload: {
-//                     toDoBoardRaw: [
-//                     ],
-//                 },
-//             }),
-//         );
-//     });
-//     it('Saga done', () => {
-//         expect(generator.next().done).toBe(true);
-//     });
-// });
-//
-// describe('updateTitleDashboard  test', () => {
-//     const action = { payload: { newTitle: 'new', id: 1 } };
-//     const generator = updateTitle(action);
-//     it('updateTitleDashboard  select', () => {
-//         expect(generator.next().value).toEqual(select(
-//             getToDoBoardFiltered(action.payload.id),
-//         ));
-//     });
-//     it('updateList  call', () => {
-//         expect(generator.next(action.payload.id, action.payload.newTitle).value).toEqual(call(
-//             updateList, action.payload.id, action.payload.newTitle,
-//         ));
-//     });
-//     it('fetchAllLists updateTitleDashboard call', () => { expect(generator.next().value).toEqual(call(fetchAllLists)); });
-//     it('Saga done', () => { expect(generator.next().done).toBe(true); });
-// });
-//
-// describe('mutate  test', () => {
-//     const generator = mutate();
-//     const res = [{
-//         createdBy: 58,
-//         createdDate: 1554110943375,
-//         id: 69,
-//         modifiedBy: 58,
-//         modifiedDate: 1554110943470,
-//         tasks:[
-//             {id: 118, body: "hlhli", isComplete: false},
-//         ],
-//         todoListName: "DashboardList"}].filter();
-//     it('mutate  select', () => { expect(generator.next().value).toEqual(select(getDashboard)); });
-//     it('put dashboard/MUTATE_SUCCESS', () => {
-//         expect(
-//             generator.next(res).value
-//         ).toEqual(
-//             put({
-//                 type: 'dashboard/MUTATE_SUCCESS',
-//                 payload: res,
-//             }),
-//         );
-//     });
-//     it('Saga done', () => {expect(generator.next().done).toBe(true);});
-// });
+describe('updateTitleDashboard  test', () => {
+    const action = { payload: { newTitle: '', id: 1 } };
+    const list = { id: 1, todoListName: 'New value' };
+
+    const generator = updateTitle(action);
+    it('updateTitleDashboard  select', () => {
+        expect(generator.next(action).value).toEqual(select(
+            getToDoBoardFiltered, action.payload.id,
+        ));
+    });
+    it('updateList  call', () => {
+        expect(generator.next(list).value).toEqual(call(
+            updateList, action.payload.id, list,
+        ));
+    });
+    it('fetchAllLists updateTitleDashboard call', () => {
+        expect(generator.next().value).toEqual(call(fetchAllLists));
+    });
+    it('Saga done', () => { expect(generator.next().done).toBe(true); });
+});
+
+describe('fetchAllLists saga test', () => {
+    const generator = fetchAllLists();
+    const res1 = {
+        selectedMy: true,
+        selectedShared: true,
+        pageSize: 4,
+        currentPage: 0,
+        sort: 'By id, low to high',
+        sortValue: 'id,asc',
+    };
+
+    const res2 = {
+        data: {
+            content: [
+                { id: 129, todoListName: 'New valuebkhkkjfdf' },
+            ],
+            totalElements: 1,
+            totalPages: 1,
+        },
+    };
+    it('Select getDashboard', () => {
+        expect(generator.next().value).toEqual(select(getDashboard));
+    });
+    it('Call getMyList', () => {
+        expect(
+            generator.next(res1).value,
+        ).toEqual(call(
+            getMyList, res1.currentPage, res1.pageSize, res1.sortValue,
+        ));
+    });
+    it('Put FETCH_MY_LISTS_SUCCESS', () => {
+        expect(
+            generator.next(res2.data).value,
+        ).toEqual(put({
+            type: 'dashboard/FETCH_MY_LISTS_SUCCESS',
+            payload: {
+                myList: res2.data.content,
+                totalElements: res2.data.totalElements,
+                totalPages: res2.data.totalPages,
+            },
+        }));
+    });
+    // it('Call getSharedLists',
+    //     () => {
+    //         expect(generator.next(res2).value).toEqual(call(getSharedLists));
+    //     });
+    // it('Put FETCH_SHARED_LISTS_SUCCESS', () => {
+    //     expect(generator.next(res2).value).toEqual(
+    //         put({
+    //             type: 'dashboard/FETCH_SHARED_LISTS_SUCCESS',
+    //             payload: {
+    //                 sharedList: res2.sharedList,
+    //             },
+    //         }),
+    //     );
+    // });
+    // it('Put FETCH_DASHBOARD_SUCCESS', () => {
+    //     expect(
+    //         generator.next(data.myList).value,
+    //     ).toEqual(
+    //         put({
+    //             type: 'dashboard/FETCH_DASHBOARD_SUCCESS',
+    //             payload: {
+    //                 toDoBoardRaw: data.myList,
+    //             },
+    //         }),
+    //     );
+    // });
+    it('Saga done', () => {
+        expect(generator.next().done).toBe(true);
+    });
+});
+
+describe('mutate  test', () => {
+    const generator = mutate();
+    const allList = getMutateList(
+        [
+            { id: 1, todoListName: 'value' },
+            { id: 1, todoListName: 'wwwv' },
+        ],
+        'va',
+    );
+
+    it('mutate  select', () => {
+        expect(generator.next().value).toEqual(select(getDashboard));
+    });
+    it('put dashboard/MUTATE_SUCCESS', () => {
+        expect(generator.next(allList).value).toEqual(
+            put({
+                type: 'dashboard/MUTATE_SUCCESS',
+                payload: allList,
+            }),
+        );
+    });
+    it('Saga done', () => { expect(generator.next().done).toBe(true); });
+});
