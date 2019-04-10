@@ -84,7 +84,7 @@ const initialState = {
     search: '',
     pageSize: 4,
     totalElements: 0,
-    sort: 'id,asc',
+    sort: 'By id, low to high',
 };
 
 export const reducer = handleActions({

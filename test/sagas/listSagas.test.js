@@ -1,5 +1,5 @@
 import {
-    call, put, select, delay,
+    call, put, delay,
 } from 'redux-saga/effects';
 import {
     fetchChangeSearch, fetchDeleteList, fetchDeleteTask, fetchList, getList, updateTitle,
@@ -28,10 +28,6 @@ describe('List saga test fetchList', () => {
         },
     };
 
-    it('Select getList', () => {
-        expect(generator.next().value).toEqual(select(getList));
-    });
-
     it('Call getOneList', () => {
         expect(generator.next(action).value).toEqual(call(getOneList, action.payload.idList));
     });
@@ -41,7 +37,10 @@ describe('List saga test fetchList', () => {
             .toEqual(
                 put({
                     type: 'list/FETCH_LIST_SUCCESS',
-                    payload: {},
+                    payload: {
+                        ...r.data,
+                        tasks: r.data.tasks,
+                    },
                 }),
             );
     });
@@ -53,7 +52,7 @@ describe('List saga test fetchList', () => {
 
 describe('List saga test updateTitle', () => {
     const action = {
-        payload: { idDashboard: 10, newTitle: 'New list' },
+        payload: {idDashboard: 10, newTitle: 'New list'},
         list: {
             data: {
                 todoListName: 'NewList',
@@ -70,7 +69,7 @@ describe('List saga test updateTitle', () => {
     });
     it('Call updateList', () => {
         expect(generator.next(action).value).toEqual(call(updateList, action.payload.idDashboard,
-            { ...action.list.data, todoListName: action.payload.newTitle }));
+            {...action.list.data, todoListName: action.payload.newTitle}));
     });
     it('Saga done', () => {
         expect(generator.next().done).toBe(true);
@@ -125,8 +124,8 @@ describe('List saga test fetchUpdateTask', () => {
 });
 
 describe('List saga test fetchChangeSearch', () => {
-    const action = { payload: { idDashboard: 10 } };
-    const r = {
+    const action = { payload: { idDashboard: 3 } };
+    const list = {
         data: {
             id: 3,
             todoListName: 'Dashboard',
@@ -141,25 +140,27 @@ describe('List saga test fetchChangeSearch', () => {
             },
         },
     };
-    const mutateTask = {
-        type: 'list/FETCH_LIST_SUCCESS',
-        payload: r.data,
-    };
     const generator = fetchChangeSearch(action);
 
     it('Call getOneList', () => {
         expect(generator.next(action).value).toEqual(call(getOneList, action.payload.idDashboard));
     });
-    // it('Put MUTATE_TASK', () => {
-    //     expect(generator.next(r).value)
-    //         .toEqual(
-    //             put(mutateTask),
-    //         );
-    // });
+    it('Put FETCH_LIST_SUCCESS', () => {
+        expect(generator.next(list).value)
+            .toEqual(
+                put({
+                    type: 'list/FETCH_LIST_SUCCESS',
+                    payload: list.data,
+                }),
+            );
+    });
+    it('Saga done', () => {
+        expect(generator.next().done).toBe(true);
+    });
 });
 
 describe('List saga test addNewTask', () => {
-    const action = { payload: { idDashboard: 4, nameTask: 'New task', isComplete: false } };
+    const action = {payload: {idDashboard: 4, nameTask: 'New task', isComplete: false}};
     const r = {
         data: {
             id: 3,
@@ -202,7 +203,7 @@ describe('List saga test addNewTask', () => {
 });
 
 describe('List saga test fetchDeleteList', () => {
-    const action = { payload: { idDashboard: 4, idTask: 2 } };
+    const action = {payload: {idDashboard: 4, idTask: 2}};
     const generator = fetchDeleteList(action);
 
     it('Call deleteList', () => {
@@ -214,7 +215,7 @@ describe('List saga test fetchDeleteList', () => {
 });
 
 describe('List saga test fetchDeleteTask', () => {
-    const action = { payload: { idDashboard: 4 } };
+    const action = {payload: {idDashboard: 4}};
     const generator = fetchDeleteTask(action);
 
     const r = {
@@ -256,7 +257,7 @@ describe('List saga test fetchDeleteTask', () => {
     });
 });
 describe('List saga test fetchUpdateCheckbox', () => {
-    const action = { payload: { idDashboard: 4, nameTask: 'New task', isComplete: false } };
+    const action = {payload: {idDashboard: 4, nameTask: 'New task', isComplete: false}};
     const generator = fetchUpdateCheckbox(action);
 
     const r = {

@@ -1,5 +1,5 @@
 import {
-    actions, reducer,
+    actions, FETCH_CHANGE_LIST_SUCCESS, reducer,
 } from '../../src/scenes/list/duck';
 
 const initialState = {
@@ -96,9 +96,9 @@ describe('List test', () => {
             tasks: [
                 {
                     id: 0,
-                    body: 'New test'
+                    body: 'New test',
                 },
-            ]
+            ],
         };
         const action = actions.fetchListSuccess(data);
         const expected = {
@@ -108,15 +108,16 @@ describe('List test', () => {
                 tasks: [
                     {
                         id: 0,
-                        body: 'New test'
+                        body: 'New test',
                     },
-                ]
-            }
+                ],
+            },
         };
         expect(reducer(initialState, action)).toEqual(expected);
     });
+
     it('UPDATE_TITLE_LIST test', () => {
-        const action = actions.updateTitleList({newTitle: 'Dashboard'});
+        const action = actions.updateTitleList({ newTitle: 'Dashboard' });
         const expected = {
             ...initialState,
             data: {

@@ -23,7 +23,8 @@ export const Head = styled.div`
 export const SearchDiv = styled.div`
     display: flex;
     flex-direction: row;
-    flex: auto;
+    flex: inherit;
+    width: 70%;
     background-color: ${p => p.theme.backgroundList};
     height: auto;
     min-height: 16px;
@@ -35,6 +36,13 @@ export const SearchDiv = styled.div`
         padding: 8px;   
     }
      
+`;
+
+export const LabelDiv = styled.div`
+    display: flex;
+    align-self: center;
+    font-size: 20px;
+    color: ${p => p.theme.buttonText}    
 `;
 
 export const Footer = styled.div`
