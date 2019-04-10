@@ -3,8 +3,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8080';
 
 export const getMyList = (page, size, sort) => (
-    axios.get(`/api/todolists/my?page=${page}&size=${size}&sort=${sort}`)
-);
+    axios.get(`/api/todolists/my?page=${page}&size=${size}&sort=${sort}&status=ACTIVE`));
 
 export const getSharedLists = () => axios.get('/api/todolists/shared');
 
