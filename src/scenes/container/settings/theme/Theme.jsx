@@ -36,7 +36,7 @@ class Theme extends Component {
     };
 
     render() {
-        const {type, data} = this.state;
+        const { type, data } = this.state;
         return (
             <styled.Theme>
                 <styled.ColumnContainer>
@@ -63,10 +63,10 @@ class Theme extends Component {
                     <styled.Row>
                         <styled.Text>Background:</styled.Text>
                         <Input
-                            onChange={(value) => this.handleDataChange('background', value)}
+                            onChange={value => this.handleDataChange('background', value)}
                             value={data.background}
                             border={true}
-                            style={{width: '120px', height: '16px', fontSize: '14px'}}
+                            style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
                     <styled.Row>

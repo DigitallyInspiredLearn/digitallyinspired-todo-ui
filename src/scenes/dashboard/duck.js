@@ -140,14 +140,36 @@ export const getSorting = (sort) => {
 export function* fetchAllLists() {
     const {
         selectedMy, selectedShared, pageSize, currentPage, sort,
-    } = yield select(getDashboard);
-    const sortValue = getSorting(sort);
+    } = yield select(state => state.dashboard);
+    let sortValue;
+    switch (sort) {
+        case 'todoListName, A - Z':
+            sortValue = 'todoListName,asc';
+            break;
+        case 'todoListName, Z - A':
+            sortValue = 'todoListName,desc';
+            break;
+        case 'createdDate, low to high':
+            sortValue = 'createdDate,asc';
+            break;
+        case 'createdDate, high to low':
+            sortValue = 'createdDate,desc';
+            break;
+        case 'modifiedDate, low to high':
+            sortValue = 'modifiedDate,asc';
+            break;
+        case 'modifiedDate, high to low':
+            sortValue = 'modifiedDate,desc';
+            break;
+        default:
+            sortValue = 'id,asc';
+    }
     const data = selectedMy
-        ? (yield call(getMyList, currentPage, pageSize, sortValue)) : {};
-    console.log(data.data);
-    const { totalElements, totalPages, content } = data.data;
-    const myLists = selectedMy ? content : [];
-    yield put(actions.fetchMyListsSuccess({ myLists, totalElements, totalPages }));
+        ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
+    const countElements = data.totalElements;
+    const myLists = selectedMy ? data.content : [];
+    const countPages = data.totalPages;
+    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
