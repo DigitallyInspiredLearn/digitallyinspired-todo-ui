@@ -38,10 +38,13 @@ class DashboardList extends Component {
                             />
                             <styled.IconSearch src={loupe} />
                         </styled.SearchDiv>
+                        <styled.LabelDiv>
+                            Sorting:
+                        </styled.LabelDiv>
                         <styled.CheckboxDiv>
                             <DropDown
                                 changeValue={actions.changeSort}
-                                titleButton="Sorting"
+                                titleButton={sort}
                                 currentValue={sort}
                                 possibleValues={[
                                     'By id, low to high',
@@ -60,10 +63,11 @@ class DashboardList extends Component {
                                     margin-left: 8px;
                                     font-size: 16px;
                                     width: auto;
-                                    min-width: 150px;
+                                    min-width: 300px;
                                     font-weight: bold;
                                     @media (max-width: 600px) {
                                         flex: 1;
+                                        justify-content: space-between;
                                         text-align: center;
                                         padding:5px;
                                     }

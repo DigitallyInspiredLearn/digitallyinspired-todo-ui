@@ -15,22 +15,24 @@ export const actions = {
 export const getUser = state => state.profile.currentUser.username;
 
 const initialState = {
-    users: [],
+    data: {
+        users: [],
+        currentUserName: '',
+    },
     search: '',
 };
 
 export const reducer = handleActions({
     [SEARCH_USERS]: (state, action) => ({ ...state, search: action.payload }),
-    [FETCH_USERS]: (state, action) => ({ ...state, users: action.payload }),
+    [FETCH_USERS]: (state, action) => ({ ...state, data: action.payload }),
 
 }, initialState);
+
 
 export function* fetchUser(action) {
     const currentUserName = yield select(getUser);
     const res = yield call(searchUserByUsername, action.payload);
-    const array = ['User is not found!'];
-    const users = res.data.filter(i => i !== currentUserName);
-    users.length === 0 ? yield put(actions.fetchUser(array)) : yield put(actions.fetchUser(users));
+    yield put(actions.fetchUser({ users: res.data, currentUserName }));
 }
 
 export function* saga() {
