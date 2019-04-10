@@ -18,7 +18,7 @@ class Theme extends Component {
 
 
     handleDefaultSelect = (type) => {
-        this.setState({type, data: theme[type]});
+        this.setState({ type, data: theme[type] });
     };
 
     handleDataChange = (key, newValue) => {
@@ -32,6 +32,7 @@ class Theme extends Component {
     };
 
     handleApply = () => {
+        console.log(this.state);
         this.props.actions.changeTheme(this.state);
     };
 
