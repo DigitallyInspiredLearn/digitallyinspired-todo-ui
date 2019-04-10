@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import {
-    call, put, select, delay,
+    call, put, delay,
 } from 'redux-saga/effects';
 import getOneList from '../../api/list';
 import { updateList, deleteList } from '../../api/dashboard';

@@ -140,20 +140,20 @@ export const getSorting = (sort) => {
 export function* fetchAllLists() {
     const {
         selectedMy, selectedShared, pageSize, currentPage, sort,
-    } = yield select(getDashboard);
+    } = yield select(state => state.dashboard);
     const sortValue = getSorting(sort);
     const data = selectedMy
-        ? (yield call(getMyList, currentPage, pageSize, sortValue)) : {};
-    console.log(data.data);
-    const { totalElements, totalPages, content } = data.data;
-    const myLists = selectedMy ? content : [];
-    yield put(actions.fetchMyListsSuccess({ myLists, totalElements, totalPages }));
-    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
+        ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
+    const countElements = data.totalElements;
+    const myLists = selectedMy ? data.content : [];
+    const countPages = data.totalPages;
+    yield put(actions.fetchMyListsSuccess({myLists, countElements, countPages}));
+    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({...l, shared: true})) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
 }
-// -----------------------
+
 export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.find(l => l.id === id);
 export function* updateTitle(action) {
     const { payload: { newTitle, id } } = action;
