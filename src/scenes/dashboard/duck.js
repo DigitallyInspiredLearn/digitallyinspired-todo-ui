@@ -143,11 +143,11 @@ export function* fetchAllLists() {
     } = yield select(getDashboard);
     const sortValue = getSorting(sort);
     const data = selectedMy
-        ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
-    const countElements = data.totalElements;
-    const myLists = selectedMy ? data.content : [];
-    const countPages = data.totalPages;
-    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
+        ? (yield call(getMyList, currentPage, pageSize, sortValue)) : {};
+    console.log(data.data);
+    const { totalElements, totalPages, content } = data.data;
+    const myLists = selectedMy ? content : [];
+    yield put(actions.fetchMyListsSuccess({ myLists, totalElements, totalPages }));
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);

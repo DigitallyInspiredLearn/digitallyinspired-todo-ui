@@ -134,65 +134,72 @@ describe('updateTitleDashboard  test', () => {
 
 describe('fetchAllLists saga test', () => {
     const generator = fetchAllLists();
-    const data = {
+    const res1 = {
         selectedMy: true,
         selectedShared: true,
         pageSize: 4,
         currentPage: 0,
         sort: 'By id, low to high',
         sortValue: 'id,asc',
-        myList: [{ id: 1, name: 'name' }],
-        sharedList: [{ id: 1, name: 'shared' }],
     };
 
+    const res2 = {
+        data: {
+            content: [
+                { id: 129, todoListName: 'New valuebkhkkjfdf' },
+            ],
+            totalElements: 1,
+            totalPages: 1,
+        },
+    };
     it('Select getDashboard', () => {
         expect(generator.next().value).toEqual(select(getDashboard));
     });
     it('Call getMyList', () => {
         expect(
-            generator.next(data).value,
+            generator.next(res1).value,
         ).toEqual(call(
-            getMyList, data.currentPage, data.pageSize, data.sortValue,
+            getMyList, res1.currentPage, res1.pageSize, res1.sortValue,
         ));
     });
     it('Put FETCH_MY_LISTS_SUCCESS', () => {
         expect(
-            generator.next(data).value,
+            generator.next(res2.data).value,
         ).toEqual(put({
             type: 'dashboard/FETCH_MY_LISTS_SUCCESS',
             payload: {
-                myLists: data.name,
-                countElements: data.totalElements,
-                countPages: data.currentPage,
+                myList: res2.data.content,
+                totalElements: res2.data.totalElements,
+                totalPages: res2.data.totalPages,
             },
         }));
     });
-    it('Call getSharedLists',
-        () => {
-            expect(generator.next(data).value).toEqual(call(getSharedLists));
-        });
-    it('Put FETCH_SHARED_LISTS_SUCCESS', () => {
-        expect(generator.next(data).value).toEqual(
-            put({
-                type: 'dashboard/FETCH_SHARED_LISTS_SUCCESS',
-                payload: {
-                    sharedList: data.sharedList,
-                },
-            }),
-        );
-    });
-    it('Put FETCH_DASHBOARD_SUCCESS', () => {
-        expect(
-            generator.next(data.myList).value,
-        ).toEqual(
-            put({
-                type: 'dashboard/FETCH_DASHBOARD_SUCCESS',
-                payload: {
-                    toDoBoardRaw: data.myList,
-                },
-            }),
-        );
-    });
+    // it('Call getSharedLists',
+    //     () => {
+    //         expect(generator.next(res2).value).toEqual(call(getSharedLists));
+    //     });
+    // it('Put FETCH_SHARED_LISTS_SUCCESS', () => {
+    //     expect(generator.next(res2).value).toEqual(
+    //         put({
+    //             type: 'dashboard/FETCH_SHARED_LISTS_SUCCESS',
+    //             payload: {
+    //                 sharedList: res2.sharedList,
+    //             },
+    //         }),
+    //     );
+    // });
+    // it('Put FETCH_DASHBOARD_SUCCESS', () => {
+    //     expect(
+    //         generator.next(data.myList).value,
+    //     ).toEqual(
+    //         put({
+    //             type: 'dashboard/FETCH_DASHBOARD_SUCCESS',
+    //             payload: {
+    //                 toDoBoardRaw: data.myList,
+    //             },
+    //         }),
+    //     );
+    // });
     it('Saga done', () => {
         expect(generator.next().done).toBe(true);
     });
