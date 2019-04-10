@@ -1,4 +1,6 @@
-import { actions, reducer } from '../../src/scenes/dashboard/duck';
+import {
+    actions, FETCH_DASHBOARD_SUCCESS, FETCH_MY_LISTS_SUCCESS, reducer, UPDATE_TITLE_DASHBOARD,
+} from '../../src/scenes/dashboard/duck';
 
 const initialState = {
     data: {
@@ -98,40 +100,96 @@ describe('Dashboard redusers test', () => {
         expect(reducer(initialState, action)).toEqual(expected);
         expect(reducer(prevState2, action2)).toEqual(expected2);
     });
-    it('UPDATE_TASK_Name test', () => {
-        const action = actions.updateTaskName({ idTask: 12, newTaskName: 'Task' });
+
+    it('FETCH_DASHBOARD_SUCCESS test', () => {
+        const allList = [
+            {
+                tasks: [{ body: 'Task', id: 12 }],
+                todoTaskName: 'List',
+            },
+            {
+                tasks: [{ body: 'Task', id: 12 }],
+                todoTaskName: 'List',
+            }];
+        const action = actions.fetchDashboardSuccess(allList);
         const expected = {
             ...initialState,
-            data: {
-                ...initialState.data,
-                tasks: initialState.data.tasks.map(e => (e.id === 12
-                    ? {
-                        ...e, body: 'Task',
-                    } : e)),
-            },
-        };
-        const prevState2 = {
-            ...initialState,
-            data: {
-                ...initialState.data,
-                tasks: initialState.data.tasks.map(e => (e.id === 1
-                    ? {
-                        ...e, body: 'Test',
-                    } : e)),
-            },
-        };
-        const action2 = actions.updateTaskName({ idTask: 1, newTaskName: 'NewTask' });
-        const expected2 = {
-            ...initialState,
-            data: {
-                ...initialState.data,
-                tasks: initialState.data.tasks.map(e => (e.id === 1
-                    ? {
-                        ...e, body: 'NewTask',
-                    } : e)),
-            },
+            toDoBoardRaw: allList,
         };
         expect(reducer(initialState, action)).toEqual(expected);
-        expect(reducer(prevState2, action2)).toEqual(expected2);
     });
+
+    it('MUTATE_SUCCESS test', () => {
+        const allList = [
+            {
+                tasks: [{ body: 'Task', id: 12 }],
+                todoTaskName: 'List',
+            },
+            {
+                tasks: [{ body: 'Task', id: 12 }],
+                todoTaskName: 'List',
+            }];
+        const action = actions.mutateSuccessDashboard(allList);
+        const expected = {
+            ...initialState,
+            toDoBoard: allList,
+        };
+        expect(reducer(initialState, action)).toEqual(expected);
+    });
+
+    it('FETCH_MY_LISTS_SUCCESS test', () => {
+        const data = {
+            myLists: [
+                {
+                    tasks: [{ body: 'Task', id: 12 }],
+                    todoTaskName: 'List',
+                },
+                {
+                    tasks: [{ body: 'Task', id: 12 }],
+                    todoTaskName: 'List',
+                },
+            ],
+            countElements: 2,
+            countPages: 0,
+        };
+        const action = actions.fetchMyListsSuccess(data);
+        const expected = {
+            ...initialState,
+            myList: data.myLists,
+            totalElements: data.countElements,
+            totalPages: data.countPages,
+        };
+        expect(reducer(initialState, action)).toEqual(expected);
+    });
+
+    it('FETCH_SHARED_LISTS_SUCCESS test', () => {
+        const data = [
+            {
+                tasks: [{ body: 'Task', id: 12 }],
+                todoTaskName: 'List',
+            },
+            {
+                tasks: [{ body: 'Task', id: 12 }],
+                todoTaskName: 'List',
+            },
+        ];
+        const action = actions.fetchSharedListsSuccess(data);
+        const expected = { ...initialState, sharedList: data };
+        expect(reducer(initialState, action)).toEqual(expected);
+    });
+
+    it('SELECTED_MY_LISTS test', () => {
+        const selectedMy = true;
+        const action = actions.updateSelectedMyLists(!selectedMy);
+        const expected = { ...initialState, selectedMy: !selectedMy };
+        expect(reducer(initialState, action)).toEqual(expected);
+    });
+
+    it('SELECTED_SHARED_LISTS test', () => {
+        const selectedShared = false;
+        const action = actions.updateSelectedSharedLists(!selectedShared);
+        const expected = { ...initialState, selectedShared: !selectedShared };
+        expect(reducer(initialState, action)).toEqual(expected);
+    });
+
 });
