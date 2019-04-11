@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const Profile = styled.div`
-    flex:auto;
+    display: flex;
+    overflow: auto;
+    flex-direction:column;
+    background: ${p => p.theme.backgroundList};
 `;
 
 export const GreetingUser = styled.div`
@@ -67,6 +70,28 @@ export const EditProfile = styled.div`
     font-weight: bold;
     margin-left: 8px;
     & > p{
+        width: 30%;
+        color:${p => p.theme.mainText};
+        cursor: default;
+    }
+    & > input{
+         border-bottom: 1px solid gray !important;
+         outline: none;
+         cursor: pointer;
+    }
+`;
+
+export const Statistics = styled.div`
+    display: flex;
+    flex-direction:column;
+    font-weight: bold;
+    margin-left: 8px;
+    & > p{
+        width: 30%;
+        color:${p => p.theme.mainText};
+        cursor: default;
+    }
+    & > h1{
         width: 30%;
         color:${p => p.theme.mainText};
         cursor: default;

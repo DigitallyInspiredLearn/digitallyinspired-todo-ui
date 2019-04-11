@@ -66,20 +66,20 @@ class Profile extends Component {
     }); */
 
     render() {
-        const { currentUser: { name, email } } = this.props;
+        const { currentUser: { name, email, gravatarUrl }, statistics } = this.props;
         const {
             newPassword, newRepeatPassword, newName, newUsername, newEmail,
         } = this.state;
         return (
             <styled.Profile>
                 <styled.GreetingUser>
-                    <styled.Avatar src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp" />
-                    <styled.AvatarInput
-                        type="file"
-                        onChange={this.avatarSelectHandler}
-                        ref={avatarInput => this.avatarInput = avatarInput}
-                    />
-                    <styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />
+                    <styled.Avatar src={`${gravatarUrl}?s=120&d=retro`} />
+                    {/*<styled.AvatarInput*/}
+                        {/*type="file"*/}
+                        {/*onChange={this.avatarSelectHandler}*/}
+                        {/*ref={avatarInput => this.avatarInput = avatarInput}*/}
+                    {/*/>*/}
+                    {/*<styled.UploadButton type="image" src={download} onClick={() => this.avatarInput.click()} />*/}
                     <styled.CurrentUser>
                         <p> Hello, {name || 'name'} !</p>
                         <p>{email || 'email'}</p>
@@ -151,6 +151,14 @@ class Profile extends Component {
                             Save
                     </Button>
                 </styled.Info>
+                <styled.Statistics>
+                    <h1>Profile statistics</h1>
+                    <p> { `Количество листов: ${statistics.todoListsNumber}` } </p>
+                    <p> { `Количество задач: ${statistics.tasksNumber}`} </p>
+                    <p> { `Количество выполненных задач:  ${statistics.completedTasksNumber}` } </p>
+                    <p> { `Количество подписчиков: ${statistics.followersNumber}`} </p>
+                    <p> { `Количество подписок: ${statistics.followedUsersNumber}`} </p>
+                </styled.Statistics>
             </styled.Profile>
         );
     }
