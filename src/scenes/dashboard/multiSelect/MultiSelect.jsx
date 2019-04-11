@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
-import {deleteTag} from "./duck";
+import { deleteTag } from './duck';
 
 const styles = theme => ({
     root: {
@@ -64,6 +64,12 @@ class MultiSelect extends Component {
         this.setState({ name: event.target.value });
     };
 
+    handlerOnBlur = (e) => {
+        e.target.blur();
+        this.setState({
+            valueNewTag: e.target.value = '',
+        });
+    };
     handleChangeMultiple = (event) => {
         const { options } = event.target;
         const value = [];
@@ -75,6 +81,7 @@ class MultiSelect extends Component {
         this.setState({
             name: value,
             visible: false,
+            valueNewTag: '',
         });
     };
 
@@ -84,7 +91,7 @@ class MultiSelect extends Component {
 
     render() {
         const { classes, tags, actions } = this.props;
-        const { visible, name } = this.state;
+        const { visible, name, valueNewTag } = this.state;
         return (
             <div className={classes.root}>
                 <FormControl className={classes.formControl}>
@@ -110,19 +117,29 @@ class MultiSelect extends Component {
                                     style={{ display: 'flex', flex: 'auto' }}
                                     onMouseOver={this.changeVisible}
                                     onMouseOut={this.changeVisible}
-                                    onClick={() => actions.deleteTag(tag.id)}
                                 >
                                     <p style={{ display: 'flex', flex: 'auto' }}>{tag.tagName}</p>
                                     <p
                                         key={tag.id}
-                                        style={{ display: visible ? 'flex' : 'none', zIndex: 2 }}
-
+                                        // style={{ display: visible ? 'flex' : 'none', zIndex: 2 }}
+                                        onClick={() => actions.deleteTag({ id: tag.id })}
                                     > X
                                     </p>
                                 </div>
                             </MenuItem>
                         ))}
                     </Select>
+                    <input
+                        type="text"
+                        placeholder="add tag"
+                        onKeyPress={e => (
+                            e.key === 'Enter'
+                            && (actions.addTag({
+                                color: 'red', tagName: e.target.value,
+                            }))
+                        )}
+                        onBlur={this.handlerOnBlur}
+                    />
                 </FormControl>
             </div>
         );

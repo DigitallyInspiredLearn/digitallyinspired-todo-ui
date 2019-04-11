@@ -34,7 +34,7 @@ export function* fetchAllTags() {
 
 export function* addTag(action) {
     const { payload: { tagName, color } } = action;
-    yield call(addTagAPI, { tagName, color });
+    yield call(addTagAPI, { tagName, color});
     yield call(fetchAllTags);
 }
 
