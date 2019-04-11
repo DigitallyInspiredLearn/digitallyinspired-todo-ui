@@ -14,17 +14,18 @@ const getSearch = state => state.list.search;
 
 const getTasksRaw = state => state.list.data.tasks;
 
-const getFindingTasks = createSelector(
+const getFilteredTasks = createSelector(
     getTasksRaw,
     getSearch,
-    (tasks, search) => search === '' ? tasks : tasks.filter(i => i.body.indexOf(search.search) >= 0),
+    (tasks, search) => (search === '' ? tasks : tasks.filter(i => i.body.indexOf(search.search) >= 0)),
 );
 
 const getTasks = createSelector(
-    getFindingTasks,
+    getFilteredTasks,
     getDoneFilter,
     getNotDoneFilter,
-    (tasks, done, notDone) => !(done ^ notDone) ? tasks : tasks.filter(task => task.isComplete === done),
+    // eslint-disable-next-line no-bitwise
+    (tasks, done, notDone) => (!(done ^ notDone) ? tasks : tasks.filter(task => task.isComplete === done)),
 );
 
 const mapStateToProps = state => (

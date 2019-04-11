@@ -6,6 +6,7 @@ import { actions } from './duck';
 
 const mapStateToProps = state => ({
     currentUser: state.profile.currentUser,
+    statistics: state.profile.statistics,
 });
 
 const mapDispatchToProps = dispatch => ({

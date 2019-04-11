@@ -8,12 +8,14 @@ import OneList from './scenes/list/OneListContainer';
 import PageError404 from './scenes/errors/pageError404';
 import PageError500 from './scenes/errors/pageError500';
 import Basket from './scenes/basket/Basket';
+import Profile from './scenes/container/settings/profile/ProfileContainer';
 
 const App = () => (
 
     <Container>
         <Switch>
             <Route path="/lists/basket" component={Basket} />
+            <Route path="/lists/account" component={Profile} />
             <Route path="/lists/:id" component={OneList} />
             <Route path="/lists" component={VisibleTodoList} />
             <Route path="/auth" component={Authorization} />

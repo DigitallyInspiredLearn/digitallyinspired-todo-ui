@@ -82,7 +82,8 @@ export class Dashboard extends Component {
     render() {
         const { valueNewTask, statePopup } = this.state;
         const {
-            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate,
+            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, currentUser :
+                { gravatarUrl },
         } = this.props;
 
         return ([
@@ -97,16 +98,15 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
-                    <styled.Avatar
-                        src=" https://www.gravatar.com/avatar/{ currentUser.gravatarUrl }?s=120&d=mp"
-                    />
+                    <styled.Avatar src={`${gravatarUrl}?s=120&d=retro`} />
+
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         border={false}
                         style={{
-                            textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px'
+                            textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
                     />
                     {
@@ -126,7 +126,6 @@ export class Dashboard extends Component {
                                                 Created time: {new Date(createdDate).toLocaleString()}<br />
                                                 Modyfied by: {modifiedBy}<br />
                                                 Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                                
                                             </p>
                                             <styled.Icon src={info} alt="Information about this list" />
                                         </styled.IconInfo>

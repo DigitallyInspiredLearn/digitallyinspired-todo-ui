@@ -30,6 +30,10 @@ class Container extends Component {
             this.setState({ sections: newValue });
             history.push('/lists/basket');
         }
+        if (newValue === 'Account') {
+            this.setState({ sections: newValue });
+            history.push('/lists/account');
+        }
     };
 
     toggleSettings = () => {
