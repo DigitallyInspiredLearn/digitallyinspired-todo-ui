@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import trash from '../../../image/trash.svg';
+import info from '../../../image/information.svg';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import Input from '../../../components/input/Input';
@@ -80,6 +81,21 @@ class Task extends Component {
                         style={{ textDecoration: selected ? 'line-through' : 'none', width: '100%' }}
                     />
                 </styled.NameAdnCheckedTask>
+                <styled.IconInfo>
+                    <p>
+                        <b>Information:</b><br />
+                            Created by: me<br />
+                            Created time: me<br />
+                            Modyfied by: me<br />
+                            Modyfied time: me<br />
+                                                
+                    </p>
+                    <styled.DeleteTask
+                        src={info}
+                        style={displayStyle}
+                        alt="Information about this list"
+                    />
+                </styled.IconInfo>
                 <styled.DeleteTask
                     src={trash}
                     alt="Delete this task"

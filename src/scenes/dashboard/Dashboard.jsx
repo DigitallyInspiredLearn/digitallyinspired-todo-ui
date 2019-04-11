@@ -10,6 +10,7 @@ import trash from '../../image/trash.svg';
 import info from '../../image/information.svg';
 import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
+import comment from '../../image/comment.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
 
@@ -37,6 +38,7 @@ export class Dashboard extends Component {
         this.state = {
             valueNewTask: '',
             statePopup: false,
+            stateComment: true,
             newTitle: props.title,
         };
     }
@@ -49,6 +51,12 @@ export class Dashboard extends Component {
         e.target.blur();
         this.setState({
             valueNewTask: e.target.value = '',
+        });
+    };
+
+    toggleComment = () => {
+        this.setState({
+            stateComment: !this.state.stateComment,
         });
     };
 
@@ -80,7 +88,7 @@ export class Dashboard extends Component {
     };
 
     render() {
-        const { valueNewTask, statePopup } = this.state;
+        const { valueNewTask, statePopup, stateComment } = this.state;
         const {
             idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate,
         } = this.props;
@@ -126,9 +134,11 @@ export class Dashboard extends Component {
                                                 Created time: {new Date(createdDate).toLocaleString()}<br />
                                                 Modyfied by: {modifiedBy}<br />
                                                 Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                                
                                             </p>
-                                            <styled.Icon src={info} alt="Information about this list" />
+                                            <styled.Icon
+                                                src={info}
+                                                alt="Information about this list"
+                                            />
                                         </styled.IconInfo>
                                     </Link>
                                     <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
@@ -147,20 +157,39 @@ export class Dashboard extends Component {
                 {
                     shared ? ''
                         : (
-                            <styled.InputAddingTask
-                                placeholder="Add to-do"
-                                value={valueNewTask}
-                                onChange={this.changeValueNewTask}
-                                onKeyPress={e => valueNewTask
-                                    && (e.key === 'Enter'
-                                        && (e.target.blur(), actions.addTask({
-                                            idDashboard: idList, nameTask: valueNewTask,
-                                        })))
-                                }
-                                onBlur={this.handlerOnBlur}
-                            />
+                            <div style={{ display: 'flex' }}>
+                                <styled.InputAddingTask
+                                    placeholder="Add to-do"
+                                    value={valueNewTask}
+                                    onChange={this.changeValueNewTask}
+                                    onKeyPress={e => valueNewTask
+                                        && (e.key === 'Enter'
+                                            && (e.target.blur(), actions.addTask({
+                                                idDashboard: idList, nameTask: valueNewTask,
+                                            })))
+                                    }
+                                    onBlur={this.handlerOnBlur}
+                                />
+                                <styled.Icon
+                                    style={{ alignSelf: 'center' }}
+                                    src={comment}
+                                    alt="Information about this list"
+                                    onClick={this.toggleComment}
+                                />
+                                
+                            </div>
+
                         )
                 }
+                <styled.Expand
+                    visible={stateComment}
+                >
+                    <styled.Textarea
+                        placeholder="Enter your comment"
+                    >
+                        Some text
+                    </styled.Textarea>
+                </styled.Expand>
             </styled.Dashboard>,
         ]);
     }

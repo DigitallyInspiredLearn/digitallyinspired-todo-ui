@@ -111,7 +111,7 @@ export const InputAddingTask = styled.input`
     font-size: 16px;
     outline: none;
     margin: 8px;
-    width: 95%;
+    width: 93%;
 `;
 
 export const NullLenghtTask = styled.p`
@@ -123,4 +123,20 @@ export const Avatar = styled.img`
     border-radius: 50%;
     width: 30px;
     height: 30px;
+`;
+
+export const Expand = styled.div`
+    display: ${p => (p.visible ? 'flex' : 'none')};
+    width: 98%;
+    height: auto;
+    min-height: 50px;
+    overflow: hidden;
+    background-color: whitesmoke;
+    padding: 8px;
+
+`;
+
+export const Textarea = styled.textarea`
+    width: 100%;
+    height: 50px;
 `;
