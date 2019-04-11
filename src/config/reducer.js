@@ -5,10 +5,11 @@ import { reducer as profileReducer } from '../scenes/container/settings/profile/
 import { reducer as followUserReducer } from '../scenes/container/settings/followUser/duck';
 import { reducer as themeReducer } from '../scenes/container/settings/theme/duck';
 import { reducer as dashboardReducer } from '../scenes/dashboard/duck';
+import { reducer as tagReducer } from '../scenes/dashboard/multiSelect/duck';
 import { reducer as listReducer } from '../scenes/list/duck';
 import { reducer as subscribeReducer } from '../scenes/container/settings/subscribes/duck';
 
-export const mainReducer = combineReducers({
+const mainReducer = combineReducers({
     dashboard: dashboardReducer,
     list: listReducer,
     auth: authReducer,
@@ -17,4 +18,7 @@ export const mainReducer = combineReducers({
     followUser: followUserReducer,
     theme: themeReducer,
     subscribe: subscribeReducer,
+    tags: tagReducer,
 });
+
+export default mainReducer;
