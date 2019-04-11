@@ -4,6 +4,10 @@ react/require-default-props,react/default-props-match-prop-types */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Comment from '@material-ui/icons/Comment';
+import TextField from '@material-ui/core/TextField';
 import * as styled from './Dashboard.styled';
 import Task from './task/Task';
 import trash from '../../image/trash.svg';
@@ -38,7 +42,7 @@ export class Dashboard extends Component {
         this.state = {
             valueNewTask: '',
             statePopup: false,
-            stateComment: true,
+            stateComment: false,
             newTitle: props.title,
         };
     }
@@ -170,12 +174,12 @@ export class Dashboard extends Component {
                                     }
                                     onBlur={this.handlerOnBlur}
                                 />
-                                <styled.Icon
-                                    style={{ alignSelf: 'center' }}
-                                    src={comment}
-                                    alt="Information about this list"
+                                <IconButton
+                                    aria-label="Delete"
                                     onClick={this.toggleComment}
-                                />
+                                >
+                                    <Comment />
+                                </IconButton>
                                 
                             </div>
 
@@ -184,11 +188,7 @@ export class Dashboard extends Component {
                 <styled.Expand
                     visible={stateComment}
                 >
-                    <styled.Textarea
-                        placeholder="Enter your comment"
-                    >
-                        Some text
-                    </styled.Textarea>
+                    <TextField/>
                 </styled.Expand>
             </styled.Dashboard>,
         ]);

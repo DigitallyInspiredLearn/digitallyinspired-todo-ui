@@ -131,7 +131,6 @@ export const Expand = styled.div`
     height: auto;
     min-height: 50px;
     overflow: hidden;
-    background-color: whitesmoke;
     padding: 8px;
 
 `;
