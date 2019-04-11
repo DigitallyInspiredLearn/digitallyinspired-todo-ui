@@ -4,6 +4,8 @@ axios.defaults.baseURL = 'http://localhost:8080';
 
 export const getCurrentUser = () => axios.get('/api/users/me');
 
+export const getUserStatistics = () => axios.get('/api/users/statistics');
+
 export const deleteProfile = () => axios.delete('/api/users/deleteProfile');
 
 export const searchUserByUsername = userName => axios.get(`/api/users/search?username=${userName}`);

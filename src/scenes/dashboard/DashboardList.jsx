@@ -24,7 +24,7 @@ class DashboardList extends Component {
 
     render() {
         const {
-            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort,
+            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort, currentUser,
         } = this.props;
         return (
             [
@@ -110,6 +110,7 @@ class DashboardList extends Component {
                                         modifiedBy={i.modifiedBy}
                                         createdDate={i.createdDate}
                                         modifiedDate={i.modifiedDate}
+                                        currentUser={currentUser}
                                     />
                                 ))
                         }
