@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
     sort: state.dashboard.sort,
     currentPage: state.dashboard.currentPage,
     totalPages: state.dashboard.totalPages,
+    currentUser: state.profile.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({

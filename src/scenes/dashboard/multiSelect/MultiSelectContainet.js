@@ -1,21 +1,20 @@
-import { bindActionCreators, compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Profile from './Profile';
+import MultiSelect from './MultiSelect';
 import { actions } from './duck';
 
 const mapStateToProps = state => ({
-    currentUser: state.profile.currentUser,
-    statistics: state.profile.statistics,
+    tags: state.tags.tags,
 });
-
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
-        fetchCurrentUser: actions.fetchCurrentUser,
-        editProfile: actions.editProfile,
-        deleteProfile: actions.deleteProfile,
+        fetchTags: actions.fetchTags,
+        addTag: actions.addTag,
+        deleteTag: actions.deleteTag,
     }, dispatch),
 });
+
 
 export default compose(
     withRouter,
@@ -23,4 +22,4 @@ export default compose(
         mapStateToProps,
         mapDispatchToProps,
     ),
-)(Profile);
+)(MultiSelect);

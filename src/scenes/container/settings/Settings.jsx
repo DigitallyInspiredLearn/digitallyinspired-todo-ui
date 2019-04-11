@@ -11,7 +11,7 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'profile',
+            selectedTab: 'theme',
         };
     }
 
@@ -45,14 +45,14 @@ class Settings extends Component {
                     </styled.CloseWindow>
                     <styled.Main>
                         <styled.TabContainer>
-                            <styled.Tab selected={selectedTab === 'profile'}>
-                                <input
-                                    type="radio"
-                                    style={{ visibility: 'hidden' }}
-                                    onClick={() => this.handleSelectTab('profile')}
-                                />
-                                    Profile
-                            </styled.Tab>
+                            {/*<styled.Tab selected={selectedTab === 'profile'}>*/}
+                                {/*<input*/}
+                                    {/*type="radio"*/}
+                                    {/*style={{ visibility: 'hidden' }}*/}
+                                    {/*onClick={() => this.handleSelectTab('profile')}*/}
+                                {/*/>*/}
+                                    {/*Profile*/}
+                            {/*</styled.Tab>*/}
                             <styled.Tab selected={selectedTab === 'theme'}>
                                 <input
                                     type="radio"
@@ -79,8 +79,8 @@ class Settings extends Component {
                             </styled.Tab>
                         </styled.TabContainer>
                         <styled.Content>
-                            {selectedTab === 'profile'
-                                        && currentUser && <Profile toggleSettings={toggleSettings} />}
+                            {/*{selectedTab === 'profile'*/}
+                                        {/*&& currentUser && <Profile toggleSettings={toggleSettings} />}*/}
                             {selectedTab === 'theme' && <Theme />}
                             {selectedTab === 'subscribes' && <Subscribes />}
                             {selectedTab === 'followers' && <FollowUser />}

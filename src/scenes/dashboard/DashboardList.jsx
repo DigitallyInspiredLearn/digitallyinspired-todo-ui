@@ -8,6 +8,7 @@ import * as styled from './DashboardList.styles';
 import loupe from '../../image/magnifying-glass-browser.svg';
 import Search from '../../components/search/Search';
 import VisibleSidebar from './sidebar/SidebarContainer';
+import MultiSelect from './multiSelect/MultiSelectContainet';
 
 class DashboardList extends Component {
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
@@ -24,7 +25,7 @@ class DashboardList extends Component {
 
     render() {
         const {
-            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort,
+            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort, currentUser,
         } = this.props;
         return (
             [
@@ -38,6 +39,7 @@ class DashboardList extends Component {
                             />
                             <styled.IconSearch src={loupe} />
                         </styled.SearchDiv>
+                        <MultiSelect />
                         <styled.LabelDiv>
                             Sorting:
                         </styled.LabelDiv>
@@ -110,6 +112,7 @@ class DashboardList extends Component {
                                         modifiedBy={i.modifiedBy}
                                         createdDate={i.createdDate}
                                         modifiedDate={i.modifiedDate}
+                                        currentUser={currentUser}
                                     />
                                 ))
                         }

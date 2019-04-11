@@ -147,13 +147,13 @@ export function* fetchAllLists() {
     const countElements = data.totalElements;
     const myLists = selectedMy ? data.content : [];
     const countPages = data.totalPages;
-    yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
-    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
+    yield put(actions.fetchMyListsSuccess({myLists, countElements, countPages}));
+    const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({...l, shared: true})) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
     yield put(actions.fetchDashboardSuccess(allList));
 }
-// -----------------------
+
 export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.find(l => l.id === id);
 export function* updateTitle(action) {
     const { payload: { newTitle, id } } = action;
