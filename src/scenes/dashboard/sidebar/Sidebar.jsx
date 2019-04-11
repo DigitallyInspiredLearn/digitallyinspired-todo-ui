@@ -10,7 +10,7 @@ class Sidebar extends Component {
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', isComplete: false }],
+            tasks: [{ body: '', priority: 'HIGH', isComplete: false }],
             animation: '',
             bool: false,
             displayTrash: 'none',
@@ -33,10 +33,11 @@ class Sidebar extends Component {
         addNewDashboard({
             todoListName: titleValue,
             tasks,
+            comment: '',
         });
         this.setState({
             todoListName: '',
-            tasks: [{ body: '', isComplete: false }],
+            tasks: [{ body: '', priority: 'HIGH', isComplete: false }],
         });
     };
 
@@ -56,7 +57,7 @@ class Sidebar extends Component {
 
     handleAddInputTask = () => {
         this.setState({
-            tasks: this.state.tasks.concat([{ body: '', isComplete: false }]),
+            tasks: this.state.tasks.concat([{ body: '', priority: 'HIGH', isComplete: false }]),
         });
     };
 

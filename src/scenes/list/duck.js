@@ -98,13 +98,15 @@ export function* fetchList(action) {
 export function* updateTitle(action) {
     yield delay(1000);
     const list = yield call(getOneList, action.payload.idDashboard);
-    yield call(updateList, action.payload.idDashboard, { ...list.data, todoListName: action.payload.newTitle });
+    yield call(updateList, action.payload.idDashboard,
+        { ...list.data, todoListName: action.payload.newTitle, comment: '' });
 }
 
 export function* fetchUpdateTask(action) {
     yield delay(1000);
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.newTaskName,
+        priority: 'HIGH',
         isComplete: action.payload.selected,
     });
     const r = yield call(getOneList, action.payload.idDashboard);
@@ -117,7 +119,8 @@ export function* fetchChangeSearch(action) {
 }
 
 export function* addNewTask(action) {
-    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask, isComplete: false });
+    yield call(addTask, action.payload.idDashboard,
+        { body: action.payload.nameTask, priority: 'HIGH', isComplete: false });
     const r = yield call(getOneList, action.payload.idDashboard);
     yield put(actions.fetchListSuccess(r.data));
 }
@@ -136,6 +139,7 @@ export function* fetchDeleteTask(action) {
 export function* fetchUpdateCheckbox(action) {
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
+        priority: 'HIGH',
         isComplete: !action.payload.selected,
     });
     const r = yield call(getOneList, action.payload.idDashboard);

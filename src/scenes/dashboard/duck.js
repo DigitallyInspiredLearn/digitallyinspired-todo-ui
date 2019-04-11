@@ -158,7 +158,7 @@ export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.
 export function* updateTitle(action) {
     const { payload: { newTitle, id } } = action;
     const list = yield select(getToDoBoardFiltered, id);
-    const updatedList = { ...list, todoListName: newTitle || 'New value' };
+    const updatedList = { ...list, todoListName: newTitle, comment: '' };
     yield call(updateList, id, updatedList);
     yield call(fetchAllLists);
 }
@@ -166,6 +166,7 @@ export function* updateTitle(action) {
 export function* updateSelectedTask(action) {
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
+        priority: 'HIGH',
         isComplete: !action.payload.selected,
     });
     yield call(fetchAllLists);
@@ -175,6 +176,7 @@ export function* updateNameTask(action) {
     const { payload: { idTask, newTaskName, selected } } = action;
     yield call(updateTask, idTask, {
         body: newTaskName || 'New value',
+        priority: 'HIGH',
         isComplete: selected,
     });
     yield call(fetchAllLists);
@@ -191,7 +193,8 @@ export function* deleteTask(action) {
 }
 
 export function* addNewTask(action) {
-    yield call(addTask, action.payload.idDashboard, { body: action.payload.nameTask, isComplete: false });
+    yield call(addTask, action.payload.idDashboard,
+        { body: action.payload.nameTask, priority: 'HIGH', isComplete: false });
     yield call(fetchAllLists);
 }
 
