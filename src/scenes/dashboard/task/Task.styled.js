@@ -76,7 +76,7 @@ export const IconInfo = styled.div`
         right: 10px;
         font-size: 12px;
         z-index: 9999;
-        width: 200px;
+        width: 210px;
         margin-top: 16px;
         background: #f3f3f3;
         height: 70px;

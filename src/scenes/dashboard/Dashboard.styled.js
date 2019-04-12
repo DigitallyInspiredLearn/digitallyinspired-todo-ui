@@ -129,7 +129,7 @@ export const Expand = styled.div`
     display: ${p => (p.visible ? 'flex' : 'none')};
     width: 98%;
     height: auto;
-    min-height: 50px;
+    min-height: 100px;
     overflow: hidden;
     padding: 8px;
 

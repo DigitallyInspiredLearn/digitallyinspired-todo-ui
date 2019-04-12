@@ -33,6 +33,8 @@ const mapDispatchToProps = dispatch => ({
         changeSize: actions.changeSize,
         changePagination: actions.changePagination,
         changeSort: actions.changeSort,
+        updateComment: actions.updateComment,
+        updateCommentSuccess: actions.updateCommentSuccess,
     }, dispatch),
 });
 

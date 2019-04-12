@@ -113,6 +113,7 @@ class DashboardList extends Component {
                                         createdDate={i.createdDate}
                                         modifiedDate={i.modifiedDate}
                                         currentUser={currentUser}
+                                        comment={i.comment}
                                     />
                                 ))
                         }

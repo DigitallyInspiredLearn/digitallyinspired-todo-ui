@@ -14,9 +14,19 @@ import trash from '../../image/trash.svg';
 import info from '../../image/information.svg';
 import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
-import comment from '../../image/comment.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
+
+const styles = theme => ({
+    textField: {
+        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingBottom: 0,
+        marginTop: 0,
+        fontWeight: 500,
+    },
+});
 
 export const getTaskList = (tasks, props) => (
     tasks.length === 0
@@ -33,6 +43,9 @@ export const getTaskList = (tasks, props) => (
                 nameTask={i.body}
                 actions={props.actions}
                 key={i.id}
+                createdDate={i.createdDate}
+                completedDate={i.completedDate}
+                durationTime={i.durationTime}
             />
         )));
 
@@ -44,6 +57,7 @@ export class Dashboard extends Component {
             statePopup: false,
             stateComment: false,
             newTitle: props.title,
+            newComment: props.comment,
         };
     }
 
@@ -85,19 +99,36 @@ export class Dashboard extends Component {
         });
     };
 
+    handleUpdateComment = (newValue) => {
+        const { actions, idList, title } = this.props;
+        this.setState({ newComment: newValue }, () => {
+            const { newComment } = this.state;
+            actions.updateComment({
+                id: idList, title, newComment,
+            });
+        });
+    };
+
     handleUpdateTitleSuccess = () => {
         const { actions, idList } = this.props;
         const { newTitle } = this.state;
         actions.updateTitleSuccess({ id: idList, newTitle });
     };
 
+    handleUpdateCommentSuccess = () => {
+        const { actions, idList, title } = this.props;
+        const { newComment } = this.state;
+        actions.updateCommentSuccess({ id: idList, title, newComment });
+    };
+
     render() {
-        const { valueNewTask, statePopup, stateComment } = this.state;
         const {
-            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, currentUser :
+            valueNewTask, statePopup, stateComment,
+        } = this.state;
+        const {
+            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, comment, currentUser:
                 { gravatarUrl },
         } = this.props;
-
         return ([
             <PopupContainer
                 statePopup={statePopup}
@@ -110,7 +141,9 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
-                    <styled.Avatar src={`${gravatarUrl}?s=120&d=retro`} />
+                    <styled.Avatar
+                        src={`${gravatarUrl}?s=120&d=retro`}
+                    />
 
                     <Input
                         onChange={this.handleUpdateTitle}
@@ -133,7 +166,7 @@ export class Dashboard extends Component {
                                     <Link to={`/lists/${idList}`}>
                                         <styled.IconInfo>
                                             <p>
-                                                <b>Information:</b><br />
+                                                <b>Information about list "{title}":</b><br />
                                                 Created by: {createdBy}<br />
                                                 Created time: {new Date(createdDate).toLocaleString()}<br />
                                                 Modyfied by: {modifiedBy}<br />
@@ -145,7 +178,11 @@ export class Dashboard extends Component {
                                             />
                                         </styled.IconInfo>
                                     </Link>
-                                    <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
+                                    <styled.Icon
+                                        src={share}
+                                        alt="Share list"
+                                        onClick={this.showPopup}
+                                    />
                                     <styled.Icon
                                         src={trash}
                                         onClick={() => actions.deleteDashboard({ id: idList })}
@@ -163,6 +200,7 @@ export class Dashboard extends Component {
                         : (
                             <div style={{ display: 'flex' }}>
                                 <styled.InputAddingTask
+                                    style={{ alignSelf: 'center' }}
                                     placeholder="Add to-do"
                                     value={valueNewTask}
                                     onChange={this.changeValueNewTask}
@@ -180,7 +218,6 @@ export class Dashboard extends Component {
                                 >
                                     <Comment />
                                 </IconButton>
-                                
                             </div>
 
                         )
@@ -188,7 +225,23 @@ export class Dashboard extends Component {
                 <styled.Expand
                     visible={stateComment}
                 >
-                    <TextField/>
+                    <TextField
+                        onChange={e => this.handleUpdateComment(e.target.value)}
+                        defaultValue={comment}
+                        multiline
+                        autoFocus
+                        rowsMax="3"
+                        variant="outlined"
+                        margin="normal"
+                        // onKeyPress={e => e.key === 'Enter'
+                        //     && (e.target.blur(), this.handleUpdateCommentSuccess())
+                        // }
+                        onBlur={() => this.handleUpdateCommentSuccess()}
+                        placeholder="Type comment about this list"
+                        style={{
+                            width: '90%', fontWeight: 'bold',
+                        }}
+                    />
                 </styled.Expand>
             </styled.Dashboard>,
         ]);
