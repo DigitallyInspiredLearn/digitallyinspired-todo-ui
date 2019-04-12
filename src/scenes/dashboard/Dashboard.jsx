@@ -28,6 +28,7 @@ export const getTaskList = (tasks, props) => (
                 nameTask={i.body}
                 actions={props.actions}
                 key={i.id}
+                todoListStatus={props.todoListStatus}
             />
         )));
 
@@ -82,10 +83,10 @@ export class Dashboard extends Component {
     render() {
         const { valueNewTask, statePopup } = this.state;
         const {
-            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, currentUser :
+            idList, title, todoListStatus, tasks, actions, actionsBasket, shared, createdBy, createdDate,
+            modifiedBy, modifiedDate, currentUser :
                 { gravatarUrl },
         } = this.props;
-
         return ([
             <PopupContainer
                 statePopup={statePopup}
@@ -110,55 +111,67 @@ export class Dashboard extends Component {
                         }}
                     />
                     {
-                        shared
-                            ? (
-                                <styled.IconContainer>
-                                    <styled.Icon src={pushpin} alt="List is shared" />
-                                </styled.IconContainer>
-                            )
-                            : (
-                                <styled.IconContainer>
-                                    <Link to={`/lists/${idList}`}>
-                                        <styled.IconInfo>
-                                            <p>
-                                                <b>Information:</b><br />
-                                                Created by: {createdBy}<br />
-                                                Created time: {new Date(createdDate).toLocaleString()}<br />
-                                                Modyfied by: {modifiedBy}<br />
-                                                Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                            </p>
-                                            <styled.Icon src={info} alt="Information about this list" />
-                                        </styled.IconInfo>
-                                    </Link>
-                                    <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
-                                    <styled.Icon
-                                        src={trash}
-                                        onClick={() => actions.deleteDashboard({ id: idList })}
-                                        alt="Delete this list"
-                                    />
-                                </styled.IconContainer>
-                            )
+                        todoListStatus === 'ACTIVE' ? (
+                            shared
+                                ? (
+                                    <styled.IconContainer>
+                                        <styled.Icon src={pushpin} alt="List is shared" />
+                                    </styled.IconContainer>
+                                )
+                                : (
+                                    <styled.IconContainer>
+                                        <Link to={`/lists/${idList}`}>
+                                            <styled.IconInfo>
+                                                <p>
+                                                    <b>Information:</b><br />
+                                                    Created by: {createdBy}<br />
+                                                    Created time: {new Date(createdDate).toLocaleString()}<br />
+                                                    Modyfied by: {modifiedBy}<br />
+                                                    Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                </p>
+                                                <styled.Icon src={info} alt="Information about this list" />
+                                            </styled.IconInfo>
+                                        </Link>
+                                        <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
+                                        <styled.Icon
+                                            src={trash}
+                                            onClick={() => actions.deleteDashboard({ id: idList })}
+                                            alt="Delete this list"
+                                        />
+                                    </styled.IconContainer>
+                                )
+                        ) : (
+                            <styled.IconContainer>
+                                <styled.Icon
+                                    src={trash}
+                                    onClick={() => actionsBasket.deletedList({ id: idList })}
+                                    alt="Delete this list"
+                                />
+                            </styled.IconContainer>
+                        )
                     }
                 </styled.DashboardHeader>
                 <styled.TaskList>
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>
                 {
-                    shared ? ''
-                        : (
-                            <styled.InputAddingTask
-                                placeholder="Add to-do"
-                                value={valueNewTask}
-                                onChange={this.changeValueNewTask}
-                                onKeyPress={e => valueNewTask
-                                    && (e.key === 'Enter'
-                                        && (e.target.blur(), actions.addTask({
-                                            idDashboard: idList, nameTask: valueNewTask,
-                                        })))
-                                }
-                                onBlur={this.handlerOnBlur}
-                            />
-                        )
+                    todoListStatus === 'ACTIVE' ? (
+                        shared ? ''
+                            : (
+                                <styled.InputAddingTask
+                                    placeholder="Add to-do"
+                                    value={valueNewTask}
+                                    onChange={this.changeValueNewTask}
+                                    onKeyPress={e => valueNewTask
+                                        && (e.key === 'Enter'
+                                            && (e.target.blur(), actions.addTask({
+                                                idDashboard: idList, nameTask: valueNewTask,
+                                            })))
+                                    }
+                                    onBlur={this.handlerOnBlur}
+                                />
+                            )
+                    ) : null
                 }
             </styled.Dashboard>,
         ]);

@@ -2,19 +2,19 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Container from './scenes/container/Container';
 import VisibleTodoList from './scenes/dashboard/DashboardContainer';
+import DashboardListBasket from './scenes/basket/dashboardBasket/DashboardBasketContainer';
 import Authorization from './scenes/account/authorization/AutorizationCortainer';
 import Registration from './scenes/account/registration/RegistrationContainer';
 import OneList from './scenes/list/OneListContainer';
 import PageError404 from './scenes/errors/pageError404';
 import PageError500 from './scenes/errors/pageError500';
-import Basket from './scenes/basket/Basket';
 import Profile from './scenes/container/settings/profile/ProfileContainer';
 
 const App = () => (
 
     <Container>
         <Switch>
-            <Route path="/lists/basket" component={Basket} />
+            <Route path="/lists/basket" component={DashboardListBasket} />
             <Route path="/lists/account" component={Profile} />
             <Route path="/lists/:id" component={OneList} />
             <Route path="/lists" component={VisibleTodoList} />

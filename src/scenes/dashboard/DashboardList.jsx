@@ -24,8 +24,8 @@ class DashboardList extends Component {
     };
 
     render() {
-        const {
-            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort, currentUser,
+        const { search, selectedMy, selectedShared, actions, actionsBasket, toDoBoard, pageSize,
+            totalPages, sort, currentUser,
         } = this.props;
         return (
             [
@@ -107,12 +107,14 @@ class DashboardList extends Component {
                                         tasks={i.tasks}
                                         toDoBoard={toDoBoard}
                                         actions={actions}
+                                        actionsBasket={actionsBasket}
                                         shared={i.shared}
                                         createdBy={i.createdBy}
                                         modifiedBy={i.modifiedBy}
                                         createdDate={i.createdDate}
                                         modifiedDate={i.modifiedDate}
                                         currentUser={currentUser}
+                                        todoListStatus={i.todoListStatus}
                                     />
                                 ))
                         }

@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
         changeSize: actions.changeSize,
         changePagination: actions.changePagination,
         changeSort: actions.changeSort,
-    }, dispatch),
+    }, dispatch)
 });
 
 export default compose(

@@ -1,101 +1,44 @@
 /* eslint-disable react/prop-types,jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import DropDown from '../../components/dropDown/DropDown';
-import { Dashboard } from './Dashboard';
-import * as styled from './DashboardList.styles';
-import loupe from '../../image/magnifying-glass-browser.svg';
-import Search from '../../components/search/Search';
-import VisibleSidebar from './sidebar/SidebarContainer';
-import MultiSelect from './multiSelect/MultiSelectContainet';
+import Link from 'react-router-dom/es/Link';
+import * as styledList from '../../list/OneList.styles';
+import * as styled from '../../dashboard/DashboardList.styles';
+import DropDown from '../../../components/dropDown/DropDown';
+import { Dashboard } from '../../dashboard/Dashboard';
 
-class DashboardList extends Component {
-    componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
+class DashboardListBasket extends Component {
+    componentWillMount = ({ actions } = this.props) => actions.fetchDeletedDashboard();
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
         actions.changePagination(selected);
     };
 
-    handleChange = (newValue) => {
-        const { actions } = this.props;
-        actions.search(newValue);
-    };
-
     render() {
         const {
-            search, selectedMy, selectedShared, actions, toDoBoard, pageSize, totalPages, sort, currentUser,
+            actions, toDoBoard, pageSize, totalPages, currentUser,
         } = this.props;
         return (
             [
                 <styled.App key="app">
-                    <styled.Head>
-                        <styled.SearchDiv>
-                            <Search
-                                onChange={this.handleChange}
-                                value={search}
-                                placeholder="Search dashboard"
-                            />
-                            <styled.IconSearch src={loupe} />
-                        </styled.SearchDiv>
-                        <MultiSelect />
-                        <styled.LabelDiv>
-                            Sorting:
-                        </styled.LabelDiv>
-                        <styled.CheckboxDiv>
-                            <DropDown
-                                changeValue={actions.changeSort}
-                                titleButton={sort}
-                                currentValue={sort}
-                                possibleValues={[
-                                    'By id, low to high',
-                                    'By id, high to low',
-                                    'By Name, a - Z',
-                                    'By Name, Z - a',
-                                    'By Created Date, low to high',
-                                    'By Created Date, high to low',
-                                    'By Modified Date, low to high',
-                                    'By Modified Date, high to low',
-                                ]}
-                                stylesContainer="top: 50px; right: 0px;"
-                                stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;"
-                                stylesButton="
-                                    padding: 16px 8px;
-                                    margin-left: 8px;
-                                    font-size: 16px;
-                                    width: auto;
-                                    min-width: 300px;
-                                    font-weight: bold;
-                                    @media (max-width: 600px) {
-                                        flex: 1;
-                                        justify-content: space-between;
-                                        text-align: center;
-                                        padding:5px;
-                                    }
-                                "
-                            />
-                            {/*<styled.ShowButton
-                                checked={selectedMy}
-                                onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                                style={{ margin: '0px 8px' }}
-                            >
-                            Show my
-                            </styled.ShowButton>
-                            <styled.ShowButton
-                                checked={selectedShared}
-                                onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
-                            >
-                            Show shared
-                            </styled.ShowButton> */}
-                        </styled.CheckboxDiv>
-                    </styled.Head>
+                    <styledList.inputBlock>
+                        <Link to="/lists">
+                            <styledList.animationButton className="fa fa-arrow-left fa-2x" />
+                        </Link>
+                        <styledList.titleNameOneList
+                            type="text"
+                            placeholder="Enter dashboard title"
+                            value="Basket page"
+                        />
+                    </styledList.inputBlock>
                     <styled.DashboardList>
                         {
                             toDoBoard.length === 0
                                 ? (
                                     <styled.NullLenghtDashboards>
-                                        You don't have to-do yet. Plan your tasks with DI To-do! Press to +
+                                       There are no deleted lists yet.
                                     </styled.NullLenghtDashboards>
                                 )
                                 : toDoBoard.map(i => (
@@ -105,8 +48,10 @@ class DashboardList extends Component {
                                         key={i.id}
                                         title={i.todoListName}
                                         tasks={i.tasks}
+                                        todoListStatus={i.todoListStatus}
                                         toDoBoard={toDoBoard}
                                         actions={actions}
+                                        actionsBasket={actions}
                                         shared={i.shared}
                                         createdBy={i.createdBy}
                                         modifiedBy={i.modifiedBy}
@@ -142,19 +87,18 @@ class DashboardList extends Component {
                             stylesButton="padding: 12px 10px; margin: 16px;"
                         />
                     </div>
-                    <VisibleSidebar />
                 </styled.Footer>,
             ]
         );
     }
 }
 
-DashboardList.propTypes = {
-    toDoBoard: PropTypes.arrayOf(PropTypes.shape),
-};
+// DashboardList.propTypes = {
+//     toDoBoard: PropTypes.arrayOf(PropTypes.shape),
+// };
+//
+// DashboardList.defaultProps = {
+//     toDoBoard: [],
+// };
 
-DashboardList.defaultProps = {
-    toDoBoard: [],
-};
-
-export default DashboardList;
+export default DashboardListBasket;

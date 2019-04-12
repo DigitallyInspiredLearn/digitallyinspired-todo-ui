@@ -5,6 +5,7 @@ export const Profile = styled.div`
     overflow: auto;
     flex-direction:column;
     background: ${p => p.theme.backgroundList};
+    margin: 8px;
 `;
 
 export const GreetingUser = styled.div`

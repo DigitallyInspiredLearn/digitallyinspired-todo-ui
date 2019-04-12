@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import trash from '../../../image/trash.svg';
 import * as styled from './Task.styled';
+// import trash from '@material-ui/icons/Delete';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import Input from '../../../components/input/Input';
 
@@ -57,9 +58,8 @@ class Task extends Component {
         const { display } = this.state;
         const displayStyle = { display };
         const {
-            idTask, selected, actions, nameTask,
+            idTask, selected, actions, nameTask, todoListStatus,
         } = this.props;
-
         return (
             <styled.Task
                 id={idTask}
