@@ -14,12 +14,12 @@ export function* errorHandler(gen) {
     try {
         yield* gen();
     } catch (e) {
-        if (e.response.status === 500) {
+        if (e.response && e.response.status === 500) {
             console.log('Error 500');
             history.push('/error500');
-        } else if (e.response.status === 400) {
+        } else if (e.response && e.response.status === 400) {
             console.log('Error 400');
-        } else if (e.response.status === 404) {
+        } else if (e.response && e.response.status === 404) {
             console.log('Error 404');
             history.push('/error404');
         } else console.log(e);

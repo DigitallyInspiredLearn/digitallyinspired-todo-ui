@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as styled from './Popup.styles';
 import Search from '../../components/search/Search';
 
-
 export class Popup extends Component {
-
     handleChange = (newValue) => {
         const { actions } = this.props;
         actions.searchUser(newValue);

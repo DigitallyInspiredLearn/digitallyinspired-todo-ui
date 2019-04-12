@@ -36,6 +36,8 @@ const mapDispatchToProps = dispatch => ({
         changePagination: actions.changePagination,
         changeSort: actions.changeSort,
         addTagToTask: actionsTags.addTagToTask,
+        updateComment: actions.updateComment,
+        updateCommentSuccess: actions.updateCommentSuccess,
     }, dispatch),
 });
 

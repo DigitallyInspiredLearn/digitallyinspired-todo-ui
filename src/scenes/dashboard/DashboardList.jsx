@@ -124,6 +124,7 @@ class DashboardList extends Component {
                                         modifiedDate={i.modifiedDate}
                                         currentUser={currentUser}
                                         allTags={tags}
+                                        comment={i.comment}
                                     />
                                 ))
                         }
