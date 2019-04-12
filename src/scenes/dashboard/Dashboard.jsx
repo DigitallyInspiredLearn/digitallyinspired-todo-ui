@@ -4,6 +4,10 @@ react/require-default-props,react/default-props-match-prop-types */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Comment from '@material-ui/icons/Comment';
+import TextField from '@material-ui/core/TextField';
 import * as styled from './Dashboard.styled';
 import Task from './task/Task';
 import trash from '../../image/trash.svg';
@@ -12,6 +16,17 @@ import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
+
+const styles = theme => ({
+    textField: {
+        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingBottom: 0,
+        marginTop: 0,
+        fontWeight: 500,
+    },
+});
 
 export const getTaskList = (tasks, props) => (
     tasks.length === 0
@@ -28,6 +43,9 @@ export const getTaskList = (tasks, props) => (
                 nameTask={i.body}
                 actions={props.actions}
                 key={i.id}
+                createdDate={i.createdDate}
+                completedDate={i.completedDate}
+                durationTime={i.durationTime}
             />
         )));
 
@@ -37,7 +55,9 @@ export class Dashboard extends Component {
         this.state = {
             valueNewTask: '',
             statePopup: false,
+            stateComment: false,
             newTitle: props.title,
+            newComment: props.comment,
         };
     }
 
@@ -49,6 +69,12 @@ export class Dashboard extends Component {
         e.target.blur();
         this.setState({
             valueNewTask: e.target.value = '',
+        });
+    };
+
+    toggleComment = () => {
+        this.setState({
+            stateComment: !this.state.stateComment,
         });
     };
 
@@ -73,19 +99,36 @@ export class Dashboard extends Component {
         });
     };
 
+    handleUpdateComment = (newValue) => {
+        const { actions, idList, title } = this.props;
+        this.setState({ newComment: newValue }, () => {
+            const { newComment } = this.state;
+            actions.updateComment({
+                id: idList, title, newComment,
+            });
+        });
+    };
+
     handleUpdateTitleSuccess = () => {
         const { actions, idList } = this.props;
         const { newTitle } = this.state;
         actions.updateTitleSuccess({ id: idList, newTitle });
     };
 
+    handleUpdateCommentSuccess = () => {
+        const { actions, idList, title } = this.props;
+        const { newComment } = this.state;
+        actions.updateCommentSuccess({ id: idList, title, newComment });
+    };
+
     render() {
-        const { valueNewTask, statePopup } = this.state;
         const {
-            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, currentUser :
+            valueNewTask, statePopup, stateComment,
+        } = this.state;
+        const {
+            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, comment, currentUser:
                 { gravatarUrl },
         } = this.props;
-
         return ([
             <PopupContainer
                 statePopup={statePopup}
@@ -98,7 +141,9 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
-                    <styled.Avatar src={`${gravatarUrl}?s=120&d=retro`} />
+                    <styled.Avatar
+                        src={`${gravatarUrl}?s=120&d=retro`}
+                    />
 
                     <Input
                         onChange={this.handleUpdateTitle}
@@ -121,16 +166,23 @@ export class Dashboard extends Component {
                                     <Link to={`/lists/${idList}`}>
                                         <styled.IconInfo>
                                             <p>
-                                                <b>Information:</b><br />
+                                                <b>Information about list "{title}":</b><br />
                                                 Created by: {createdBy}<br />
                                                 Created time: {new Date(createdDate).toLocaleString()}<br />
                                                 Modyfied by: {modifiedBy}<br />
                                                 Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
                                             </p>
-                                            <styled.Icon src={info} alt="Information about this list" />
+                                            <styled.Icon
+                                                src={info}
+                                                alt="Information about this list"
+                                            />
                                         </styled.IconInfo>
                                     </Link>
-                                    <styled.Icon src={share} alt="Share list" onClick={this.showPopup} />
+                                    <styled.Icon
+                                        src={share}
+                                        alt="Share list"
+                                        onClick={this.showPopup}
+                                    />
                                     <styled.Icon
                                         src={trash}
                                         onClick={() => actions.deleteDashboard({ id: idList })}
@@ -146,20 +198,51 @@ export class Dashboard extends Component {
                 {
                     shared ? ''
                         : (
-                            <styled.InputAddingTask
-                                placeholder="Add to-do"
-                                value={valueNewTask}
-                                onChange={this.changeValueNewTask}
-                                onKeyPress={e => valueNewTask
-                                    && (e.key === 'Enter'
-                                        && (e.target.blur(), actions.addTask({
-                                            idDashboard: idList, nameTask: valueNewTask,
-                                        })))
-                                }
-                                onBlur={this.handlerOnBlur}
-                            />
+                            <div style={{ display: 'flex' }}>
+                                <styled.InputAddingTask
+                                    style={{ alignSelf: 'center' }}
+                                    placeholder="Add to-do"
+                                    value={valueNewTask}
+                                    onChange={this.changeValueNewTask}
+                                    onKeyPress={e => valueNewTask
+                                        && (e.key === 'Enter'
+                                            && (e.target.blur(), actions.addTask({
+                                                idDashboard: idList, nameTask: valueNewTask,
+                                            })))
+                                    }
+                                    onBlur={this.handlerOnBlur}
+                                />
+                                <IconButton
+                                    aria-label="Delete"
+                                    onClick={this.toggleComment}
+                                >
+                                    <Comment />
+                                </IconButton>
+                            </div>
+
                         )
                 }
+                <styled.Expand
+                    visible={stateComment}
+                >
+                    <TextField
+                        onChange={e => this.handleUpdateComment(e.target.value)}
+                        defaultValue={comment}
+                        multiline
+                        autoFocus
+                        rowsMax="3"
+                        variant="outlined"
+                        margin="normal"
+                        // onKeyPress={e => e.key === 'Enter'
+                        //     && (e.target.blur(), this.handleUpdateCommentSuccess())
+                        // }
+                        onBlur={() => this.handleUpdateCommentSuccess()}
+                        placeholder="Type comment about this list"
+                        style={{
+                            width: '90%', fontWeight: 'bold',
+                        }}
+                    />
+                </styled.Expand>
             </styled.Dashboard>,
         ]);
     }
