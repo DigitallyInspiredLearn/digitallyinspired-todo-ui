@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import { deleteTag } from './duck';
+import PopapAddTag from './popapAddTag/PopapAddTag';
 
 const styles = theme => ({
     root: {
@@ -70,6 +71,7 @@ class MultiSelect extends Component {
             valueNewTag: e.target.value = '',
         });
     };
+
     handleChangeMultiple = (event) => {
         const { options } = event.target;
         const value = [];
@@ -80,18 +82,16 @@ class MultiSelect extends Component {
         }
         this.setState({
             name: value,
-            visible: false,
-            valueNewTag: '',
         });
     };
-
-    changeVisible = () => this.setState({ visible: !this.state.visible });
 
     componentWillMount = ({ actions } = this.props) => actions.fetchTags();
 
     render() {
-        const { classes, tags, actions } = this.props;
-        const { visible, name, valueNewTag } = this.state;
+        const {
+            classes, tags, actions, visible,
+        } = this.props;
+        const { name } = this.state;
         return (
             <div className={classes.root}>
                 <FormControl className={classes.formControl}>
@@ -129,17 +129,10 @@ class MultiSelect extends Component {
                             </MenuItem>
                         ))}
                     </Select>
-                    <input
-                        type="text"
-                        placeholder="add tag"
-                        onKeyPress={e => (
-                            e.key === 'Enter'
-                            && (actions.addTag({
-                                color: 'red', tagName: e.target.value,
-                            }))
-                        )}
-                        onBlur={this.handlerOnBlur}
-                    />
+                    <div onClick={() => { actions.visiblePopap(); }} style={{color: 'grey', cursor: 'pointer'}}>
+                        + add new tag
+                    </div>
+                    <PopapAddTag actions={actions} visible={visible} allTags={tags} />
                 </FormControl>
             </div>
         );

@@ -12,9 +12,10 @@ import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
+import PopapAddTagToTask from './task/popapAddTagToTask/PopapAddTagToTask';
 
 export const getTaskList = (tasks, props) => (
-    tasks.length === 0
+    !tasks.length
         ? (
             <styled.NullLenghtTask>
                 You have no tasks yet, it's time to be active!
@@ -28,6 +29,7 @@ export const getTaskList = (tasks, props) => (
                 nameTask={i.body}
                 actions={props.actions}
                 key={i.id}
+                allTags={props.allTags}
             />
         )));
 
@@ -82,8 +84,16 @@ export class Dashboard extends Component {
     render() {
         const { valueNewTask, statePopup } = this.state;
         const {
-            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, currentUser :
-                { gravatarUrl },
+            idList,
+            title,
+            tasks,
+            actions,
+            shared,
+            createdBy,
+            createdDate,
+            modifiedBy,
+            modifiedDate,
+            currentUser : { gravatarUrl },
         } = this.props;
 
         return ([
@@ -98,6 +108,7 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
+
                     <styled.Avatar src={`${gravatarUrl}?s=120&d=retro`} />
 
                     <Input
@@ -140,6 +151,7 @@ export class Dashboard extends Component {
                             )
                     }
                 </styled.DashboardHeader>
+                <PopapAddTagToTask />
                 <styled.TaskList>
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>

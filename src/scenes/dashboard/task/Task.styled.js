@@ -4,6 +4,7 @@ export const Task = styled.div`
     display: flex;
     flex-flow: row nowrap;
     position: relative;
+    align-items: center;
     &:before{ 
           content: '';
           background-color: ${p => p.theme.background};
@@ -17,6 +18,7 @@ export const Task = styled.div`
     &:hover:before{
         width: 100%;
     }
+    
 `;
 
 export const NameAdnCheckedTask = styled.div`
@@ -58,9 +60,51 @@ export const TaskName = styled.input`
 export const DeleteTask = styled.img`
     width: 20px;
     height: 20px;
-    opacity: 0.5;
-    margin: 8px 10px 4px 0;
+    opacity: 0.7;
+    margin: 8px 10px 6px 16px;
     cursor: pointer;
+
+`;
+
+export const AddTag = styled.div`
+    opacity: 1;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 5px  10px 0  rgba(0,0,0,0.3);
+    padding: 1px 6px ;
+    margin-top:4px;
+    background-color: white;
+    border-radius: 50%;
+    color: grey;
+    font-size: 16px;
+    border: 2px solid grey;
+`;
+
+export const TagSelect = styled.div`
+    position: absolute;
+    opacity: 0.7;
+    right: 0px;
+    top: 12px;
+    padding: 8px;
+    width: 60px;
+    background-color: white;
+    z-index:-1;
+    box-shadow: 0 5px  10px 0  rgba(0,0,0,0.5);
+    overflow: auto;
+    height: 150px;
+    border-radius: 4px;
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    ::-webkit-scrollbar-thumb {
+        background: lightgrey; 
+    }  
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey; 
+    }
 `;
 
 export const TrashTaskOneList = styled.div`
@@ -82,3 +126,4 @@ export const TrashTaskOneList = styled.div`
         }
     }
 `;
+

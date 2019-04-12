@@ -12,6 +12,7 @@ class Task extends Component {
         this.state = {
             display: 'none',
             newTaskName: props.nameTask,
+            visibleTegSelect: false,
         };
     }
 
@@ -54,13 +55,12 @@ class Task extends Component {
     };
 
     render() {
-        const { display } = this.state;
+        const { display, visibleTegSelect } = this.state;
         const displayStyle = { display };
         const {
-            idTask, selected, actions, nameTask,
+            idTask, selected, actions, nameTask, allTags,
         } = this.props;
-
-        return (
+        return ([
             <styled.Task
                 id={idTask}
                 onMouseOver={this.updateDisplayFlex}
@@ -80,14 +80,21 @@ class Task extends Component {
                         style={{ textDecoration: selected ? 'line-through' : 'none', width: '100%' }}
                     />
                 </styled.NameAdnCheckedTask>
+                <styled.AddTag
+                    style={displayStyle}
+                    onClick={() => this.setState({ visibleTegSelect: !visibleTegSelect})}
+                >
+                    +
+                </styled.AddTag>
                 <styled.DeleteTask
                     src={trash}
                     alt="Delete this task"
                     style={displayStyle}
                     onClick={() => actions.deleteTask({ idTask })}
                 />
-            </styled.Task>
-        );
+            </styled.Task>,
+
+        ]);
     }
 }
 

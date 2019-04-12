@@ -16,7 +16,7 @@ import { saga as tagSaga } from '../scenes/dashboard/multiSelect/duck'
 
 const persistConfig = {
     key: 'app',
-    whitelist: ['auth', 'theme', 'tags'],
+    whitelist: ['auth', 'theme' ],
     storage,
 };
 
