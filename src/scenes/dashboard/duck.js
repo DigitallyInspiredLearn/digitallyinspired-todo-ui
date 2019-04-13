@@ -6,7 +6,7 @@ import {
     addDashboard,
     updateList,
     getSharedLists,
-    shareTodoListToUser,
+    shareTodoListToUser, disableTodoList,
 } from '../../api/dashboard';
 import {
     updateTask,
@@ -147,11 +147,10 @@ export function* fetchAllLists() {
         selectedMy, selectedShared, pageSize, currentPage, sort,
     } = yield select(state => state.dashboard);
     const sortValue = getSorting(sort);
-    const data = selectedMy
-        ? (yield call(getMyList, currentPage, pageSize, sortValue)).data : {};
-    const countElements = data.totalElements;
-    const myLists = selectedMy ? data.content : [];
-    const countPages = data.totalPages;
+    const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE')) : {};
+    const countElements = res.data.totalElements;
+    const myLists = selectedMy ? res.data.content : [];
+    const countPages = res.data.totalPages;
     yield put(actions.fetchMyListsSuccess({ myLists, countElements, countPages }));
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
@@ -197,7 +196,10 @@ export function* updateNameTask(action) {
 }
 
 export function* deleteDashboard(action) {
-    yield call(deleteList, action.payload.id);
+    yield call(disableTodoList, action.payload.id);
+    // (yield call(getMyList, currentPage, pageSize, sortValue)).data;
+    // yield put(actions.deleteDashboard(res.data));
+    // yield call(deleteList, action.payload.id);
     yield call(fetchAllLists);
 }
 

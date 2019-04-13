@@ -7,6 +7,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Comment from '@material-ui/icons/Comment';
+import Delete from '@material-ui/icons/Delete';
+import Restore from '@material-ui/icons/RestoreFromTrash';
+import Share from '@material-ui/icons/Share';
+import Info from '@material-ui/icons/Info';
 import TextField from '@material-ui/core/TextField';
 import * as styled from './Dashboard.styled';
 import Task from './task/Task';
@@ -43,6 +47,7 @@ export const getTaskList = (tasks, props) => (
                 nameTask={i.body}
                 actions={props.actions}
                 key={i.id}
+                todoListStatus={props.todoListStatus}
                 createdDate={i.createdDate}
                 completedDate={i.completedDate}
                 durationTime={i.durationTime}
@@ -125,9 +130,8 @@ export class Dashboard extends Component {
         const {
             valueNewTask, statePopup, stateComment,
         } = this.state;
-        const {
-            idList, title, tasks, actions, shared, createdBy, createdDate, modifiedBy, modifiedDate, comment, currentUser:
-                { gravatarUrl },
+        const { idList, title, todoListStatus, tasks, actions, actionsBasket, shared, createdBy, createdDate,
+            modifiedBy, modifiedDate, comment, currentUser: { gravatarUrl },
         } = this.props;
         return ([
             <PopupContainer
@@ -155,72 +159,108 @@ export class Dashboard extends Component {
                         }}
                     />
                     {
-                        shared
-                            ? (
-                                <styled.IconContainer>
-                                    <styled.Icon src={pushpin} alt="List is shared" />
-                                </styled.IconContainer>
-                            )
-                            : (
-                                <styled.IconContainer>
-                                    <Link to={`/lists/${idList}`}>
-                                        <styled.IconInfo>
-                                            <p>
-                                                <b>Information about list "{title}":</b><br />
-                                                Created by: {createdBy}<br />
-                                                Created time: {new Date(createdDate).toLocaleString()}<br />
-                                                Modyfied by: {modifiedBy}<br />
-                                                Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                            </p>
-                                            <styled.Icon
-                                                src={info}
-                                                alt="Information about this list"
-                                            />
-                                        </styled.IconInfo>
-                                    </Link>
-                                    <styled.Icon
-                                        src={share}
-                                        alt="Share list"
-                                        onClick={this.showPopup}
+                        todoListStatus === 'ACTIVE' ? (
+                            shared
+                                ? (
+                                    <styled.IconContainer>
+                                        <styled.Icon src={pushpin} alt="List is shared" />
+                                    </styled.IconContainer>
+                                )
+                                : (
+                                    <styled.IconContainer>
+                                        <Link to={`/lists/${idList}`}>
+                                            <styled.IconInfo>
+                                                <p>
+                                                    <b>Information about list "{title}":</b><br />
+                                                    Created by: {createdBy}<br />
+                                                    Created time: {new Date(createdDate).toLocaleString()}<br />
+                                                    Modyfied by: {modifiedBy}<br />
+                                                    Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                </p>
+                                                <IconButton
+                                                    aria-label="info"
+                                                    style={{ borderRadius: '40%', padding: '4px' }}
+                                                    alt="Information about this list"
+
+                                                >
+                                                    <Info />
+                                                </IconButton>
+                                            </styled.IconInfo>
+                                        </Link>
+                                        <IconButton
+                                            aria-label="share"
+                                            style={{ borderRadius: '40%', padding: '4px' }}
+                                            onClick={this.showPopup}
+                                            alt="Share list"
+
+                                        >
+                                            <Share />
+                                        </IconButton>
+                                        <IconButton
+                                            aria-label="trash"
+                                            onClick={() => actions.deleteDashboard({ id: idList })}
+                                            style={{ borderRadius: '40%', padding: '4px' }}
+                                            alt="Delete this list"
+                                        >
+                                            <Delete />
+                                        </IconButton>
+                                    </styled.IconContainer>
+                                )
+                        ) : (
+                            <styled.IconContainer>
+                                <IconButton
+                                    aria-label="restore"
+                                    onClick={() => actionsBasket.restoreList({ id: idList })}
+                                    alt="Restore this list"
+                                    style={{ borderRadius: '40%', padding: '4px' }}
+                                >
+                                    <Restore
+                                        style={{ borderRadius: '40%' }}
                                     />
-                                    <styled.Icon
-                                        src={trash}
-                                        onClick={() => actions.deleteDashboard({ id: idList })}
-                                        alt="Delete this list"
-                                    />
-                                </styled.IconContainer>
-                            )
+                                </IconButton>
+                                <IconButton
+                                    aria-label="trash"
+                                    onClick={() => actionsBasket.deletedList({ id: idList })}
+                                    style={{ borderRadius: '40%', padding: '4px' }}
+                                    alt="Delete this list"
+
+                                >
+                                    <Delete />
+                                </IconButton>
+                            </styled.IconContainer>
+                        )
                     }
                 </styled.DashboardHeader>
                 <styled.TaskList>
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>
                 {
-                    shared ? ''
-                        : (
-                            <div style={{ display: 'flex' }}>
-                                <styled.InputAddingTask
-                                    style={{ alignSelf: 'center' }}
-                                    placeholder="Add to-do"
-                                    value={valueNewTask}
-                                    onChange={this.changeValueNewTask}
-                                    onKeyPress={e => valueNewTask
+                    todoListStatus === 'ACTIVE' ? (
+                        shared ? ''
+                            : (
+                                <div style={{ display: 'flex' }}>
+                                    <styled.InputAddingTask
+                                        style={{ alignSelf: 'center' }}
+                                        placeholder="Add to-do"
+                                        value={valueNewTask}
+                                        onChange={this.changeValueNewTask}
+                                        onKeyPress={e => valueNewTask
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask,
                                             })))
-                                    }
-                                    onBlur={this.handlerOnBlur}
-                                />
-                                <IconButton
-                                    aria-label="Delete"
-                                    onClick={this.toggleComment}
-                                >
-                                    <Comment />
-                                </IconButton>
-                            </div>
-
-                        )
+                                        }
+                                        onBlur={this.handlerOnBlur}
+                                    />
+                                    <IconButton
+                                        aria-label="Delete"
+                                        onClick={this.toggleComment}
+                                    >
+                                        <Comment />
+                                    </IconButton>
+                                </div>
+                            )
+                    ) : null
                 }
                 <styled.Expand
                     visible={stateComment}
