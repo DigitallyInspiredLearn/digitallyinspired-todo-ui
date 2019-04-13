@@ -8,42 +8,41 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import moment from 'moment';
 
-const getTime = (durationTime) => {
-    const date = new Date();
-    date.setTime(durationTime);
-    return date.getHours();
-};
-
 export default class FormDialog extends React.Component {
     constructor(props) {
         super(props);
-        const duration = moment.duration(moment(props.completedDate).diff(moment(props.createdDate)));
-        console.log(duration.hours(), 'hours');
-        console.log(duration.minutes(), 'minutes');
+        const duration = moment.duration(moment().diff(moment(props.createdDate)));
         this.state = {
-            durationTime: '',
+            days: duration.days(),
+            hours: duration.hours(),
+            minutes: duration.minutes(),
         };
     }
 
-    // handleClickOpen = () => {
-    //     this.setState({ open: true });
-    // };
+    changeDurationDays = (days) => {
+        this.setState({ days });
+    }
 
-    // handleClose = () => {
-    //     this.setState({ open: false });
-    // };
+    changeDurationHours = (hours) => {
+        this.setState({ hours });
+    }
 
-    changeDurationTime = (time) => {
-        this.setState({ durationTime: time });
+    changeDurationMinutes = (minutes) => {
+        this.setState({ minutes });
     }
 
     render() {
-        const { show, handleClose, durationTime, handleChangeDurationTime } = this.props;
+        const {
+            days, hours, minutes,
+        } = this.state;
+        const {
+            show, onClose, onConfirm,
+        } = this.props;
         return (
             <div>
                 <Dialog
                     open={show}
-                    onClose={handleClose}
+                    onClose={onClose}
                     aria-labelledby="form-dialog-title"
                 >
                     <DialogTitle
@@ -56,25 +55,42 @@ export default class FormDialog extends React.Component {
                             You can change time, which you spent for complete task
                         </DialogContentText>
                         <TextField
-                            onChange={e => this.changeDurationTime(e.target.value)}
-                            autoFocus
-                            margin="dense"
+                            onChange={e => this.changeDurationDays(e.target.value)}
                             id="name"
-                            label="Duration time"
-                            fullWidth
+                            label="Days spent"
+                            style={{ width: '30%' }}
                             type="number"
-                            defaultValue={getTime(durationTime)}
+                            value={days}
+                            inputProps={{ min: '0', max: '30', step: '1' }}
+                        />
+                        <TextField
+                            onChange={e => this.changeDurationHours(e.target.value)}
+                            id="name"
+                            label="Hours spent"
+                            style={{ width: '30%', marginLeft: '10px' }}
+                            type="number"
+                            value={hours}
+                            inputProps={{ min: '0', max: '24', step: '1', pattern: /^([01]?\d|2[0-3])$/ }}
+                        />
+                        <TextField
+                            onChange={e => this.changeDurationMinutes(e.target.value)}
+                            id="name"
+                            label="Minutes spent"
+                            style={{ width: '30%', marginLeft: '10px' }}
+                            type="number"
+                            value={minutes}
+                            inputProps={{ min: '0', max: '60', step: '1' }}
                         />
                     </DialogContent>
                     <DialogActions>
                         <Button
-                            onClick={handleClose}
+                            onClick={onClose}
                             color="primary"
                         >
                             Cancel
                         </Button>
                         <Button
-                            onClick={handleChangeDurationTime(this.state.durationTime)}
+                            onClick={() => onConfirm({ days, hours, minutes })}
                             color="primary"
                         >
                             Enter

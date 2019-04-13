@@ -35,26 +35,44 @@ class Task extends Component {
         this.setState({
             statePopup: false,
         });
+
+        const {
+            selected, actions, nameTask, idTask,
+        } = this.props;
+
+        console.log('cancel');
+        // actions.updateCheckbox({
+        //     nameTask, idTask, selected: false, body: nameTask,
+        // });
     };
 
-    handleChangeDurationTime = (time) => {
-        // console.log(time);
+    handleCompleteTask = (time) => {
+        const {
+            selected, actions, nameTask, idTask,
+        } = this.props;
+
+        this.setState({ statePopup: false });
+
+        console.log(time);
+        actions.updateCheckbox({
+            nameTask, idTask, selected, body: nameTask,
+        });
     };
 
     handleSelectTask = () => {
         const {
-            idTask, selected, actions, nameTask,
+            selected, actions, nameTask, idTask,
         } = this.props;
 
         if (!selected) {
             this.setState({ statePopup: true });
         } else {
-            // console.log(selected);
+            actions.updateCheckbox({
+                nameTask, idTask, selected, body: nameTask,
+            });
         }
 
-        actions.updateCheckbox({
-            nameTask, idTask, selected, body: nameTask,
-        });
+
     };
 
     handleUpdateTask = (newValue) => {
@@ -86,7 +104,7 @@ class Task extends Component {
         const { display, statePopup } = this.state;
         const displayStyle = { display };
         const {
-            idTask, selected, actions, nameTask, createdDate, completedDate, durationTime
+            idTask, selected, actions, nameTask, createdDate, completedDate,
         } = this.props;
         return (
             <React.Fragment>
@@ -94,11 +112,10 @@ class Task extends Component {
                     statePopup && (
                         <Dialog
                             show={statePopup}
-                            handleClose={this.closePopup}
+                            onClose={this.closePopup}
+                            onConfirm={this.handleCompleteTask}
                             createdDate={createdDate}
                             completedDate={completedDate}
-                            durationTime={durationTime}
-                            handleChangeDurationTime={this.handleChangeDurationTime}
                         />
                     )
                 }
@@ -125,7 +142,7 @@ class Task extends Component {
                         <p>
                             <b>Information about this task:</b><br />
                             Created Date: {new Date(createdDate).toLocaleString()}<br />
-                            Completed Date: {completedDate ? new Date(completedDate).toLocaleString() : 'in process'}<br />
+                            Completed Date: {selected ? new Date(completedDate).toLocaleString() : 'in process'}<br />
                         </p>
                         <styled.DeleteTask
                             src={info}
