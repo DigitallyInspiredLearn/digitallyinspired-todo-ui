@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import trash from '../../../image/trash.svg';
+import Delete from '@material-ui/icons/Delete';
+import Info from '@material-ui/icons/Info';
 import info from '../../../image/information.svg';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -84,9 +86,9 @@ class Task extends Component {
 
     render() {
         const { display, statePopup } = this.state;
-        const displayStyle = { display };
+        const displayStyle = { display, color: 'rgba(0, 0, 0, 0.54)' };
         const {
-            idTask, selected, actions, nameTask, createdDate, completedDate, durationTime
+            idTask, selected, actions, nameTask, createdDate, completedDate, durationTime, todoListStatus
         } = this.props;
         return (
             <React.Fragment>
@@ -125,19 +127,20 @@ class Task extends Component {
                         <p>
                             <b>Information about this task:</b><br />
                             Created Date: {new Date(createdDate).toLocaleString()}<br />
-                            Completed Date: {completedDate ? new Date(completedDate).toLocaleString() : 'in process'}<br />
+                            Completed Date: {completedDate ? new Date(completedDate).toLocaleString()
+                                : 'in process'}<br />
                         </p>
-                        <styled.DeleteTask
-                            src={info}
+                        <Info
+                            aria-label="info"
                             style={displayStyle}
                             alt="Information about this list"
                         />
                     </styled.IconInfo>
-                    <styled.DeleteTask
-                        src={trash}
-                        alt="Delete this task"
-                        style={displayStyle}
+                    <Delete
+                        aria-label="trash"
                         onClick={() => actions.deleteTask({ idTask })}
+                        style={displayStyle}
+                        alt="Delete this task"
                     />
                 </styled.Task>
             </React.Fragment>
