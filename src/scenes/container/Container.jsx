@@ -58,6 +58,7 @@ class Container extends Component {
                             data-name="Logo"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 217.88 140.1"
+                            onClick={() => history.push('/lists')}
                         >
                             <path
                                 d="M288.2,248h69.2c4,0,4.8,1,4.1,4.9l-13.5,81c-2.8,

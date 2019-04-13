@@ -154,7 +154,9 @@ export const DashboardList = styled.main`
     }
 `;
 
-export const NullLenghtDashboards = styled.p`
+export const NullLenghtDashboards = styled.div`
+    display: flex;
     color: ${p => p.theme.mainText};
-    margin: auto;
+    margin: 100px auto;
+    font-size: 20px;
 `;

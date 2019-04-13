@@ -36,6 +36,7 @@ class DashboardList extends Component {
             currentUser,
             tags,
             tagTaskKeys,
+            actionsBasket,
         } = this.props;
 
         return (
@@ -122,6 +123,7 @@ class DashboardList extends Component {
                                         tasks={i.tasks}
                                         toDoBoard={toDoBoard}
                                         actions={actions}
+                                        actionsBasket={actionsBasket}
                                         shared={i.shared}
                                         createdBy={i.createdBy}
                                         modifiedBy={i.modifiedBy}
@@ -129,6 +131,7 @@ class DashboardList extends Component {
                                         modifiedDate={i.modifiedDate}
                                         currentUser={currentUser}
                                         allTags={tags}
+                                        todoListStatus={i.todoListStatus}
                                         comment={i.comment}
                                         tagTaskKeys={tagTaskKeys}
                                     />

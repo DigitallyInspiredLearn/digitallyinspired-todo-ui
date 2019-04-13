@@ -153,11 +153,11 @@ class Profile extends Component {
                 </styled.Info>
                 <styled.Statistics>
                     <h1>Profile statistics</h1>
-                    <p> { `Количество листов: ${statistics.todoListsNumber}` } </p>
-                    <p> { `Количество задач: ${statistics.tasksNumber}`} </p>
-                    <p> { `Количество выполненных задач:  ${statistics.completedTasksNumber}` } </p>
-                    <p> { `Количество подписчиков: ${statistics.followersNumber}`} </p>
-                    <p> { `Количество подписок: ${statistics.followedUsersNumber}`} </p>
+                    <p> { `Number of lists: ${statistics.todoListsNumber}` } </p>
+                    <p> { `Number of tasks: ${statistics.tasksNumber}`} </p>
+                    <p> { `Number of completed tasks:  ${statistics.completedTasksNumber}` } </p>
+                    <p> { `Number of subscribers: ${statistics.followersNumber}`} </p>
+                    <p> { `Number of followers: ${statistics.followedUsersNumber}`} </p>
                 </styled.Statistics>
             </styled.Profile>
         );

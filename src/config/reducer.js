@@ -8,6 +8,7 @@ import { reducer as dashboardReducer } from '../scenes/dashboard/duck';
 import { reducer as tagReducer } from '../scenes/dashboard/multiSelect/duck';
 import { reducer as listReducer } from '../scenes/list/duck';
 import { reducer as subscribeReducer } from '../scenes/container/settings/subscribes/duck';
+import { reducer as basketReducer } from '../scenes/basket/dashboardBasket/duck';
 
 const mainReducer = combineReducers({
     dashboard: dashboardReducer,
@@ -19,6 +20,7 @@ const mainReducer = combineReducers({
     theme: themeReducer,
     subscribe: subscribeReducer,
     tags: tagReducer,
+    basket: basketReducer,
 });
 
 export default mainReducer;
