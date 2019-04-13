@@ -5,6 +5,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Workbook from 'react-excel-workbook';
 import TaskForList from './tasksForList/TaskForList';
+import IconButton from '@material-ui/core/IconButton';
+import Delete from '@material-ui/icons/Delete';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
@@ -78,15 +80,15 @@ class OneList extends Component {
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
-                        <styled.animationButton
-                            // style={{
-                            // backgroundImage: 'url("../../image/trash.svg")', marginTop: '5px', marginLeft: '10px', width: '30px', height: '30px',
-                            // }}
-                            className="iconTrash"
-                            src={trash}
-                            id={match.params.id}
+                        <IconButton
+                            aria-label="trash"
                             onClick={() => actions.deleteList({ idDashboard: match.params.id })}
-                        />
+                            style={{ borderRadius: '40%', padding: '4px' }}
+                            alt="Delete this list"
+
+                        >
+                            <Delete />
+                        </IconButton>
                     </Link>
                     <div
                         style={{

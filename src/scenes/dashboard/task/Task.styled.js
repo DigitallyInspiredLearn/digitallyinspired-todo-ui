@@ -55,6 +55,37 @@ export const TaskName = styled.input`
     text-decoration: ${props => (props.selected ? 'line-through' : 'none')};
 `;
 
+export const Icon = styled.img`
+    width: 25px;
+    height: 22px;
+    color: ${p => p.theme.mainText};
+    opacity: 0.5; 
+    margin-right: 4px;
+`;
+
+export const IconInfo = styled.div`
+    position: relative;
+    p{
+        display: none;
+        padding: 8px;
+    }
+    &:hover p{
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+        z-index: 9999;
+        width: 210px;
+        margin-top: 16px;
+        background: #f3f3f3;
+        height: 70px;
+        -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+    }
+`;
+
 export const DeleteTask = styled.img`
     width: 20px;
     height: 20px;

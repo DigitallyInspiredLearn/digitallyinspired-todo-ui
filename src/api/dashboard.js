@@ -19,3 +19,5 @@ export const shareTodoListToUser = (id, userName) => (
 );
 
 export const disableTodoList = id => axios.put(`/api/todolists/disable/${id}`);
+
+export const enableTodoList = id => axios.put(`/api/todolists/enable/${id}`);
