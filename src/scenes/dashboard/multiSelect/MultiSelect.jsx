@@ -14,25 +14,29 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'column',
+
     },
     formControl: {
-        margin: theme.spacing.unit,
+        margin: '2px 8px',
         minWidth: 120,
-        maxWidth: 300,
+        maxWidth: 305,
+        height: '42px',
     },
     chips: {
         display: 'flex',
+        padding: '4px',
         flexWrap: 'wrap',
-        maxHeight: '100px',
+        height: '42px',
+        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
         overflow: 'auto',
-        width: '300px',
+        width: '275px',
+        backgroundColor: 'white',
+        borderRadius: '5px',
     },
     chip: {
-        margin: theme.spacing.unit / 4,
+        margin: '4px',
     },
-    noLabel: {
-        marginTop: theme.spacing.unit * 3,
-    },
+
 });
 
 const ITEM_HEIGHT = 48;
@@ -46,42 +50,23 @@ const MenuProps = {
     },
 };
 
-function getStyles(name, that) {
-    return {
-        fontWeight:
-            that.state.name.indexOf(name) === -1
-                ? that.props.theme.typography.fontWeightRegular
-                : that.props.theme.typography.fontWeightMedium,
-    };
-}
+// function getStyles(selectTags, that) {
+//     console.log(selectTags)
+//     return {
+//         fontWeight:
+//             that.state.selectTags.indexOf(selectTags) === -1
+//                 ? that.props.theme.typography.fontWeightRegular
+//                 : that.props.theme.typography.fontWeightMedium,
+//     };
+// }
 
 class MultiSelect extends Component {
     state = {
-        name: [],
+        selectTags: [],
     };
 
     handleChange = (event) => {
-        this.setState({ name: event.target.value });
-    };
-
-    handlerOnBlur = (e) => {
-        e.target.blur();
-        this.setState({
-            valueNewTag: e.target.value = '',
-        });
-    };
-
-    handleChangeMultiple = (event) => {
-        const { options } = event.target;
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i += 1) {
-            if (options[i].selected) {
-                value.push(options[i].value);
-            }
-        }
-        this.setState({
-            name: value,
-        });
+        this.setState({ selectTags: event.target.value });
     };
 
     componentWillMount = ({ actions } = this.props) => actions.fetchTags();
@@ -90,28 +75,33 @@ class MultiSelect extends Component {
         const {
             classes, tags, actions, visible,
         } = this.props;
-        const { name } = this.state;
-        return (
+        const { selectTags } = this.state;
+        return ([
             <div className={classes.root}>
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="select-multiple-chip" style={{ color: 'black' }}>Choose tags</InputLabel>
+                    <InputLabel htmlFor="select-multiple-chip" style={{ color: 'black' }}>Choose tags:</InputLabel>
                     <Select
-                        style={{ color: 'black', borderColor: 'black' }}
+                        style={{ color: 'black', border: 'none' }}
                         multiple
-                        value={name}
+                        value={selectTags}
                         onChange={this.handleChange}
                         input={<Input id="select-multiple-chip" />}
                         renderValue={selected => (
                             <div className={classes.chips} style={{ position: 'relative' }}>
                                 {selected.map(value => (
-                                    <Chip key={value} label={value} className={classes.chip} />
+                                    <Chip
+                                        key={value.id}
+                                        label={value.tagName}
+                                        className={classes.chip}
+                                        style={{ backgroundColor: value.color }}
+                                    />
                                 ))}
                             </div>
                         )}
                         MenuProps={MenuProps}
                     >
                         {tags.map(tag => (
-                            <MenuItem key={tag.id} value={tag.tagName} style={getStyles(tag.id, this)}>
+                            <MenuItem key={tag.id} value={tag}>
                                 <div
                                     style={{ display: 'flex', flex: 'auto' }}
                                     onMouseOver={this.changeVisible}
@@ -128,12 +118,23 @@ class MultiSelect extends Component {
                             </MenuItem>
                         ))}
                     </Select>
-                    <div onClick={() => { actions.visiblePopap(); }} style={{color: 'grey', cursor: 'pointer'}}>
-                        + add new tag
-                    </div>
                     <PopapAddTag actions={actions} visible={visible} allTags={tags} />
                 </FormControl>
-            </div>
+            </div>,
+            <button
+                onClick={() => { actions.visiblePopap(); }}
+                style={{
+                    color: 'white',
+                    backgroundColor: 'black',
+                    borderRadius: '12px',
+                    border: 'none',
+                    outline: 'none',
+                    padding: '2px 6px',
+                    marginTop: '20px'
+                }}
+            >
+                    + add new tag
+            </button>]
         );
     }
 }

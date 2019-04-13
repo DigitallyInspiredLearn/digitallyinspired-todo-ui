@@ -82,6 +82,7 @@ export const IconInfo = styled.div`
         margin-top: 16px;
         background: #f3f3f3;
         height: 70px;
+        overflow-y: auto;
         -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         box-shadow: 0 5px 5px rgba(0,0,0,0.3);

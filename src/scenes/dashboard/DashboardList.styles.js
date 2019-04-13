@@ -14,6 +14,7 @@ export const Head = styled.div`
     height: auto;
     margin: 8px;
     justify-content: space-between;
+   position:relative;
     @media (max-width: 600px) {
         flex-direction: column-reverse;
         min-height: 64px;
@@ -22,22 +23,23 @@ export const Head = styled.div`
 
 export const SearchDiv = styled.div`
     display: flex;
-    flex-direction: row;
-    flex: inherit;
-    width: 70%;
     background-color: ${p => p.theme.backgroundList};
-    height: auto;
+    height: 35px;
     min-height: 16px;
-    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     border-radius: 5px;
     padding: 8px;
+    width:100%;
+    margin-top: 6px;
     align-items: center;
-    @media (max-width: 600px) {
-        padding: 8px;   
-    }
-     
 `;
 
+export const Search = styled.input`
+    display: flex;
+    flex: auto;
+    outline: none;
+    font-size: 1.1em;
+`;
 export const LabelDiv = styled.div`
     display: flex;
     align-self: center;
@@ -105,13 +107,6 @@ export const Pagination = styled.div`
    }
 `;
 
-export const Search = styled.input`
-    display: flex;
-    flex: auto;
-    outline: none;
-    font-size: 1.1em;
-`;
-
 export const IconSearch = styled.img`
     width: 32px;
     height: 32px;
@@ -119,6 +114,7 @@ export const IconSearch = styled.img`
 `;
 export const CheckboxDiv = styled.div`
     display: flex;
+    margin-top: 7px;
     @media (max-width: 600px) {
         margin-bottom: 8px;
     }

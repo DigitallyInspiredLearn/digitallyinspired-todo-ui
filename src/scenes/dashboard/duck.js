@@ -14,12 +14,14 @@ import {
     deleteTask as deleteTaskApi,
 } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
+import { getTagTaskKeys } from '../../api/tag';
 
 export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
 
 export const FETCH_MY_LISTS_SUCCESS = 'dashboard/FETCH_MY_LISTS_SUCCESS';
 export const FETCH_SHARED_LISTS_SUCCESS = 'dashboard/FETCH_SHARED_LISTS_SUCCESS';
+export const FETCH_TAG_TAKS_KEYS_SUCCESS = 'dashboard/FETCH_TAG_TAKS_KEYS_SUCCESS';
 
 export const SELECTED_MY_LISTS = 'dashboard/SELECTED_MY_LISTS';
 export const SELECTED_SHARED_LISTS = 'dashboard/SELECTED_SHARED_LISTS';
@@ -53,6 +55,7 @@ export const actions = {
     changeSort: createAction(CHANGE_SORT),
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
+    fetchTagTaskKeysSuccess: createAction(FETCH_TAG_TAKS_KEYS_SUCCESS),
     updateSelectedMyLists: createAction(SELECTED_MY_LISTS),
     updateSelectedSharedLists: createAction(SELECTED_SHARED_LISTS),
     fetchMyListsSuccess: createAction(FETCH_MY_LISTS_SUCCESS),
@@ -87,6 +90,7 @@ const initialState = {
     pageSize: 4,
     totalElements: 0,
     sort: 'By id, low to high',
+    tagTaskKeys: [],
 };
 
 export const reducer = handleActions({
@@ -95,6 +99,7 @@ export const reducer = handleActions({
     [CHANGE_PAGINATION]: (state, action) => ({ ...state, currentPage: action.payload }),
     [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
     [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
+    [FETCH_TAG_TAKS_KEYS_SUCCESS]: (state, action) => ({ ...state, tagTaskKeys: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({
         ...state,
@@ -156,6 +161,8 @@ export function* fetchAllLists() {
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
+    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue, [])).data;
+    yield put(actions.fetchTagTaskKeysSuccess(keys));
     yield put(actions.fetchDashboardSuccess(allList));
 }
 

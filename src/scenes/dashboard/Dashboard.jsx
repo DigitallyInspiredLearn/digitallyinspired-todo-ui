@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Comment from '@material-ui/icons/Comment';
+// import Comment from '@material-ui/icons/Comment';
 import TextField from '@material-ui/core/TextField';
 import * as styled from './Dashboard.styled';
 import Task from './task/Task';
@@ -16,7 +16,6 @@ import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
-import PopapAddTagToTask from './task/popapAddTagToTask/PopapAddTagToTask';
 
 const styles = theme => ({
     textField: {
@@ -48,6 +47,7 @@ export const getTaskList = (tasks, props) => (
                 createdDate={i.createdDate}
                 completedDate={i.completedDate}
                 durationTime={i.durationTime}
+                tagTaskKeys={props.tagTaskKeys}
             />
         )));
 
@@ -135,11 +135,10 @@ export class Dashboard extends Component {
             createdDate,
             modifiedBy,
             modifiedDate,
-            currentUser : { gravatarUrl },
-        comment,
+            currentUser: { gravatarUrl },
+            comment,
         } = this.props;
-           const {valueNewTask, statePopup, stateComment,
-        } = this.state;
+        const { valueNewTask, statePopup, stateComment } = this.state;
 
         return ([
             <PopupContainer
@@ -205,7 +204,6 @@ export class Dashboard extends Component {
                             )
                     }
                 </styled.DashboardHeader>
-                <PopapAddTagToTask />
                 <styled.TaskList>
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>
@@ -230,7 +228,7 @@ export class Dashboard extends Component {
                                     aria-label="Delete"
                                     onClick={this.toggleComment}
                                 >
-                                    <Comment />
+                                    {/*<Comment />*/}
                                 </IconButton>
                             </div>
 
