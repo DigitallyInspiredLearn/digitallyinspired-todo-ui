@@ -2,10 +2,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import trash from '../../../image/trash.svg';
 import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
-import info from '../../../image/information.svg';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import Input from '../../../components/input/Input';
@@ -43,9 +41,6 @@ class Task extends Component {
         } = this.props;
 
         console.log('cancel');
-        // actions.updateCheckbox({
-        //     nameTask, idTask, selected: false, body: nameTask,
-        // });
     };
 
     handleCompleteTask = (time) => {
@@ -54,10 +49,13 @@ class Task extends Component {
         } = this.props;
 
         this.setState({ statePopup: false });
-
-        console.log(time);
+        console.log(moment(time.completedDate).format());
+        console.log(moment(time.completedDate).valueOf());
+        // const completedDate = moment(time.completedDate).valueOf();
+        console.log(moment.duration(time.duration).valueOf());
+        const durationTime = moment.duration(time.duration).valueOf();
         actions.updateCheckbox({
-            nameTask, idTask, selected, body: nameTask,
+            nameTask, idTask, selected, body: nameTask, durationTime,
         });
     };
 
@@ -70,11 +68,9 @@ class Task extends Component {
             this.setState({ statePopup: true });
         } else {
             actions.updateCheckbox({
-                nameTask, idTask, selected, body: nameTask,
+                nameTask, idTask, selected, body: nameTask, durationTime: 333,
             });
         }
-
-
     };
 
     handleUpdateTask = (newValue) => {
@@ -144,7 +140,7 @@ class Task extends Component {
                         <p>
                             <b>Information about this task:</b><br />
                             Created Date: {new Date(createdDate).toLocaleString()}<br />
-                            Completed Date: {completedDate ? new Date(completedDate).toLocaleString()
+                            Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                 : 'in process'}<br />
                         </p>
                         <Info

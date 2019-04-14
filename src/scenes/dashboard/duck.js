@@ -179,8 +179,9 @@ export function* updateComment(action) {
 export function* updateSelectedTask(action) {
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
-        priority: 'HIGH',
         isComplete: !action.payload.selected,
+        priority: 'HIGH',
+        durationTime: action.payload.durationTime,
     });
     yield call(fetchAllLists);
 }

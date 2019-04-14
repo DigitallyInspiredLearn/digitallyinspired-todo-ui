@@ -20,23 +20,24 @@ export default class FormDialog extends React.Component {
     }
 
     changeDurationDays = (days) => {
-        this.setState({ days });
+        this.setState({ days: Number(days) });
     }
 
     changeDurationHours = (hours) => {
-        this.setState({ hours });
+        this.setState({ hours: Number(hours) });
     }
 
     changeDurationMinutes = (minutes) => {
-        this.setState({ minutes });
+        this.setState({ minutes: Number(minutes) });
     }
 
     render() {
+        console.log(this.state);
         const {
             days, hours, minutes,
         } = this.state;
         const {
-            show, onClose, onConfirm,
+            show, onClose, onConfirm, createdDate,
         } = this.props;
         return (
             <div>
@@ -90,7 +91,10 @@ export default class FormDialog extends React.Component {
                             Cancel
                         </Button>
                         <Button
-                            onClick={() => onConfirm({ days, hours, minutes })}
+                            onClick={() => onConfirm({
+                                completedDate: moment(createdDate).add({ days, hours, minutes }),
+                                duration: moment.duration(moment(moment(createdDate).add({ days, hours, minutes })).diff(moment(createdDate))),
+                            })}
                             color="primary"
                         >
                             Enter
