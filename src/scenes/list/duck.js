@@ -2,8 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, delay,
 } from 'redux-saga/effects';
-import getOneList from '../../api/list';
-import { updateList, deleteList } from '../../api/dashboard';
+import { updateList, deleteList, getOneList } from '../../api/dashboard';
 import { addTask, deleteTask, updateTask } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 

@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types,react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
+import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
+import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -20,6 +21,8 @@ class Task extends Component {
             display: 'none',
             statePopup: false,
             newTaskName: props.nameTask,
+            visiblePopapAddTagToTask: false,
+            selectedTask: '',
         };
     }
 
@@ -27,17 +30,13 @@ class Task extends Component {
 
     updateDisplayNone = () => this.setState({ display: 'none' });
 
-    showPopup = () => {
-        this.setState({
-            statePopup: true,
-        });
-    };
+    showPopapAddTagToTask = idTask => this.setState({ visiblePopapAddTagToTask: true, selectedTask: idTask });
 
-    closePopup = () => {
-        this.setState({
-            statePopup: false,
-        });
-    };
+    closePopapAddTagToTask = () => this.setState({ visiblePopapAddTagToTask: false });
+
+    showPopup = () => this.setState({ statePopup: true });
+
+    closePopup = () => this.setState({ statePopup: false });
 
     handleCompleteTask = (time) => {
         const {
@@ -117,10 +116,20 @@ class Task extends Component {
     };
 
     render() {
-        const { display, statePopup } = this.state;
+        const {
+            display, statePopup, visiblePopapAddTagToTask, selectedTask,
+        } = this.state;
         const displayStyle = { display, color: 'rgba(0, 0, 0, 0.54)' };
         const {
-            idTask, selected, actions, nameTask, createdDate, completedDate, priority,
+            idTask,
+            selected,
+            actions,
+            nameTask,
+            createdDate,
+            completedDate,
+            allTags,
+            tagTaskKeys,
+            priority,
         } = this.props;
         return (
             <React.Fragment>
@@ -134,6 +143,15 @@ class Task extends Component {
                             completedDate={completedDate}
                         />
                     )
+                }
+                {
+                    <PopapAddTagToTask
+                        show={visiblePopapAddTagToTask}
+                        handleClose={this.closePopapAddTagToTask}
+                        actions={actions}
+                        allTags={allTags}
+                        selectedTask={selectedTask}
+                    />
                 }
                 <styled.Task
                     id={idTask}
@@ -161,6 +179,38 @@ class Task extends Component {
                         <p>
                             <b>Information about this task:</b><br />
                             Created Date: {new Date(createdDate).toLocaleString()}<br />
+                            <div style={{
+                                display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
+                            }}
+                            >
+                            Tags: {
+                                    tagTaskKeys.map(key => key.taskId === idTask
+                                && (
+                                    <span
+                                        style={{
+                                            backgroundColor: key.tag.color,
+                                            padding: '2px 4px',
+                                            margin: '4px',
+                                            borderRadius: '2px',
+                                        }}
+                                    >
+                                        {key.tag.tagName}
+                                        <span
+                                            style={{
+                                                backgroundColor: 'white',
+                                                padding: ' 0 4px',
+                                                borderRadius: '2px',
+                                                border: '1px solid grey',
+                                                marginLeft: '4px',
+                                                opacity: 0.8,
+                                            }}
+                                            onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
+                                        >x
+                                        </span>
+                                    </span>
+                                ))
+                                }
+                            </div>
                             Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                 : 'in process'}<br />
                         </p>
@@ -170,6 +220,12 @@ class Task extends Component {
                             alt="Information about this list"
                         />
                     </styled.IconInfo>
+                    <styled.AddTag
+                        style={displayStyle}
+                        onClick={() => this.showPopapAddTagToTask(idTask)}
+                    >
+                        +
+                    </styled.AddTag>
                     <Delete
                         aria-label="trash"
                         onClick={() => actions.deleteTask({ idTask })}

@@ -7,11 +7,13 @@ class Button extends Component {
     static propTypes = {
         value: PropTypes.string,
         onClick: PropTypes.func,
+        style: PropTypes.string,
     };
 
     static defaultProps = {
         value: 'button',
         onClick: undefined,
+        style: '',
     };
 
     render() {
