@@ -7,6 +7,7 @@ import { actions } from './duck';
 const mapStateToProps = state => ({
     tags: state.tags.tags,
     visible: state.tags.visible,
+    selectedTags: state.tags.selectedTags,
 });
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
@@ -14,6 +15,7 @@ const mapDispatchToProps = dispatch => ({
         addTag: actions.addTag,
         deleteTag: actions.deleteTag,
         visiblePopap: actions.visiblePopap,
+        getSelectedTags: actions.getSelectedTags,
     }, dispatch),
 });
 

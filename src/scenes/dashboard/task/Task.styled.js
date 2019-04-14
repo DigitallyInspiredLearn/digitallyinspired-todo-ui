@@ -112,19 +112,11 @@ export const AddTag = styled.div`
     border: 2px solid grey;
 `;
 
-export const TagSelect = styled.div`
-    position: absolute;
-    opacity: 0.7;
-    right: 0px;
-    top: 12px;
-    padding: 8px;
-    width: 60px;
-    background-color: white;
-    z-index:-1;
-    box-shadow: 0 5px  10px 0  rgba(0,0,0,0.5);
-    overflow: auto;
-    height: 150px;
-    border-radius: 4px;
+export const TagsInfo = styled.div`
+    display: flex,
+    flexWrap: wrap,
+    alignItems: center,
+    cursor: default,
     ::-webkit-scrollbar {
         width: 8px;
     }
@@ -139,23 +131,17 @@ export const TagSelect = styled.div`
     }
 `;
 
-export const TrashTaskOneList = styled.div`
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    &:hover{
-        animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
-    }
-    @keyframes trambling-animation {
-        0%, 50%, 100% {
-            transform: rotate(0deg);
-        }
-        10%, 30% {
-            transform: rotate(-10deg);
-        }
-        20%, 40% {
-            transform: rotate(10deg);
-        }
-    }
+export const TagName = styled.span`
+    padding: 2px 4px,
+    margin: 4px,
+    borderRadius: 2px,
 `;
 
+export const DeleteTagFromTask = styled.span`
+   backgroundColor: white,
+   padding: 0 4px,
+   borderRadius: 2px,
+   border: 1px solid grey,
+   marginLeft: 4px,
+   opacity: 0.8,
+`;

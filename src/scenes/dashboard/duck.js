@@ -149,10 +149,15 @@ export const getSorting = (sort) => {
 
 export function* fetchAllLists() {
     const {
-        selectedMy, selectedShared, pageSize, currentPage, sort,
-    } = yield select(state => state.dashboard);
+        dashboard: {
+            selectedMy, selectedShared, pageSize, currentPage, sort,
+        },
+        tags: { selectedTags },
+    } = yield select(state => state);
     const sortValue = getSorting(sort);
-    const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE')) : {};
+    const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
+    console.log(stringTagsId);
+    const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE', stringTagsId)) : {};
     const countElements = res.data.totalElements;
     const myLists = selectedMy ? res.data.content : [];
     const countPages = res.data.totalPages;
@@ -160,7 +165,7 @@ export function* fetchAllLists() {
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
-    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue, [])).data;
+    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     yield put(actions.fetchDashboardSuccess(allList));
 }

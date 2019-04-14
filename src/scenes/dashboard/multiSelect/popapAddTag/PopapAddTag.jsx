@@ -41,7 +41,6 @@ class PopapAddTag extends Component {
         const { actions } = this.props;
         actions.addTag({ color: colorTag, tagName: nameTag });
         this.changeVisiblePopap();
-        console.log(colorTag, nameTag);
     };
 
     render() {
@@ -75,7 +74,7 @@ class PopapAddTag extends Component {
                                 onFocus={e => this.testRepeatName(allTags, e.target.value)}
                                 onBlur={() => this.setState({ nameRepeatTest: '' })}
                             />
-                            <styled.Error style={{ display:'flex' }}>{nameRepeatTest}</styled.Error>
+                            <styled.Error>{nameRepeatTest}</styled.Error>
                         </styled.Line>
                         <styled.Line>
                             <styled.Label>Color: </styled.Label>
@@ -104,7 +103,6 @@ class PopapAddTag extends Component {
 
 PopapAddTag.propTypes = {
     actions: PropTypes.object.isRequired,
-    // visible: ,
     allTags: PropTypes.array,
 };
 export default PopapAddTag;

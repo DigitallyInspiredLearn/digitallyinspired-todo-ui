@@ -71,4 +71,3 @@ export const Error = styled.div`
     color: red;
     padding-left: 48px;
 `;
-

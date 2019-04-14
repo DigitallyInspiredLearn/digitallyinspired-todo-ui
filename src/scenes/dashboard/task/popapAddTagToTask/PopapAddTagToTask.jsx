@@ -25,12 +25,7 @@ export default class FormDialog extends React.Component {
         const { selectedTag } = this.state;
         return (
             <div>
-                <Dialog
-                    open={show}
-                    onClose={handleClose}
-
-                    // style={{ opacity: 0.9 }}
-                >
+                <Dialog open={show} onClose={handleClose}>
                     <styledSettings.Window style={{ width: '315px', height: '50vh', overflowY: 'hidden' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <styled.Title>Add tag to task</styled.Title>

@@ -17,9 +17,12 @@ export const ADD_TAG_TO_TASK = 'tags/ADD_TAG_TO_TASK';
 export const DELETE_TAG = 'tags/DELETE_TAG';
 export const VISIBLE_POPAP_ADD_TAG = 'tags/VISIBLE_POPAP_ADD_TAG';
 export const REMOVE_TAG_FROM_TASK = 'tags/REMOVE_TAG_FROM_TASK';
+export const GET_SELECTED_TAGS = 'tags/GET_SELECTED_TAGS';
 
 const initialState = {
     tags: [],
+    selectedTags: [],
+    stringIdSelectedTag: '&tagId=',
     visible: false,
 };
 
@@ -31,10 +34,12 @@ export const actions = {
     deleteTag: createAction(DELETE_TAG),
     visiblePopap: createAction(VISIBLE_POPAP_ADD_TAG),
     removeTagFromTask: createAction(REMOVE_TAG_FROM_TASK),
+    getSelectedTags: createAction(GET_SELECTED_TAGS),
 };
 
 export const reducer = handleActions({
     [FETCH_TAGS_SUCCESS]: (state, action) => ({ ...state, tags: action.payload }),
+    [GET_SELECTED_TAGS]: (state, action) => ({ ...state, selectedTags: action.payload }),
     [VISIBLE_POPAP_ADD_TAG]: state => ({ ...state, visible: !state.visible }),
 }, initialState);
 
@@ -68,10 +73,15 @@ export function* removeTagFromTask(action) {
     yield call(fetchAllTags);
 }
 
+export function* getSelectedTegInString() {
+    yield call(fetchAllLists);
+}
+
 export function* saga() {
     yield safeTakeEvery(FETCH_TAGS, fetchAllTags);
     yield safeTakeEvery(ADD_TAG, addTag);
     yield safeTakeEvery(ADD_TAG_TO_TASK, addTagToTask);
     yield safeTakeEvery(DELETE_TAG, deleteTag);
     yield safeTakeEvery(REMOVE_TAG_FROM_TASK, removeTagFromTask);
+    yield safeTakeEvery(GET_SELECTED_TAGS, getSelectedTegInString);
 }

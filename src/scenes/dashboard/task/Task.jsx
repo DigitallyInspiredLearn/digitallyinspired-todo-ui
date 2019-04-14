@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types,react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import trash from '../../../image/trash.svg';
 import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
 import * as styled from './Task.styled';
@@ -34,10 +33,6 @@ class Task extends Component {
 
     closePopup = () => this.setState({ statePopup: false });
 
-    handleChangeDurationTime = (time) => {
-        // console.log(time);
-    };
-
     handleSelectTask = () => {
         const {
             idTask, selected, actions, nameTask,
@@ -45,8 +40,6 @@ class Task extends Component {
 
         if (!selected) {
             this.setState({ statePopup: true });
-        } else {
-            // console.log(selected);
         }
 
         actions.updateCheckbox({
@@ -80,10 +73,11 @@ class Task extends Component {
     };
 
     render() {
-        const { display, statePopupб visiblePopapAddTagToTask, selectedTask, } = this.state;
+        const {
+            display, statePopup, visiblePopapAddTagToTask, selectedTask,
+        } = this.state;
         const displayStyle = { display, color: 'rgba(0, 0, 0, 0.54)' };
         const {
-            todoListStatus,
             idTask,
             selected,
             actions,
@@ -143,7 +137,10 @@ class Task extends Component {
                             Completed Date: {
                                 completedDate ? new Date(completedDate).toLocaleString() : 'in process'
                             }<br />
-                            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default' }}>
+                            <div style={{
+                                display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
+                            }}
+                            >
                             Tags: {
                                     tagTaskKeys.map(key => key.taskId === idTask
                                 && (

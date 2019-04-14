@@ -15,6 +15,7 @@ import Task from './task/Task';
 import pushpin from '../../image/pushpin.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
+import TextField from "@material-ui/core/TextField";
 
 export const getTaskList = (tasks, props) => (
     !tasks.length
@@ -286,12 +287,12 @@ export class Dashboard extends Component {
     }
 }
 
-Dashboard.propTypes = {
-    tasks: PropTypes.array.isRequired,
-    idList: PropTypes.number,
-    title: PropTypes.string,
-};
-
-Dashboard.defaultProps = {
-    tasks: [],
-};
+// Dashboard.propTypes = {
+//     tasks: PropTypes.array.isRequired,
+//     idList: PropTypes.number,
+//     title: PropTypes.string,
+// };
+//
+// Dashboard.defaultProps = {
+//     tasks: [],
+// };
