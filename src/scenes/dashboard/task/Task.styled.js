@@ -76,10 +76,12 @@ export const IconInfo = styled.div`
         right: 10px;
         font-size: 12px;
         z-index: 9999;
-        width: 210px;
+        width: auto;
+        min-width: 210px;
         margin-top: 16px;
         background: #f3f3f3;
-        height: 70px;
+        height: auto;
+        min-height: 40px;
         -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         box-shadow: 0 5px 5px rgba(0,0,0,0.3);

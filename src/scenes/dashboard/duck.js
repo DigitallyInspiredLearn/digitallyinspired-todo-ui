@@ -1,5 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
-import { call, put, select } from 'redux-saga/effects';
+import {
+    call, put, select, delay,
+} from 'redux-saga/effects';
 import {
     getMyList,
     deleteList,
@@ -179,17 +181,23 @@ export function* updateComment(action) {
 export function* updateSelectedTask(action) {
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
-        priority: 'HIGH',
         isComplete: !action.payload.selected,
+        priority: action.payload.priority,
+        durationTime: action.payload.durationTime,
     });
+    yield delay(100);
     yield call(fetchAllLists);
 }
 
 export function* updateNameTask(action) {
-    const { payload: { idTask, newTaskName, selected } } = action;
+    const {
+        payload: {
+            idTask, newTaskName, selected, priority,
+        },
+    } = action;
     yield call(updateTask, idTask, {
         body: newTaskName || 'New value',
-        priority: 'HIGH',
+        priority,
         isComplete: selected,
     });
     yield call(fetchAllLists);
@@ -210,7 +218,7 @@ export function* deleteTask(action) {
 
 export function* addNewTask(action) {
     yield call(addTask, action.payload.idDashboard,
-        { body: action.payload.nameTask, priority: 'HIGH', isComplete: false });
+        { body: action.payload.nameTask, priority: action.payload.priority, isComplete: false });
     yield call(fetchAllLists);
 }
 

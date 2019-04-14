@@ -12,6 +12,10 @@ import Restore from '@material-ui/icons/RestoreFromTrash';
 import Share from '@material-ui/icons/Share';
 import Info from '@material-ui/icons/Info';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import * as styled from './Dashboard.styled';
 import Task from './task/Task';
 import trash from '../../image/trash.svg';
@@ -20,6 +24,9 @@ import pushpin from '../../image/pushpin.svg';
 import share from '../../image/share.svg';
 import PopupContainer from '../popup/PopupContainer';
 import Input from '../../components/input/Input';
+import low from '../../image/low.svg';
+import medium from '../../image/medium.svg';
+import high from '../../image/high.svg';
 
 const styles = theme => ({
     textField: {
@@ -51,6 +58,7 @@ export const getTaskList = (tasks, props) => (
                 createdDate={i.createdDate}
                 completedDate={i.completedDate}
                 durationTime={i.durationTime}
+                priority={i.priority}
             />
         )));
 
@@ -63,6 +71,7 @@ export class Dashboard extends Component {
             stateComment: false,
             newTitle: props.title,
             newComment: props.comment,
+            priority: 'NOT_SPECIFIED',
         };
     }
 
@@ -126,11 +135,16 @@ export class Dashboard extends Component {
         actions.updateCommentSuccess({ id: idList, title, newComment });
     };
 
+    handleChangePriority = (e) => {
+        this.setState({ priority: e.target.value });
+    };
+
     render() {
         const {
-            valueNewTask, statePopup, stateComment,
+            valueNewTask, statePopup, stateComment, priority,
         } = this.state;
-        const { idList, title, todoListStatus, tasks, actions, actionsBasket, shared, createdBy, createdDate,
+        const {
+            idList, title, todoListStatus, tasks, actions, actionsBasket, shared, createdBy, createdDate,
             modifiedBy, modifiedDate, comment, currentUser: { gravatarUrl },
         } = this.props;
         return ([
@@ -176,6 +190,7 @@ export class Dashboard extends Component {
                                                     Created time: {new Date(createdDate).toLocaleString()}<br />
                                                     Modyfied by: {modifiedBy}<br />
                                                     Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                    Comment: {comment ? comment : 'not written yet'}
                                                 </p>
                                                 <IconButton
                                                     aria-label="info"
@@ -247,11 +262,56 @@ export class Dashboard extends Component {
                                         onKeyPress={e => valueNewTask
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
-                                                idDashboard: idList, nameTask: valueNewTask,
+                                                idDashboard: idList, nameTask: valueNewTask, priority,
                                             })))
                                         }
                                         onBlur={this.handlerOnBlur}
                                     />
+                                    <FormControl
+                                        style={{ marginTop: '-10px', marginRight: '50px' }}
+                                    >
+                                        <InputLabel htmlFor="age-simple">Priority</InputLabel>
+                                        <Select
+                                            value={priority}
+                                            onChange={this.handleChangePriority}
+                                            inputProps={{
+                                                name: 'age',
+                                                id: 'age-simple',
+                                            }}
+                                            style={{ width: '155px' }}
+                                        >
+                                            <MenuItem value="NOT_SPECIFIED">
+                                                <em>NOT SPECIFIED</em>
+                                            </MenuItem>
+                                            <MenuItem value="LOW">
+                                                <img
+                                                    width="15%"
+                                                    height="15%"
+                                                    src={low}
+                                                    alt="LOW"
+                                                />
+                                                LOW
+                                            </MenuItem>
+                                            <MenuItem value="MEDIUM">
+                                                <img
+                                                    width="15%"
+                                                    height="15%"
+                                                    src={medium}
+                                                    alt="MEDIUM"
+                                                />
+                                                MEDIUM
+                                            </MenuItem>
+                                            <MenuItem value="HIGH">
+                                                <img
+                                                    width="15%"
+                                                    height="15%"
+                                                    src={high}
+                                                    alt="HIGH"
+                                                />
+                                                HIGH
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <IconButton
                                         aria-label="Delete"
                                         onClick={this.toggleComment}
