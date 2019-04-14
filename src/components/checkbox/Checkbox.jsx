@@ -14,15 +14,15 @@ class Checkbox extends Component {
         onChange: undefined,
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            checked: props.checked,
-        };
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         checked: props.checked,
+    //     };
+    // }
 
     handleClick = () => {
-        const checked = !this.state.checked;
+        const checked = !this.props.checked;
         this.setState({ checked });
         if (this.props.onChange) {
             this.props.onChange(checked);
@@ -30,7 +30,7 @@ class Checkbox extends Component {
     };
 
     render() {
-        const { checked } = this.state;
+        const { checked } = this.props;
         return (
             <CheckboxStyle
                 selected={checked}

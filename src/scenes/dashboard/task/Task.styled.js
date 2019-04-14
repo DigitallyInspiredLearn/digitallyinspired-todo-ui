@@ -78,7 +78,8 @@ export const IconInfo = styled.div`
         right: 10px;
         font-size: 12px;
         z-index: 9999;
-        width: 210px;
+        width: auto;
+        min-width: 210px;
         margin-top: 16px;
         background: #f3f3f3;
         height: 70px;
@@ -103,12 +104,12 @@ export const AddTag = styled.div`
     cursor: pointer;
     position: relative;
     box-shadow: 0 5px  10px 0  rgba(0,0,0,0.3);
-    padding: 1px 6px ;
-    margin-top:4px;
+    padding: 0px 4px ;
+    margin-top:2px;
     background-color: white;
     border-radius: 50%;
     color: grey;
-    font-size: 16px;
+    font-size: 15px;
     border: 2px solid grey;
 `;
 

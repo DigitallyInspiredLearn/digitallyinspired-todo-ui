@@ -75,9 +75,19 @@ export const InputTitle = styled.input`
     color:${p => p.theme.mainText};
     cursor: pointer; 
 `;
+
+export const TaskList = styled.div`
+    max-height: 75%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
 export const InputTask = styled.input`
     margin-top: 8px;
-    margin-left: 16px;
+    margin-left: 8px;
     width: 500px;
     height: 25px;
     outline: none;
@@ -87,6 +97,7 @@ export const InputTask = styled.input`
     cursor: pointer;
     z-index:30;
 `;
+
 export const AddTaskPlace = styled.div`
     display: flex;
     flex-direction: row;
@@ -129,11 +140,7 @@ export const Sidebar = styled.div`
     position: absolute;
     height: 100%;
 `;
-export const TaskList = styled.div`
-    max-height: 75%;
-    overflow-y: auto;
-    overflow-x: hidden;
-`;
+
 export const TrashTask = styled.img`
     width: 20px;
     padding: 7px 15px;

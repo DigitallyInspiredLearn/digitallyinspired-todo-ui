@@ -1,7 +1,14 @@
 /* eslint-disable react/no-unused-state,no-unused-expressions,no-sequences */
 import React, { Component } from 'react';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
+import low from '../../../image/low.svg';
+import medium from '../../../image/medium.svg';
+import high from '../../../image/high.svg';
 import * as styled from './Sidebar.styles';
 
 class Sidebar extends Component {
@@ -10,7 +17,7 @@ class Sidebar extends Component {
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', priority: 'HIGH', isComplete: false }],
+            tasks: [{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }],
             animation: '',
             bool: false,
             displayTrash: 'none',
@@ -30,6 +37,7 @@ class Sidebar extends Component {
     addBoard = (title, tasks, { addNewDashboard } = this.props) => {
         const titleValue = !title ? 'DashboardList' : title;
         // const taskValue = tasks === {} ? { body: '', isComplete: false } : tasks;
+        // console.log(tasks);
         addNewDashboard({
             todoListName: titleValue,
             tasks,
@@ -37,7 +45,7 @@ class Sidebar extends Component {
         });
         this.setState({
             todoListName: '',
-            tasks: [{ body: '', priority: 'HIGH', isComplete: false }],
+            tasks: [{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }],
         });
     };
 
@@ -57,13 +65,21 @@ class Sidebar extends Component {
 
     handleAddInputTask = () => {
         this.setState({
-            tasks: this.state.tasks.concat([{ body: '', priority: 'HIGH', isComplete: false }]),
+            tasks: this.state.tasks.concat([{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }]),
         });
     };
 
     handleRemoveInputTask = (i, { tasks } = this.state) => () => this.setState({
         tasks: tasks.filter((s, sidx) => i !== sidx),
     });
+
+    changeValuePriority = i => (e) => {
+        const newTaskHolders = this.state.tasks.map((task, sidx) => {
+            if (i !== sidx) return task;
+            return { ...task, priority: e.target.value };
+        });
+        this.setState({ tasks: newTaskHolders });
+    };
 
     render() {
         const {
@@ -109,11 +125,56 @@ class Sidebar extends Component {
                                         value={task.body}
                                         onChange={this.changeValueName(i)}
                                     />
+                                    <FormControl
+                                        style={{ marginTop: '-20px', marginRight: '50px', minWidth: '30px' }}
+                                    >
+                                        <InputLabel htmlFor="age-simple">Priority</InputLabel>
+                                        <Select
+                                            value={task.priority}
+                                            onChange={this.changeValuePriority(i)}
+                                            inputProps={{
+                                                name: 'age',
+                                                id: 'age-simple',
+                                            }}
+                                            style={{ width: '120px' }}
+                                        >
+                                            <MenuItem value="NOT_SPECIFIED">
+                                                <em>NOT SPECIFIED</em>
+                                            </MenuItem>
+                                            <MenuItem value="LOW">
+                                                <img
+                                                    width="15%"
+                                                    height="15%"
+                                                    src={low}
+                                                    alt="LOW"
+                                                />
+                                                LOW
+                                            </MenuItem>
+                                            <MenuItem value="MEDIUM">
+                                                <img
+                                                    width="15%"
+                                                    height="15%"
+                                                    src={medium}
+                                                    alt="MEDIUM"
+                                                />
+                                                MEDIUM
+                                            </MenuItem>
+                                            <MenuItem value="HIGH">
+                                                <img
+                                                    width="15%"
+                                                    height="15%"
+                                                    src={high}
+                                                    alt="HIGH"
+                                                />
+                                                HIGH
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <styled.TrashTask
                                         src={trash}
                                         alt="Delete this task"
                                         onClick={this.handleRemoveInputTask(i)}
-                                        style={displaysTrash}
+                                        // style={displaysTrash}
                                     />
                                 </styled.AddTaskPlace>
                             ))}
