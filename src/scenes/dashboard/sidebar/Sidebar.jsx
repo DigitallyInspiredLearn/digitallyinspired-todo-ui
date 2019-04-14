@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
@@ -18,7 +17,7 @@ class Sidebar extends Component {
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', priority: '', isComplete: false }],
+            tasks: [{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }],
             animation: '',
             bool: false,
             displayTrash: 'none',
@@ -46,7 +45,7 @@ class Sidebar extends Component {
         });
         this.setState({
             todoListName: '',
-            tasks: [{ body: '', priority: '', isComplete: false }],
+            tasks: [{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }],
         });
     };
 
@@ -66,7 +65,7 @@ class Sidebar extends Component {
 
     handleAddInputTask = () => {
         this.setState({
-            tasks: this.state.tasks.concat([{ body: '', priority: '', isComplete: false }]),
+            tasks: this.state.tasks.concat([{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }]),
         });
     };
 

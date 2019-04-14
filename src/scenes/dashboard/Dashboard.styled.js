@@ -76,6 +76,7 @@ export const IconInfo = styled.div`
         z-index: 9999;
         width: auto;
         min-width: 200px;
+        max-width: 250px;
         margin-top: 16px;
         background: #f3f3f3;
         height: auto;
@@ -83,9 +84,9 @@ export const IconInfo = styled.div`
         -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         box-shadow: 0 5px 5px rgba(0,0,0,0.3);
-    }
-    &:hover p>b{
         overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 `;
 

@@ -4,7 +4,4 @@ export const addTask = (todoListId, newTask) => axios.post(`/api/tasks?todoListI
 
 export const deleteTask = idTask => axios.delete(`/api/tasks/${idTask}`);
 
-export const updateTask = (idTask, newTask) => {
-    console.log(newTask);
-    axios.put(`/api/tasks/${idTask}`, newTask);
-};
+export const updateTask = (idTask, newTask) => axios.put(`/api/tasks/${idTask}`, newTask);

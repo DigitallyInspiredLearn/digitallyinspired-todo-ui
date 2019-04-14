@@ -32,7 +32,6 @@ export default class FormDialog extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const {
             days, hours, minutes,
         } = this.state;
@@ -71,7 +70,9 @@ export default class FormDialog extends React.Component {
                             style={{ width: '30%', marginLeft: '10px' }}
                             type="number"
                             value={hours}
-                            inputProps={{ min: '0', max: '24', step: '1', pattern: /^([01]?\d|2[0-3])$/ }}
+                            inputProps={{
+                                min: '0', max: '24', step: '1', pattern: /^([01]?\d|2[0-3])$/,
+                            }}
                         />
                         <TextField
                             onChange={e => this.changeDurationMinutes(e.target.value)}
