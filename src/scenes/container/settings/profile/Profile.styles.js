@@ -35,6 +35,19 @@ export const UploadButton = styled.input`
 
 export const DeleteProfile = styled.div`
     display: flex;
+    margin: 8px;
+    min-width: 80px;
+`;
+
+export const ContainerButtons = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0px 8px 0px auto;
+`;
+
+export const EditButton = styled.div`
+    display: flex;
     order: 999;
     margin: 8px 8px 8px auto;
 `;

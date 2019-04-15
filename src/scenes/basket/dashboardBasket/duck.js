@@ -10,7 +10,9 @@ export const CHANGE_SIZE = 'basket/CHANGE_SIZE';
 export const ENABLE_LIST = 'basket/ENABLE_LIST';
 export const DELETE_LIST_FROM_BASKET = 'basket/DELETE_LIST_FROM_BASKET';
 export const RESTORE_LIST_FROM_BASKET = 'basket/RESTORE_LIST_FROM_BASKET';
+export const DELETE_ALL_LISTS = 'basket/DELETE_ALL_LISTS';
 
+const getAllLists = state => state.basket.deletedListsRaw;
 
 export const actions = {
     changeSize: createAction(CHANGE_SIZE),
@@ -20,6 +22,7 @@ export const actions = {
     enableLists: createAction(ENABLE_LIST),
     deletedList: createAction(DELETE_LIST_FROM_BASKET),
     restoreList: createAction(RESTORE_LIST_FROM_BASKET),
+    deleteAllLists: createAction(DELETE_ALL_LISTS),
 };
 
 const initialState = {
@@ -43,7 +46,7 @@ export const reducer = handleActions({
 
 function* fetchAllDeletedLists() {
     const { pageSize, currentPage } = yield select(state => state.basket);
-    const res = yield call(getMyList, currentPage, pageSize, 'id,asc', 'INACTIVE');
+    const res = yield call(getMyList, currentPage, pageSize, 'id,asc', 'INACTIVE', ' &tagId=');
     const countElements = res.data.totalElements;
     const countPages = res.data.totalPages;
     const deletedLists = res.data.content;
@@ -59,8 +62,18 @@ function* restoreListFromBasket(action) {
     yield call(enableTodoList, action.payload.id);
     yield call(fetchAllDeletedLists);
 }
+
+function* deleteAllLists() {
+    const lists = yield select(getAllLists);
+    for (let i=0; i < lists.length; i++) {
+        yield call(deleteList, lists[i].id);
+    }
+    yield call(fetchAllDeletedLists);
+}
+
 export function* saga() {
     yield safeTakeEvery([FETCH_DELETED_DASHBOARD, CHANGE_PAGINATION, CHANGE_SIZE], fetchAllDeletedLists);
     yield safeTakeEvery(DELETE_LIST_FROM_BASKET, deleteListFromBasket);
     yield safeTakeEvery(RESTORE_LIST_FROM_BASKET, restoreListFromBasket);
+    yield safeTakeEvery(DELETE_ALL_LISTS, deleteAllLists);
 }
