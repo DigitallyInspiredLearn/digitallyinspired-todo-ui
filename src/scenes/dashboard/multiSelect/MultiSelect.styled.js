@@ -5,18 +5,11 @@ export const styles = () => ({
         flexDirection: 'column',
 
     },
-    formControl: {
-        margin: '2px 8px',
-        minWidth: 120,
-        maxWidth: 305,
-        height: '42px',
-    },
     chips: {
         display: 'flex',
         padding: '4px',
         flexWrap: 'wrap',
         height: '42px',
-        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
         overflow: 'auto',
         width: '275px',
         backgroundColor: 'white',
@@ -29,10 +22,11 @@ export const styles = () => ({
         color: 'white',
         backgroundColor: 'black',
         borderRadius: '12px',
+        height: '52px',
         border: 'none',
         outline: 'none',
-        padding: '2px 6px',
-        marginTop: '20px',
+        padding: 'px 6px',
+        marginTop: '22px',
     },
 
 });
