@@ -95,7 +95,7 @@ class Container extends Component {
                                 'Settings',
                                 'Basket',
                             ]}
-                            stylesContainer="top: 40px;"
+                            stylesContainer="top: 40px; "
                             stylesValues="margin-left: -78px; width: 100px;"
                             iconVisible={iconVisible}
                         />

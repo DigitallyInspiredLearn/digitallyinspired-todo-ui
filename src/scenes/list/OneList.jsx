@@ -7,6 +7,7 @@ import Workbook from 'react-excel-workbook';
 import TaskForList from './tasksForList/TaskForList';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
+import Search from '@material-ui/icons/Search';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
@@ -133,7 +134,7 @@ class OneList extends Component {
                                 search: e.target.value,
                             })}
                         />
-                        <styledPopup.btnSearch style={{ paddingTop: '0px' }} className="fa fa-search fa-2x" />
+                        <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
                         <styledDashboard.CheckboxDiv>
                             <styledDashboard.ShowButton
                                 checked={notDone}

@@ -4,43 +4,29 @@ react/require-default-props,react/default-props-match-prop-types */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Comment from '@material-ui/icons/Comment';
 import Delete from '@material-ui/icons/Delete';
 import Restore from '@material-ui/icons/RestoreFromTrash';
 import Share from '@material-ui/icons/Share';
 import Info from '@material-ui/icons/Info';
-import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
+
 import * as styled from './Dashboard.styled';
 import Task from './task/Task';
-import trash from '../../image/trash.svg';
-import info from '../../image/information.svg';
 import pushpin from '../../image/pushpin.svg';
-import share from '../../image/share.svg';
-import PopupContainer from '../popup/PopupContainer';
-import Input from '../../components/input/Input';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-
-const styles = theme => ({
-    textField: {
-        width: '100%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingBottom: 0,
-        marginTop: 0,
-        fontWeight: 500,
-    },
-});
+import PopupContainer from '../popup/PopupContainer';
 
 export const getTaskList = (tasks, props) => (
-    tasks.length === 0
+    !tasks.length
         ? (
             <styled.NullLenghtTask>
                 You have no tasks yet, it's time to be active!
@@ -54,10 +40,12 @@ export const getTaskList = (tasks, props) => (
                 nameTask={i.body}
                 actions={props.actions}
                 key={i.id}
+                allTags={props.allTags}
                 todoListStatus={props.todoListStatus}
                 createdDate={i.createdDate}
                 completedDate={i.completedDate}
                 durationTime={i.durationTime}
+                tagTaskKeys={props.tagTaskKeys}
                 priority={i.priority}
             />
         )));
@@ -142,12 +130,24 @@ export class Dashboard extends Component {
 
     render() {
         const {
+            idList,
+            title,
+            todoListStatus,
+            tasks,
+            actions,
+            actionsBasket,
+            shared,
+            createdBy,
+            createdDate,
+            modifiedBy,
+            modifiedDate,
+            comment,
+            currentUser: { gravatarUrl },
+        } = this.props;
+        const {
             valueNewTask, statePopup, stateComment, priority,
         } = this.state;
-        const {
-            idList, title, todoListStatus, tasks, actions, actionsBasket, shared, createdBy, createdDate,
-            modifiedBy, modifiedDate, comment, currentUser: { gravatarUrl },
-        } = this.props;
+
         return ([
             <PopupContainer
                 statePopup={statePopup}
@@ -160,17 +160,22 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
-                    <styled.Avatar
-                        src={`${gravatarUrl}?s=120&d=retro`}
-                    />
-
+                    {
+                        gravatarUrl ? (
+                            <styled.Avatar
+                                src={`${gravatarUrl}?s=120&d=retro`}
+                            />
+                        )  : null
+                    }
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         border={false}
-                        style={{
+                        style={ todoListStatus === 'ACTIVE' ? {
                             textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
+                        } : {
+                            textDecoration: 'none', pointerEvents: 'none' , width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
                     />
                     {
@@ -191,7 +196,7 @@ export class Dashboard extends Component {
                                                     Created time: {new Date(createdDate).toLocaleString()}<br />
                                                     Modyfied by: {modifiedBy}<br />
                                                     Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                                    Comment: {comment ? comment : 'not written yet'}
+                                                    Comment: {comment || 'not written yet'}
                                                 </p>
                                                 <IconButton
                                                     aria-label="info"

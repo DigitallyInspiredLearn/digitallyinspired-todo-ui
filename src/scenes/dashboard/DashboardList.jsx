@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+import SearchIcon from '@material-ui/icons/Search';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -24,43 +25,56 @@ class DashboardList extends Component {
     };
 
     render() {
-        const { search, selectedMy, selectedShared, actions, actionsBasket, toDoBoard, pageSize,
-            totalPages, sort, currentUser,
+        const {
+            search,
+            selectedMy,
+            selectedShared,
+            actions,
+            toDoBoard,
+            pageSize,
+            totalPages,
+            sort,
+            currentUser,
+            tags,
+            tagTaskKeys,
+            actionsBasket,
         } = this.props;
+
         return (
             [
                 <styled.App key="app">
                     <styled.Head>
-                        <styled.SearchDiv>
-                            <Search
-                                onChange={this.handleChange}
-                                value={search}
-                                placeholder="Search dashboard"
-                            />
-                            <styled.IconSearch src={loupe} />
-                        </styled.SearchDiv>
-                        <MultiSelect />
-                        <styled.LabelDiv>
+                        <div style={{fontSize: '12px', margin: '4px 4px 4px 0', display: 'flex' ,flex: 'auto', flexDirection:'column'}}>
+                            Search:
+                            <styled.SearchDiv>
+                                <Search
+                                    onChange={this.handleChange}
+                                    value={search}
+                                    placeholder="Search dashboard"
+                                />
+                                <SearchIcon style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
+                            </styled.SearchDiv>
+                        </div>
+                        <div style={{ fontSize: '12px', marginTop: '2px', marginLeft: '12px'}}>
                             Sorting:
-                        </styled.LabelDiv>
-                        <styled.CheckboxDiv>
-                            <DropDown
-                                changeValue={actions.changeSort}
-                                titleButton={sort}
-                                currentValue={sort}
-                                possibleValues={[
-                                    'By id, low to high',
-                                    'By id, high to low',
-                                    'By Name, a - Z',
-                                    'By Name, Z - a',
-                                    'By Created Date, low to high',
-                                    'By Created Date, high to low',
-                                    'By Modified Date, low to high',
-                                    'By Modified Date, high to low',
-                                ]}
-                                stylesContainer="top: 50px; right: 0px;"
-                                stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;"
-                                stylesButton="
+                            <styled.CheckboxDiv>
+                                <DropDown
+                                    changeValue={actions.changeSort}
+                                    titleButton={sort}
+                                    currentValue={sort}
+                                    possibleValues={[
+                                        'By id, low to high',
+                                        'By id, high to low',
+                                        'By Name, a - Z',
+                                        'By Name, Z - a',
+                                        'By Created Date, low to high',
+                                        'By Created Date, high to low',
+                                        'By Modified Date, low to high',
+                                        'By Modified Date, high to low',
+                                    ]}
+                                    stylesContainer="top: 50px; right: 0px;"
+                                    stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;"
+                                    stylesButton="
                                     padding: 16px 8px;
                                     margin-left: 8px;
                                     font-size: 16px;
@@ -74,8 +88,8 @@ class DashboardList extends Component {
                                         padding:5px;
                                     }
                                 "
-                            />
-                            {/*<styled.ShowButton
+                                />
+                                {/*<styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
                                 style={{ margin: '0px 8px' }}
@@ -88,7 +102,9 @@ class DashboardList extends Component {
                             >
                             Show shared
                             </styled.ShowButton> */}
-                        </styled.CheckboxDiv>
+                            </styled.CheckboxDiv>
+                        </div>
+                        <MultiSelect />
                     </styled.Head>
                     <styled.DashboardList>
                         {
@@ -114,8 +130,10 @@ class DashboardList extends Component {
                                         createdDate={i.createdDate}
                                         modifiedDate={i.modifiedDate}
                                         currentUser={currentUser}
+                                        allTags={tags}
                                         todoListStatus={i.todoListStatus}
                                         comment={i.comment}
+                                        tagTaskKeys={tagTaskKeys}
                                     />
                                 ))
                         }

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import Link from 'react-router-dom/es/Link';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 import * as styledList from '../../list/OneList.styles';
 import * as styled from '../../dashboard/DashboardList.styles';
 import DropDown from '../../../components/dropDown/DropDown';
@@ -87,6 +89,18 @@ class DashboardListBasket extends Component {
                             stylesButton="padding: 12px 10px; margin: 16px;"
                         />
                     </div>
+                    <IconButton
+                        style={{ marginRight: '16px' }}
+                        aria-label="deleteForever"
+                        alt="Delete forever lists"
+                        onClick={() => actions.deleteAllLists()}
+
+                    >
+                        <DeleteForever
+                            alt="Delete forever lists"
+                            style={{ fontSize: '40px', color: 'black' }}
+                        />
+                    </IconButton>
                 </styled.Footer>,
             ]
         );

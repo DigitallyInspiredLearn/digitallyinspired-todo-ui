@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
         changePagination: actions.changePagination,
         deletedList: actions.deletedList,
         restoreList: actions.restoreList,
+        deleteAllLists: actions.deleteAllLists,
     }, dispatch),
 });
 
