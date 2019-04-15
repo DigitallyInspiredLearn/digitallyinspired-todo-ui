@@ -160,10 +160,13 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
-
-                    <styled.Avatar
-                        src={`${gravatarUrl}?s=120&d=retro`}
-                    />
+                    {
+                        gravatarUrl ? (
+                            <styled.Avatar
+                                src={`${gravatarUrl}?s=120&d=retro`}
+                            />
+                        )  : null
+                    }
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
