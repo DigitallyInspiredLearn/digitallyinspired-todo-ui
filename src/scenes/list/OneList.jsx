@@ -18,6 +18,9 @@ class OneList extends Component {
         super(props);
         this.state = {
             valueNewTask: '',
+            stateComment: false,
+            newComment: props.comment,
+            newPriority: 'NOT_SPECIFIED',
         };
     }
 
@@ -48,6 +51,7 @@ class OneList extends Component {
     };
 
     render() {
+
         const { valueNewTask } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks,

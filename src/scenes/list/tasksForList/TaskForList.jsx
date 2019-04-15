@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Delete from '@material-ui/icons/Delete';
-import trash from '../../../image/trash.svg';
 import * as stylesTask from '../../dashboard/task/Task.styled';
 
 class TaskForList extends Component {
@@ -16,6 +15,31 @@ class TaskForList extends Component {
     updateDisplayFlex = () => this.setState({ display: 'flex' });
 
     updateDisplayNone = () => this.setState({ display: 'none' });
+
+    setIcon = (priority) => {
+        switch (priority) {
+            case 'LOW':
+                return (
+                    <Tooltip title="LOW">
+                        <img src={low} width="20px" height="25px" alt="LOW" style={{ marginLeft: '4px' }} />
+                    </Tooltip>
+                );
+            case 'MEDIUM':
+                return (
+                    <Tooltip title="MEDIUM">
+                        <img src={medium} width="20px" height="25px" alt="MEDIUM" style={{ marginLeft: '4px' }} />
+                    </Tooltip>
+                );
+            case 'HIGH':
+                return (
+                    <Tooltip title="HIGH">
+                        <img src={high} width="20px" height="25px" alt="HIGH" style={{ marginLeft: '4px' }} />
+                    </Tooltip>
+                );
+            default:
+                return null;
+        }
+    };
 
     render() {
         const { display } = this.state;

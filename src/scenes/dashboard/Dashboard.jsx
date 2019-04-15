@@ -83,6 +83,7 @@ export class Dashboard extends Component {
         e.target.blur();
         this.setState({
             valueNewTask: e.target.value = '',
+            priority: 'NOT_SPECIFIED',
         });
     };
 
@@ -263,7 +264,9 @@ export class Dashboard extends Component {
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
-                                            })))
+                                            }), this.setState({ priority: 'NOT_SPECIFIED' })
+                                            
+                                            ))
                                         }
                                         onBlur={this.handlerOnBlur}
                                     />

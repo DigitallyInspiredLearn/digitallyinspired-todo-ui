@@ -12,6 +12,7 @@ import Dialog from './dialog/Dialog';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
+import empty from '../../../image/empty.svg';
 
 class Task extends Component {
     constructor(props) {
@@ -95,24 +96,28 @@ class Task extends Component {
         switch (priority) {
             case 'LOW':
                 return (
-                    <Tooltip title="LOW">
-                        <img src={low} width="20px" height="25px" alt="LOW" style={{ marginLeft: '4px' }} />
+                    <Tooltip title="Priority: LOW">
+                        <img src={low} width="20px" height="25px" alt="low" style={{ marginLeft: '4px' }} />
                     </Tooltip>
                 );
             case 'MEDIUM':
                 return (
-                    <Tooltip title="MEDIUM">
-                        <img src={medium} width="20px" height="25px" alt="MEDIUM" style={{ marginLeft: '4px' }} />
+                    <Tooltip title="Priority: MEDIUM">
+                        <img src={medium} width="20px" height="25px" alt="medium" style={{ marginLeft: '4px' }} />
                     </Tooltip>
                 );
             case 'HIGH':
                 return (
-                    <Tooltip title="HIGH">
-                        <img src={high} width="20px" height="25px" alt="HIGH" style={{ marginLeft: '4px' }} />
+                    <Tooltip title="Priority: HIGH">
+                        <img src={high} width="20px" height="25px" alt="high" style={{ marginLeft: '4px' }} />
                     </Tooltip>
                 );
             default:
-                return null;
+                return (
+                    <Tooltip title="Priority: NOT SPECIFIED">
+                        <img src={empty} width="20px" height="20px" alt="not_specified" style={{ marginLeft: '2px', marginTop: '2px' }} />
+                    </Tooltip>
+                );
         }
     };
 

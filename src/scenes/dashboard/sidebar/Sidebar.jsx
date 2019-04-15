@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
 import low from '../../../image/low.svg';
@@ -90,13 +91,15 @@ class Sidebar extends Component {
 
             [
                 <div className="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 10 }} />,
-                <styled.Plus
-                    key="plus"
-                    className="plus"
-                    onClick={this.updateDisplaySidebar}
-                >
-                    <styled.ButtonPlus src={plus} alt="Plus" />
-                </styled.Plus>,
+                <Tooltip title="Add list" placement="left" style={{ fontSize: '30px' }}>
+                    <styled.Plus
+                        key="plus"
+                        className="plus"
+                        onClick={this.updateDisplaySidebar}
+                    >
+                        <styled.ButtonPlus src={plus} alt="Plus" />
+                    </styled.Plus>
+                </Tooltip>,
                 <styled.Sidebar key="sidebar" style={{ display: displayStyle, zIndex: 5 }}>
                     <styled.Background
                         onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
@@ -126,7 +129,9 @@ class Sidebar extends Component {
                                         onChange={this.changeValueName(i)}
                                     />
                                     <FormControl
-                                        style={{ marginTop: '-20px', marginRight: '50px', minWidth: '30px' }}
+                                        style={{
+                                            marginTop: '-20px', marginRight: '80px', minWidth: '30px', padding: '8px',
+                                        }}
                                     >
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
@@ -136,7 +141,7 @@ class Sidebar extends Component {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}
-                                            style={{ width: '120px' }}
+                                            style={{ width: '155px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
                                                 <em>NOT SPECIFIED</em>
