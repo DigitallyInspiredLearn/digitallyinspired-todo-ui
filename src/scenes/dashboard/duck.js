@@ -157,9 +157,12 @@ export function* fetchAllLists() {
         tags: { selectedTags },
     } = yield select(state => state);
     const sortValue = getSorting(sort);
+    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue)).data;
+    yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
     console.log(stringTagsId);
     const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE', stringTagsId)) : {};
+    console.log(res);
     const countElements = res.data.totalElements;
     const myLists = selectedMy ? res.data.content : [];
     const countPages = res.data.totalPages;
@@ -167,8 +170,6 @@ export function* fetchAllLists() {
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
-    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue)).data;
-    yield put(actions.fetchTagTaskKeysSuccess(keys));
     yield put(actions.fetchDashboardSuccess(allList));
 }
 
