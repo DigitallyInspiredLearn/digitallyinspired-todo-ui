@@ -1,5 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
-import { call, put, select } from 'redux-saga/effects';
+import {
+    call, put, select, delay,
+} from 'redux-saga/effects';
 import {
     getMyList,
     deleteList,
@@ -14,12 +16,14 @@ import {
     deleteTask as deleteTaskApi,
 } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
+import { getTagTaskKeys } from '../../api/tag';
 
 export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
 
 export const FETCH_MY_LISTS_SUCCESS = 'dashboard/FETCH_MY_LISTS_SUCCESS';
 export const FETCH_SHARED_LISTS_SUCCESS = 'dashboard/FETCH_SHARED_LISTS_SUCCESS';
+export const FETCH_TAG_TAKS_KEYS_SUCCESS = 'dashboard/FETCH_TAG_TAKS_KEYS_SUCCESS';
 
 export const SELECTED_MY_LISTS = 'dashboard/SELECTED_MY_LISTS';
 export const SELECTED_SHARED_LISTS = 'dashboard/SELECTED_SHARED_LISTS';
@@ -53,6 +57,7 @@ export const actions = {
     changeSort: createAction(CHANGE_SORT),
     fetchDashboard: createAction(FETCH_DASHBOARD),
     fetchDashboardSuccess: createAction(FETCH_DASHBOARD_SUCCESS),
+    fetchTagTaskKeysSuccess: createAction(FETCH_TAG_TAKS_KEYS_SUCCESS),
     updateSelectedMyLists: createAction(SELECTED_MY_LISTS),
     updateSelectedSharedLists: createAction(SELECTED_SHARED_LISTS),
     fetchMyListsSuccess: createAction(FETCH_MY_LISTS_SUCCESS),
@@ -87,6 +92,7 @@ const initialState = {
     pageSize: 4,
     totalElements: 0,
     sort: 'By id, low to high',
+    tagTaskKeys: [],
 };
 
 export const reducer = handleActions({
@@ -95,6 +101,7 @@ export const reducer = handleActions({
     [CHANGE_PAGINATION]: (state, action) => ({ ...state, currentPage: action.payload }),
     [SEARCH]: (state, action) => ({ ...state, search: action.payload }),
     [FETCH_DASHBOARD_SUCCESS]: (state, action) => ({ ...state, toDoBoardRaw: action.payload }),
+    [FETCH_TAG_TAKS_KEYS_SUCCESS]: (state, action) => ({ ...state, tagTaskKeys: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [FETCH_MY_LISTS_SUCCESS]: (state, action) => ({
         ...state,
@@ -144,10 +151,15 @@ export const getSorting = (sort) => {
 
 export function* fetchAllLists() {
     const {
-        selectedMy, selectedShared, pageSize, currentPage, sort,
-    } = yield select(state => state.dashboard);
+        dashboard: {
+            selectedMy, selectedShared, pageSize, currentPage, sort,
+        },
+        tags: { selectedTags },
+    } = yield select(state => state);
     const sortValue = getSorting(sort);
-    const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE')) : {};
+    const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
+    console.log(stringTagsId);
+    const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE', stringTagsId)) : {};
     const countElements = res.data.totalElements;
     const myLists = selectedMy ? res.data.content : [];
     const countPages = res.data.totalPages;
@@ -155,6 +167,8 @@ export function* fetchAllLists() {
     const sharedLists = selectedShared ? (yield call(getSharedLists)).data.map(l => ({ ...l, shared: true })) : [];
     yield put(actions.fetchSharedListsSuccess(sharedLists));
     const allList = myLists.concat(sharedLists);
+    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue)).data;
+    yield put(actions.fetchTagTaskKeysSuccess(keys));
     yield put(actions.fetchDashboardSuccess(allList));
 }
 
@@ -179,17 +193,23 @@ export function* updateComment(action) {
 export function* updateSelectedTask(action) {
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
-        priority: 'HIGH',
         isComplete: !action.payload.selected,
+        priority: action.payload.priority,
+        durationTime: action.payload.durationTime,
     });
+    yield delay(100);
     yield call(fetchAllLists);
 }
 
 export function* updateNameTask(action) {
-    const { payload: { idTask, newTaskName, selected } } = action;
+    const {
+        payload: {
+            idTask, newTaskName, selected, priority,
+        },
+    } = action;
     yield call(updateTask, idTask, {
         body: newTaskName || 'New value',
-        priority: 'HIGH',
+        priority,
         isComplete: selected,
     });
     yield call(fetchAllLists);
@@ -210,7 +230,7 @@ export function* deleteTask(action) {
 
 export function* addNewTask(action) {
     yield call(addTask, action.payload.idDashboard,
-        { body: action.payload.nameTask, priority: 'HIGH', isComplete: false });
+        { body: action.payload.nameTask, priority: action.payload.priority, isComplete: false });
     yield call(fetchAllLists);
 }
 

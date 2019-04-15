@@ -76,13 +76,19 @@ export const IconInfo = styled.div`
         right: 10px;
         font-size: 12px;
         z-index: 9999;
-        width: 200px;
+        width: auto;
+        min-width: 200px;
+        max-width: 250px;
         margin-top: 16px;
         background: #f3f3f3;
-        height: 70px;
+        height: auto;
+        min-height: 70px;
         -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 `;
 

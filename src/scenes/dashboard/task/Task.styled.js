@@ -4,6 +4,7 @@ export const Task = styled.div`
     display: flex;
     flex-flow: row nowrap;
     position: relative;
+    align-items: center;
     &:before{ 
           content: '';
           background-color: ${p => p.theme.background};
@@ -17,6 +18,7 @@ export const Task = styled.div`
     &:hover:before{
         width: 100%;
     }
+    
 `;
 
 export const NameAdnCheckedTask = styled.div`
@@ -76,10 +78,12 @@ export const IconInfo = styled.div`
         right: 10px;
         font-size: 12px;
         z-index: 9999;
-        width: 210px;
+        width: auto;
+        min-width: 210px;
         margin-top: 16px;
         background: #f3f3f3;
         height: 70px;
+        overflow-y: auto;
         -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         box-shadow: 0 5px 5px rgba(0,0,0,0.3);
@@ -89,27 +93,56 @@ export const IconInfo = styled.div`
 export const DeleteTask = styled.img`
     width: 20px;
     height: 20px;
-    opacity: 0.5;
-    margin: 8px 10px 4px 0;
+    opacity: 0.7;
+    margin: 8px 10px 6px 16px;
     cursor: pointer;
+
 `;
 
-export const TrashTaskOneList = styled.div`
-    width: 20px;
-    height: 20px;
+export const AddTag = styled.div`
+    opacity: 1;
     cursor: pointer;
-    &:hover{
-        animation: 1.2s ease-in-out 0s normal none infinite running trambling-animation;
+    position: relative;
+    box-shadow: 0 5px  10px 0  rgba(0,0,0,0.3);
+    padding: 0px 4px ;
+    margin-top:2px;
+    background-color: white;
+    border-radius: 50%;
+    color: grey;
+    font-size: 15px;
+    border: 2px solid grey;
+`;
+
+export const TagsInfo = styled.div`
+    display: flex,
+    flexWrap: wrap,
+    alignItems: center,
+    cursor: default,
+    ::-webkit-scrollbar {
+        width: 8px;
     }
-    @keyframes trambling-animation {
-        0%, 50%, 100% {
-            transform: rotate(0deg);
-        }
-        10%, 30% {
-            transform: rotate(-10deg);
-        }
-        20%, 40% {
-            transform: rotate(10deg);
-        }
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
     }
+    ::-webkit-scrollbar-thumb {
+        background: lightgrey; 
+    }  
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey; 
+    }
+`;
+
+export const TagName = styled.span`
+    padding: 2px 4px,
+    margin: 4px,
+    borderRadius: 2px,
+`;
+
+export const DeleteTagFromTask = styled.span`
+   backgroundColor: white,
+   padding: 0 4px,
+   borderRadius: 2px,
+   border: 1px solid grey,
+   marginLeft: 4px,
+   opacity: 0.8,
 `;
