@@ -4,6 +4,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import IconButton from '@material-ui/core/IconButton';
+import Delete from '@material-ui/icons/Delete';
 import plus from '../../../image/plus.svg';
 import trash from '../../../image/trash.svg';
 import low from '../../../image/low.svg';
@@ -126,7 +128,7 @@ class Sidebar extends Component {
                                         onChange={this.changeValueName(i)}
                                     />
                                     <FormControl
-                                        style={{ marginTop: '-20px', marginRight: '50px', minWidth: '30px' }}
+                                        style={{ marginTop: '-20px', marginRight: '90px', minWidth: '30px', padding: '8px' }}
                                     >
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
@@ -136,7 +138,7 @@ class Sidebar extends Component {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}
-                                            style={{ width: '120px' }}
+                                            style={{ width: '155px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
                                                 <em>NOT SPECIFIED</em>
@@ -170,12 +172,15 @@ class Sidebar extends Component {
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <styled.TrashTask
-                                        src={trash}
-                                        alt="Delete this task"
+                                    <IconButton
+                                        aria-label="trash"
                                         onClick={this.handleRemoveInputTask(i)}
-                                        // style={displaysTrash}
-                                    />
+                                        style={{ borderRadius: '40%', padding: '4px' }}
+                                        alt="Delete this list"
+
+                                    >
+                                        <Delete />
+                                    </IconButton>
                                 </styled.AddTaskPlace>
                             ))}
                         </styled.TaskList>
