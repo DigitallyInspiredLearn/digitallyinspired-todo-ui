@@ -4,7 +4,6 @@ react/require-default-props,react/default-props-match-prop-types */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import IconButton from '@material-ui/core/IconButton';
 import Comment from '@material-ui/icons/Comment';
 import Delete from '@material-ui/icons/Delete';
@@ -160,10 +159,13 @@ export class Dashboard extends Component {
                 id={idList}
             >
                 <styled.DashboardHeader>
-
-                    <styled.Avatar
-                        src={`${gravatarUrl}?s=120&d=retro`}
-                    />
+                    {
+                        gravatarUrl ? (
+                            <styled.Avatar
+                                src={`${gravatarUrl}?s=120&d=retro`}
+                            />
+                        )  : null
+                    }
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}

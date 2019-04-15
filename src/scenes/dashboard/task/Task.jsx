@@ -155,7 +155,6 @@ class Task extends Component {
                             selectedTask={selectedTask}
                         />
                     ) : null
-
                 }
                 <styled.Task
                     id={idTask}
