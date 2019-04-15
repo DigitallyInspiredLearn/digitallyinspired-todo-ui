@@ -129,6 +129,7 @@ class Task extends Component {
             completedDate,
             allTags,
             tagTaskKeys,
+            todoListStatus,
             priority,
         } = this.props;
         return (
@@ -145,13 +146,16 @@ class Task extends Component {
                     )
                 }
                 {
-                    <PopapAddTagToTask
-                        show={visiblePopapAddTagToTask}
-                        handleClose={this.closePopapAddTagToTask}
-                        actions={actions}
-                        allTags={allTags}
-                        selectedTask={selectedTask}
-                    />
+                    todoListStatus === 'ACTIVE' ? (
+                        <PopapAddTagToTask
+                            show={visiblePopapAddTagToTask}
+                            handleClose={this.closePopapAddTagToTask}
+                            actions={actions}
+                            allTags={allTags}
+                            selectedTask={selectedTask}
+                        />
+                    ) : null
+
                 }
                 <styled.Task
                     id={idTask}
@@ -170,68 +174,72 @@ class Task extends Component {
                             value={nameTask}
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
-                            style={{
-                                textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0',
-                            }}
+                            style={todoListStatus === 'ACTIVE' ?
+                                { textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0', }
+                            : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
-                    <styled.IconInfo>
-                        <p>
-                            <b>Information about this task:</b><br />
-                            Created Date: {new Date(createdDate).toLocaleString()}<br />
-                            <div style={{
-                                display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
-                            }}
-                            >
-                            Tags: {
-                                    tagTaskKeys.map(key => key.taskId === idTask
-                                && (
-                                    <span
-                                        style={{
-                                            backgroundColor: key.tag.color,
-                                            padding: '2px 4px',
-                                            margin: '4px',
-                                            borderRadius: '2px',
-                                        }}
+                    {
+                        todoListStatus === 'ACTIVE' ? ([
+                            <styled.IconInfo>
+                                <p>
+                                    <b>Information about this task:</b><br />
+                                    Created Date: {new Date(createdDate).toLocaleString()}<br />
+                                    <div style={{
+                                        display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
+                                    }}
                                     >
+                                        Tags: {
+                                        tagTaskKeys.map(key => key.taskId === idTask
+                                            && (
+                                                <span
+                                                    style={{
+                                                        backgroundColor: key.tag.color,
+                                                        padding: '2px 4px',
+                                                        margin: '4px',
+                                                        borderRadius: '2px',
+                                                    }}
+                                                >
                                         {key.tag.tagName}
-                                        <span
-                                            style={{
-                                                backgroundColor: 'white',
-                                                padding: ' 0 4px',
-                                                borderRadius: '2px',
-                                                border: '1px solid grey',
-                                                marginLeft: '4px',
-                                                opacity: 0.8,
-                                            }}
-                                            onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
-                                        >x
+                                                    <span
+                                                        style={{
+                                                            backgroundColor: 'white',
+                                                            padding: ' 0 4px',
+                                                            borderRadius: '2px',
+                                                            border: '1px solid grey',
+                                                            marginLeft: '4px',
+                                                            opacity: 0.8,
+                                                        }}
+                                                        onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
+                                                    >x
                                         </span>
                                     </span>
-                                ))
-                                }
-                            </div>
-                            Completed Date: {selected ? new Date(completedDate).toLocaleString()
-                                : 'in process'}<br />
-                        </p>
-                        <Info
-                            aria-label="info"
-                            style={displayStyle}
-                            alt="Information about this list"
-                        />
-                    </styled.IconInfo>
-                    <styled.AddTag
-                        style={displayStyle}
-                        onClick={() => this.showPopapAddTagToTask(idTask)}
-                    >
-                        +
-                    </styled.AddTag>
-                    <Delete
-                        aria-label="trash"
-                        onClick={() => actions.deleteTask({ idTask })}
-                        style={displayStyle}
-                        alt="Delete this task"
-                    />
+                                            ))
+                                    }
+                                    </div>
+                                    Completed Date: {selected ? new Date(completedDate).toLocaleString()
+                                    : 'in process'}<br />
+                                </p>
+                                <Info
+                                    aria-label="info"
+                                    style={displayStyle}
+                                    alt="Information about this list"
+                                />
+                            </styled.IconInfo>,
+                            <styled.AddTag
+                                style={displayStyle}
+                                onClick={() => this.showPopapAddTagToTask(idTask)}
+                            >
+                                +
+                            </styled.AddTag>,
+                            <Delete
+                                aria-label="trash"
+                                onClick={() => actions.deleteTask({ idTask })}
+                                style={displayStyle}
+                                alt="Delete this task"
+                            />
+                        ]) : null
+                    }
                 </styled.Task>
             </React.Fragment>
         );
