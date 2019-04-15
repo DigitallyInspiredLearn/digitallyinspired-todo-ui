@@ -120,7 +120,9 @@ class Task extends Component {
                             value={nameTask}
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
-                            style={{ textDecoration: selected ? 'line-through' : 'none', width: '100%' }}
+                            style={todoListStatus === 'ACTIVE' ?
+                                { textDecoration: selected ? 'line-through' : 'none', width: '100%' }
+                            : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
                     <styled.IconInfo>

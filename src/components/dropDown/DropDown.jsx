@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as styled from './DropDown.styled';
 import list from '../../image/list-menu.svg';
 
-class DropDown extends Component {
+class  DropDown extends Component {
     static propTypes = {
         changeValue: PropTypes.func,
         titleButton: PropTypes.string,
@@ -77,7 +77,8 @@ class DropDown extends Component {
                         stylesButton={stylesButton}
                     >
                         { titleButton }
-                        <styled.Down className="fa fa-angle-down" />                    </styled.Button>
+                        <styled.Down className="fa fa-angle-down" />
+                        </styled.Button>
                         : <styled.Icon
                             src={list}
                             alt="list"

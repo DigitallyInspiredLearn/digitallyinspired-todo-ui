@@ -148,14 +148,15 @@ export class Dashboard extends Component {
                     <styled.Avatar
                         src={`${gravatarUrl}?s=120&d=retro`}
                     />
-
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         border={false}
-                        style={{
+                        style={ todoListStatus === 'ACTIVE' ? {
                             textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
+                        } : {
+                            textDecoration: 'none', pointerEvents: 'none' , width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
                     />
                     {

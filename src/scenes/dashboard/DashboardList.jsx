@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+import SearchIcon from '@material-ui/icons/Search';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -37,7 +38,7 @@ class DashboardList extends Component {
                                 value={search}
                                 placeholder="Search dashboard"
                             />
-                            <styled.IconSearch src={loupe} />
+                            <SearchIcon style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
                         </styled.SearchDiv>
                         <MultiSelect />
                         <styled.LabelDiv>
