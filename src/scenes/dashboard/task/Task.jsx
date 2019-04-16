@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
-import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
+import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import Input from '../../../components/input/Input';
@@ -173,9 +173,9 @@ class Task extends Component {
                             value={nameTask}
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
-                            style={todoListStatus === 'ACTIVE' ?
-                                { textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0', }
-                            : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
+                            style={todoListStatus === 'ACTIVE'
+                                ? { textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0' }
+                                : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
                     {
@@ -189,7 +189,7 @@ class Task extends Component {
                                     }}
                                     >
                                         Tags: {
-                                        tagTaskKeys.map(key => key.taskId === idTask
+                                            tagTaskKeys.map(key => key.taskId === idTask
                                             && (
                                                 <span
                                                     style={{
@@ -199,7 +199,7 @@ class Task extends Component {
                                                         borderRadius: '2px',
                                                     }}
                                                 >
-                                        {key.tag.tagName}
+                                                    {key.tag.tagName}
                                                     <span
                                                         style={{
                                                             backgroundColor: 'white',
@@ -211,13 +211,13 @@ class Task extends Component {
                                                         }}
                                                         onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
                                                     >x
-                                        </span>
-                                    </span>
+                                                    </span>
+                                                </span>
                                             ))
-                                    }
+                                        }
                                     </div>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
-                                    : 'in process'}<br />
+                                        : 'in process'}<br />
                                 </p>
                                 <Info
                                     aria-label="info"
@@ -236,7 +236,7 @@ class Task extends Component {
                                 onClick={() => actions.deleteTask({ idTask })}
                                 style={displayStyle}
                                 alt="Delete this task"
-                            />
+                            />,
                         ]) : null
                     }
                 </styled.Task>
