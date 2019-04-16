@@ -9,8 +9,15 @@ import * as styledList from '../../list/OneList.styles';
 import * as styled from '../../dashboard/DashboardList.styles';
 import DropDown from '../../../components/dropDown/DropDown';
 import { Dashboard } from '../../dashboard/Dashboard';
-
+import { AlertDialog } from '../../../components/dialog/AlertDialog';
 class DashboardListBasket extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+        };
+    }
     componentWillMount = ({ actions } = this.props) => actions.fetchDeletedDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -18,10 +25,18 @@ class DashboardListBasket extends Component {
         actions.changePagination(selected);
     };
 
+    showAlertDialog = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        })
+    };
+
     render() {
         const {
             actions, toDoBoard, pageSize, totalPages, currentUser,
         } = this.props;
+        const { visible } = this.state;
         return (
             [
                 <styled.App key="app">
@@ -94,13 +109,19 @@ class DashboardListBasket extends Component {
                         aria-label="deleteForever"
                         alt="Delete forever lists"
                         onClick={() => actions.deleteAllLists()}
-
+                        // onClick={() => this.showAlertDialog}
                     >
                         <DeleteForever
                             alt="Delete forever lists"
                             style={{ fontSize: '40px', color: 'black' }}
                         />
                     </IconButton>
+                    {
+                        visible ? (
+                            <AlertDialog visible={visible}/>
+                        ) : null
+                    }
+
                 </styled.Footer>,
             ]
         );

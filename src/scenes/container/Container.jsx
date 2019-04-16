@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
@@ -10,7 +9,6 @@ import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
 import DropDown from '../../components/dropDown/DropDown';
-import Basket from '../basket/Basket';
 
 class Container extends Component {
     constructor(props) {
@@ -96,7 +94,7 @@ class Container extends Component {
                                 'Basket',
                             ]}
                             stylesContainer="top: 40px; "
-                            stylesValues="margin-left: -78px; width: 100px;"
+                            stylesValues="margin-left: -78px; width: 100px; border-radius: 8px;"
                             iconVisible={iconVisible}
                         />
                         <styled.Icon
