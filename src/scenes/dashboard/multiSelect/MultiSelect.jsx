@@ -30,53 +30,61 @@ class MultiSelect extends Component {
         const { selectTags } = this.state;
         return ([
             <div className={classes.root}>
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="select-multiple-chip" style={{ color: 'black' }}>Choose tags:</InputLabel>
-                    <Select
-                        style={{ color: 'black', border: 'none' }}
-                        multiple
-                        value={selectTags}
-                        onChange={this.handleChange}
-                        input={<Input id="select-multiple-chip" />}
-                        renderValue={selected => (
-                            <div className={classes.chips}>
-                                {selected.map(value => (
-                                    <Chip
-                                        key={value.id}
-                                        label={value.tagName}
-                                        className={classes.chip}
-                                        style={{ backgroundColor: value.color }}
-                                    />
-                                ))}
+                <InputLabel htmlFor="select-multiple-chip" style={{ color: 'black', fontSize: '13px', margin: '4px 0 0 4px' }}>Tags:</InputLabel>
+                <Select
+                    style={{
+                        color: 'black',
+                        border: 'none',
+                        width: '300px',
+                        margin: '6px 8px',
+                        height: '52px',
+                        backgroundColor: 'white',
+                        borderRadius: '4px',
+                        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+                    }}
+                    multiple
+                    value={selectTags}
+                    onChange={this.handleChange}
+                    input={<Input id="select-multiple-chip" placeholder="choose" />}
+                    renderValue={selected => (
+                        <div className={classes.chips}>
+                            {selected.map(value => (
+                                <Chip
+                                    key={value.id}
+                                    label={value.tagName}
+                                    className={classes.chip}
+                                    style={{ backgroundColor: value.color }}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    MenuProps={MenuProps}
+                >
+                    {tags.map(tag => (
+                        <MenuItem key={tag.id} value={tag}>
+                            <div
+                                style={style}
+                                onMouseOver={this.changeVisible}
+                                onMouseOut={this.changeVisible}
+                            >
+                                <p style={style}> {tag.tagName} </p>
+                                <p
+                                    key={tag.id}
+                                    onClick={() => actions.deleteTag({ id: tag.id })}
+                                > X
+                                </p>
                             </div>
-                        )}
-                        MenuProps={MenuProps}
-                    >
-                        {tags.map(tag => (
-                            <MenuItem key={tag.id} value={tag}>
-                                <div
-                                    style={style}
-                                    onMouseOver={this.changeVisible}
-                                    onMouseOut={this.changeVisible}
-                                >
-                                    <p style={style}> {tag.tagName} </p>
-                                    <p
-                                        key={tag.id}
-                                        onClick={() => actions.deleteTag({ id: tag.id })}
-                                    > X
-                                    </p>
-                                </div>
-                            </MenuItem>
-                        ))}
-                    </Select>
-                    <PopapAddTag actions={actions} visible={visible} allTags={tags} />
-                </FormControl>
+                        </MenuItem>
+                    ))}
+                </Select>
+                <PopapAddTag actions={actions} visible={visible} allTags={tags} />
+
             </div>,
             <button
                 className={classes.addButton}
                 onClick={() => { actions.visiblePopap(); }}
             >
-                + add new tag
+                + add tag
             </button>,
         ]
         );
