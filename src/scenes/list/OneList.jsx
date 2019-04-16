@@ -35,11 +35,11 @@ class OneList extends Component {
 
     downloadToPDF = (data) => {
         const doc = new jsPDF();
-        doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
+        doc.text(`Dashboard: "${data.todoListName}, created by User at Time\nLast modify :data\nCommentar : Commentar"`, 15, 10);
         data.tasks.length
             ? doc.autoTable({
-                head: [['+/-', 'name tasks', 'priority', 'do up']],
-                body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019'])),
+                head: [['+/-', 'name tasks', 'priority', 'created data', 'tags', 'completed data']],
+                body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019', 'tags', 'completed data'])),
                 headStyles: { fillColor: 'lightblue' },
             })
             : doc.autoTable({
