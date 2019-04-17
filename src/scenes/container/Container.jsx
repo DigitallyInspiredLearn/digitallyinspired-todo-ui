@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
 import logout from '../../image/logout.svg';
@@ -9,14 +8,16 @@ import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
+import * as styledDialog from '../../components/dialog/AlertDialog.styles';
+import { AlertDialog } from "../../components/dialog/AlertDialog";
 import DropDown from '../../components/dropDown/DropDown';
-import Basket from '../basket/Basket';
 
 class Container extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
+            visibleDialog: false,
             sections: '',
         };
     }
@@ -41,9 +42,16 @@ class Container extends Component {
         this.setState({ visible: !visible });
     };
 
+    showAlertDialog = () => {
+        const { visibleDialog } = this.state;
+        this.setState({
+            visibleDialog: !visibleDialog,
+        })
+    };
+
 
     render() {
-        const { visible, sections } = this.state;
+        const { visible, visibleDialog, sections } = this.state;
         const { location: { pathname } } = history;
         const {
             children, data, actions,
@@ -96,16 +104,23 @@ class Container extends Component {
                                 'Basket',
                             ]}
                             stylesContainer="top: 40px; "
-                            stylesValues="margin-left: -78px; width: 100px;"
+                            stylesValues="margin-left: -78px; width: 100px; border-radius: 8px;"
                             iconVisible={iconVisible}
                         />
                         <styled.Icon
                             src={logout}
                             alt="logout"
-                            onClick={actions.logout}
+                            onClick={this.showAlertDialog}
                             style={{ display: iconVisible }}
                         />
-
+                        <styledDialog.Dialog>
+                            <AlertDialog
+                                visible={visibleDialog}
+                                onClose={this.showAlertDialog}
+                                value='Do you want to exit this page?'
+                                onConfirm={actions.logout}
+                            />
+                        </styledDialog.Dialog>
                     </styled.Header>
                     <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }
