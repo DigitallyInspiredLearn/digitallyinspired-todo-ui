@@ -63,6 +63,7 @@ export class Dashboard extends Component {
             newTitle: props.title,
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
+            visibleAllDashboardTags: false,
         };
     }
 
@@ -143,9 +144,10 @@ export class Dashboard extends Component {
             modifiedDate,
             comment,
             currentUser: { gravatarUrl },
+            tagTaskKeys,
         } = this.props;
         const {
-            valueNewTask, statePopup, stateComment, priority,
+            valueNewTask, statePopup, stateComment, priority, visibleAllDashboardTags,
         } = this.state;
 
         return ([
@@ -167,7 +169,7 @@ export class Dashboard extends Component {
                             />
                         ) : null
                     }
-                    <Input
+                    <styled.Title
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
@@ -188,6 +190,17 @@ export class Dashboard extends Component {
                                 )
                                 : (
                                     <styled.IconContainer>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                color: 'grey',
+                                                cursor: 'default',
+                                            }}
+                                            onMouseOver={() => this.setState({ visibleAllDashboardTags: !visibleAllDashboardTags })}
+                                            onMouseOut={() => this.setState({ visibleAllDashboardTags: !visibleAllDashboardTags })}
+                                        >tags
+                                        </div>
                                         <Link to={`/lists/${idList}`}>
                                             <styled.IconInfo>
                                                 <p>
@@ -258,6 +271,31 @@ export class Dashboard extends Component {
                         )
                     }
                 </styled.DashboardHeader>
+                <div
+                    style={{
+                        display: visibleAllDashboardTags ? 'flex' : 'none',
+                        margin: ' 0 8px 0 0',
+                        opacity: 0.8,
+                    }}
+                >
+                    {
+                        todoListStatus === 'ACTIVE'
+                    && (tagTaskKeys.map(key => tasks.map(task => key.taskId === task.id
+                            && (
+                                <span
+                                    style={{
+                                        backgroundColor: key.tag.color,
+                                        padding: '4px 8px',
+                                        margin: '4px',
+                                        borderRadius: '8px',
+                                    }}
+                                >
+                                    {key.tag.tagName}
+                                </span>
+                            )))
+                    )
+                    }
+                </div>
                 <styled.TaskList>
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>
