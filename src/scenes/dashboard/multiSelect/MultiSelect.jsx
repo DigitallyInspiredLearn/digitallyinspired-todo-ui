@@ -85,7 +85,7 @@ class MultiSelect extends Component {
                 className={classes.addButton}
                 onClick={() => { actions.visiblePopap(); }}
             >
-                + add tag
+                + tag
             </button>,
         ]
         );
