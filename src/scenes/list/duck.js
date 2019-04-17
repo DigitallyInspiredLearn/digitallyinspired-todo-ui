@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import {
-    call, put, delay,
+    call, put, delay, select,
 } from 'redux-saga/effects';
 import { updateList, deleteList, getOneList } from '../../api/dashboard';
 import { addTask, deleteTask, updateTask } from '../../api/task';
@@ -20,6 +20,8 @@ export const SELECTED_DONE = 'list/SELECTED_DONE';
 export const SELECTED_NOT_DONE = 'list/SELECTED_NOT_DONE';
 export const MUTATE = 'list/MUTATE';
 export const MUTATE_SUCCESS = 'list/MUTATE_SUCCESS';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
 
 export const actions = {
     fetchList: createAction(FETCH_LIST),
@@ -36,6 +38,8 @@ export const actions = {
     selectedNotDoneAction: createAction(SELECTED_NOT_DONE),
     mutate: createAction(MUTATE),
     mutateSuccess: createAction(MUTATE_SUCCESS),
+    updateComment: createAction(UPDATE_COMMENT),
+    updateCommentSuccess: createAction(UPDATE_COMMENT_SUCCESS),
 };
 
 const initialState = {
@@ -101,12 +105,20 @@ export function* updateTitle(action) {
         { ...list.data, todoListName: action.payload.newTitle, comment: '' });
 }
 
+export function* updateComment(action) {
+    // const list = yield call(getOneList, action.payload.id);
+    const list = yield select(state => state.list.data);
+    yield call(updateList, action.payload.id,
+        { ...list, comment: action.payload.newComment });
+}
+
 export function* fetchUpdateTask(action) {
     yield delay(1000);
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.newTaskName,
-        priority: 'HIGH',
+        priority: action.payload.priority,
         isComplete: action.payload.selected,
+        durationTime: action.payload.durationTime,
     });
     const r = yield call(getOneList, action.payload.idDashboard);
     yield put(actions.fetchListSuccess(r.data));
@@ -119,7 +131,7 @@ export function* fetchChangeSearch(action) {
 
 export function* addNewTask(action) {
     yield call(addTask, action.payload.idDashboard,
-        { body: action.payload.nameTask, priority: 'HIGH', isComplete: false });
+        { body: action.payload.nameTask, priority: action.payload.priority, isComplete: false });
     const r = yield call(getOneList, action.payload.idDashboard);
     yield put(actions.fetchListSuccess(r.data));
 }
@@ -138,8 +150,9 @@ export function* fetchDeleteTask(action) {
 export function* fetchUpdateCheckbox(action) {
     yield call(updateTask, action.payload.idTask, {
         body: action.payload.nameTask,
-        priority: 'HIGH',
+        priority: action.payload.priority,
         isComplete: !action.payload.selected,
+        durationTime: action.payload.durationTime,
     });
     const r = yield call(getOneList, action.payload.idDashboard);
     yield put(actions.fetchListSuccess(r.data));
@@ -154,4 +167,5 @@ export function* saga() {
     yield safeTakeEvery(UPDATE_CHECKBOX_LIST, fetchUpdateCheckbox);
     yield safeTakeLatest(UPDATE_TASK_LIST, fetchUpdateTask);
     yield safeTakeLatest(UPDATE_TITLE_LIST, updateTitle);
+    yield safeTakeLatest(UPDATE_COMMENT_SUCCESS, updateComment);
 }
