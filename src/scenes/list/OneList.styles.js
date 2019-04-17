@@ -107,10 +107,32 @@ export const addNewTask = styled.input`
     font-size: 20px;
     margin: 8px;
     outline: none;
+    margin-top: auto;
 `;
 
 export const nullTask = styled.div`
     margin: 10px 20px;
     opacity: 0.6;
     font-size: 20px;
+`;
+
+export const addTaskContainer = styled.div`
+    display: ${p => (p.visible ? 'flex' : 'none')};
+    height: auto !important;
+    flex-direction: row;
+    align-items: center;
+    min-height: 50px;
+`;
+
+export const Expand = styled.div`
+    display: ${p => (p.visible ? 'flex' : 'none')};
+    height: auto;
+    min-height: 100px;
+    padding: 8px 0 0 8px;
+    justify-content: space-between;
+`;
+
+export const Textarea = styled.textarea`
+    width: 100%;
+    height: 60px;
 `;

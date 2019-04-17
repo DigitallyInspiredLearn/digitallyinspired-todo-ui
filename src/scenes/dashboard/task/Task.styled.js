@@ -81,8 +81,8 @@ export const IconInfo = styled.div`
         width: auto;
         min-width: 210px;
         margin-top: 16px;
-        background: #f3f3f3;
-        height: 70px;
+        background: ${p => p.theme.background};
+        height: auto;
         overflow-y: auto;
         -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
         -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
@@ -114,35 +114,35 @@ export const AddTag = styled.div`
 `;
 
 export const TagsInfo = styled.div`
-    display: flex,
-    flexWrap: wrap,
-    alignItems: center,
-    cursor: default,
+    display: flex;
+    flexWrap: wrap;
+    alignItems: center;
+    cursor: default;
     ::-webkit-scrollbar {
         width: 8px;
-    }
+    };
     ::-webkit-scrollbar-track {
         background: #f1f1f1; 
-    }
+    };
     ::-webkit-scrollbar-thumb {
         background: lightgrey; 
-    }  
+    };
     ::-webkit-scrollbar-thumb:hover {
         background: grey; 
-    }
+    };
 `;
 
 export const TagName = styled.span`
-    padding: 2px 4px,
-    margin: 4px,
-    borderRadius: 2px,
+    padding: 2px 4px;
+    margin: 4px;
+    borderRadius: 2px;
 `;
 
 export const DeleteTagFromTask = styled.span`
-   backgroundColor: white,
-   padding: 0 4px,
-   borderRadius: 2px,
-   border: 1px solid grey,
-   marginLeft: 4px,
-   opacity: 0.8,
+   backgroundColor: white;
+   padding: 0 4px;
+   borderRadius: 2px;
+   border: 1px solid grey;
+   marginLeft: 4px;
+   opacity: 0.8;
 `;

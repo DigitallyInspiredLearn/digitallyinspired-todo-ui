@@ -8,7 +8,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import plus from '../../../image/plus.svg';
-import trash from '../../../image/trash.svg';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
@@ -130,62 +129,66 @@ class Sidebar extends Component {
                                         value={task.body}
                                         onChange={this.changeValueName(i)}
                                     />
-                                    <FormControl
-                                        style={{
-                                            marginTop: '-20px', marginRight: '90px', minWidth: '30px', padding: '8px'
-                                        }}
-                                    >
-                                        <InputLabel htmlFor="age-simple">Priority</InputLabel>
-                                        <Select
-                                            value={task.priority}
-                                            onChange={this.changeValuePriority(i)}
-                                            inputProps={{
-                                                name: 'age',
-                                                id: 'age-simple',
+                                    <Tooltip title="Select priority" placement="left-end">
+                                        <FormControl
+                                            style={{
+                                                marginTop: '-20px', marginRight: '90px', minWidth: '30px', padding: '8px'
                                             }}
-                                            style={{ width: '155px' }}
                                         >
-                                            <MenuItem value="NOT_SPECIFIED">
-                                                <em>NOT SPECIFIED</em>
-                                            </MenuItem>
-                                            <MenuItem value="LOW">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
-                                                    src={low}
-                                                    alt="LOW"
-                                                />
-                                                LOW
-                                            </MenuItem>
-                                            <MenuItem value="MEDIUM">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
-                                                    src={medium}
-                                                    alt="MEDIUM"
-                                                />
-                                                MEDIUM
-                                            </MenuItem>
-                                            <MenuItem value="HIGH">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
-                                                    src={high}
-                                                    alt="HIGH"
-                                                />
-                                                HIGH
-                                            </MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <IconButton
-                                        aria-label="trash"
-                                        onClick={this.handleRemoveInputTask(i)}
-                                        style={{ borderRadius: '40%', padding: '4px' }}
-                                        alt="Delete this list"
+                                            <InputLabel htmlFor="age-simple">Priority</InputLabel>
+                                            <Select
+                                                value={task.priority}
+                                                onChange={this.changeValuePriority(i)}
+                                                inputProps={{
+                                                    name: 'age',
+                                                    id: 'age-simple',
+                                                }}
+                                                style={{ width: '155px' }}
+                                            >
+                                                <MenuItem value="NOT_SPECIFIED">
+                                                    <em>NOT SPECIFIED</em>
+                                                </MenuItem>
+                                                <MenuItem value="LOW">
+                                                    <img
+                                                        width="15%"
+                                                        height="15%"
+                                                        src={low}
+                                                        alt="LOW"
+                                                    />
+                                                    LOW
+                                                </MenuItem>
+                                                <MenuItem value="MEDIUM">
+                                                    <img
+                                                        width="15%"
+                                                        height="15%"
+                                                        src={medium}
+                                                        alt="MEDIUM"
+                                                    />
+                                                    MEDIUM
+                                                </MenuItem>
+                                                <MenuItem value="HIGH">
+                                                    <img
+                                                        width="15%"
+                                                        height="15%"
+                                                        src={high}
+                                                        alt="HIGH"
+                                                    />
+                                                    HIGH
+                                                </MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Tooltip>
+                                    <Tooltip title="Delete task">
+                                        <IconButton
+                                            aria-label="trash"
+                                            onClick={this.handleRemoveInputTask(i)}
+                                            style={{ borderRadius: '40%', padding: '4px' }}
+                                            alt="Delete this task"
 
-                                    >
-                                        <Delete />
-                                    </IconButton>
+                                        >
+                                            <Delete />
+                                        </IconButton>
+                                    </Tooltip>
                                 </styled.AddTaskPlace>
                             ))}
                         </styled.TaskList>

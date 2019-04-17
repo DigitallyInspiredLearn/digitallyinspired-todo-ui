@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
-import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
+import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import Input from '../../../components/input/Input';
@@ -24,6 +24,7 @@ class Task extends Component {
             newTaskName: props.nameTask,
             visiblePopapAddTagToTask: false,
             selectedTask: '',
+            durationTime: props.durationTime,
         };
     }
 
@@ -46,6 +47,7 @@ class Task extends Component {
 
         this.setState({ statePopup: false });
         const durationTime = moment.duration(time.duration).valueOf();
+        this.setState({ durationTime });
         actions.updateCheckbox({
             nameTask, idTask, selected, body: nameTask, durationTime, priority,
         });
@@ -59,6 +61,7 @@ class Task extends Component {
         if (!selected) {
             this.setState({ statePopup: true });
         } else {
+            this.setState({ durationTime });
             actions.updateCheckbox({
                 nameTask, idTask, selected, body: nameTask, durationTime: 0, priority,
             });
@@ -122,7 +125,7 @@ class Task extends Component {
 
     render() {
         const {
-            display, statePopup, visiblePopapAddTagToTask, selectedTask,
+            display, statePopup, visiblePopapAddTagToTask, selectedTask, durationTime,
         } = this.state;
         const displayStyle = { display, color: 'rgba(0, 0, 0, 0.54)' };
         const {
@@ -178,9 +181,9 @@ class Task extends Component {
                             value={nameTask}
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
-                            style={todoListStatus === 'ACTIVE' ?
-                                { textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0', }
-                            : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
+                            style={todoListStatus === 'ACTIVE'
+                                ? { textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0' }
+                                : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
                     {
@@ -194,7 +197,7 @@ class Task extends Component {
                                     }}
                                     >
                                         Tags: {
-                                        tagTaskKeys.map(key => key.taskId === idTask
+                                            tagTaskKeys.map(key => key.taskId === idTask
                                             && (
                                                 <span
                                                     style={{
@@ -204,7 +207,7 @@ class Task extends Component {
                                                         borderRadius: '2px',
                                                     }}
                                                 >
-                                        {key.tag.tagName}
+                                                    {key.tag.tagName}
                                                     <span
                                                         style={{
                                                             backgroundColor: 'white',
@@ -216,32 +219,43 @@ class Task extends Component {
                                                         }}
                                                         onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
                                                     >x
-                                        </span>
-                                    </span>
+                                                    </span>
+                                                </span>
                                             ))
-                                    }
+                                        }
                                     </div>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
-                                    : 'in process'}<br />
+                                        : 'in process'}<br />
+                                    {
+                                        (durationTime !== '' && durationTime !== 0)
+                                            ? ` Duration time: ${(moment.duration(durationTime).days())}d 
+                                        ${(moment.duration(durationTime).hours())}h
+                                        ${(moment.duration(durationTime).minutes())}m`
+                                            : null
+                                    }
                                 </p>
                                 <Info
                                     aria-label="info"
                                     style={displayStyle}
-                                    alt="Information about this list"
+                                    alt="Information about this task"
                                 />
                             </styled.IconInfo>,
-                            <styled.AddTag
-                                style={displayStyle}
-                                onClick={() => this.showPopapAddTagToTask(idTask)}
-                            >
-                                +
-                            </styled.AddTag>,
-                            <Delete
-                                aria-label="trash"
-                                onClick={() => actions.deleteTask({ idTask })}
-                                style={displayStyle}
-                                alt="Delete this task"
-                            />
+                            <Tooltip title="Add tag for this task">
+                                <styled.AddTag
+                                    style={displayStyle}
+                                    onClick={() => this.showPopapAddTagToTask(idTask)}
+                                >
+                                    +
+                                </styled.AddTag>
+                            </Tooltip>,
+                            <Tooltip title="Delete task">
+                                <Delete
+                                    aria-label="trash"
+                                    onClick={() => actions.deleteTask({ idTask })}
+                                    style={displayStyle}
+                                    alt="Delete task"
+                                />
+                            </Tooltip>,
                         ]) : null
                     }
                 </styled.Task>

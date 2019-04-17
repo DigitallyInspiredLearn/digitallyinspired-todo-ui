@@ -133,14 +133,16 @@ export const Avatar = styled.img`
     height: 30px;
 `;
 
+export const addTaskContainer = styled.div`
+    display: ${p => (p.visible ? 'flex' : 'none')};
+`;
+
 export const Expand = styled.div`
     display: ${p => (p.visible ? 'flex' : 'none')};
-    width: 98%;
     height: auto;
     min-height: 100px;
-    overflow: hidden;
-    padding: 8px;
-
+    padding: 8px 0 0 8px;
+    justify-content: space-between;
 `;
 
 export const Textarea = styled.textarea`

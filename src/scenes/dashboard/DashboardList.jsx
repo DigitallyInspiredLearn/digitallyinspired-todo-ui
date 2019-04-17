@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import SearchIcon from '@material-ui/icons/Search';
+import Tooltip from '@material-ui/core/Tooltip';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -44,7 +45,11 @@ class DashboardList extends Component {
             [
                 <styled.App key="app">
                     <styled.Head>
-                        <div style={{fontSize: '12px', margin: '4px 4px 4px 0', display: 'flex' ,flex: 'auto', flexDirection:'column'}}>
+                        <div
+                            style={{
+                                fontSize: '12px', margin: '4px 4px 4px 0', display: 'flex', flex: 'auto', flexDirection: 'column',
+                            }}
+                        >
                             Search:
                             <styled.SearchDiv>
                                 <Search
@@ -87,9 +92,10 @@ class DashboardList extends Component {
                                         text-align: center;
                                         padding:5px;
                                     }
-                                "
+                                    "
+                                    tooltip="Select sorting"
                                 />
-                                {/*<styled.ShowButton
+                                {/* <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
                                 style={{ margin: '0px 8px' }}
@@ -152,6 +158,7 @@ class DashboardList extends Component {
                                 onPageChange={this.handlePageChange}
                             />
                         </styled.Pagination>
+                        
                         <DropDown
                             changeValue={actions.changeSize}
                             currentValue={pageSize}
@@ -161,6 +168,8 @@ class DashboardList extends Component {
                             stylesContainer="top: -87px;"
                             stylesValues="width: 75px; margin-left: 17px;"
                             stylesButton="padding: 12px 10px; margin: 16px;"
+                            tooltip="Change visible lists"
+                            placement="right"
                         />
                     </div>
                     <VisibleSidebar />

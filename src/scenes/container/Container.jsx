@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
+import Tooltip from '@material-ui/core/Tooltip';
 import logout from '../../image/logout.svg';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
@@ -98,14 +99,16 @@ class Container extends Component {
                             stylesContainer="top: 40px; "
                             stylesValues="margin-left: -78px; width: 100px;"
                             iconVisible={iconVisible}
+                            tooltip="Change page"
                         />
-                        <styled.Icon
-                            src={logout}
-                            alt="logout"
-                            onClick={actions.logout}
-                            style={{ display: iconVisible }}
-                        />
-
+                        <Tooltip title="Logout">
+                            <styled.Icon
+                                src={logout}
+                                alt="logout"
+                                onClick={actions.logout}
+                                style={{ display: iconVisible }}
+                            />
+                        </Tooltip>
                     </styled.Header>
                     <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }

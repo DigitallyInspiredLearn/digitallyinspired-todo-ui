@@ -5,9 +5,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Comment from '@material-ui/icons/Comment';
 import Delete from '@material-ui/icons/Delete';
 import Restore from '@material-ui/icons/RestoreFromTrash';
+import Done from '@material-ui/icons/CheckCircle';
+import Cancel from '@material-ui/icons/Cancel';
 import Share from '@material-ui/icons/Share';
 import Info from '@material-ui/icons/Info';
 import FormControl from '@material-ui/core/FormControl';
@@ -71,13 +74,16 @@ export class Dashboard extends Component {
         e.target.blur();
         this.setState({
             valueNewTask: e.target.value = '',
+            newComment: e.target.value = '',
             priority: 'NOT_SPECIFIED',
+            stateComment: false,
         });
     };
 
-    toggleComment = () => {
+    toggleComment = (e) => {
         this.setState({
             stateComment: !this.state.stateComment,
+            newComment: e.target.value = '',
         });
     };
 
@@ -103,13 +109,7 @@ export class Dashboard extends Component {
     };
 
     handleUpdateComment = (newValue) => {
-        const { actions, idList, title } = this.props;
-        this.setState({ newComment: newValue }, () => {
-            const { newComment } = this.state;
-            actions.updateComment({
-                id: idList, title, newComment,
-            });
-        });
+        this.setState({ newComment: newValue });
     };
 
     handleUpdateTitleSuccess = () => {
@@ -121,7 +121,7 @@ export class Dashboard extends Component {
     handleUpdateCommentSuccess = () => {
         const { actions, idList, title } = this.props;
         const { newComment } = this.state;
-        actions.updateCommentSuccess({ id: idList, title, newComment });
+        actions.updateComment({ id: idList, title, newComment });
     };
 
     handleChangePriority = (e) => {
@@ -165,17 +165,17 @@ export class Dashboard extends Component {
                             <styled.Avatar
                                 src={`${gravatarUrl}?s=120&d=retro`}
                             />
-                        )  : null
+                        ) : null
                     }
                     <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         border={false}
-                        style={ todoListStatus === 'ACTIVE' ? {
+                        style={todoListStatus === 'ACTIVE' ? {
                             textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         } : {
-                            textDecoration: 'none', pointerEvents: 'none' , width: '100%', fontWeight: 'bold', marginLeft: '8px',
+                            textDecoration: 'none', pointerEvents: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
                     />
                     {
@@ -198,56 +198,62 @@ export class Dashboard extends Component {
                                                     Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
                                                     Comment: {comment || 'not written yet'}
                                                 </p>
+                                                
                                                 <IconButton
                                                     aria-label="info"
                                                     style={{ borderRadius: '40%', padding: '4px' }}
                                                     alt="Information about this list"
-
                                                 >
                                                     <Info />
                                                 </IconButton>
                                             </styled.IconInfo>
                                         </Link>
-                                        <IconButton
-                                            aria-label="share"
-                                            style={{ borderRadius: '40%', padding: '4px' }}
-                                            onClick={this.showPopup}
-                                            alt="Share list"
-
-                                        >
-                                            <Share />
-                                        </IconButton>
-                                        <IconButton
-                                            aria-label="trash"
-                                            onClick={() => actions.deleteDashboard({ id: idList })}
-                                            style={{ borderRadius: '40%', padding: '4px' }}
-                                            alt="Delete this list"
-                                        >
-                                            <Delete />
-                                        </IconButton>
+                                        <Tooltip title="Share list">
+                                            <IconButton
+                                                aria-label="share"
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                onClick={this.showPopup}
+                                                alt="Share list"
+                                            >
+                                                <Share />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Delete list">
+                                            <IconButton
+                                                aria-label="trash"
+                                                onClick={() => actions.deleteDashboard({ id: idList })}
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                alt="Delete this list"
+                                            >
+                                                <Delete />
+                                            </IconButton>
+                                        </Tooltip>
                                     </styled.IconContainer>
                                 )
                         ) : (
                             <styled.IconContainer>
-                                <IconButton
-                                    aria-label="restore"
-                                    onClick={() => actionsBasket.restoreList({ id: idList })}
-                                    alt="Restore this list"
-                                    style={{ borderRadius: '40%', padding: '4px' }}
-                                >
-                                    <Restore
-                                        style={{ borderRadius: '40%' }}
-                                    />
-                                </IconButton>
-                                <IconButton
-                                    aria-label="trash"
-                                    onClick={() => actionsBasket.deletedList({ id: idList })}
-                                    style={{ borderRadius: '40%', padding: '4px' }}
-                                    alt="Delete this list"
-
-                                >
-                                    <Delete />
-                                </IconButton>
+                                <Tooltip title="Restore list">
+                                    <IconButton
+                                        aria-label="restore"
+                                        onClick={() => actionsBasket.restoreList({ id: idList })}
+                                        alt="Restore this list"
+                                        style={{ borderRadius: '40%', padding: '4px' }}
+                                    >
+                                        <Restore
+                                            style={{ borderRadius: '40%' }}
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Delete list forever">
+                                    <IconButton
+                                        aria-label="trash"
+                                        onClick={() => actionsBasket.deletedList({ id: idList })}
+                                        style={{ borderRadius: '40%', padding: '4px' }}
+                                        alt="Delete this list"
+                                    >
+                                        <Delete />
+                                    </IconButton>
+                                </Tooltip>
                             </styled.IconContainer>
                         )
                     }
@@ -259,7 +265,7 @@ export class Dashboard extends Component {
                     todoListStatus === 'ACTIVE' ? (
                         shared ? ''
                             : (
-                                <div style={{ display: 'flex' }}>
+                                <styled.addTaskContainer visible={!stateComment}>
                                     <styled.InputAddingTask
                                         style={{ alignSelf: 'center' }}
                                         placeholder="Add to-do"
@@ -320,13 +326,15 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <IconButton
-                                        aria-label="Delete"
-                                        onClick={this.toggleComment}
-                                    >
-                                        <Comment />
-                                    </IconButton>
-                                </div>
+                                    <Tooltip title={high} placement="top">
+                                        <IconButton
+                                            aria-label="Comment"
+                                            onClick={this.toggleComment}
+                                        >
+                                            <Comment />
+                                        </IconButton>
+                                    </Tooltip>
+                                </styled.addTaskContainer>
                             )
                     ) : null
                 }
@@ -341,15 +349,31 @@ export class Dashboard extends Component {
                         rowsMax="3"
                         variant="outlined"
                         margin="normal"
-                        // onKeyPress={e => e.key === 'Enter'
-                        //     && (e.target.blur(), this.handleUpdateCommentSuccess())
-                        // }
-                        onBlur={() => this.handleUpdateCommentSuccess()}
                         placeholder="Type comment about this list"
                         style={{
-                            width: '90%', fontWeight: 'bold',
+                            width: '100%', fontWeight: 'bold',
+                        }}
+                        InputProps={{
+                            style: {
+                                height: '150px',
+                                marginTop: '-10px',
+                            },
                         }}
                     />
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <IconButton
+                            style={{ padding: '12px' }}
+                            onClick={this.handlerOnBlur}
+                        >
+                            <Cancel />
+                        </IconButton>
+                        <IconButton
+                            style={{ padding: '12px' }}
+                            onClick={() => this.handleUpdateCommentSuccess()}
+                        >
+                            <Done />
+                        </IconButton>
+                    </div>
                 </styled.Expand>
             </styled.Dashboard>,
         ]);
