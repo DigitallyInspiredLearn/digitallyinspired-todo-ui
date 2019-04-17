@@ -6,15 +6,17 @@ import SnackbarContent from '@material-ui/core/SnackbarContent/index';
 import IconButton from '@material-ui/core/IconButton/index';
 import CloseIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import Snackbar from '@material-ui/core/Snackbar/index';
-
+import {connect} from "react-redux";
 
 class WebSocketContainer extends Component {
     constructor(props) {
         super(props);
+        const { currentUser } =props;
         this.state = {
             message: '',
             open: false,
         };
+
         let stompClient = null;
         const headers = {
             Accept: '*/*',
@@ -26,9 +28,8 @@ class WebSocketContainer extends Component {
 
         stompClient.connect(headers, () => {
             const { open } = this.state;
-            stompClient.subscribe('/ann1206', (notification) => {
+            stompClient.subscribe(`/${currentUser}`, (notification) => {
                 this.setState({ message: notification.body, open: !open });
-                console.log(notification)
             });
         });
     }
@@ -81,4 +82,9 @@ WebSocketContainer.propTypes = {
 WebSocketContainer.defaultProps = {
     children: undefined,
 };
-export default WebSocketContainer;
+
+const mapStateToProps = state => ({
+    currentUser: state.auth.user,
+});
+
+export default connect(mapStateToProps)(WebSocketContainer);
