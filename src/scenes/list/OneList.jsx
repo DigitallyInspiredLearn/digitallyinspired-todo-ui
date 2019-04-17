@@ -7,23 +7,26 @@ import Workbook from 'react-excel-workbook';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import Tooltip from '@material-ui/core/Tooltip';
-import TextField from '@material-ui/core/TextField';
 import Comment from '@material-ui/icons/Comment';
-import Delete from '@material-ui/icons/Delete';
-import Done from '@material-ui/icons/CheckCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 import Cancel from '@material-ui/icons/Cancel';
+import Done from '@material-ui/icons/CheckCircle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Tooltip from '@material-ui/core/Tooltip';
+import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
 import TaskForList from './tasksForList/TaskForList';
+import { AlertDialog } from '../../components/dialog/AlertDialog';
+import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
+import trash from '../../image/trash.svg';
+import * as styledPopup from '../popup/Popup.styles';
+import * as styledDashboard from '../dashboard/DashboardList.styles';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
 import empty from '../../image/empty.svg';
-import * as styledDashboard from '../dashboard/DashboardList.styles';
 
 class OneList extends Component {
     constructor(props) {
@@ -33,6 +36,7 @@ class OneList extends Component {
             stateComment: false,
             newComment: props.data.comment || '',
             priority: 'NOT_SPECIFIED',
+            visible: false,
         };
     }
 
@@ -69,6 +73,13 @@ class OneList extends Component {
         this.setState({ priority: e.target.value });
     };
 
+    showAlertDialog = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        });
+    };
+
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
     downloadToPDF = (data) => {
@@ -88,7 +99,7 @@ class OneList extends Component {
 
     render() {
         const {
-            valueNewTask, stateComment, comment, priority,
+            valueNewTask, stateComment, comment, priority, visible,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks,
@@ -123,7 +134,7 @@ class OneList extends Component {
                         <Tooltip title="Delete list">
                             <IconButton
                                 aria-label="trash"
-                                onClick={() => actions.deleteList({ idDashboard: match.params.id })}
+                                onClick={this.showAlertDialog}
                                 style={{ borderRadius: '40%', padding: '4px' }}
                                 alt="Delete this list"
 
@@ -132,6 +143,12 @@ class OneList extends Component {
                             </IconButton>
                         </Tooltip>
                     </Link>
+                    <AlertDialog
+                        visible={visible}
+                        onClose={this.showAlertDialog}
+                        value="Do you want to delete this list?"
+                        onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
+                    />
                     <div
                         style={{
                             textAlign: 'center',

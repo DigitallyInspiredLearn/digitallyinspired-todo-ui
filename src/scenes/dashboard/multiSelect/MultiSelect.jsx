@@ -35,11 +35,21 @@ class MultiSelect extends Component {
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="select-multiple-chip" style={{ color: 'black' }}>Choose tags:</InputLabel>
                         <Select
-                            style={{ color: 'black', border: 'none' }}
+                            style={{
+                                color: 'black',
+                                border: 'none',
+                                width: '300px',
+                                margin: '6px 8px 6px 0',
+                                height: '52px',
+                                backgroundColor: 'white',
+                                borderRadius: '4px',
+                                boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+                            }}
                             multiple
+                            placeholder="input"
                             value={selectTags}
                             onChange={this.handleChange}
-                            input={<Input id="select-multiple-chip" />}
+                            input={<Input id="select-multiple-chip" placeholder="choose" />}
                             renderValue={selected => (
                                 <div className={classes.chips}>
                                     {selected.map(value => (

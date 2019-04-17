@@ -141,7 +141,7 @@ export const ShowButton = styled.div`
     }
 `;
 
-export const DashboardList = styled.main`
+export const DashboardList = styled('main')`
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;

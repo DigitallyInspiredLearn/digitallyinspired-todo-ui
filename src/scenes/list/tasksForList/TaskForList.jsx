@@ -5,6 +5,7 @@ import moment from 'moment';
 import Delete from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import Info from '@material-ui/icons/Info';
+import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import * as stylesTask from '../../dashboard/task/Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
 import low from '../../../image/low.svg';
@@ -23,6 +24,7 @@ class TaskForList extends Component {
             hours: '',
             minutes: '',
             durationTime: props.durationTime,
+            visible: false,
         };
         console.log(moment.duration(props.durationTime).hours());
     }
@@ -34,6 +36,13 @@ class TaskForList extends Component {
     showPopup = () => this.setState({ statePopup: true });
 
     closePopup = () => this.setState({ statePopup: false });
+
+    showAlertDialog = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        });
+    };
 
     handleSelectTask = () => {
         const {
@@ -97,8 +106,8 @@ class TaskForList extends Component {
 
     render() {
         const {
- display, statePopup, days, hours, minutes, durationTime 
-} = this.state;
+            display, statePopup, days, hours, minutes, durationTime, visible,
+        } = this.state;
         const displayStyle = { display, zIndex: 50, color: 'rgba(0, 0, 0, 0.54)' };
 
         const {
@@ -127,13 +136,6 @@ class TaskForList extends Component {
                             checked={selected}
                             onChange={this.handleSelectTask}
                         />
-                        {/* <stylesTask.CheckboxTask
-                            selected={selected}
-                            // onClick={() => actionsList.updateCheckboxList({
-                            //     idDashboard: idList, idTask, selected, nameTask,
-                            // })}
-                            onClick={this.showPopup}
-                        /> */}
                         { this.setIcon(priority) }
                         <stylesTask.TaskName
                             type="text"
@@ -147,38 +149,6 @@ class TaskForList extends Component {
                             <p>
                                 <b>Information about this task:</b><br />
                                     Created Date: {new Date(createdDate).toLocaleString()}<br />
-                                <div style={{
-                                    display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
-                                }}
-                                >
-                                    {/* Tags: {
-                                        tagTaskKeys.map(key => key.taskId === idTask
-                                            && (
-                                                <span
-                                                    style={{
-                                                        backgroundColor: key.tag.color,
-                                                        padding: '2px 4px',
-                                                        margin: '4px',
-                                                        borderRadius: '2px',
-                                                    }}
-                                                >
-                                                    {key.tag.tagName}
-                                                    <span
-                                                        style={{
-                                                            backgroundColor: 'white',
-                                                            padding: ' 0 4px',
-                                                            borderRadius: '2px',
-                                                            border: '1px solid grey',
-                                                            marginLeft: '4px',
-                                                            opacity: 0.8,
-                                                        }}
-                                                        onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
-                                                    >x
-                                                    </span>
-                                                </span>
-                                            ))
-                                    } */}
-                                </div>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                     : 'in process'}<br />
                                 {
@@ -198,13 +168,19 @@ class TaskForList extends Component {
                         <Tooltip title="Delete task">
                             <Delete
                                 aria-label="trash"
-                                onClick={() => actionsList.deleteTaskList({
-                                    idDashboard: idList, idTask,
-                                })}
+                                onClick={this.showAlertDialog}
                                 style={displayStyle}
                                 alt="Delete task"
                             />
                         </Tooltip>
+                        <AlertDialog
+                            visible={visible}
+                            onClose={this.showAlertDialog}
+                            value="Do you want to delete this task?"
+                            onConfirm={() => actionsList.deleteTaskList({
+                                idDashboard: idList, idTask,
+                            })}
+                        />
                     </stylesTask.NameAdnCheckedTask>
                 </stylesTask.Task>
             </React.Fragment>

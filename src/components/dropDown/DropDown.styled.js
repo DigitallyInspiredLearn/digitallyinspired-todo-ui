@@ -1,4 +1,18 @@
 import styled from 'styled-components';
+import _Select from '@material-ui/core/Select';
+
+
+export const Select = styled(_Select)`
+    color: black;
+    border: none;
+    width: 300px;
+    margin: 6px 8px 6px 4px;
+    height: 52px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+    padding: 8px;
+`;
 
 export const Container = styled.div`
     position: relative;

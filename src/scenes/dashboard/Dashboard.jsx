@@ -17,10 +17,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
-
+import Input from '../../components/input/Input';
 import * as styled from './Dashboard.styled';
+import * as styledDialog from '../../components/dialog/AlertDialog.styles';
+import { AlertDialog } from '../../components/dialog/AlertDialog';
 import Task from './task/Task';
 import pushpin from '../../image/pushpin.svg';
 import low from '../../image/low.svg';
@@ -64,6 +66,8 @@ export class Dashboard extends Component {
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
             visibleAllDashboardTags: false,
+            visibleDelete: false,
+            visibleRestore: false,
         };
     }
 
@@ -98,6 +102,20 @@ export class Dashboard extends Component {
         this.setState({
             statePopup: false,
         });
+    };
+
+    showAlertDeleteDialog = () => {
+        const { visibleDelete } = this.state;
+        this.setState({
+            visibleDelete: !visibleDelete,
+        })
+    };
+
+    showAlertRestoreDialog = () => {
+        const { visibleRestore } = this.state;
+        this.setState({
+            visibleRestore: !visibleRestore,
+        })
     };
 
     handleUpdateTitle = (newValue) => {
@@ -147,7 +165,7 @@ export class Dashboard extends Component {
             tagTaskKeys,
         } = this.props;
         const {
-            valueNewTask, statePopup, stateComment, priority, visibleAllDashboardTags,
+            valueNewTask, statePopup, stateComment, priority, visibleAllDashboardTags, visibleDelete, visibleRestore,
         } = this.state;
 
         return ([
@@ -169,7 +187,7 @@ export class Dashboard extends Component {
                             />
                         ) : null
                     }
-                    <styled.Title
+                    <Input
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
@@ -234,13 +252,21 @@ export class Dashboard extends Component {
                                         <Tooltip title="Delete list">
                                             <IconButton
                                                 aria-label="trash"
-                                                onClick={() => actions.deleteDashboard({ id: idList })}
+                                                onClick={this.showAlertDeleteDialog}
                                                 style={{ borderRadius: '40%', padding: '4px' }}
                                                 alt="Delete this list"
                                             >
                                                 <Delete />
                                             </IconButton>
                                         </Tooltip>
+                                        <styledDialog.Dialog>
+                                            <AlertDialog
+                                                visible={visibleDelete}
+                                                onClose={this.showAlertDeleteDialog}
+                                                value='Do you want to delete this list?'
+                                                onConfirm={() => actions.deleteDashboard({ id: idList })}
+                                            />
+                                        </styledDialog.Dialog>
                                     </styled.IconContainer>
                                 )
                         ) : (
@@ -248,7 +274,7 @@ export class Dashboard extends Component {
                                 <Tooltip title="Restore list">
                                     <IconButton
                                         aria-label="restore"
-                                        onClick={() => actionsBasket.restoreList({ id: idList })}
+                                        onClick={this.showAlertRestoreDialog}
                                         alt="Restore this list"
                                         style={{ borderRadius: '40%', padding: '4px' }}
                                     >
@@ -257,16 +283,30 @@ export class Dashboard extends Component {
                                         />
                                     </IconButton>
                                 </Tooltip>
+                                <AlertDialog
+                                    visible={visibleRestore}
+                                    onClose={this.showAlertRestoreDialog}
+                                    value="Do you want to restore this list?"
+                                    onConfirm={() => actionsBasket.restoreList({ id: idList })}
+                                />
                                 <Tooltip title="Delete list forever">
                                     <IconButton
                                         aria-label="trash"
-                                        onClick={() => actionsBasket.deletedList({ id: idList })}
+                                        onClick={this.showAlertDeleteDialog}
                                         style={{ borderRadius: '40%', padding: '4px' }}
                                         alt="Delete this list"
                                     >
                                         <Delete />
                                     </IconButton>
                                 </Tooltip>
+                                <styledDialog.Dialog>
+                                    <AlertDialog
+                                        visible={visibleDelete}
+                                        onClose={this.showAlertDeleteDialog}
+                                        value="Do you want to delete this list forever?"
+                                        onConfirm={() => actionsBasket.deletedList({ id: idList })}
+                                    />
+                                </styledDialog.Dialog>
                             </styled.IconContainer>
                         )
                     }
