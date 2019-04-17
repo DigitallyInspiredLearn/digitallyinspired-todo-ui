@@ -5,6 +5,9 @@ import Theme from './theme/ThemeContainer';
 import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
 import * as styled from './Settings.styles';
+import {actions as profileActions} from "./profile/duck";
+import {connect} from "react-redux";
+import { bindActionCreators } from 'redux';
 
 
 class Settings extends Component {
@@ -79,8 +82,6 @@ class Settings extends Component {
                             </styled.Tab>
                         </styled.TabContainer>
                         <styled.Content>
-                            {/*{selectedTab === 'profile'*/}
-                                        {/*&& currentUser && <Profile toggleSettings={toggleSettings} />}*/}
                             {selectedTab === 'theme' && <Theme />}
                             {selectedTab === 'subscribes' && <Subscribes />}
                             {selectedTab === 'followers' && <FollowUser />}
@@ -92,4 +93,15 @@ class Settings extends Component {
     }
 }
 
-export default Settings;
+const mapStateToProps = state => ({
+    currentUser: state.profile.currentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({
+        fetchCurrentUser: profileActions.fetchCurrentUser,
+    }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+

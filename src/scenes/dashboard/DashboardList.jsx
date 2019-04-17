@@ -2,10 +2,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import SockJS from 'sockjs-client';
 import SearchIcon from '@material-ui/icons/Search';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Stomp } from '@stomp/stompjs';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -15,34 +13,6 @@ import MultiSelect from './multiSelect/MultiSelectContainet';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
 
 class DashboardList extends Component {
-    constructor(props) {
-        super(props);
-
-        let stompClient = null;
-        const headers = {
-            login: 'ann1206',
-            passcode: '1122werty1122',
-            // additional header
-            Accept: '*/*',
-            'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Origin': true,
-        };
-        const socket = new SockJS('http://localhost:8080/ws');
-        stompClient = Stomp.over(socket);
-        // Subscribe the '/notify' channel
-        stompClient.connect(headers, () => {
-            stompClient.subscribe('/string', (notification) => {
-                // Call the notify function when receive a notification
-                console.log('hi', notification);
-            });
-        });
-        this.state = {
-            socket,
-            massage: [],
-
-        };
-    }
-
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -56,7 +26,6 @@ class DashboardList extends Component {
     };
 
     render() {
-        const { socket, message } = this.state;
         const {
             search,
             selectedMy,
@@ -71,7 +40,6 @@ class DashboardList extends Component {
             tagTaskKeys,
             actionsBasket,
         } = this.props;
-
         return (
             [
                 <styled.App key="app">
@@ -182,8 +150,6 @@ class DashboardList extends Component {
                                         todoListStatus={i.todoListStatus}
                                         comment={i.comment}
                                         tagTaskKeys={tagTaskKeys}
-                                        socket={socket}
-                                        message={message}
                                     />
                                 ))
                         }

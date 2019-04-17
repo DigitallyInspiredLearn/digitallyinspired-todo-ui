@@ -137,7 +137,6 @@ class OneList extends Component {
                                 onClick={this.showAlertDialog}
                                 style={{ borderRadius: '40%', padding: '4px' }}
                                 alt="Delete this list"
-
                             >
                                 <Delete />
                             </IconButton>
