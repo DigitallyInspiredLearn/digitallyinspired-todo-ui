@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Delete from '@material-ui/icons/Delete';
-import trash from '../../../image/trash.svg';
+import { AlertDialog } from "../../../components/dialog/AlertDialog";
 import * as stylesTask from '../../dashboard/task/Task.styled';
 
 class TaskForList extends Component {
@@ -10,6 +10,7 @@ class TaskForList extends Component {
         super(props);
         this.state = {
             display: 'none',
+            visible: false,
         };
     }
 
@@ -17,8 +18,15 @@ class TaskForList extends Component {
 
     updateDisplayNone = () => this.setState({ display: 'none' });
 
+    showAlertDialog = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        })
+    };
+
     render() {
-        const { display } = this.state;
+        const { display, visible } = this.state;
         const displayStyle = { display, zIndex: 50, color: 'rgba(0, 0, 0, 0.54)' };
 
         const {
@@ -47,11 +55,17 @@ class TaskForList extends Component {
                     />
                     <Delete
                         aria-label="trash"
-                        onClick={() => actionsList.deleteTaskList({
-                            idDashboard: idList, idTask,
-                        })}
+                        onClick={this.showAlertDialog}
                         style={displayStyle}
                         alt="Delete this task"
+                    />
+                    <AlertDialog
+                        visible={visible}
+                        onClose={this.showAlertDialog}
+                        value='Do you want to delete this task?'
+                        onConfirm={() => actionsList.deleteTaskList({
+                            idDashboard: idList, idTask,
+                        })}
                     />
                 </stylesTask.NameAdnCheckedTask>
             </stylesTask.Task>

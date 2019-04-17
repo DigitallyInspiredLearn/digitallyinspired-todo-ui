@@ -9,7 +9,8 @@ import * as styledList from '../../list/OneList.styles';
 import * as styled from '../../dashboard/DashboardList.styles';
 import DropDown from '../../../components/dropDown/DropDown';
 import { Dashboard } from '../../dashboard/Dashboard';
-import { AlertDialog } from '../../../components/dialog/AlertDialog';
+import * as styledDialog from '../../../components/dialog/AlertDialog.styles';
+import { AlertDialog } from "../../../components/dialog/AlertDialog";
 class DashboardListBasket extends Component {
 
     constructor(props) {
@@ -108,20 +109,21 @@ class DashboardListBasket extends Component {
                         style={{ marginRight: '16px' }}
                         aria-label="deleteForever"
                         alt="Delete forever lists"
-                        onClick={() => actions.deleteAllLists()}
-                        // onClick={() => this.showAlertDialog}
+                        onClick={this.showAlertDialog}
                     >
                         <DeleteForever
                             alt="Delete forever lists"
                             style={{ fontSize: '40px', color: 'black' }}
                         />
                     </IconButton>
-                    {
-                        visible ? (
-                            <AlertDialog visible={visible}/>
-                        ) : null
-                    }
-
+                    <styledDialog.Dialog>
+                        <AlertDialog
+                            visible={visible}
+                            onClose={this.showAlertDialog}
+                            value='Do you want to clear basket forever?'
+                            onConfirm={actions.deleteAllLists}
+                        />
+                    </styledDialog.Dialog>
                 </styled.Footer>,
             ]
         );

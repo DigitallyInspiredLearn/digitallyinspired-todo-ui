@@ -8,6 +8,8 @@ import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
+import * as styledDialog from '../../components/dialog/AlertDialog.styles';
+import { AlertDialog } from "../../components/dialog/AlertDialog";
 import DropDown from '../../components/dropDown/DropDown';
 
 class Container extends Component {
@@ -15,6 +17,7 @@ class Container extends Component {
         super(props);
         this.state = {
             visible: false,
+            visibleDialog: false,
             sections: '',
         };
     }
@@ -39,9 +42,16 @@ class Container extends Component {
         this.setState({ visible: !visible });
     };
 
+    showAlertDialog = () => {
+        const { visibleDialog } = this.state;
+        this.setState({
+            visibleDialog: !visibleDialog,
+        })
+    };
+
 
     render() {
-        const { visible, sections } = this.state;
+        const { visible, visibleDialog, sections } = this.state;
         const { location: { pathname } } = history;
         const {
             children, data, actions,
@@ -100,10 +110,17 @@ class Container extends Component {
                         <styled.Icon
                             src={logout}
                             alt="logout"
-                            onClick={actions.logout}
+                            onClick={this.showAlertDialog}
                             style={{ display: iconVisible }}
                         />
-
+                        <styledDialog.Dialog>
+                            <AlertDialog
+                                visible={visibleDialog}
+                                onClose={this.showAlertDialog}
+                                value='Do you want to exit this page?'
+                                onConfirm={actions.logout}
+                            />
+                        </styledDialog.Dialog>
                     </styled.Header>
                     <Settings visible={visible} toggleSettings={this.toggleSettings} />
                     { children }

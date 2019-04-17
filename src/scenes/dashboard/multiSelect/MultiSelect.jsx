@@ -36,13 +36,14 @@ class MultiSelect extends Component {
                         color: 'black',
                         border: 'none',
                         width: '300px',
-                        margin: '6px 8px',
+                        margin: '6px 8px 6px 0',
                         height: '52px',
                         backgroundColor: 'white',
                         borderRadius: '4px',
                         boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
                     }}
                     multiple
+                    placeholder="input"
                     value={selectTags}
                     onChange={this.handleChange}
                     input={<Input id="select-multiple-chip" placeholder="choose" />}

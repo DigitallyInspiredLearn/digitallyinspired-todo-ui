@@ -8,6 +8,7 @@ import TaskForList from './tasksForList/TaskForList';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
+import { AlertDialog } from "../../components/dialog/AlertDialog";
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
@@ -19,6 +20,7 @@ class OneList extends Component {
         super(props);
         this.state = {
             valueNewTask: '',
+            visible: false,
         };
     }
 
@@ -29,6 +31,13 @@ class OneList extends Component {
         this.setState({
             valueNewTask: e.target.value = '',
         });
+    };
+
+    showAlertDialog = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        })
     };
 
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
@@ -49,7 +58,7 @@ class OneList extends Component {
     };
 
     render() {
-        const { valueNewTask } = this.state;
+        const { valueNewTask, visible } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks,
         } = this.props;
@@ -83,7 +92,7 @@ class OneList extends Component {
                     <Link to="/lists">
                         <IconButton
                             aria-label="trash"
-                            onClick={() => actions.deleteList({ idDashboard: match.params.id })}
+                            onClick={this.showAlertDialog}
                             style={{ borderRadius: '40%', padding: '4px' }}
                             alt="Delete this list"
 
@@ -91,6 +100,12 @@ class OneList extends Component {
                             <Delete />
                         </IconButton>
                     </Link>
+                    <AlertDialog
+                        visible={visible}
+                        onClose={this.showAlertDialog}
+                        value='Do you want to delete this list?'
+                        onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
+                    />
                     <div
                         style={{
                             textAlign: 'center',
