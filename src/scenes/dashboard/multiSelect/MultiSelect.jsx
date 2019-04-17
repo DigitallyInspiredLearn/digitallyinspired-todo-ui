@@ -4,11 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
-import { styles, style, MenuProps } from './MultiSelect.styled';
+import { styles, style, MenuProps, Select } from './MultiSelect.styled';
 
 class MultiSelect extends Component {
     state = { selectTags: [] };
@@ -30,7 +29,12 @@ class MultiSelect extends Component {
         const { selectTags } = this.state;
         return ([
             <div className={classes.root}>
-                <InputLabel htmlFor="select-multiple-chip" style={{ color: 'black', fontSize: '13px', margin: '4px 0 0 4px' }}>Tags:</InputLabel>
+                <InputLabel
+                    htmlFor="select-multiple-chip"
+                    style={{ color: 'black', fontSize: '13px', margin: '4px 0 0 4px' }}
+                >
+                    Tags:
+                </InputLabel>
                 <Select
                     style={{
                         color: 'black',
@@ -96,6 +100,12 @@ MultiSelect.propTypes = {
     classes: PropTypes.object.isRequired,
     tags: PropTypes.array,
     actions: PropTypes.object.isRequired,
+};
+
+MultiSelect.defaultProps = {
+    classes: {},
+    tags: [],
+    actions: {},
 };
 
 export default withStyles(styles, { withTheme: true })(MultiSelect);
