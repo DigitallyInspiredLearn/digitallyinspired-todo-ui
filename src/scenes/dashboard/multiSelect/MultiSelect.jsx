@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
-import { styles, style, MenuProps } from './MultiSelect.styled';
+import { styles, style, MenuProps, Select } from './MultiSelect.styled';
 import { InputLabel } from "../../../components/dropDown/DropDown.styled";
-
 
 class MultiSelect extends Component {
     state = { selectTags: [] };
@@ -33,16 +30,6 @@ class MultiSelect extends Component {
             <div className={classes.root}>
                 <InputLabel htmlFor="select-multiple-chip" >Tags:</InputLabel>
                 <Select
-                    style={{
-                        color: 'black',
-                        border: 'none',
-                        width: '300px',
-                        margin: '6px 8px 6px 0',
-                        height: '52px',
-                        backgroundColor: 'white',
-                        borderRadius: '4px',
-                        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
-                    }}
                     multiple
                     placeholder="input"
                     value={selectTags}
@@ -86,7 +73,7 @@ class MultiSelect extends Component {
                 className={classes.addButton}
                 onClick={() => { actions.visiblePopap(); }}
             >
-                + add tag
+                + tag
             </button>,
         ]
         );
@@ -97,6 +84,12 @@ MultiSelect.propTypes = {
     classes: PropTypes.object.isRequired,
     tags: PropTypes.array,
     actions: PropTypes.object.isRequired,
+};
+
+MultiSelect.defaultProps = {
+    classes: {},
+    tags: [],
+    actions: {},
 };
 
 export default withStyles(styles, { withTheme: true })(MultiSelect);

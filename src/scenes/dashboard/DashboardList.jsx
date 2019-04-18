@@ -11,36 +11,9 @@ import Search from '../../components/search/Search';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import MultiSelect from './multiSelect/MultiSelectContainet';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
-import { InputLabel } from "../../components/dropDown/DropDown.styled";
+import { InputLabel } from '../../components/dropDown/DropDown.styled';
 
 class DashboardList extends Component {
-    constructor(props) {
-        super(props);
-        let stompClient = null;
-        const headers = {
-            login: 'ann1206',
-            passcode: '1122werty1122',
-            // additional header
-            Accept: '*/*',
-            'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Origin': true,
-        };
-        const socket = new SockJS('http://localhost:8080/ws');
-        stompClient = Stomp.over(socket);
-        // Subscribe the '/notify' channel
-        stompClient.connect(headers, () => {
-            stompClient.subscribe('/string', (notification) => {
-                // Call the notify function when receive a notification
-                console.log('hi', notification);
-            });
-        });
-        this.state = {
-            socket: socket,
-            massage: [],
-
-        };
-    }
-
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -74,30 +47,47 @@ class DashboardList extends Component {
                     <styled.Head>
                         <styled.SearchContent>
                             <InputLabel htmlFor="select-multiple-chip">Search:</InputLabel>
-                                <Search
-                                    onChange={this.handleChange}
-                                    value={search}
-                                    style={{
-                                        width: '95%'
-                                    }}
-                                    placeholder="Search dashboard"
-                                />
+                            <Search
+                                onChange={this.handleChange}
+                                value={search}
+                                style={{
+                                    width: '95%',
+                                }}
+                                placeholder="Search dashboard"
+                            />
                         </styled.SearchContent>
-                                <DropDownMaterial
-                                    visible={true}
-                                    value={[
-                                        'By id, low to high',
-                                        'By id, high to low',
-                                        'By Name, a - Z',
-                                        'By Name, Z - a',
-                                        'By Created Date, low to high',
-                                        'By Created Date, high to low',
-                                        'By Modified Date, low to high',
-                                        'By Modified Date, high to low',
-                                    ]}
-                                    selectSorting={actions.changeSort}
-                                />
+                        <DropDownMaterial
+                            visible
+                            value={[
+                                'By id, low to high',
+                                'By id, high to low',
+                                'By Name, a - Z',
+                                'By Name, Z - a',
+                                'By Created Date, low to high',
+                                'By Created Date, high to low',
+                                'By Modified Date, low to high',
+                                'By Modified Date, high to low',
+                            ]}
+                            selectSorting={actions.changeSort}
+                        />
                         <MultiSelect />
+                        <styled.CheckboxDiv>
+                            <InputLabel htmlFor="select-multiple-chip">Show:</InputLabel>
+                            <div style={{display: 'flex'}}>
+                            <styled.ShowButton
+                                checked={selectedMy}
+                                onClick={() => actions.updateSelectedMyLists(!selectedMy)}
+                                style={{ margin: '0px 8px' }}
+                            >
+                                Show my
+                            </styled.ShowButton>
+                            <styled.ShowButton
+                                checked={selectedShared}
+                                onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
+                            >
+                                Show shared
+                            </styled.ShowButton></div>
+                        </styled.CheckboxDiv>
                     </styled.Head>
                     <styled.DashboardList>
                         {

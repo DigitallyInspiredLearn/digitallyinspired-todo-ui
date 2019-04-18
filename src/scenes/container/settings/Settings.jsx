@@ -1,13 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import Profile from './profile/ProfileContainer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Theme from './theme/ThemeContainer';
 import Subscribes from './subscribes/SubscribesContainer';
 import FollowUser from './followUser/FollowUserContainer';
 import * as styled from './Settings.styles';
-import {actions as profileActions} from "./profile/duck";
-import {connect} from "react-redux";
-import { bindActionCreators } from 'redux';
+import { actions as profileActions } from './profile/duck';
 
 
 class Settings extends Component {
@@ -29,16 +28,8 @@ class Settings extends Component {
         });
     };
 
-    handlerOnClick = (e) => {
-        e.target.blur();
-    };
-
-    closeSetting = () => {
-        this.props.visible = false;
-    };
-
     render() {
-        const { visible, toggleSettings, currentUser } = this.props;
+        const { visible, toggleSettings } = this.props;
         const { selectedTab } = this.state;
         return (
             <styled.Background style={{ display: visible ? 'flex' : 'none' }}>
@@ -48,14 +39,6 @@ class Settings extends Component {
                     </styled.CloseWindow>
                     <styled.Main>
                         <styled.TabContainer>
-                            {/*<styled.Tab selected={selectedTab === 'profile'}>*/}
-                                {/*<input*/}
-                                    {/*type="radio"*/}
-                                    {/*style={{ visibility: 'hidden' }}*/}
-                                    {/*onClick={() => this.handleSelectTab('profile')}*/}
-                                {/*/>*/}
-                                    {/*Profile*/}
-                            {/*</styled.Tab>*/}
                             <styled.Tab selected={selectedTab === 'theme'}>
                                 <input
                                     type="radio"
@@ -104,4 +87,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
-

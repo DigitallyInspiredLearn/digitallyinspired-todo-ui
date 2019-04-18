@@ -5,7 +5,7 @@ import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
-import { AlertDialog } from "../../../components/dialog/AlertDialog";
+import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
 import * as styled from './Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -46,7 +46,7 @@ class Task extends Component {
         const { visible } = this.state;
         this.setState({
             visible: !visible,
-        })
+        });
     };
 
     handleCompleteTask = (time) => {
