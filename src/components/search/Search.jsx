@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import SearchStyles from './Search.styles';
+import * as styled from './Search.styles';
+import InputCom from '@material-ui/core/Input';
 
 class Search extends Component {
     constructor(props) {
@@ -19,13 +20,18 @@ class Search extends Component {
         const { style, placeholder, value } = this.props;
 
         return (
-            <SearchStyles
-                value={value}
-                onChange={this.handleChange}
-                placeholder={placeholder}
-                style={style}
-            />
-        );
+            <styled.SearchCont>
+                <InputCom
+                    value={value}
+                    onChange={this.handleChange}
+                    placeholder={placeholder}
+                    style={style}
+                />
+                <styled.SearchIcon style={{ fontSize: '40px' }} />
+            </styled.SearchCont>
+
+
+    );
     }
 }
 

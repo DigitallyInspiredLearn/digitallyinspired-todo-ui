@@ -12,7 +12,7 @@ export const TagsDiv = styled.button`
      border: 1px solid whitesmoke,
 `;
 
-export const Tag = styled.button`
+export const Tag = styled('button')`
      padding: 4px 8px,
      margin: 4px,
      borderRadius: 4px,
