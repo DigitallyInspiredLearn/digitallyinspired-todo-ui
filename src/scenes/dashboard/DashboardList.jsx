@@ -72,6 +72,8 @@ class DashboardList extends Component {
                         />
                         <MultiSelect />
                         <styled.CheckboxDiv>
+                            <InputLabel htmlFor="select-multiple-chip">Show:</InputLabel>
+                            <div style={{display: 'flex'}}>
                             <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
@@ -84,7 +86,7 @@ class DashboardList extends Component {
                                 onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
                             >
                                 Show shared
-                            </styled.ShowButton>
+                            </styled.ShowButton></div>
                         </styled.CheckboxDiv>
                     </styled.Head>
                     <styled.DashboardList>
