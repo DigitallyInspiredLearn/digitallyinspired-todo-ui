@@ -196,7 +196,7 @@ export class Dashboard extends Component {
                         } : {
                             textDecoration: 'none', pointerEvents: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
-                        placeholder='Add title'
+                        placeholder="Add title"
                     />
                     {
                         todoListStatus === 'ACTIVE' ? (
@@ -360,7 +360,7 @@ export class Dashboard extends Component {
                                         onBlur={this.handlerOnBlur}
                                     />
                                     <FormControl
-                                        style={{ marginTop: '-10px', marginRight: '50px' }}
+                                        style={{ marginTop: '-10px', marginRight: '80px' }}
                                     >
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
@@ -370,15 +370,16 @@ export class Dashboard extends Component {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}
-                                            style={{ width: '155px' }}
+                                            style={{ width: '190px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
                                                 <img
                                                     src={empty}
                                                     width="15px"
-                                                    alt="LOW"
+                                                    alt="EMPTY"
+                                                    style={{ marginLeft: '8px' }}
                                                 />
-                                                NOT SPECIFIED
+                                                <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                             </MenuItem>
                                             <MenuItem value="LOW">
                                                 <styled.PriorityImage

@@ -347,33 +347,33 @@ class OneList extends Component {
                                     name: 'age',
                                     id: 'age-simple',
                                 }}
-                                style={{ width: '155px' }}
+                                style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    <em>NOT SPECIFIED</em>
+                                    <img
+                                        src={empty}
+                                        width="15px"
+                                        alt="EMPTY"
+                                        style={{ marginLeft: '8px' }}
+                                    />
+                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                 </MenuItem>
                                 <MenuItem value="LOW">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={low}
                                         alt="LOW"
                                     />
                                     <em>LOW</em>
                                 </MenuItem>
                                 <MenuItem value="MEDIUM">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={medium}
                                         alt="MEDIUM"
                                     />
                                     <em>MEDIUM</em>
                                 </MenuItem>
                                 <MenuItem value="HIGH">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={high}
                                         alt="HIGH"
                                     />
