@@ -28,13 +28,6 @@ export const SearchContent = styled.div`
     flex: auto;
 `;
 
-export const LabelDiv = styled.div`
-    display: flex;
-    align-self: center;
-    font-size: 20px;
-    color: ${p => p.theme.buttonText}    
-`;
-
 export const Footer = styled.div`
    display: flex;
    flex-direction: row;
@@ -95,13 +88,9 @@ export const Pagination = styled.div`
    }
 `;
 
-export const IconSearch = styled.img`
-    width: 32px;
-    height: 32px;
-    color: ${p => p.theme.mainText};
-`;
 export const CheckboxDiv = styled.div`
     display: flex;
+    flex-direction: column;
     margin-top: 7px;
     @media (max-width: 600px) {
         margin-bottom: 8px;
