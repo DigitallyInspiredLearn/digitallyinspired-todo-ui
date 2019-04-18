@@ -12,7 +12,6 @@ import MultiSelect from './multiSelect/MultiSelectContainet';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
 
 class DashboardList extends Component {
-
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -58,69 +57,66 @@ class DashboardList extends Component {
                                 <SearchIcon style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
                             </styled.SearchDiv>
                         </div>
-                        {/*<div style={{ fontSize: '12px', marginTop: '2px', marginLeft: '12px' }}>*/}
-                            {/*Sorting:*/}
-                            {/*<styled.CheckboxDiv>*/}
-                                <DropDownMaterial
-                                    visible={true}
-                                    value={[
-                                        'By id, low to high',
-                                        'By id, high to low',
-                                        'By Name, a - Z',
-                                        'By Name, Z - a',
-                                        'By Created Date, low to high',
-                                        'By Created Date, high to low',
-                                        'By Modified Date, low to high',
-                                        'By Modified Date, high to low',
-                                    ]}
-                                />
-                                {/*<DropDown*/}
-                                    {/*changeValue={actions.changeSort}*/}
-                                    {/*titleButton={sort}*/}
-                                    {/*currentValue={sort}*/}
-                                    {/*possibleValues={[*/}
-                                        {/*'By id, low to high',*/}
-                                        {/*'By id, high to low',*/}
-                                        {/*'By Name, a - Z',*/}
-                                        {/*'By Name, Z - a',*/}
-                                        {/*'By Created Date, low to high',*/}
-                                        {/*'By Created Date, high to low',*/}
-                                        {/*'By Modified Date, low to high',*/}
-                                        {/*'By Modified Date, high to low',*/}
-                                    {/*]}*/}
-                                    {/*stylesContainer="top: 50px; right: 0px;"*/}
-                                    {/*stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;"*/}
-                                    {/*stylesButton="*/}
-                                    {/*padding: 16px 8px;*/}
-                                    {/*margin-left: 8px;*/}
-                                    {/*font-size: 16px;*/}
-                                    {/*width: auto;*/}
-                                    {/*min-width: 300px;*/}
-                                    {/*font-weight: bold;*/}
-                                    {/*@media (max-width: 600px) {*/}
-                                        {/*flex: 1;*/}
-                                        {/*justify-content: space-between;*/}
-                                        {/*text-align: center;*/}
-                                        {/*padding:5px;*/}
-                                    {/*}*/}
-                                {/*"*/}
-                                {/*/>*/}
-                                {/* <styled.ShowButton
+                        <DropDownMaterial
+                            visible
+                            value={[
+                                'By id, low to high',
+                                'By id, high to low',
+                                'By Name, a - Z',
+                                'By Name, Z - a',
+                                'By Created Date, low to high',
+                                'By Created Date, high to low',
+                                'By Modified Date, low to high',
+                                'By Modified Date, high to low',
+                            ]}
+                        />
+                        {/* <DropDown */}
+                        {/* changeValue={actions.changeSort} */}
+                        {/* titleButton={sort} */}
+                        {/* currentValue={sort} */}
+                        {/* possibleValues={[ */}
+                        {/* 'By id, low to high', */}
+                        {/* 'By id, high to low', */}
+                        {/* 'By Name, a - Z', */}
+                        {/* 'By Name, Z - a', */}
+                        {/* 'By Created Date, low to high', */}
+                        {/* 'By Created Date, high to low', */}
+                        {/* 'By Modified Date, low to high', */}
+                        {/* 'By Modified Date, high to low', */}
+                        {/* ]} */}
+                        {/* stylesContainer="top: 50px; right: 0px;" */}
+                        {/* stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;" */}
+                        {/* stylesButton=" */}
+                        {/* padding: 16px 8px; */}
+                        {/* margin-left: 8px; */}
+                        {/* font-size: 16px; */}
+                        {/* width: auto; */}
+                        {/* min-width: 300px; */}
+                        {/* font-weight: bold; */}
+                        {/* @media (max-width: 600px) { */}
+                        {/* flex: 1; */}
+                        {/* justify-content: space-between; */}
+                        {/* text-align: center; */}
+                        {/* padding:5px; */}
+                        {/* } */}
+                        {/* " */}
+                        {/* /> */}
+                        <MultiSelect />
+                        <styled.CheckboxDiv>
+                            <styled.ShowButton
                                 checked={selectedMy}
                                 onClick={() => actions.updateSelectedMyLists(!selectedMy)}
                                 style={{ margin: '0px 8px' }}
                             >
-                            Show my
+                                    Show my
                             </styled.ShowButton>
                             <styled.ShowButton
                                 checked={selectedShared}
                                 onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
                             >
-                            Show shared
-                            </styled.ShowButton> */}
-                            {/*</styled.CheckboxDiv>*/}
-                        {/*</div>*/}
-                        <MultiSelect />
+                                    Show shared
+                            </styled.ShowButton>
+                        </styled.CheckboxDiv>
                     </styled.Head>
                     <styled.DashboardList>
                         {

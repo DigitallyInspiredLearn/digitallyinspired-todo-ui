@@ -1,3 +1,4 @@
+import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -12,11 +13,12 @@ import { loginPageSaga } from '../scenes/account/duck';
 import { saga as profileSaga } from '../scenes/container/settings/profile/duck';
 import { saga } from '../scenes/dashboard/duck';
 import { saga as subscribeSaga } from '../scenes/container/settings/subscribes/duck';
-import { saga as tagSaga } from '../scenes/dashboard/multiSelect/duck';
+import { saga as tagSaga } from '../scenes/dashboard/multiSelect/duck'
 
 const persistConfig = {
     key: 'app',
     whitelist: ['auth', 'theme'],
+    storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, mainReducer);

@@ -50,7 +50,7 @@ class WebSocketContainer extends Component {
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
-                    autoHideDuration={6000}
+                    autoHideDuration={600000}
                 >
                     <SnackbarContent
                         style={{}}
@@ -61,10 +61,10 @@ class WebSocketContainer extends Component {
                                 key="close"
                                 href=""
                                 aria-label="Close"
-                                color="inherit"
+
                                 onClick={this.handleClose}
                             >
-                                <CloseIcon />
+                                <CloseIcon color="white" style={{color: 'white'}}/>
                             </IconButton>,
                         ]}
                     />

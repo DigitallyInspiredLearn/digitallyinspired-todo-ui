@@ -1,3 +1,17 @@
+import _Select from '@material-ui/core/Select';
+import styled from 'styled-components';
+
+export const Select = styled(_Select)`
+    color: black;
+    border: none;
+    width: 300px;
+    margin: 6px 8px 6px 0;
+    height: 52px;
+    backgroundColor: white;
+    borderRadius: 4px;
+    boxShadow: 0 0  4px 0  rgba(0,0,0,0.2);
+`;
+
 export const styles = () => ({
     root: {
         display: 'flex',

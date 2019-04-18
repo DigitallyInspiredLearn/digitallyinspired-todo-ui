@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
 import { styles, style, MenuProps, Select } from './MultiSelect.styled';
@@ -36,16 +35,6 @@ class MultiSelect extends Component {
                     Tags:
                 </InputLabel>
                 <Select
-                    style={{
-                        color: 'black',
-                        border: 'none',
-                        width: '300px',
-                        margin: '6px 8px 6px 0',
-                        height: '52px',
-                        backgroundColor: 'white',
-                        borderRadius: '4px',
-                        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
-                    }}
                     multiple
                     placeholder="input"
                     value={selectTags}

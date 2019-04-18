@@ -48,17 +48,17 @@ export default class FormDialog extends React.Component {
                                 {
                                     allTags.map(tag => (
                                         <thisStyled.Tag
-                                            style={{
-                                                backgroundColor: tag.color,
-                                                padding: '4px 8px',
-                                                margin: '4px',
-                                                borderRadius: '4px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                outline: 'none',
-                                                border: 'none',
-                                                boxShadow: selectedTag === tag.id? '0 0 6px 0 rgba(0,0,0,0.7)': 'none',
-                                            }}
+                                            // style={{
+                                            //     backgroundColor: tag.color,
+                                            //     padding: '4px 8px',
+                                            //     margin: '4px',
+                                            //     borderRadius: '4px',
+                                            //     display: 'flex',
+                                            //     alignItems: 'center',
+                                            //     outline: 'none',
+                                            //     border: 'none',
+                                            //     boxShadow: selectedTag === tag.id? '0 0 6px 0 rgba(0,0,0,0.7)': 'none',
+                                            // }}
                                             onClick={() => this.setState({ selectedTag: tag.id })}
                                         >{tag.tagName}
                                         </thisStyled.Tag>
