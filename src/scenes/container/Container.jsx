@@ -140,7 +140,9 @@ class Container extends Component {
                             src={list}
                             alt="settings"
                             onClick={this.handleClick}
-                            style={{ display: iconVisible, width: '30px', height: '30px', marginLeft: '8px' }}
+                            style={{
+                                display: iconVisible, width: '30px', height: '30px', marginLeft: '8px',
+                            }}
                         />
                         
                         <Popper placement="left-end" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
@@ -179,14 +181,6 @@ class Container extends Component {
                                 </Fade>
                             )}
                         </Popper>
-                        {/* <Tooltip title="Logout">
-                            <styled.Icon
-                                src={logout}
-                                alt="logout"
-                                onClick={this.showAlertDialog}
-                                style={{ display: iconVisible }}
-                            />
-                        </Tooltip> */}
                         <styledDialog.Dialog>
                             <AlertDialog
                                 visible={visibleDialog}
