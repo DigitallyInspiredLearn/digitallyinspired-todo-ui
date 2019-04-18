@@ -29,12 +29,12 @@ class Settings extends Component {
     };
 
     render() {
-        const { visible, toggleSettings } = this.props;
+        const { visible, closeSettings } = this.props;
         const { selectedTab } = this.state;
         return (
             <styled.Background style={{ display: visible ? 'flex' : 'none' }}>
                 <styled.Window>
-                    <styled.CloseWindow onClick={() => toggleSettings()}>
+                    <styled.CloseWindow onClick={() => closeSettings()}>
                                 &times;
                     </styled.CloseWindow>
                     <styled.Main>

@@ -378,27 +378,21 @@ export class Dashboard extends Component {
                                                 <em>NOT SPECIFIED</em>
                                             </MenuItem>
                                             <MenuItem value="LOW">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
+                                                <styled.PriorityImage
                                                     src={low}
                                                     alt="LOW"
                                                 />
                                                 LOW
                                             </MenuItem>
                                             <MenuItem value="MEDIUM">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
+                                                <styled.PriorityImage
                                                     src={medium}
                                                     alt="MEDIUM"
                                                 />
                                                 MEDIUM
                                             </MenuItem>
                                             <MenuItem value="HIGH">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
+                                                <styled.PriorityImage
                                                     src={high}
                                                     alt="HIGH"
                                                 />
