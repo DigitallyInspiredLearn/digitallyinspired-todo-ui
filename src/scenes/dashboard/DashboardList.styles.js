@@ -1,4 +1,20 @@
 import styled from 'styled-components';
+import _ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import _ToggleButton from '@material-ui/lab/ToggleButton';
+
+export const ToggleButtonGroup = styled(_ToggleButtonGroup)`
+    border-radius: 4px;
+    height: 52px;
+    display: flex;
+    align-self: center;
+`;
+
+export const ToggleButton = styled(_ToggleButton)`
+    border-radius: 4px;
+    height: 52px;
+    display: flex;
+    align-self: center;
+`;
 
 export const App = styled.div`
     display: flex;
@@ -8,6 +24,7 @@ export const App = styled.div`
     height: 100vh;
     overflow: auto;
 `;
+
 export const Head = styled.div`
     display: flex;
     flex-direction: row;

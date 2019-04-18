@@ -1,5 +1,6 @@
 import _Select from '@material-ui/core/Select';
 import styled from 'styled-components';
+import _Button from '@material-ui/core/Button';
 
 export const Select = styled(_Select)`
     color: black;
@@ -10,6 +11,15 @@ export const Select = styled(_Select)`
     background-color: white;
     border-radius: 4px;
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+`;
+
+
+export const Button = styled(_Button)`
+    border-radius: 4px;
+    height: 52px;
+    display: flex;
+    align-self: center;
+   
 `;
 
 export const styles = () => ({
@@ -23,7 +33,7 @@ export const styles = () => ({
         display: 'flex',
         padding: '4px',
         flexWrap: 'wrap',
-        height: '42px',
+        height: '45px',
         overflow: 'auto',
         width: '275px',
         backgroundColor: 'white',
@@ -33,14 +43,10 @@ export const styles = () => ({
         margin: '4px',
     },
     addButton: {
-        color: 'white',
-        backgroundColor: 'black',
-        borderRadius: '12px',
-        height: '52px',
-        border: 'none',
-        outline: 'none',
-        padding: 'px 6px',
-        marginTop: '22px',
+        marginTop: '20px',
+        backgroundColor: 'white',
+        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+        borderBottom: '1px solid grey',
     },
 
 });

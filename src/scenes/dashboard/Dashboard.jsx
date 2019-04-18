@@ -65,7 +65,7 @@ export class Dashboard extends Component {
             newTitle: props.title,
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
-            visibleAllDashboardTags: false,
+            visibleAllDashboardTags: true,
             visibleDelete: false,
             visibleRestore: false,
         };
@@ -199,14 +199,14 @@ export class Dashboard extends Component {
                         placeholder="Add title"
                     />
                     {
-                        todoListStatus === 'ACTIVE' ? (
-                            shared
+                        shared
+                            ? (
+                                <styled.IconContainer>
+                                    <styled.Icon src={pushpin} alt="List is shared" />
+                                </styled.IconContainer>
+                            )
+                            : (todoListStatus === 'ACTIVE'
                                 ? (
-                                    <styled.IconContainer>
-                                        <styled.Icon src={pushpin} alt="List is shared" />
-                                    </styled.IconContainer>
-                                )
-                                : (
                                     <styled.IconContainer>
                                         <div
                                             style={{
@@ -215,21 +215,22 @@ export class Dashboard extends Component {
                                                 color: 'grey',
                                                 cursor: 'default',
                                             }}
-                                            onMouseOver={() => this.setState({ visibleAllDashboardTags: !visibleAllDashboardTags })}
-                                            onMouseOut={() => this.setState({ visibleAllDashboardTags: !visibleAllDashboardTags })}
+                                            onClick={() => this.setState({
+                                                visibleAllDashboardTags: !visibleAllDashboardTags,
+                                            })}
                                         >tags
                                         </div>
                                         <Link to={`/lists/${idList}`}>
                                             <styled.IconInfo>
                                                 <p>
                                                     <b>Information about list "{title}":</b><br />
-                                                    Created by: {createdBy}<br />
-                                                    Created time: {new Date(createdDate).toLocaleString()}<br />
-                                                    Modyfied by: {modifiedBy}<br />
-                                                    Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                                    Comment: {comment || 'not written yet'}
+                                                Created by: {createdBy}<br />
+                                                Created time: {new Date(createdDate).toLocaleString()}<br />
+                                                Modyfied by: {modifiedBy}<br />
+                                                Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                Comment: {comment || 'not written yet'}
                                                 </p>
-                                                
+
                                                 <IconButton
                                                     aria-label="info"
                                                     style={{ borderRadius: '40%', padding: '4px' }}
@@ -263,52 +264,54 @@ export class Dashboard extends Component {
                                             <AlertDialog
                                                 visible={visibleDelete}
                                                 onClose={this.showAlertDeleteDialog}
-                                                value='Do you want to delete this list?'
+                                                value="Do you want to delete this list?"
                                                 onConfirm={() => actions.deleteDashboard({ id: idList })}
                                             />
                                         </styledDialog.Dialog>
                                     </styled.IconContainer>
                                 )
-                        ) : (
-                            <styled.IconContainer>
-                                <Tooltip title="Restore list">
-                                    <IconButton
-                                        aria-label="restore"
-                                        onClick={this.showAlertRestoreDialog}
-                                        alt="Restore this list"
-                                        style={{ borderRadius: '40%', padding: '4px' }}
-                                    >
-                                        <Restore
-                                            style={{ borderRadius: '40%' }}
+                                : (
+                                    <styled.IconContainer>
+                                        <Tooltip title="Restore list">
+                                            <IconButton
+                                                aria-label="restore"
+                                                onClick={this.showAlertRestoreDialog}
+                                                alt="Restore this list"
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                            >
+                                                <Restore
+                                                    style={{ borderRadius: '40%' }}
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <AlertDialog
+                                            visible={visibleRestore}
+                                            onClose={this.showAlertRestoreDialog}
+                                            value="Do you want to restore this list?"
+                                            onConfirm={() => actionsBasket.restoreList({ id: idList })}
                                         />
-                                    </IconButton>
-                                </Tooltip>
-                                <AlertDialog
-                                    visible={visibleRestore}
-                                    onClose={this.showAlertRestoreDialog}
-                                    value="Do you want to restore this list?"
-                                    onConfirm={() => actionsBasket.restoreList({ id: idList })}
-                                />
-                                <Tooltip title="Delete list forever">
-                                    <IconButton
-                                        aria-label="trash"
-                                        onClick={this.showAlertDeleteDialog}
-                                        style={{ borderRadius: '40%', padding: '4px' }}
-                                        alt="Delete this list"
-                                    >
-                                        <Delete />
-                                    </IconButton>
-                                </Tooltip>
-                                <styledDialog.Dialog>
-                                    <AlertDialog
-                                        visible={visibleDelete}
-                                        onClose={this.showAlertDeleteDialog}
-                                        value="Do you want to delete this list forever?"
-                                        onConfirm={() => actionsBasket.deletedList({ id: idList })}
-                                    />
-                                </styledDialog.Dialog>
-                            </styled.IconContainer>
-                        )
+                                        <Tooltip title="Delete list forever">
+                                            <IconButton
+                                                aria-label="trash"
+                                                onClick={this.showAlertDeleteDialog}
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                alt="Delete this list"
+                                            >
+                                                <Delete />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <styledDialog.Dialog>
+                                            <AlertDialog
+                                                visible={visibleDelete}
+                                                onClose={this.showAlertDeleteDialog}
+                                                value="Do you want to delete this list forever?"
+                                                onConfirm={() => actionsBasket.deletedList({ id: idList })}
+                                            />
+                                        </styledDialog.Dialog>
+                                    </styled.IconContainer>
+                                )
+                            )
+
                     }
                 </styled.DashboardHeader>
                 <div
@@ -354,7 +357,7 @@ export class Dashboard extends Component {
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
                                             }), this.setState({ priority: 'NOT_SPECIFIED' })
-                                            
+
                                             ))
                                         }
                                         onBlur={this.handlerOnBlur}
