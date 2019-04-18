@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import _Select from '@material-ui/core/Select';
+import _InputLabel from '@material-ui/core/InputLabel';
 
 
 export const Select = styled(_Select)`
@@ -12,6 +13,13 @@ export const Select = styled(_Select)`
     border-radius: 4px;
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     padding: 8px;
+`;
+
+export const InputLabel = styled(_InputLabel)`
+     color: black;
+     font-size: 14px;
+     font-weight: 800;
+     margin: 4px 0 0 4px;
 `;
 
 export const Container = styled.div`

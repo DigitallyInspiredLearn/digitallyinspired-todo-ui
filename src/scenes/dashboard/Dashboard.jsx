@@ -17,9 +17,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/Input';
+import InputGlobal from '../../components/input/InputGlobal';
 import TextField from '@material-ui/core/TextField';
-import Input from '../../components/input/Input';
 import * as styled from './Dashboard.styled';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
@@ -187,16 +186,16 @@ export class Dashboard extends Component {
                             />
                         ) : null
                     }
-                    <Input
+                    <InputGlobal
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
-                        border={false}
                         style={todoListStatus === 'ACTIVE' ? {
-                            textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
+                            textDecoration: 'none', width: '100%', fontWeight: 'bold', margin: '0 8px',
                         } : {
                             textDecoration: 'none', pointerEvents: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
+                        placeholder='Add title'
                     />
                     {
                         todoListStatus === 'ACTIVE' ? (
