@@ -66,8 +66,8 @@ export const titleNameOneList = styled.input`
 export const inputDiv = styled.main`
     display: flex;
     flex-direction: row;
-    padding: 8px;
-    border-radius: 5px;
+    padding: 6px 0 8px 8px;
+    border-radius: 4px;
     box-shadow: 0 0  10px 0  rgba(0,0,0,0.2);
     height: 40px;
     align-items: center;

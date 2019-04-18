@@ -35,10 +35,13 @@ class OneList extends Component {
             newComment: props.data.comment || '',
             priority: 'NOT_SPECIFIED',
             visible: false,
+            alignment: ['notDone', 'done'],
         };
     }
 
     changeValueNewTask = e => this.setState({ valueNewTask: e.target.value });
+
+    handleFormat = (event, alignment) => this.setState({ alignment });
 
     handlerOnBlur = (e) => {
         e.target.blur();
@@ -96,7 +99,7 @@ class OneList extends Component {
 
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible,
+            valueNewTask, stateComment, comment, priority, visible, alignment,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks,
@@ -146,13 +149,23 @@ class OneList extends Component {
                         onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
                     />
                     <Tooltip title="Download as PDF">
-                        <img src={pdf} alt="download in pdf" onClick={() => this.downloadToPDF(data)} style={{height: '30px'}}/>
+                        <img
+                            src={pdf}
+                            alt="download in pdf"
+                            onClick={() => this.downloadToPDF(data)}
+                            style={{ height: '37px' }}
+                        />
                     </Tooltip>
                     <Workbook
+                        style={{ marginTop: '8px' }}
                         filename="list.xlsx"
                         element={(
                             <Tooltip title="Download as XLS">
-                                <img src={xls} alt="download in xls" style={{height: '30px'}}/>
+                                <img
+                                    src={xls}
+                                    alt="download in xls"
+                                    style={{ height: '37px', paddingTop: '4px' }}
+                                />
                             </Tooltip>
                         )}
                     >
@@ -177,25 +190,46 @@ class OneList extends Component {
                             })}
                         />
                         <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-                        <styledDashboard.CheckboxDiv>
-                            <styledDashboard.ShowButton
-                                checked={notDone}
+
+                        <styledDashboard.ToggleButtonGroup
+                            style={{
+                                backgroundColor: 'white',
+                                boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+                                borderBottom: '1px solid grey',
+                                margin: '6px 0 4px 8px',
+                                borderRadius: '4px',
+                            }}
+                            value={alignment} onChange={this.handleFormat}
+                        >
+                            <styledDashboard.ToggleButton
+                                style={{
+                                    color: 'black',
+                                    height: '52px',
+                                    display: 'flex',
+                                    alignSelf: 'center',
+                                    borderRight: '1px solid lightgrey',
+                                }}
+                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
+                                value="done"
+                            >
+                                done
+                            </styledDashboard.ToggleButton>
+                            <styledDashboard.ToggleButton
+                                style={{
+                                    color: 'black',
+                                    height: '52px',
+                                    display: 'flex',
+                                    alignSelf: 'center',
+                                }}
                                 onClick={() => actions.selectedNotDoneAction({
                                     notDone,
                                     idList: match.params.id,
                                 })}
-                                style={{ marginRight: '5px', borderRadius: '5px 0 0 5px' }}
+                                value="notDone"
                             >
                                 not done
-                            </styledDashboard.ShowButton>
-                            <styledDashboard.ShowButton
-                                checked={done}
-                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
-                                style={{ borderRadius: '0 5px 5px 0' }}
-                            >
-                                done
-                            </styledDashboard.ShowButton>
-                        </styledDashboard.CheckboxDiv>
+                            </styledDashboard.ToggleButton>
+                        </styledDashboard.ToggleButtonGroup>
                     </styled.inputDiv>
                     <div>
                         {
