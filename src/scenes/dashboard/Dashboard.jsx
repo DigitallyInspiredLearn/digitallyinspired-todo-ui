@@ -27,6 +27,7 @@ import pushpin from '../../image/pushpin.svg';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
+import empty from '../../image/empty.svg';
 import PopupContainer from '../popup/PopupContainer';
 
 export const getTaskList = (tasks, props) => (
@@ -362,7 +363,7 @@ export class Dashboard extends Component {
                                         onBlur={this.handlerOnBlur}
                                     />
                                     <FormControl
-                                        style={{ marginTop: '-10px', marginRight: '50px' }}
+                                        style={{ marginTop: '-10px', marginRight: '80px' }}
                                     >
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
@@ -372,10 +373,16 @@ export class Dashboard extends Component {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}
-                                            style={{ width: '155px' }}
+                                            style={{ width: '190px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
-                                                <em>NOT SPECIFIED</em>
+                                                <img
+                                                    src={empty}
+                                                    width="15px"
+                                                    alt="EMPTY"
+                                                    style={{ marginLeft: '8px' }}
+                                                />
+                                                <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                             </MenuItem>
                                             <MenuItem value="LOW">
                                                 <styled.PriorityImage

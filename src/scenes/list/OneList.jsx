@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Workbook from 'react-excel-workbook';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -25,6 +32,36 @@ import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
 import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
+import empty from '../../image/empty.svg';
+const CustomTableCell = withStyles(theme => ({
+    head: {
+        backgroundColor: 'gray',
+        color: theme.palette.common.white,
+        fontSize: 16,
+        maxWidth: '1px',
+    },
+}))(TableCell);
+
+const styles = theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+        height: 'auto',
+    },
+    table: {
+        minWidth: 700,
+    },
+    header: {
+        color: 'red',
+    },
+    width: {
+        maxWidth: '4px',
+    },
+    max: {
+        maxWidth: '2px',
+    },
+});
 
 class OneList extends Component {
     constructor(props) {
@@ -97,13 +134,29 @@ class OneList extends Component {
         doc.save(`${data.todoListName}.pdf`);
     };
 
+    handleSelectTask = () => {
+        const {
+            selected, actionsList, nameTask, idTask, idList, priority,
+        } = this.props;
+
+        if (!selected) {
+            this.setState({ statePopup: true });
+        } else {
+            this.setState({ durationTime: 0 });
+            actionsList.updateCheckboxList({
+                idDashboard: idList, nameTask, idTask, selected, body: nameTask, durationTime: 0, priority,
+            });
+        }
+    };
+
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible, alignment,
+            valueNewTask, stateComment, comment, priority, visible, alignment, newComment,
         } = this.state;
         const {
-            match, actions, data, actionsBoard, done, notDone, tasks,
+            match, actions, data, actionsBoard, done, notDone, tasks, classes,
         } = this.props;
+        console.log(data.comment);
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -232,29 +285,47 @@ class OneList extends Component {
                         </styledDashboard.ToggleButtonGroup>
                     </styled.inputDiv>
                     <div>
-                        {
-                            tasks.length === 0
-                                ? (
-                                    <styled.nullTask>
+                        <Paper className={classes.root}>
+                            <Table className={classes.table}>
+                                <TableHead>
+                                    <TableRow className={classes.header}>
+                                        <CustomTableCell align="left">Is done</CustomTableCell>
+                                        <CustomTableCell align="left">Priority</CustomTableCell>
+                                        <CustomTableCell align="left">Name</CustomTableCell>
+                                        <CustomTableCell align="left">Created date</CustomTableCell>
+                                        <CustomTableCell align="left">Completed date</CustomTableCell>
+                                        <CustomTableCell align="left">Duration time</CustomTableCell>
+                                        <CustomTableCell align="left">Delete task</CustomTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                {
+                                    tasks.length === 0
+                                        ? (
+                                            <styled.nullTask>
                                         You have no tasks yet, it's time to be active!
-                                    </styled.nullTask>
-                                )
-                                : tasks.map(i => (
-                                    <TaskForList
-                                        idTask={i.id}
-                                        idList={match.params.id}
-                                        key={i.id}
-                                        selected={i.isComplete}
-                                        nameTask={i.body}
-                                        actionsBoard={actionsBoard}
-                                        actionsList={actions}
-                                        priority={i.priority}
-                                        createdDate={i.createdDate}
-                                        completedDate={i.completedDate}
-                                        durationTime={i.durationTime}
-                                    />
-                                ))
-                        }
+                                            </styled.nullTask>
+                                        )
+                                        : tasks.map(i => (
+
+                                            <TableBody>
+                                                <TaskForList
+                                                    idTask={i.id}
+                                                    idList={match.params.id}
+                                                    key={i.id}
+                                                    selected={i.isComplete}
+                                                    nameTask={i.body}
+                                                    actionsBoard={actionsBoard}
+                                                    actionsList={actions}
+                                                    priority={i.priority}
+                                                    createdDate={i.createdDate}
+                                                    completedDate={i.completedDate}
+                                                    durationTime={i.durationTime}
+                                                />
+                                            </TableBody>
+                                        ))
+                                }
+                            </Table>
+                        </Paper>
                     </div>
                     <styled.addTaskContainer
                         visible={!stateComment}
@@ -290,37 +361,37 @@ class OneList extends Component {
                                     name: 'age',
                                     id: 'age-simple',
                                 }}
-                                style={{ width: '155px' }}
+                                style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    <em>NOT SPECIFIED</em>
+                                    <img
+                                        src={empty}
+                                        width="15px"
+                                        alt="EMPTY"
+                                        style={{ marginLeft: '8px' }}
+                                    />
+                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                 </MenuItem>
                                 <MenuItem value="LOW">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={low}
                                         alt="LOW"
                                     />
-                                    LOW
+                                    <em>LOW</em>
                                 </MenuItem>
                                 <MenuItem value="MEDIUM">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={medium}
                                         alt="MEDIUM"
                                     />
-                                    MEDIUM
+                                    <em>MEDIUM</em>
                                 </MenuItem>
                                 <MenuItem value="HIGH">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={high}
                                         alt="HIGH"
                                     />
-                                    HIGH
+                                    <em>HIGH</em>
                                 </MenuItem>
                             </Select>
                         </FormControl>
@@ -336,7 +407,7 @@ class OneList extends Component {
                     <styled.Expand
                         visible={stateComment}
                     >
-                        { data.comment !== undefined ? (
+                        { (data.comment !== undefined && data.comment !== null) ? (
                             <TextField
                                 onChange={e => this.handleUpdateComment(e.target.value)}
                                 defaultValue={data.comment}
@@ -391,4 +462,4 @@ OneList.defaultProps = {
     data: {},
 };
 
-export default OneList;
+export default withStyles(styles)(OneList);

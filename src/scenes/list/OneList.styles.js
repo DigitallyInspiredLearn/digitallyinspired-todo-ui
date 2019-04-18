@@ -136,3 +136,8 @@ export const Textarea = styled.textarea`
     width: 100%;
     height: 60px;
 `;
+
+export const PriorityImage = styled.img`
+    width: 15%;
+    height: 20px;
+`;
