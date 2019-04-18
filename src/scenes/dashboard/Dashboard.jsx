@@ -17,8 +17,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import InputGlobal from '../../components/input/InputGlobal';
 import TextField from '@material-ui/core/TextField';
+import InputGlobal from '../../components/input/InputGlobal';
 import * as styled from './Dashboard.styled';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
@@ -27,6 +27,7 @@ import pushpin from '../../image/pushpin.svg';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
+import empty from '../../image/empty.svg';
 import PopupContainer from '../popup/PopupContainer';
 
 export const getTaskList = (tasks, props) => (
@@ -372,7 +373,12 @@ export class Dashboard extends Component {
                                             style={{ width: '155px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
-                                                <em>NOT SPECIFIED</em>
+                                                <img
+                                                    src={empty}
+                                                    width="15px"
+                                                    alt="LOW"
+                                                />
+                                                NOT SPECIFIED
                                             </MenuItem>
                                             <MenuItem value="LOW">
                                                 <styled.PriorityImage
