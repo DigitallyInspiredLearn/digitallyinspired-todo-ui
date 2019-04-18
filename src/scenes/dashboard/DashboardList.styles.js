@@ -21,25 +21,13 @@ export const Head = styled.div`
     }
 `;
 
-export const SearchDiv = styled.div`
+export const SearchContent = styled.div`
     display: flex;
-    background-color: ${p => p.theme.backgroundList};
-    height: 35px;
-    min-height: 16px;
-    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
-    border-radius: 5px;
-    padding: 8px;
-    width:100%;
-    margin-top: 6px;
-    align-items: center;
+    margin: 0px 4px 4px 0; 
+    flex-direction: column;
+    flex: auto;
 `;
 
-export const Search = styled.input`
-    display: flex;
-    flex: auto;
-    outline: none;
-    font-size: 1.1em;
-`;
 export const LabelDiv = styled.div`
     display: flex;
     align-self: center;

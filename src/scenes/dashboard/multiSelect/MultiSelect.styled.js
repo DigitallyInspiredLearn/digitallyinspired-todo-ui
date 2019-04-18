@@ -7,9 +7,9 @@ export const Select = styled(_Select)`
     width: 300px;
     margin: 6px 8px 6px 0;
     height: 52px;
-    backgroundColor: white;
-    borderRadius: 4px;
-    boxShadow: 0 0  4px 0  rgba(0,0,0,0.2);
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
 `;
 
 export const styles = () => ({

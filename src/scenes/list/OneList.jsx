@@ -4,22 +4,38 @@ import PropTypes from 'prop-types';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Workbook from 'react-excel-workbook';
-import TaskForList from './tasksForList/TaskForList';
 import IconButton from '@material-ui/core/IconButton';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Comment from '@material-ui/icons/Comment';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Cancel from '@material-ui/icons/Cancel';
+import Done from '@material-ui/icons/CheckCircle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
-import { AlertDialog } from "../../components/dialog/AlertDialog";
+import TaskForList from './tasksForList/TaskForList';
+import { AlertDialog } from '../../components/dialog/AlertDialog';
 import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
 import trash from '../../image/trash.svg';
 import * as styledPopup from '../popup/Popup.styles';
 import * as styledDashboard from '../dashboard/DashboardList.styles';
+import low from '../../image/low.svg';
+import medium from '../../image/medium.svg';
+import high from '../../image/high.svg';
+import empty from '../../image/empty.svg';
 
 class OneList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             valueNewTask: '',
+            stateComment: false,
+            newComment: props.data.comment || '',
+            priority: 'NOT_SPECIFIED',
             visible: false,
         };
     }
@@ -30,14 +46,38 @@ class OneList extends Component {
         e.target.blur();
         this.setState({
             valueNewTask: e.target.value = '',
+            priority: 'NOT_SPECIFIED',
         });
+    };
+
+    toggleComment = () => {
+        this.setState({
+            stateComment: !this.state.stateComment,
+        });
+    };
+
+    handleUpdateComment = (newValue) => {
+        this.setState({ newComment: newValue });
+    };
+
+    handleUpdate = () => {
+        const {
+            actions, data,
+        } = this.props;
+        const { newComment } = this.state;
+        actions.updateComment({ id: data.id, newComment });
+        this.toggleComment();
+    };
+
+    handleChangePriority = (e) => {
+        this.setState({ priority: e.target.value });
     };
 
     showAlertDialog = () => {
         const { visible } = this.state;
         this.setState({
             visible: !visible,
-        })
+        });
     };
 
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
@@ -58,11 +98,12 @@ class OneList extends Component {
     };
 
     render() {
-        const { valueNewTask, visible } = this.state;
+        const {
+            valueNewTask, stateComment, comment, priority, visible,
+        } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks,
         } = this.props;
-
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -90,20 +131,21 @@ class OneList extends Component {
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
-                        <IconButton
-                            aria-label="trash"
-                            onClick={this.showAlertDialog}
-                            style={{ borderRadius: '40%', padding: '4px' }}
-                            alt="Delete this list"
-
-                        >
-                            <Delete />
-                        </IconButton>
+                        <Tooltip title="Delete list">
+                            <IconButton
+                                aria-label="trash"
+                                onClick={this.showAlertDialog}
+                                style={{ borderRadius: '40%', padding: '4px' }}
+                                alt="Delete this list"
+                            >
+                                <Delete />
+                            </IconButton>
+                        </Tooltip>
                     </Link>
                     <AlertDialog
                         visible={visible}
                         onClose={this.showAlertDialog}
-                        value='Do you want to delete this list?'
+                        value="Do you want to delete this list?"
                         onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
                     />
                     <div
@@ -118,20 +160,30 @@ class OneList extends Component {
                         className="fa fa-download"
                     >
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <styled.animationButton onClick={() => this.downloadToPDF(data)}>
-                                pdf
-                            </styled.animationButton>
+                            <Tooltip title="Download as PDF">
+                                <styled.animationButton onClick={() => this.downloadToPDF(data)}>
+                                    pdf
+                                </styled.animationButton>
+                            </Tooltip>
+
                             <Workbook
                                 filename="list.xlsx"
-                                element={(<styled.animationButton>xls</styled.animationButton>)}
+                                element={(
+                                    <Tooltip title="Download as XLS">
+                                        <styled.animationButton>xls</styled.animationButton>
+                                    </Tooltip>
+                                )}
                             >
+
                                 <Workbook.Sheet data={dataXLS} name="list">
                                     <Workbook.Column label="+/-" value="doneOrNot" />
                                     <Workbook.Column label="name tasks" value="nameTasks" />
                                     <Workbook.Column label="priority" value="priority" />
                                     <Workbook.Column label="do up" value="doUp" />
                                 </Workbook.Sheet>
+
                             </Workbook>
+
                         </div>
                     </div>
                 </styled.inputBlock>
@@ -183,29 +235,131 @@ class OneList extends Component {
                                         nameTask={i.body}
                                         actionsBoard={actionsBoard}
                                         actionsList={actions}
+                                        priority={i.priority}
+                                        createdDate={i.createdDate}
+                                        completedDate={i.completedDate}
+                                        durationTime={i.durationTime}
                                     />
                                 ))
                         }
                     </div>
-                    <styled.addNewTask
-                        className="addNewTask"
-                        placeholder="add to-do"
-                        style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
-                        value={valueNewTask}
-                        onChange={this.changeValueNewTask}
-                        onKeyPress={event => event.key === 'Enter' && (
-                            event.target.blur(),
-                            actions.addTaskList({
-                                idDashboard: match.params.id,
-                                nameTask: valueNewTask,
-                            }),
-                            this.setState({ valueNewTask: '' })
-                        )}
-                        onBlur={(e) => {
-                            this.handlerOnBlur(e);
-                            actions.fetchList(match.params.id);
-                        }}
-                    />
+                    <styled.addTaskContainer
+                        visible={!stateComment}
+                    >
+                        <styled.addNewTask
+                            className="addNewTask"
+                            placeholder="add to-do"
+                            style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
+                            value={valueNewTask}
+                            onChange={this.changeValueNewTask}
+                            onKeyPress={event => event.key === 'Enter' && (
+                                event.target.blur(),
+                                actions.addTaskList({
+                                    idDashboard: match.params.id,
+                                    nameTask: valueNewTask,
+                                    priority,
+                                }),
+                                this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
+                            )}
+                            onBlur={(e) => {
+                                this.handlerOnBlur(e);
+                                // actions.fetchList(match.params.id);
+                            }}
+                        />
+                        <FormControl
+                            style={{ marginTop: '-4px', marginLeft: 'auto' }}
+                        >
+                            <InputLabel htmlFor="age-simple">Priority</InputLabel>
+                            <Select
+                                value={priority}
+                                onChange={this.handleChangePriority}
+                                inputProps={{
+                                    name: 'age',
+                                    id: 'age-simple',
+                                }}
+                                style={{ width: '155px' }}
+                            >
+                                <MenuItem value="NOT_SPECIFIED">
+                                    <em>NOT SPECIFIED</em>
+                                </MenuItem>
+                                <MenuItem value="LOW">
+                                    <img
+                                        width="15%"
+                                        height="15%"
+                                        src={low}
+                                        alt="LOW"
+                                    />
+                                    LOW
+                                </MenuItem>
+                                <MenuItem value="MEDIUM">
+                                    <img
+                                        width="15%"
+                                        height="15%"
+                                        src={medium}
+                                        alt="MEDIUM"
+                                    />
+                                    MEDIUM
+                                </MenuItem>
+                                <MenuItem value="HIGH">
+                                    <img
+                                        width="15%"
+                                        height="15%"
+                                        src={high}
+                                        alt="HIGH"
+                                    />
+                                    HIGH
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Tooltip title="Comment" placement="top" style={{ marginTop: 'auto', marginLeft: 'auto' }}>
+                            <IconButton
+                                aria-label="Comment"
+                                onClick={this.toggleComment}
+                            >
+                                <Comment />
+                            </IconButton>
+                        </Tooltip>
+                    </styled.addTaskContainer>
+                    <styled.Expand
+                        visible={stateComment}
+                    >
+                        { data.comment !== undefined ? (
+                            <TextField
+                                onChange={e => this.handleUpdateComment(e.target.value)}
+                                defaultValue={data.comment}
+                                multiline
+                                autoFocus
+                                rowsMax="8"
+                                variant="outlined"
+                                margin="normal"
+                                placeholder="Type comment about this list"
+                                style={{
+                                    width: '100%', fontWeight: 'bold',
+                                }}
+                                InputProps={{
+                                    style: {
+                                        height: '200px',
+                                    },
+                                }}
+                            />
+                        ) : null
+                        }
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
+                            <IconButton
+                                style={{ padding: '12px' }}
+                                onClick={this.toggleComment}
+                            >
+                                <Cancel />
+                            </IconButton>
+                            <IconButton
+                                style={{ padding: '12px' }}
+                                onClick={() => this.handleUpdate()}
+                            >
+                                <Done />
+                            </IconButton>
+                        </div>
+                    </styled.Expand>
+
                 </styled.blockTask>
             </styled.List>
         );

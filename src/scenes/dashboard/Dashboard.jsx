@@ -5,21 +5,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Comment from '@material-ui/icons/Comment';
 import Delete from '@material-ui/icons/Delete';
 import Restore from '@material-ui/icons/RestoreFromTrash';
+import Done from '@material-ui/icons/CheckCircle';
+import Cancel from '@material-ui/icons/Cancel';
 import Share from '@material-ui/icons/Share';
 import Info from '@material-ui/icons/Info';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/Input';
-import Input from '../../components/input/Input'
+import InputGlobal from '../../components/input/InputGlobal';
 import TextField from '@material-ui/core/TextField';
 import * as styled from './Dashboard.styled';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
-import { AlertDialog } from "../../components/dialog/AlertDialog";
+import { AlertDialog } from '../../components/dialog/AlertDialog';
 import Task from './task/Task';
 import pushpin from '../../image/pushpin.svg';
 import low from '../../image/low.svg';
@@ -76,12 +78,16 @@ export class Dashboard extends Component {
         e.target.blur();
         this.setState({
             valueNewTask: e.target.value = '',
+            newComment: e.target.value = '',
+            priority: 'NOT_SPECIFIED',
+            stateComment: false,
         });
     };
 
-    toggleComment = () => {
+    toggleComment = (e) => {
         this.setState({
             stateComment: !this.state.stateComment,
+            newComment: e.target.value = '',
         });
     };
 
@@ -121,13 +127,7 @@ export class Dashboard extends Component {
     };
 
     handleUpdateComment = (newValue) => {
-        const { actions, idList, title } = this.props;
-        this.setState({ newComment: newValue }, () => {
-            const { newComment } = this.state;
-            actions.updateComment({
-                id: idList, title, newComment,
-            });
-        });
+        this.setState({ newComment: newValue });
     };
 
     handleUpdateTitleSuccess = () => {
@@ -139,7 +139,7 @@ export class Dashboard extends Component {
     handleUpdateCommentSuccess = () => {
         const { actions, idList, title } = this.props;
         const { newComment } = this.state;
-        actions.updateCommentSuccess({ id: idList, title, newComment });
+        actions.updateComment({ id: idList, title, newComment });
     };
 
     handleChangePriority = (e) => {
@@ -186,16 +186,16 @@ export class Dashboard extends Component {
                             />
                         ) : null
                     }
-                    <Input
+                    <InputGlobal
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
-                        border={false}
                         style={todoListStatus === 'ACTIVE' ? {
-                            textDecoration: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
+                            textDecoration: 'none', width: '100%', fontWeight: 'bold', margin: '0 8px',
                         } : {
                             textDecoration: 'none', pointerEvents: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
                         }}
+                        placeholder='Add title'
                     />
                     {
                         todoListStatus === 'ACTIVE' ? (
@@ -228,33 +228,36 @@ export class Dashboard extends Component {
                                                     Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
                                                     Comment: {comment || 'not written yet'}
                                                 </p>
+                                                
                                                 <IconButton
                                                     aria-label="info"
                                                     style={{ borderRadius: '40%', padding: '4px' }}
                                                     alt="Information about this list"
-
                                                 >
                                                     <Info />
                                                 </IconButton>
                                             </styled.IconInfo>
                                         </Link>
-                                        <IconButton
-                                            aria-label="share"
-                                            style={{ borderRadius: '40%', padding: '4px' }}
-                                            onClick={this.showPopup}
-                                            alt="Share list"
-
-                                        >
-                                            <Share />
-                                        </IconButton>
-                                        <IconButton
-                                            aria-label="trash"
-                                            onClick={this.showAlertDeleteDialog}
-                                            style={{ borderRadius: '40%', padding: '4px' }}
-                                            alt="Delete this list"
-                                        >
-                                            <Delete />
-                                        </IconButton>
+                                        <Tooltip title="Share list">
+                                            <IconButton
+                                                aria-label="share"
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                onClick={this.showPopup}
+                                                alt="Share list"
+                                            >
+                                                <Share />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Tooltip title="Delete list">
+                                            <IconButton
+                                                aria-label="trash"
+                                                onClick={this.showAlertDeleteDialog}
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                alt="Delete this list"
+                                            >
+                                                <Delete />
+                                            </IconButton>
+                                        </Tooltip>
                                         <styledDialog.Dialog>
                                             <AlertDialog
                                                 visible={visibleDelete}
@@ -267,36 +270,39 @@ export class Dashboard extends Component {
                                 )
                         ) : (
                             <styled.IconContainer>
-                                <IconButton
-                                    aria-label="restore"
-                                    onClick={this.showAlertRestoreDialog}
-                                    alt="Restore this list"
-                                    style={{ borderRadius: '40%', padding: '4px' }}
-                                >
-                                    <Restore
-                                        style={{ borderRadius: '40%' }}
-                                    />
-                                </IconButton>
+                                <Tooltip title="Restore list">
+                                    <IconButton
+                                        aria-label="restore"
+                                        onClick={this.showAlertRestoreDialog}
+                                        alt="Restore this list"
+                                        style={{ borderRadius: '40%', padding: '4px' }}
+                                    >
+                                        <Restore
+                                            style={{ borderRadius: '40%' }}
+                                        />
+                                    </IconButton>
+                                </Tooltip>
                                 <AlertDialog
                                     visible={visibleRestore}
                                     onClose={this.showAlertRestoreDialog}
-                                    value='Do you want to restore this list?'
+                                    value="Do you want to restore this list?"
                                     onConfirm={() => actionsBasket.restoreList({ id: idList })}
                                 />
-                                <IconButton
-                                    aria-label="trash"
-                                    onClick={this.showAlertDeleteDialog}
-                                    style={{ borderRadius: '40%', padding: '4px' }}
-                                    alt="Delete this list"
-
-                                >
-                                    <Delete />
-                                </IconButton>
+                                <Tooltip title="Delete list forever">
+                                    <IconButton
+                                        aria-label="trash"
+                                        onClick={this.showAlertDeleteDialog}
+                                        style={{ borderRadius: '40%', padding: '4px' }}
+                                        alt="Delete this list"
+                                    >
+                                        <Delete />
+                                    </IconButton>
+                                </Tooltip>
                                 <styledDialog.Dialog>
                                     <AlertDialog
                                         visible={visibleDelete}
                                         onClose={this.showAlertDeleteDialog}
-                                        value='Do you want to delete this list forever?'
+                                        value="Do you want to delete this list forever?"
                                         onConfirm={() => actionsBasket.deletedList({ id: idList })}
                                     />
                                 </styledDialog.Dialog>
@@ -336,7 +342,7 @@ export class Dashboard extends Component {
                     todoListStatus === 'ACTIVE' ? (
                         shared ? ''
                             : (
-                                <div style={{ display: 'flex' }}>
+                                <styled.addTaskContainer visible={!stateComment}>
                                     <styled.InputAddingTask
                                         style={{ alignSelf: 'center' }}
                                         placeholder="Add to-do"
@@ -346,7 +352,9 @@ export class Dashboard extends Component {
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
-                                            })))
+                                            }), this.setState({ priority: 'NOT_SPECIFIED' })
+                                            
+                                            ))
                                         }
                                         onBlur={this.handlerOnBlur}
                                     />
@@ -395,13 +403,15 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <IconButton
-                                        aria-label="Delete"
-                                        onClick={this.toggleComment}
-                                    >
-                                        <Comment />
-                                    </IconButton>
-                                </div>
+                                    <Tooltip title={high} placement="top">
+                                        <IconButton
+                                            aria-label="Comment"
+                                            onClick={this.toggleComment}
+                                        >
+                                            <Comment />
+                                        </IconButton>
+                                    </Tooltip>
+                                </styled.addTaskContainer>
                             )
                     ) : null
                 }
@@ -416,12 +426,31 @@ export class Dashboard extends Component {
                         rowsMax="3"
                         variant="outlined"
                         margin="normal"
-                        onBlur={() => this.handleUpdateCommentSuccess()}
                         placeholder="Type comment about this list"
                         style={{
-                            width: '90%', fontWeight: 'bold',
+                            width: '100%', fontWeight: 'bold',
+                        }}
+                        InputProps={{
+                            style: {
+                                height: '150px',
+                                marginTop: '-10px',
+                            },
                         }}
                     />
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <IconButton
+                            style={{ padding: '12px' }}
+                            onClick={this.handlerOnBlur}
+                        >
+                            <Cancel />
+                        </IconButton>
+                        <IconButton
+                            style={{ padding: '12px' }}
+                            onClick={() => this.handleUpdateCommentSuccess()}
+                        >
+                            <Done />
+                        </IconButton>
+                    </div>
                 </styled.Expand>
             </styled.Dashboard>,
         ]);

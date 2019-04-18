@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
 import { styles, style, MenuProps, Select } from './MultiSelect.styled';
+import { InputLabel } from "../../../components/dropDown/DropDown.styled";
 
 class MultiSelect extends Component {
     state = { selectTags: [] };
@@ -28,12 +28,7 @@ class MultiSelect extends Component {
         const { selectTags } = this.state;
         return ([
             <div className={classes.root}>
-                <InputLabel
-                    htmlFor="select-multiple-chip"
-                    style={{ color: 'black', fontSize: '13px', margin: '4px 0 0 4px' }}
-                >
-                    Tags:
-                </InputLabel>
+                <InputLabel htmlFor="select-multiple-chip" >Tags:</InputLabel>
                 <Select
                     multiple
                     placeholder="input"

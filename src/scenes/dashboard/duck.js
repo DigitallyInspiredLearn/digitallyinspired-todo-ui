@@ -50,7 +50,6 @@ export const CHANGE_SORT = 'dashboard/CHANGE_SORT';
 export const CHANGE_PAGINATION = 'CHANGE_PAGINATION';
 
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
-export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
 
 export const actions = {
     changeSize: createAction(CHANGE_SIZE),
@@ -77,7 +76,6 @@ export const actions = {
     shareList: createAction(SHARE_LIST),
     changePagination: createAction(CHANGE_PAGINATION),
     updateComment: createAction(UPDATE_COMMENT),
-    updateCommentSuccess: createAction(UPDATE_COMMENT_SUCCESS),
 };
 
 const initialState = {
@@ -183,6 +181,7 @@ export function* updateTitle(action) {
 
 export function* updateComment(action) {
     const { payload: { id, title, newComment } } = action;
+    console.log(action.payload);
     const list = yield select(getToDoBoardFiltered, id);
     const updatedList = { ...list, todoListName: title, comment: newComment };
     yield call(updateList, id, updatedList);
@@ -269,7 +268,7 @@ export function* saga() {
     yield safeTakeEvery(DELETE_TASK, deleteTask);
     yield safeTakeEvery(ADD_TASK, addNewTask);
     yield safeTakeLatest(UPDATE_TITLE_DASHBOARD_SUCCESS, updateTitle);
-    yield safeTakeLatest(UPDATE_COMMENT_SUCCESS, updateComment);
+    yield safeTakeLatest(UPDATE_COMMENT, updateComment);
     yield safeTakeLatest(UPDATE_TASK_NAME_SUCCESS, updateNameTask);
     yield safeTakeEvery([FETCH_DASHBOARD_SUCCESS, SEARCH], mutate);
     yield safeTakeEvery(SHARE_LIST, shareList);
