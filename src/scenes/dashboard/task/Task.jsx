@@ -14,6 +14,7 @@ import Dialog from './dialog/Dialog';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
+import empty from '../../../image/empty.svg';
 
 class Task extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class Task extends Component {
             newTaskName: props.nameTask,
             visiblePopapAddTagToTask: false,
             selectedTask: '',
+            durationTime: props.durationTime,
             visible: false,
         };
     }
@@ -54,6 +56,7 @@ class Task extends Component {
 
         this.setState({ statePopup: false });
         const durationTime = moment.duration(time.duration).valueOf();
+        this.setState({ durationTime });
         actions.updateCheckbox({
             nameTask, idTask, selected, body: nameTask, durationTime, priority,
         });
@@ -67,6 +70,7 @@ class Task extends Component {
         if (!selected) {
             this.setState({ statePopup: true });
         } else {
+            this.setState({ durationTime });
             actions.updateCheckbox({
                 nameTask, idTask, selected, body: nameTask, durationTime: 0, priority,
             });
@@ -103,30 +107,34 @@ class Task extends Component {
         switch (priority) {
             case 'LOW':
                 return (
-                    <Tooltip title="LOW">
-                        <img src={low} width="20px" height="25px" alt="LOW" style={{ marginLeft: '4px' }} />
+                    <Tooltip title="Priority: LOW">
+                        <img src={low} width="20px" height="25px" alt="low" style={{ marginLeft: '4px' }} />
                     </Tooltip>
                 );
             case 'MEDIUM':
                 return (
-                    <Tooltip title="MEDIUM">
-                        <img src={medium} width="20px" height="25px" alt="MEDIUM" style={{ marginLeft: '4px' }} />
+                    <Tooltip title="Priority: MEDIUM">
+                        <img src={medium} width="20px" height="25px" alt="medium" style={{ marginLeft: '4px' }} />
                     </Tooltip>
                 );
             case 'HIGH':
                 return (
-                    <Tooltip title="HIGH">
-                        <img src={high} width="20px" height="25px" alt="HIGH" style={{ marginLeft: '4px' }} />
+                    <Tooltip title="Priority: HIGH">
+                        <img src={high} width="20px" height="25px" alt="high" style={{ marginLeft: '4px' }} />
                     </Tooltip>
                 );
             default:
-                return null;
+                return (
+                    <Tooltip title="Priority: NOT SPECIFIED">
+                        <img src={empty} width="20px" height="20px" alt="not_specified" style={{ marginLeft: '2px', marginTop: '2px' }} />
+                    </Tooltip>
+                );
         }
     };
 
     render() {
         const {
-            display, statePopup, visiblePopapAddTagToTask, selectedTask, visible,
+            display, statePopup, visiblePopapAddTagToTask, selectedTask, durationTime, visible,
         } = this.state;
         const displayStyle = { display, color: 'rgba(0, 0, 0, 0.54)' };
         const {
@@ -227,31 +235,43 @@ class Task extends Component {
                                     </div>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                         : 'in process'}<br />
+                                    {
+                                        (durationTime !== '' && durationTime !== 0)
+                                            ? ` Duration time: ${(moment.duration(durationTime).days())}d 
+                                        ${(moment.duration(durationTime).hours())}h
+                                        ${(moment.duration(durationTime).minutes())}m`
+                                            : null
+                                    }
                                 </p>
                                 <Info
                                     aria-label="info"
                                     style={displayStyle}
-                                    alt="Information about this list"
+                                    alt="Information about this task"
                                 />
                             </styled.IconInfo>,
-                            <styled.AddTag
-                                style={displayStyle}
-                                onClick={() => this.showPopapAddTagToTask(idTask)}
-                            >
-                                +
-                            </styled.AddTag>,
-                            <Delete
-                                aria-label="trash"
-                                onClick={this.showAlertDialog}
-                                style={displayStyle}
-                                alt="Delete this task"
-                            />,
+                            <Tooltip title="Add tag for this task">
+                                <styled.AddTag
+                                    style={displayStyle}
+                                    onClick={() => this.showPopapAddTagToTask(idTask)}
+                                >
+                                    +
+                                </styled.AddTag>
+                            </Tooltip>,
+                            <Tooltip title="Delete task">
+                                <Delete
+                                    aria-label="trash"
+                                    // onClick={() => actions.deleteTask({ idTask })}
+                                    onClick={this.showAlertDialog}
+                                    style={displayStyle}
+                                    alt="Delete task"
+                                />
+                            </Tooltip>,
                             <AlertDialog
                                 visible={visible}
                                 onClose={this.showAlertDialog}
-                                value='Do you want to delete this task?'
+                                value="Do you want to delete this task?"
                                 onConfirm={() => actions.deleteTask({ idTask })}
-                            />
+                            />,
                         ]) : null
                     }
                 </styled.Task>

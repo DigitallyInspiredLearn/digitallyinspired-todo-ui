@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-// import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -32,7 +31,7 @@ class MultiSelect extends Component {
         const { selectTags } = this.state;
         return ([
             <div className={classes.root}>
-                <InputLabel htmlFor="select-multiple-chip">Tags:</InputLabel>
+                <InputLabel htmlFor="select-multiple-chip" >Tags:</InputLabel>
                 <Select
                     style={{
                         color: 'black',

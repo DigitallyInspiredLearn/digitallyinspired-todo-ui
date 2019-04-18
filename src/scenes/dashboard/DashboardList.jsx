@@ -54,7 +54,6 @@ class DashboardList extends Component {
     };
 
     render() {
-        const { socket, message } = this.state;
         const {
             search,
             selectedMy,
@@ -69,7 +68,6 @@ class DashboardList extends Component {
             tagTaskKeys,
             actionsBasket,
         } = this.props;
-
         return (
             [
                 <styled.App key="app">
@@ -129,8 +127,6 @@ class DashboardList extends Component {
                                         todoListStatus={i.todoListStatus}
                                         comment={i.comment}
                                         tagTaskKeys={tagTaskKeys}
-                                        socket={socket}
-                                        message={message}
                                     />
                                 ))
                         }
@@ -149,6 +145,7 @@ class DashboardList extends Component {
                                 onPageChange={this.handlePageChange}
                             />
                         </styled.Pagination>
+
                         <DropDown
                             changeValue={actions.changeSize}
                             currentValue={pageSize}
@@ -158,6 +155,8 @@ class DashboardList extends Component {
                             stylesContainer="top: -87px;"
                             stylesValues="width: 75px; margin-left: 17px;"
                             stylesButton="padding: 12px 10px; margin: 16px;"
+                            tooltip="Change visible lists"
+                            placement="right"
                         />
                     </div>
                     <VisibleSidebar />

@@ -5,10 +5,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Router } from 'react-router-dom';
-import App from './App';
+
 import './api/dashboard';
 import history from './config/history';
 import { store, persistor } from './config/store';
+import App from './App';
 
 
 ReactDOM.render(

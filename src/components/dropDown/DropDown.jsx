@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from '@material-ui/core/Tooltip';
 import * as styled from './DropDown.styled';
 import list from '../../image/list-menu.svg';
 
@@ -49,46 +50,49 @@ class  DropDown extends Component {
             titleButton,
             stylesButton,
             iconVisible,
+            tooltip,
+            placement,
         } = this.props;
         return (
-            <styled.Container>
-                <styled.Ul
-                    visible={visible}
-                    drop={drop}
-                    stylesContainer={stylesContainer}
-                >
-                    {
-                        possibleValues.map(value => (
-
-                            <styled.Li
-                                onClick={() => { changeValue(value); this.changeVisible(); }}
-                                checked={currentValue === value}
-                                key={value}
-                                stylesValues={stylesValues}
-                            >
-                                {value}
-                            </styled.Li>
-                        ))
-                    }
-                </styled.Ul>
-                {
-                    titleButton !== '' ? <styled.Button
-                        onClick={this.changeVisible}
-                        stylesButton={stylesButton}
+            <Tooltip title={tooltip} placement={placement || 'top'}>
+                <styled.Container>
+                    <styled.Ul
+                        visible={visible}
+                        drop={drop}
+                        stylesContainer={stylesContainer}
                     >
-                        { titleButton }
-                        <styled.Down className="fa fa-angle-down" />
-                        </styled.Button>
-                        : <styled.Icon
-                            src={list}
-                            alt="list"
+                        {
+                            possibleValues.map(value => (
+
+                                <styled.Li
+                                    onClick={() => { changeValue(value); this.changeVisible(); }}
+                                    checked={currentValue === value}
+                                    key={value}
+                                    stylesValues={stylesValues}
+                                >
+                                    {value}
+                                </styled.Li>
+                            ))
+                        }
+                    </styled.Ul>
+                    {
+                        titleButton !== '' ? <styled.Button
                             onClick={this.changeVisible}
-                            style={{ display: iconVisible }}
-                        />
+                            stylesButton={stylesButton}
+                        >
+                            { titleButton }
+                            <styled.Down className="fa fa-angle-down" />
+                            </styled.Button>
+                            : <styled.Icon
+                                src={list}
+                                alt="list"
+                                onClick={this.changeVisible}
+                                style={{ display: iconVisible }}
+                            />
 
-                }
-            </styled.Container>
-
+                    }
+                </styled.Container>
+            </Tooltip>
         );
     }
 }

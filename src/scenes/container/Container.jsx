@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
+import Tooltip from '@material-ui/core/Tooltip';
 import logout from '../../image/logout.svg';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
@@ -106,18 +107,21 @@ class Container extends Component {
                             stylesContainer="top: 40px; "
                             stylesValues="margin-left: -78px; width: 100px; border-radius: 8px;"
                             iconVisible={iconVisible}
+                            tooltip="Change page"
                         />
-                        <styled.Icon
-                            src={logout}
-                            alt="logout"
-                            onClick={this.showAlertDialog}
-                            style={{ display: iconVisible }}
-                        />
+                        <Tooltip title="Logout">
+                            <styled.Icon
+                                src={logout}
+                                alt="logout"
+                                onClick={this.showAlertDialog}
+                                style={{ display: iconVisible }}
+                            />
+                        </Tooltip>
                         <styledDialog.Dialog>
                             <AlertDialog
                                 visible={visibleDialog}
                                 onClose={this.showAlertDialog}
-                                value='Do you want to exit this page?'
+                                value="Do you want to logout?"
                                 onConfirm={actions.logout}
                             />
                         </styledDialog.Dialog>

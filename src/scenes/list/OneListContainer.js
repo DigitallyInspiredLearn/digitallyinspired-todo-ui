@@ -51,6 +51,7 @@ const mapDispatchToProps = dispatch => ({
         updateCheckboxList: actions.updateCheckboxList,
         selectDoneAction: actions.selectDoneAction,
         selectedNotDoneAction: actions.selectedNotDoneAction,
+        updateComment: actions.updateCommentSuccess,
     }, dispatch),
     actionsBoard: bindActionCreators({
         onBlurs: actionsBoard.updateTitleSuccess,
