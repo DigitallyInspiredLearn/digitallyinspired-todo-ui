@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
-import { styles, style, MenuProps, Select } from './MultiSelect.styled';
+import { styles, style, MenuProps, Select, Button } from './MultiSelect.styled';
 import { InputLabel } from "../../../components/dropDown/DropDown.styled";
 
 class MultiSelect extends Component {
@@ -69,12 +69,12 @@ class MultiSelect extends Component {
                 <PopapAddTag actions={actions} visible={visible} allTags={tags} />
 
             </div>,
-            <button
+            <Button
                 className={classes.addButton}
                 onClick={() => { actions.visiblePopap(); }}
             >
                 + tag
-            </button>,
+            </Button>,
         ]
         );
     }

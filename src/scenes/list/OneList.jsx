@@ -18,15 +18,13 @@ import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
-import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
-import trash from '../../image/trash.svg';
-import * as styledPopup from '../popup/Popup.styles';
 import * as styledDashboard from '../dashboard/DashboardList.styles';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import empty from '../../image/empty.svg';
+import xls from '../../image/xls-file.svg';
+import pdf from '../../image/pdf-file.svg';
 
 class OneList extends Component {
     constructor(props) {
@@ -51,8 +49,9 @@ class OneList extends Component {
     };
 
     toggleComment = () => {
+        const { stateComment } = this.state;
         this.setState({
-            stateComment: !this.state.stateComment,
+            stateComment: !stateComment,
         });
     };
 
@@ -61,9 +60,7 @@ class OneList extends Component {
     };
 
     handleUpdate = () => {
-        const {
-            actions, data,
-        } = this.props;
+        const { actions, data } = this.props;
         const { newComment } = this.state;
         actions.updateComment({ id: data.id, newComment });
         this.toggleComment();
@@ -84,7 +81,7 @@ class OneList extends Component {
 
     downloadToPDF = (data) => {
         const doc = new jsPDF();
-        doc.text(`Dashboard: "${data.todoListName}, created by User at Time\nLast modify :data\nCommentar : Commentar"`, 15, 10);
+        doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
         data.tasks.length
             ? doc.autoTable({
                 head: [['+/-', 'name tasks', 'priority', 'created data', 'tags', 'completed data']],
@@ -148,44 +145,26 @@ class OneList extends Component {
                         value="Do you want to delete this list?"
                         onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
                     />
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            display: 'flex',
-                            alignItems: 'center',
-                            fontSize: '22px',
-                            color: 'gray',
-                            marginLeft: '8px',
-                        }}
-                        className="fa fa-download"
-                    >
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <Tooltip title="Download as PDF">
-                                <styled.animationButton onClick={() => this.downloadToPDF(data)}>
-                                    pdf
-                                </styled.animationButton>
+                    <Tooltip title="Download as PDF">
+                        <img src={pdf} alt="download in pdf" onClick={() => this.downloadToPDF(data)} style={{height: '30px'}}/>
+                    </Tooltip>
+                    <Workbook
+                        filename="list.xlsx"
+                        element={(
+                            <Tooltip title="Download as XLS">
+                                <img src={xls} alt="download in xls" style={{height: '30px'}}/>
                             </Tooltip>
+                        )}
+                    >
+                        <Workbook.Sheet data={dataXLS} name="list">
+                            <Workbook.Column label="+/-" value="doneOrNot" />
+                            <Workbook.Column label="name tasks" value="nameTasks" />
+                            <Workbook.Column label="priority" value="priority" />
+                            <Workbook.Column label="duration time" value="doUp" />
+                        </Workbook.Sheet>
 
-                            <Workbook
-                                filename="list.xlsx"
-                                element={(
-                                    <Tooltip title="Download as XLS">
-                                        <styled.animationButton>xls</styled.animationButton>
-                                    </Tooltip>
-                                )}
-                            >
+                    </Workbook>
 
-                                <Workbook.Sheet data={dataXLS} name="list">
-                                    <Workbook.Column label="+/-" value="doneOrNot" />
-                                    <Workbook.Column label="name tasks" value="nameTasks" />
-                                    <Workbook.Column label="priority" value="priority" />
-                                    <Workbook.Column label="do up" value="doUp" />
-                                </Workbook.Sheet>
-
-                            </Workbook>
-
-                        </div>
-                    </div>
                 </styled.inputBlock>
                 <styled.blockTask>
                     <styled.inputDiv>

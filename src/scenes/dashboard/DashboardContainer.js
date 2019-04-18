@@ -7,8 +7,7 @@ import { actions as actionsTags } from './multiSelect/duck';
 
 const mapStateToProps = state => ({
     toDoBoard: state.dashboard.toDoBoard,
-    selectedShared: state.dashboard.selectedShared,
-    selectedMy: state.dashboard.selectedMy,
+    viewList: state.dashboard.view,
     pageSize: state.dashboard.pageSize,
     sort: state.dashboard.sort,
     currentPage: state.dashboard.currentPage,
@@ -29,8 +28,7 @@ const mapDispatchToProps = dispatch => ({
         updateCheckbox: actions.updateCheckbox,
         updateTaskName: actions.updateTaskName,
         updateTaskNameSuccess: actions.updateTaskNameSuccess,
-        updateSelectedSharedLists: actions.updateSelectedSharedLists,
-        updateSelectedMyLists: actions.updateSelectedMyLists,
+        updateViewLists: actions.updateViewLists,
         search: actions.search,
         togglePopup: actions.togglePopup,
         changeSize: actions.changeSize,
