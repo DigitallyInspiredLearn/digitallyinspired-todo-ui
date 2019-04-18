@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import AddCircle from '@material-ui/icons/AddCircle';
 export const Task = styled.div`
     display: flex;
     flex-flow: row nowrap;
@@ -99,18 +99,8 @@ export const DeleteTask = styled.img`
 
 `;
 
-export const AddTag = styled.div`
-    opacity: 1;
+export const AddTag = styled(AddCircle)`
     cursor: pointer;
-    position: relative;
-    box-shadow: 0 5px  10px 0  rgba(0,0,0,0.3);
-    padding: 0px 4px ;
-    margin-top:2px;
-    background-color: white;
-    border-radius: 50%;
-    color: grey;
-    font-size: 15px;
-    border: 2px solid grey;
 `;
 
 export const TagsInfo = styled.div`

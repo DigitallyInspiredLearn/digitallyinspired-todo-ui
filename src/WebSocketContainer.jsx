@@ -6,12 +6,12 @@ import SnackbarContent from '@material-ui/core/SnackbarContent/index';
 import IconButton from '@material-ui/core/IconButton/index';
 import CloseIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import Snackbar from '@material-ui/core/Snackbar/index';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 
 class WebSocketContainer extends Component {
     constructor(props) {
         super(props);
-        const { currentUser } =props;
+        const { currentUser } = props;
         this.state = {
             message: '',
             open: false,
@@ -50,7 +50,7 @@ class WebSocketContainer extends Component {
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
-                    autoHideDuration={6000}
+                    autoHideDuration={600000}
                 >
                     <SnackbarContent
                         style={{}}
@@ -61,10 +61,10 @@ class WebSocketContainer extends Component {
                                 key="close"
                                 href=""
                                 aria-label="Close"
-                                color="inherit"
+
                                 onClick={this.handleClose}
                             >
-                                <CloseIcon />
+                                <CloseIcon color="white" style={{color: 'white'}}/>
                             </IconButton>,
                         ]}
                     />
@@ -76,11 +76,13 @@ class WebSocketContainer extends Component {
 
 
 WebSocketContainer.propTypes = {
-    // children: PropTypes.,
+    // children: PropTypes.object.isRequired,
+    currentUser: PropTypes.string,
 };
 
 WebSocketContainer.defaultProps = {
-    children: undefined,
+    // children: {},
+    currentUser: '',
 };
 
 const mapStateToProps = state => ({
