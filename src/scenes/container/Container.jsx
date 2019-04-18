@@ -23,11 +23,12 @@ import DropDown from '../../components/dropDown/DropDown';
 import list from '../../image/list-menu.svg';
 import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
+import settings from '../../image/settings.svg';
 import exit from '../../image/exit.svg';
 
 const styles = theme => ({
     typography: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
     },
 });
 
@@ -58,23 +59,43 @@ class Container extends Component {
         }
     };
 
-    toggleSettings = () => {
-        const { visible } = this.state;
-        this.setState({ visible: !visible });
+    handlerAccountClick = () => {
+        history.push('/lists/account');
+        this.setState(state => ({
+            open: false,
+        }));
     };
+
+    handlerBasketClick = () => {
+        history.push('/lists/basket');
+        this.setState(state => ({
+            open: false,
+        }));
+    };
+
+    openSettings = () => {
+        const { visible } = this.state;
+        this.setState(state => ({ visible: !visible, open: false }));
+    };
+
+    closeSettings = () => {
+        const { visible } = this.state;
+        this.setState(({ visible: !visible }));
+    }
 
     showAlertDialog = () => {
         const { visibleDialog } = this.state;
-        this.setState({
+        this.setState(state => ({
             visibleDialog: !visibleDialog,
-        });
+            open: false,
+        }));
     };
 
-    handleClick = event => {
+    handleClick = (event) => {
         const { currentTarget } = event;
         this.setState(state => ({
-          anchorEl: currentTarget,
-          open: !state.open,
+            anchorEl: currentTarget,
+            open: !state.open,
         }));
     };
 
@@ -122,50 +143,41 @@ class Container extends Component {
                         <b>To</b>
                         <styled.Line />
                         <b>do</b>
-                        {/* <DropDown
-                            changeValue={this.selectSection}
-                            titleButton=""
-                            currentValue={sections}
-                            possibleValues={[
-                                'Account',
-                                'Settings',
-                                'Basket',
-                            ]}
-                            stylesContainer="top: 40px; "
-                            stylesValues="margin-left: -78px; width: 100px; border-radius: 8px;"
-                            iconVisible={iconVisible}
-                            tooltip="Change page"
-                        /> */}
-                        <img
+                        <styled.Icon
                             src={list}
                             alt="settings"
                             onClick={this.handleClick}
                             style={{
-                                display: iconVisible, width: '30px', height: '30px', marginLeft: '8px',
+                                display: iconVisible, width: '30px', height: '30px',
                             }}
                         />
                         
-                        <Popper placement="left-end" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
+                        <Popper placement="bottom" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
                             {({ TransitionProps }) => (
                                 <Fade {...TransitionProps} timeout={350}>
                                     <Paper>
                                         <Typography
                                             className={classes.typography}
                                         >
+                                            <Tooltip title="Account">
+                                                <styled.Icon
+                                                    src={account}
+                                                    alt="account"
+                                                    onClick={this.handlerAccountClick}
+                                                />
+                                            </Tooltip>
+                                            <Tooltip title="Settings">
+                                                <styled.Icon
+                                                    src={settings}
+                                                    alt="logout"
+                                                    onClick={this.openSettings}
+                                                />
+                                            </Tooltip>
                                             <Tooltip title="Basket page">
                                                 <styled.Icon
                                                     src={basket}
                                                     alt="logout"
-                                                    onClick={this.showAlertDialog}
-                                                    style={{ display: iconVisible }}
-                                                />
-                                            </Tooltip>
-                                            <Tooltip title="Account">
-                                                <styled.Icon
-                                                    src={account}
-                                                    alt="logout"
-                                                    onClick={this.showAlertDialog}
-                                                    style={{ display: iconVisible }}
+                                                    onClick={this.handlerBasketClick}
                                                 />
                                             </Tooltip>
                                             <Tooltip title="Logout">
@@ -173,7 +185,6 @@ class Container extends Component {
                                                     src={exit}
                                                     alt="logout"
                                                     onClick={this.showAlertDialog}
-                                                    style={{ display: iconVisible }}
                                                 />
                                             </Tooltip>
                                         </Typography>
@@ -190,7 +201,7 @@ class Container extends Component {
                             />
                         </styledDialog.Dialog>
                     </styled.Header>
-                    <Settings visible={visible} toggleSettings={this.toggleSettings} />
+                    <Settings visible={visible} closeSettings={this.closeSettings} />
                     { children }
                 </styled.Container>
             </ThemeProvider>
