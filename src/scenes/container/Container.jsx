@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
 import Tooltip from '@material-ui/core/Tooltip';
+import Popper from '@material-ui/core/Popper';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
+import Account from '@material-ui/icons/AccountBox';
 import logout from '../../image/logout.svg';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
-import { AlertDialog } from "../../components/dialog/AlertDialog";
+import { AlertDialog } from '../../components/dialog/AlertDialog';
 import DropDown from '../../components/dropDown/DropDown';
+import list from '../../image/list-menu.svg';
+import account from '../../image/account.svg';
+import basket from '../../image/delete.svg';
+import exit from '../../image/exit.svg';
+
+const styles = theme => ({
+    typography: {
+        padding: theme.spacing.unit * 2,
+    },
+});
 
 class Container extends Component {
     constructor(props) {
@@ -20,6 +38,8 @@ class Container extends Component {
             visible: false,
             visibleDialog: false,
             sections: '',
+            anchorEl: null,
+            open: false,
         };
     }
 
@@ -47,15 +67,22 @@ class Container extends Component {
         const { visibleDialog } = this.state;
         this.setState({
             visibleDialog: !visibleDialog,
-        })
+        });
     };
 
+    handleClick = event => {
+        const { currentTarget } = event;
+        this.setState(state => ({
+          anchorEl: currentTarget,
+          open: !state.open,
+        }));
+    };
 
     render() {
-        const { visible, visibleDialog, sections } = this.state;
+        const { visible, visibleDialog, sections, anchorEl, open } = this.state;
         const { location: { pathname } } = history;
         const {
-            children, data, actions,
+            children, data, actions, classes,
         } = this.props;
         const iconVisible = (pathname === '/reg' || pathname === '/auth') ? 'none' : 'inherit';
         return (
@@ -95,7 +122,7 @@ class Container extends Component {
                         <b>To</b>
                         <styled.Line />
                         <b>do</b>
-                        <DropDown
+                        {/* <DropDown
                             changeValue={this.selectSection}
                             titleButton=""
                             currentValue={sections}
@@ -108,15 +135,58 @@ class Container extends Component {
                             stylesValues="margin-left: -78px; width: 100px; border-radius: 8px;"
                             iconVisible={iconVisible}
                             tooltip="Change page"
+                        /> */}
+                        <img
+                            src={list}
+                            alt="settings"
+                            onClick={this.handleClick}
+                            style={{ display: iconVisible, width: '30px', height: '30px', marginLeft: '8px' }}
                         />
-                        <Tooltip title="Logout">
+                        
+                        <Popper placement="left-end" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
+                            {({ TransitionProps }) => (
+                                <Fade {...TransitionProps} timeout={350}>
+                                    <Paper>
+                                        <Typography
+                                            className={classes.typography}
+                                        >
+                                            <Tooltip title="Basket page">
+                                                <styled.Icon
+                                                    src={basket}
+                                                    alt="logout"
+                                                    onClick={this.showAlertDialog}
+                                                    style={{ display: iconVisible }}
+                                                />
+                                            </Tooltip>
+                                            <Tooltip title="Account">
+                                                <styled.Icon
+                                                    src={account}
+                                                    alt="logout"
+                                                    onClick={this.showAlertDialog}
+                                                    style={{ display: iconVisible }}
+                                                />
+                                            </Tooltip>
+                                            <Tooltip title="Logout">
+                                                <styled.Icon
+                                                    src={exit}
+                                                    alt="logout"
+                                                    onClick={this.showAlertDialog}
+                                                    style={{ display: iconVisible }}
+                                                />
+                                            </Tooltip>
+                                        </Typography>
+                                    </Paper>
+                                </Fade>
+                            )}
+                        </Popper>
+                        {/* <Tooltip title="Logout">
                             <styled.Icon
                                 src={logout}
                                 alt="logout"
                                 onClick={this.showAlertDialog}
                                 style={{ display: iconVisible }}
                             />
-                        </Tooltip>
+                        </Tooltip> */}
                         <styledDialog.Dialog>
                             <AlertDialog
                                 visible={visibleDialog}
@@ -152,4 +222,4 @@ const mapDispatchToProps = dispatch => ({
     }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Container));
