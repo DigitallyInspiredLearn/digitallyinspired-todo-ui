@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import InputStyles from './Input.styles';
 import InputCom from '@material-ui/core/Input';
 
-
-class Input extends Component {
+class InputGlobal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,19 +32,19 @@ class Input extends Component {
     };
 
     render() {
-        const { border, style, onBlur } = this.props;
+        const { style, placeholder, icon } = this.props;
         const { value } = this.state;
         return (
-            <InputStyles
-                value={value}
-                onChange={this.handleChange}
-                border={border}
-                style={style}
-                onKeyPress={e => e.key === 'Enter' && e.target.blur()}
-                onBlur={this.handleBlur}
-            />
+                <InputCom
+                    value={value}
+                    onChange={this.handleChange}
+                    style={style}
+                    onKeyPress={e => e.key === 'Enter' && e.target.blur()}
+                    onBlur={this.handleBlur}
+                    placeholder={placeholder}
+                />
         );
     }
 }
 
-export default Input;
+export default InputGlobal;

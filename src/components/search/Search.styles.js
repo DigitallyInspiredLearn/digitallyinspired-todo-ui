@@ -1,9 +1,20 @@
 import styled from 'styled-components';
+import _SearchIcon from '@material-ui/icons/Search';
 
-export default styled.input`
+export const SearchCont =  styled.div`
     display: flex;
-    flex: auto;
-    outline: none;
-    font-size: 20px;
-    color: ${p => p.theme.mainText}
+    height: 52px;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0 0  4px 0 rgba(0,0,0,0.2);
+    border-radius: 4px;
+    margin-top: 6px;
+    padding: 0px 8px;
+`;
+
+export const SearchIcon = styled(_SearchIcon)`
+    width: 5%;
+    margin: auto;
+    color: rgba(0, 0, 0, 0.54);
 `;

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import SockJS from 'sockjs-client';
-import SearchIcon from '@material-ui/icons/Search';
 import { Stomp } from '@stomp/stompjs';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
@@ -12,11 +11,11 @@ import Search from '../../components/search/Search';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import MultiSelect from './multiSelect/MultiSelectContainet';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
+import { InputLabel } from "../../components/dropDown/DropDown.styled";
 
 class DashboardList extends Component {
     constructor(props) {
         super(props);
-
         let stompClient = null;
         const headers = {
             login: 'ann1206',
@@ -75,23 +74,17 @@ class DashboardList extends Component {
             [
                 <styled.App key="app">
                     <styled.Head>
-                        <div style={{
-                            fontSize: '12px', margin: '4px 4px 4px 0', display: 'flex', flex: 'auto', flexDirection: 'column',
-                        }}
-                        >
-                            Search:
-                            <styled.SearchDiv>
+                        <styled.SearchContent>
+                            <InputLabel htmlFor="select-multiple-chip">Search:</InputLabel>
                                 <Search
                                     onChange={this.handleChange}
                                     value={search}
+                                    style={{
+                                        width: '95%'
+                                    }}
                                     placeholder="Search dashboard"
                                 />
-                                <SearchIcon style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-                            </styled.SearchDiv>
-                        </div>
-                        {/*<div style={{ fontSize: '12px', marginTop: '2px', marginLeft: '12px' }}>*/}
-                            {/*Sorting:*/}
-                            {/*<styled.CheckboxDiv>*/}
+                        </styled.SearchContent>
                                 <DropDownMaterial
                                     visible={true}
                                     value={[
@@ -104,53 +97,8 @@ class DashboardList extends Component {
                                         'By Modified Date, low to high',
                                         'By Modified Date, high to low',
                                     ]}
+                                    selectSorting={actions.changeSort}
                                 />
-                                {/*<DropDown*/}
-                                    {/*changeValue={actions.changeSort}*/}
-                                    {/*titleButton={sort}*/}
-                                    {/*currentValue={sort}*/}
-                                    {/*possibleValues={[*/}
-                                        {/*'By id, low to high',*/}
-                                        {/*'By id, high to low',*/}
-                                        {/*'By Name, a - Z',*/}
-                                        {/*'By Name, Z - a',*/}
-                                        {/*'By Created Date, low to high',*/}
-                                        {/*'By Created Date, high to low',*/}
-                                        {/*'By Modified Date, low to high',*/}
-                                        {/*'By Modified Date, high to low',*/}
-                                    {/*]}*/}
-                                    {/*stylesContainer="top: 50px; right: 0px;"*/}
-                                    {/*stylesValues="width: 180px; font-size: 14px;  border-radius: 8px;"*/}
-                                    {/*stylesButton="*/}
-                                    {/*padding: 16px 8px;*/}
-                                    {/*margin-left: 8px;*/}
-                                    {/*font-size: 16px;*/}
-                                    {/*width: auto;*/}
-                                    {/*min-width: 300px;*/}
-                                    {/*font-weight: bold;*/}
-                                    {/*@media (max-width: 600px) {*/}
-                                        {/*flex: 1;*/}
-                                        {/*justify-content: space-between;*/}
-                                        {/*text-align: center;*/}
-                                        {/*padding:5px;*/}
-                                    {/*}*/}
-                                {/*"*/}
-                                {/*/>*/}
-                                {/* <styled.ShowButton
-                                checked={selectedMy}
-                                onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                                style={{ margin: '0px 8px' }}
-                            >
-                            Show my
-                            </styled.ShowButton>
-                            <styled.ShowButton
-                                checked={selectedShared}
-                                onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
-                            >
-                            Show shared
-                            </styled.ShowButton> */}
-                            {/*</styled.CheckboxDiv>*/}
-                        {/*</div>*/}
                         <MultiSelect />
                     </styled.Head>
                     <styled.DashboardList>
