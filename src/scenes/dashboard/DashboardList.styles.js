@@ -8,6 +8,7 @@ export const App = styled.div`
     height: 100vh;
     overflow: auto;
 `;
+
 export const Head = styled.div`
     display: flex;
     flex-direction: row;
@@ -68,8 +69,8 @@ export const Pagination = styled.div`
    .pagination-container {
        display: flex;
        li {
-            transition: background-color .3s;
-           padding: 12px 16px;
+           transition: background-color .3s;
+           padding: 16px 20px;
            background-color: ${p => p.theme.backgroundButton};
        };
        li:hover {
@@ -84,7 +85,7 @@ export const Pagination = styled.div`
        }
    }
    li {
-       margin: 0 4px;
+       margin: 8px 4px;
    }
 `;
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-// import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import { Select } from "./DropDown.styled";
 import { InputLabel } from "./DropDown.styled";
@@ -23,27 +22,27 @@ export class DropDownMaterial extends Component {
     };
 
     render() {
-        const { value, selectSorting } = this.props;
+        const { value, selectSorting, label,style, styleLabel } = this.props;
         const { valueSelect } = this.state;
         return (
             <div>
                 <InputLabel
                     htmlFor="select-multiple-chip"
+                    style={styleLabel}
                 >
-                    Sorting:
+                    {label}
                 </InputLabel>
                 <Select
                     value={valueSelect}
                     onChange={this.handleChange}
-                    selectMenu={{backgroundColor: 'red'}}
-                    input={<Input id="select-multiple-chip" placeholder="choose" />}
+                    input={<Input id="select-multiple-chip" placeholder="choose"/>}
+                    style={style}
                 >
                         {
-                            value.map(i => (<MenuItem value={i}>
-                                <div
-                                    onClick={() => selectSorting(i)}
-                                >{i}</div>
-                            </MenuItem>))
+                            value.map(i => (
+                                <MenuItem value={i}>
+                                    <div onClick={() => selectSorting(i)} >{i}</div>
+                                </MenuItem>))
                         }
                 </Select>
             </div>

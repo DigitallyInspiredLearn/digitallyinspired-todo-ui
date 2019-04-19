@@ -87,7 +87,7 @@ const initialState = {
     currentPage: 0,
     selectedShared: false,
     search: '',
-    pageSize: 4,
+    pageSize: '4/page',
     totalElements: 0,
     sort: 'By id, low to high',
     tagTaskKeys: [],
@@ -147,6 +147,22 @@ export const getSorting = (sort) => {
     return sortValue;
 };
 
+export const getPageSize = (pageSize) => {
+    let pageValue;
+    switch (pageSize) {
+        case '4/page':
+            pageValue = 4;
+            break;
+        case '8/page':
+            pageValue = 8;
+            break;
+        case '16/page':
+            pageValue = 16;
+            break;
+    }
+    return pageValue;
+};
+
 export function* fetchAllLists() {
     const {
         dashboard: {
@@ -154,11 +170,14 @@ export function* fetchAllLists() {
         },
         tags: { selectedTags },
     } = yield select(state => state);
+    console.log(pageSize);
     const sortValue = getSorting(sort);
-    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue)).data;
+    const pageValue = getPageSize(pageSize);
+    console.log(pageValue);
+    const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
-    const res = selectedMy ? (yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE', stringTagsId)) : {};
+    const res = selectedMy ? (yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId)) : {};
     const countElements = res.data.totalElements;
     const myLists = selectedMy ? res.data.content : [];
     const countPages = res.data.totalPages;
