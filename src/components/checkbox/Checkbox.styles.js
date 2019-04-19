@@ -4,8 +4,8 @@ export default styled.div`
     z-index:5;
      width: 17px;
      height: 15px;
-     margin-top: 3px;
-     margin-left: 10px;
+     margin-top: 4px;
+     margin-left: 1px;
      background: ${p => (p.selected ? p.theme.activeCheckbox : p.theme.checkboxBackground)};
      border-radius: 3px;
      position:relative;

@@ -10,7 +10,7 @@ export const Dashboard = styled.section`
     min-width: 500px;
     max-width: 48.75%;
     margin: 8px;
-    border-radius: 5px;
+    border-radius: 4px;
     min-height: 300px;
     max-height: 300px;
     height: auto;
@@ -38,15 +38,6 @@ export const DashboardHeader = styled.div`
     width: 100%
 `;
 
-export const Title = styled.input`
-    font-size: 23px;
-    color: ${p => p.theme.mainText};
-    font-weight: bold;
-    text-overflow: ellipsis;
-    cursor: pointer;
-    outline: none;
-    width: 85%
-`;
 export const IconContainer = styled.div`
     width: auto;
     display: flex;
