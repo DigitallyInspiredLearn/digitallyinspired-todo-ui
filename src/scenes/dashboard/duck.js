@@ -77,7 +77,7 @@ const initialState = {
     currentPage: 0,
     viewList: 'my',
     search: '',
-    pageSize: 4,
+    pageSize: '4/page',
     totalElements: 0,
     sort: 'By id, low to high',
     tagTaskKeys: [],
@@ -134,6 +134,24 @@ export const getSorting = (sort) => {
     return sortValue;
 };
 
+export const getPageSize = (pageSize) => {
+    let pageValue;
+    switch (pageSize) {
+        case '4/page':
+            pageValue = 4;
+            break;
+        case '8/page':
+            pageValue = 8;
+            break;
+        case '16/page':
+            pageValue = 16;
+            break;
+        default:
+            pageValue = 4;
+    }
+    return pageValue;
+};
+
 export function* fetchAllLists() {
     const {
         dashboard: {
@@ -142,11 +160,13 @@ export function* fetchAllLists() {
         tags: { selectedTags },
     } = yield select(state => state);
     const sortValue = getSorting(sort);
-    const keys = (yield call(getTagTaskKeys, currentPage, pageSize, sortValue)).data;
+    const pageValue = getPageSize(pageSize);
+    console.log(pageValue);
+    const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
     if (viewList === 'my') {
-        const res = yield call(getMyList, currentPage, pageSize, sortValue, 'ACTIVE', stringTagsId);
+        const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
         yield put(actions.fetchDashboardSuccess({
             toDoBoardRaw: res.data.content,
             totalElements: res.data.totalElements,
@@ -154,7 +174,7 @@ export function* fetchAllLists() {
         }));
     }
     else {
-        const res = yield call(getSharedLists, currentPage, pageSize, sortValue);
+        const res = yield call(getSharedLists, currentPage, pageValue, sortValue);
         const shared = res.data.content.map(l => ({ ...l, shared: true }));
         yield put(actions.fetchDashboardSuccess({
             toDoBoardRaw: shared,

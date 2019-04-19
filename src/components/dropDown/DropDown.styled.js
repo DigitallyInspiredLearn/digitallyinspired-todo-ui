@@ -18,7 +18,7 @@ export const Select = styled(_Select)`
 export const InputLabel = styled(_InputLabel)`
      color: black;
      font-size: 14px;
-     font-weight: 800;
+     font-weight: 600;
      margin: 4px 0 0 4px;
 `;
 

@@ -192,9 +192,10 @@ export class Dashboard extends Component {
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         style={todoListStatus === 'ACTIVE' ? {
-                            textDecoration: 'none', width: '100%', fontWeight: 'bold', margin: '0 8px',
+                            textDecoration: 'none', width: '80%', fontWeight: 'bold', margin: '0 8px', fontSize: '20px'
                         } : {
-                            textDecoration: 'none', pointerEvents: 'none', width: '100%', fontWeight: 'bold', marginLeft: '8px',
+                            textDecoration: 'none', pointerEvents: 'none', width: '80%',
+                            fontWeight: 'bold', marginLeft: '8px', fontSize: '20px'
                         }}
                         placeholder="Add title"
                     />
