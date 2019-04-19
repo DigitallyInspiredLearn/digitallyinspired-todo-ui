@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Info from '@material-ui/icons/Info';
+import Empty from '@material-ui/icons/ArrowUpward';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import * as stylesTask from '../../dashboard/task/Task.styled';
 import Checkbox from '../../../components/checkbox/Checkbox';
@@ -43,10 +44,13 @@ const styles = theme => ({
         color: 'red',
     },
     width: {
-        maxWidth: '10px',
+        width: '15px',
     },
     max: {
         width: 'auto',
+    },
+    duration: {
+        maxWidth: '3px',
     },
 });
 
@@ -133,7 +137,7 @@ class TaskForList extends Component {
             default:
                 return (
                     <Tooltip title="Priority: NOT SPECIFIED">
-                        <img src={empty} width="20px" height="20px" alt="not_specified" style={{ marginLeft: '2px', marginBottom: '-5px' }} />
+                        <Empty width="20px" height="20px" alt="not_specified" style={{ padding: '3px 4px', width: '20px', height: '20px' }} />
                     </Tooltip>
                 );
         }
@@ -245,7 +249,7 @@ class TaskForList extends Component {
                         : 'in process'}
                     </TableCell>
 
-                    <TableCell lign="left">
+                    <TableCell align="left">
                         {
                             (durationTime !== null && durationTime !== 0)
                                 ? ` ${(moment.duration(durationTime).days())}d
@@ -254,7 +258,7 @@ class TaskForList extends Component {
                                 : null
                         }
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="left">
                         <Tooltip title="Delete task">
                             <Delete
                                 aria-label="trash"

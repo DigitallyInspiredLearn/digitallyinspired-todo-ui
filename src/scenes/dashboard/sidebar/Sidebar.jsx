@@ -19,7 +19,7 @@ class Sidebar extends Component {
         this.state = {
             todoListName: '',
             displayStyle: 'none',
-            tasks: [{ body: '', priority: 'NOT_SPECIFIED', isComplete: false }],
+            tasks: [],
             animation: '',
             bool: false,
             displayTrash: 'none',
@@ -38,8 +38,8 @@ class Sidebar extends Component {
 
     addBoard = (title, tasks, { addNewDashboard } = this.props) => {
         const titleValue = !title ? 'DashboardList' : title;
-        // const taskValue = tasks === {} ? { body: '', isComplete: false } : tasks;
-        // console.log(tasks);
+        // const tasksValue = tasks === {} ? [] : tasks;
+        // console.log(tasksValue);
         addNewDashboard({
             todoListName: titleValue,
             tasks,
@@ -63,6 +63,7 @@ class Sidebar extends Component {
 
     handlerOnClick = (e) => {
         e.target.blur();
+        this.setState({ tasks: [] });
     };
 
     handleAddInputTask = () => {
@@ -128,6 +129,7 @@ class Sidebar extends Component {
                                         placeholder={`Add ${i + 1} to-do`}
                                         value={task.body}
                                         onChange={this.changeValueName(i)}
+                                        required="required"
                                     />
                                     <Tooltip title="Select priority" placement="left-end">
                                         <FormControl
@@ -201,6 +203,7 @@ class Sidebar extends Component {
                                 this.updateDisplaySidebar();
                                 this.addBoard(todoListName, tasks);
                                 this.handlerOnClick(e);
+                                
                             }}
                         >Add
                         </styled.AddButton>
