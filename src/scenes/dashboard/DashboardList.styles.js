@@ -87,7 +87,7 @@ export const Pagination = styled.div`
        li {
            transition: background-color .3s;
            padding: 16px 20px;
-           background-color: ${p => p.theme.backgroundButton};
+           background-color: ${p => p.theme.backgroundList};
        };
        li:hover {
            background-color: ${p => p.theme.hoverButton};
@@ -101,7 +101,8 @@ export const Pagination = styled.div`
        }
    }
    li {
-       margin: 8px 4px;
+       margin: 7px 4px;
+       box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
    }
 `;
 

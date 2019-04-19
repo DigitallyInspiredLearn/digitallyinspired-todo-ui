@@ -2,17 +2,17 @@ import styled from 'styled-components';
 
 export const Subscribes = styled.div`
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 50%;
 `;
 
 export const Title = styled.div`
-    font-family: Helvetica;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     align-self: center;
     margin: 8px 0px 16px;
     font-size: 30px;
-    font-weight: bold;
+    font-weight: 400;
     color: ${p => p.theme.mainText};
 `;
 
@@ -30,13 +30,13 @@ export const TableSubscribers = styled.table`
     margin: 8px 12px 8px 8px;
     border-radius: 5px;
     height: 100px;
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     overflow: auto;
-    font-family: Helvetica;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 `;
 
 export const Tr = styled.tr`
-    width:100%;
+    width: 100%;
     border-radius:5px;
     height:20px;
     &:nth-child(2n+1){
