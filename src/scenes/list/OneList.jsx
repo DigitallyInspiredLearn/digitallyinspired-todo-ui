@@ -435,13 +435,13 @@ class OneList extends Component {
                                 style={{ padding: '12px' }}
                                 onClick={this.toggleComment}
                             >
-                                <Cancel />
+                                <Cancel style={{ color: 'red' }} />
                             </IconButton>
                             <IconButton
                                 style={{ padding: '12px' }}
                                 onClick={() => this.handleUpdate()}
                             >
-                                <Done />
+                                <Done style={{ color: 'green' }} />
                             </IconButton>
                         </div>
                     </styled.Expand>
