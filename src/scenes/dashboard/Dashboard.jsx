@@ -17,8 +17,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import InputGlobal from '../../components/input/InputGlobal';
 import TextField from '@material-ui/core/TextField';
+import InputGlobal from '../../components/input/InputGlobal';
 import * as styled from './Dashboard.styled';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
@@ -27,6 +27,7 @@ import pushpin from '../../image/pushpin.svg';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
+import empty from '../../image/empty.svg';
 import PopupContainer from '../popup/PopupContainer';
 
 export const getTaskList = (tasks, props) => (
@@ -64,7 +65,7 @@ export class Dashboard extends Component {
             newTitle: props.title,
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
-            visibleAllDashboardTags: false,
+            visibleAllDashboardTags: true,
             visibleDelete: false,
             visibleRestore: false,
         };
@@ -107,14 +108,14 @@ export class Dashboard extends Component {
         const { visibleDelete } = this.state;
         this.setState({
             visibleDelete: !visibleDelete,
-        })
+        });
     };
 
     showAlertRestoreDialog = () => {
         const { visibleRestore } = this.state;
         this.setState({
             visibleRestore: !visibleRestore,
-        })
+        });
     };
 
     handleUpdateTitle = (newValue) => {
@@ -196,17 +197,17 @@ export class Dashboard extends Component {
                             textDecoration: 'none', pointerEvents: 'none', width: '80%',
                             fontWeight: 'bold', marginLeft: '8px', fontSize: '20px'
                         }}
-                        placeholder='Add title'
+                        placeholder="Add title"
                     />
                     {
-                        todoListStatus === 'ACTIVE' ? (
-                            shared
+                        shared
+                            ? (
+                                <styled.IconContainer>
+                                    <styled.Icon src={pushpin} alt="List is shared" />
+                                </styled.IconContainer>
+                            )
+                            : (todoListStatus === 'ACTIVE'
                                 ? (
-                                    <styled.IconContainer>
-                                        <styled.Icon src={pushpin} alt="List is shared" />
-                                    </styled.IconContainer>
-                                )
-                                : (
                                     <styled.IconContainer>
                                         <div
                                             style={{
@@ -215,21 +216,22 @@ export class Dashboard extends Component {
                                                 color: 'grey',
                                                 cursor: 'default',
                                             }}
-                                            onMouseOver={() => this.setState({ visibleAllDashboardTags: !visibleAllDashboardTags })}
-                                            onMouseOut={() => this.setState({ visibleAllDashboardTags: !visibleAllDashboardTags })}
+                                            onClick={() => this.setState({
+                                                visibleAllDashboardTags: !visibleAllDashboardTags,
+                                            })}
                                         >tags
                                         </div>
                                         <Link to={`/lists/${idList}`}>
                                             <styled.IconInfo>
                                                 <p>
                                                     <b>Information about list "{title}":</b><br />
-                                                    Created by: {createdBy}<br />
-                                                    Created time: {new Date(createdDate).toLocaleString()}<br />
-                                                    Modyfied by: {modifiedBy}<br />
-                                                    Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                                    Comment: {comment || 'not written yet'}
+                                                Created by: {createdBy}<br />
+                                                Created time: {new Date(createdDate).toLocaleString()}<br />
+                                                Modyfied by: {modifiedBy}<br />
+                                                Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                Comment: {comment || 'not written yet'}
                                                 </p>
-                                                
+
                                                 <IconButton
                                                     aria-label="info"
                                                     style={{ borderRadius: '40%', padding: '4px' }}
@@ -263,52 +265,54 @@ export class Dashboard extends Component {
                                             <AlertDialog
                                                 visible={visibleDelete}
                                                 onClose={this.showAlertDeleteDialog}
-                                                value='Do you want to delete this list?'
+                                                value="Do you want to delete this list?"
                                                 onConfirm={() => actions.deleteDashboard({ id: idList })}
                                             />
                                         </styledDialog.Dialog>
                                     </styled.IconContainer>
                                 )
-                        ) : (
-                            <styled.IconContainer>
-                                <Tooltip title="Restore list">
-                                    <IconButton
-                                        aria-label="restore"
-                                        onClick={this.showAlertRestoreDialog}
-                                        alt="Restore this list"
-                                        style={{ borderRadius: '40%', padding: '4px' }}
-                                    >
-                                        <Restore
-                                            style={{ borderRadius: '40%' }}
+                                : (
+                                    <styled.IconContainer>
+                                        <Tooltip title="Restore list">
+                                            <IconButton
+                                                aria-label="restore"
+                                                onClick={this.showAlertRestoreDialog}
+                                                alt="Restore this list"
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                            >
+                                                <Restore
+                                                    style={{ borderRadius: '40%' }}
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <AlertDialog
+                                            visible={visibleRestore}
+                                            onClose={this.showAlertRestoreDialog}
+                                            value="Do you want to restore this list?"
+                                            onConfirm={() => actionsBasket.restoreList({ id: idList })}
                                         />
-                                    </IconButton>
-                                </Tooltip>
-                                <AlertDialog
-                                    visible={visibleRestore}
-                                    onClose={this.showAlertRestoreDialog}
-                                    value="Do you want to restore this list?"
-                                    onConfirm={() => actionsBasket.restoreList({ id: idList })}
-                                />
-                                <Tooltip title="Delete list forever">
-                                    <IconButton
-                                        aria-label="trash"
-                                        onClick={this.showAlertDeleteDialog}
-                                        style={{ borderRadius: '40%', padding: '4px' }}
-                                        alt="Delete this list"
-                                    >
-                                        <Delete />
-                                    </IconButton>
-                                </Tooltip>
-                                <styledDialog.Dialog>
-                                    <AlertDialog
-                                        visible={visibleDelete}
-                                        onClose={this.showAlertDeleteDialog}
-                                        value="Do you want to delete this list forever?"
-                                        onConfirm={() => actionsBasket.deletedList({ id: idList })}
-                                    />
-                                </styledDialog.Dialog>
-                            </styled.IconContainer>
-                        )
+                                        <Tooltip title="Delete list forever">
+                                            <IconButton
+                                                aria-label="trash"
+                                                onClick={this.showAlertDeleteDialog}
+                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                alt="Delete this list"
+                                            >
+                                                <Delete />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <styledDialog.Dialog>
+                                            <AlertDialog
+                                                visible={visibleDelete}
+                                                onClose={this.showAlertDeleteDialog}
+                                                value="Do you want to delete this list forever?"
+                                                onConfirm={() => actionsBasket.deletedList({ id: idList })}
+                                            />
+                                        </styledDialog.Dialog>
+                                    </styled.IconContainer>
+                                )
+                            )
+
                     }
                 </styled.DashboardHeader>
                 <div
@@ -354,13 +358,13 @@ export class Dashboard extends Component {
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
                                             }), this.setState({ priority: 'NOT_SPECIFIED' })
-                                            
+
                                             ))
                                         }
                                         onBlur={this.handlerOnBlur}
                                     />
                                     <FormControl
-                                        style={{ marginTop: '-10px', marginRight: '50px' }}
+                                        style={{ marginTop: '-10px', marginRight: '80px' }}
                                     >
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
@@ -370,33 +374,33 @@ export class Dashboard extends Component {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}
-                                            style={{ width: '155px' }}
+                                            style={{ width: '190px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
-                                                <em>NOT SPECIFIED</em>
+                                                <img
+                                                    src={empty}
+                                                    width="15px"
+                                                    alt="EMPTY"
+                                                    style={{ marginLeft: '8px' }}
+                                                />
+                                                <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                             </MenuItem>
                                             <MenuItem value="LOW">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
+                                                <styled.PriorityImage
                                                     src={low}
                                                     alt="LOW"
                                                 />
                                                 LOW
                                             </MenuItem>
                                             <MenuItem value="MEDIUM">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
+                                                <styled.PriorityImage
                                                     src={medium}
                                                     alt="MEDIUM"
                                                 />
                                                 MEDIUM
                                             </MenuItem>
                                             <MenuItem value="HIGH">
-                                                <img
-                                                    width="15%"
-                                                    height="15%"
+                                                <styled.PriorityImage
                                                     src={high}
                                                     alt="HIGH"
                                                 />

@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
 import DropDown from '../../components/dropDown/DropDown';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
@@ -14,7 +12,30 @@ import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
 import { InputLabel } from '../../components/dropDown/DropDown.styled';
 
 class DashboardList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            alignment: 'my',
+        };
+    }
+
     componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
+
+    componentWillUnmount = () => {
+        const { actions } = this.props;
+        this.setState(
+            { alignment: 'my' },
+            () => actions.updateViewLists('my'),
+        );
+    };
+
+
+    handleAlignment = () => {
+        const { actions } = this.props;
+        const { alignment } = this.state;
+        const value = alignment === 'my' ? 'shared' : alignment === 'shared' && 'my';
+        this.setState({ alignment: value }, () => actions.updateViewLists(value));
+    };
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
@@ -29,18 +50,16 @@ class DashboardList extends Component {
     render() {
         const {
             search,
-            selectedMy,
-            selectedShared,
             actions,
             toDoBoard,
             pageSize,
             totalPages,
-            sort,
             currentUser,
             tags,
             tagTaskKeys,
             actionsBasket,
         } = this.props;
+        const { alignment } = this.state;
         return (
             [
                 <styled.App key="app">
@@ -71,22 +90,44 @@ class DashboardList extends Component {
                             selectSorting={actions.changeSort}
                         />
                         <MultiSelect />
-                        <styled.CheckboxDiv>
-                            <InputLabel htmlFor="select-multiple-chip">Show:</InputLabel>
-                            <div style={{display: 'flex'}}>
-                            <styled.ShowButton
-                                checked={selectedMy}
-                                onClick={() => actions.updateSelectedMyLists(!selectedMy)}
-                                style={{ margin: '0px 8px' }}
+                        <styled.CheckboxDiv style={{ padding: 0, margin: 0 }}>
+                            <InputLabel htmlFor="select-multiple-chip">View lists:</InputLabel>
+                            <styled.ToggleButtonGroup
+                                style={{
+                                    backgroundColor: 'white',
+                                    boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+                                    borderBottom: '1px solid grey',
+                                    margin: '6px 4px 4px 8px',
+                                    borderRadius: '4px',
+                                }}
+                                value={alignment}
+                                exclusive
+                                onChange={this.handleAlignment}
                             >
-                                Show my
-                            </styled.ShowButton>
-                            <styled.ShowButton
-                                checked={selectedShared}
-                                onClick={() => actions.updateSelectedSharedLists(!selectedShared)}
-                            >
-                                Show shared
-                            </styled.ShowButton></div>
+                                <styled.ToggleButton
+                                    style={{
+                                        color: 'black',
+                                        height: '52px',
+                                        display: 'flex',
+                                        alignSelf: 'center',
+                                        borderRight: '1px solid lightgrey',
+                                    }}
+                                    value="my"
+                                >
+                                    My
+                                </styled.ToggleButton>
+                                <styled.ToggleButton
+                                    style={{
+                                        color: 'black',
+                                        height: '52px',
+                                        display: 'flex',
+                                        alignSelf: 'center',
+                                    }}
+                                    value="shared"
+                                >
+                                    Shared
+                                </styled.ToggleButton>
+                            </styled.ToggleButtonGroup>
                         </styled.CheckboxDiv>
                     </styled.Head>
                     <styled.DashboardList>

@@ -10,9 +10,9 @@ import * as styled from '../../dashboard/DashboardList.styles';
 import DropDown from '../../../components/dropDown/DropDown';
 import { Dashboard } from '../../dashboard/Dashboard';
 import * as styledDialog from '../../../components/dialog/AlertDialog.styles';
-import { AlertDialog } from "../../../components/dialog/AlertDialog";
-class DashboardListBasket extends Component {
+import { AlertDialog } from '../../../components/dialog/AlertDialog';
 
+class DashboardListBasket extends Component {
     constructor(props) {
         super(props);
         this.state = {

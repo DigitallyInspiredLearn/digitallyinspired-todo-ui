@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Workbook from 'react-excel-workbook';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -18,15 +25,43 @@ import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
-import randomInteger from '../../config/helper';
 import * as styled from './OneList.styles';
-import trash from '../../image/trash.svg';
-import * as styledPopup from '../popup/Popup.styles';
 import * as styledDashboard from '../dashboard/DashboardList.styles';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
+import xls from '../../image/xls-file.svg';
+import pdf from '../../image/pdf-file.svg';
 import empty from '../../image/empty.svg';
+const CustomTableCell = withStyles(theme => ({
+    head: {
+        backgroundColor: 'gray',
+        color: theme.palette.common.white,
+        fontSize: 16,
+        maxWidth: '1px',
+    },
+}))(TableCell);
+
+const styles = theme => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+        height: 'auto',
+    },
+    table: {
+        minWidth: 700,
+    },
+    header: {
+        color: 'red',
+    },
+    width: {
+        maxWidth: '4px',
+    },
+    max: {
+        maxWidth: '2px',
+    },
+});
 
 class OneList extends Component {
     constructor(props) {
@@ -37,10 +72,13 @@ class OneList extends Component {
             newComment: props.data.comment || '',
             priority: 'NOT_SPECIFIED',
             visible: false,
+            alignment: ['notDone', 'done'],
         };
     }
 
     changeValueNewTask = e => this.setState({ valueNewTask: e.target.value });
+
+    handleFormat = (event, alignment) => this.setState({ alignment });
 
     handlerOnBlur = (e) => {
         e.target.blur();
@@ -51,8 +89,9 @@ class OneList extends Component {
     };
 
     toggleComment = () => {
+        const { stateComment } = this.state;
         this.setState({
-            stateComment: !this.state.stateComment,
+            stateComment: !stateComment,
         });
     };
 
@@ -61,9 +100,7 @@ class OneList extends Component {
     };
 
     handleUpdate = () => {
-        const {
-            actions, data,
-        } = this.props;
+        const { actions, data } = this.props;
         const { newComment } = this.state;
         actions.updateComment({ id: data.id, newComment });
         this.toggleComment();
@@ -84,7 +121,7 @@ class OneList extends Component {
 
     downloadToPDF = (data) => {
         const doc = new jsPDF();
-        doc.text(`Dashboard: "${data.todoListName}, created by User at Time\nLast modify :data\nCommentar : Commentar"`, 15, 10);
+        doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
         data.tasks.length
             ? doc.autoTable({
                 head: [['+/-', 'name tasks', 'priority', 'created data', 'tags', 'completed data']],
@@ -97,13 +134,29 @@ class OneList extends Component {
         doc.save(`${data.todoListName}.pdf`);
     };
 
+    handleSelectTask = () => {
+        const {
+            selected, actionsList, nameTask, idTask, idList, priority,
+        } = this.props;
+
+        if (!selected) {
+            this.setState({ statePopup: true });
+        } else {
+            this.setState({ durationTime: 0 });
+            actionsList.updateCheckboxList({
+                idDashboard: idList, nameTask, idTask, selected, body: nameTask, durationTime: 0, priority,
+            });
+        }
+    };
+
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible,
+            valueNewTask, stateComment, comment, priority, visible, alignment, newComment,
         } = this.state;
         const {
-            match, actions, data, actionsBoard, done, notDone, tasks,
+            match, actions, data, actionsBoard, done, notDone, tasks, classes,
         } = this.props;
+        console.log(data.comment);
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -148,44 +201,36 @@ class OneList extends Component {
                         value="Do you want to delete this list?"
                         onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
                     />
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            display: 'flex',
-                            alignItems: 'center',
-                            fontSize: '22px',
-                            color: 'gray',
-                            marginLeft: '8px',
-                        }}
-                        className="fa fa-download"
-                    >
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <Tooltip title="Download as PDF">
-                                <styled.animationButton onClick={() => this.downloadToPDF(data)}>
-                                    pdf
-                                </styled.animationButton>
+                    <Tooltip title="Download as PDF">
+                        <img
+                            src={pdf}
+                            alt="download in pdf"
+                            onClick={() => this.downloadToPDF(data)}
+                            style={{ height: '37px' }}
+                        />
+                    </Tooltip>
+                    <Workbook
+                        style={{ marginTop: '8px' }}
+                        filename="list.xlsx"
+                        element={(
+                            <Tooltip title="Download as XLS">
+                                <img
+                                    src={xls}
+                                    alt="download in xls"
+                                    style={{ height: '37px', paddingTop: '4px' }}
+                                />
                             </Tooltip>
+                        )}
+                    >
+                        <Workbook.Sheet data={dataXLS} name="list">
+                            <Workbook.Column label="+/-" value="doneOrNot" />
+                            <Workbook.Column label="name tasks" value="nameTasks" />
+                            <Workbook.Column label="priority" value="priority" />
+                            <Workbook.Column label="duration time" value="doUp" />
+                        </Workbook.Sheet>
 
-                            <Workbook
-                                filename="list.xlsx"
-                                element={(
-                                    <Tooltip title="Download as XLS">
-                                        <styled.animationButton>xls</styled.animationButton>
-                                    </Tooltip>
-                                )}
-                            >
+                    </Workbook>
 
-                                <Workbook.Sheet data={dataXLS} name="list">
-                                    <Workbook.Column label="+/-" value="doneOrNot" />
-                                    <Workbook.Column label="name tasks" value="nameTasks" />
-                                    <Workbook.Column label="priority" value="priority" />
-                                    <Workbook.Column label="do up" value="doUp" />
-                                </Workbook.Sheet>
-
-                            </Workbook>
-
-                        </div>
-                    </div>
                 </styled.inputBlock>
                 <styled.blockTask>
                     <styled.inputDiv>
@@ -198,50 +243,89 @@ class OneList extends Component {
                             })}
                         />
                         <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-                        <styledDashboard.CheckboxDiv>
-                            <styledDashboard.ShowButton
-                                checked={notDone}
+
+                        <styledDashboard.ToggleButtonGroup
+                            style={{
+                                backgroundColor: 'white',
+                                boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+                                borderBottom: '1px solid grey',
+                                margin: '6px 0 4px 8px',
+                                borderRadius: '4px',
+                            }}
+                            value={alignment} onChange={this.handleFormat}
+                        >
+                            <styledDashboard.ToggleButton
+                                style={{
+                                    color: 'black',
+                                    height: '52px',
+                                    display: 'flex',
+                                    alignSelf: 'center',
+                                    borderRight: '1px solid lightgrey',
+                                }}
+                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
+                                value="done"
+                            >
+                                done
+                            </styledDashboard.ToggleButton>
+                            <styledDashboard.ToggleButton
+                                style={{
+                                    color: 'black',
+                                    height: '52px',
+                                    display: 'flex',
+                                    alignSelf: 'center',
+                                }}
                                 onClick={() => actions.selectedNotDoneAction({
                                     notDone,
                                     idList: match.params.id,
                                 })}
-                                style={{ marginRight: '5px', borderRadius: '5px 0 0 5px' }}
+                                value="notDone"
                             >
                                 not done
-                            </styledDashboard.ShowButton>
-                            <styledDashboard.ShowButton
-                                checked={done}
-                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
-                                style={{ borderRadius: '0 5px 5px 0' }}
-                            >
-                                done
-                            </styledDashboard.ShowButton>
-                        </styledDashboard.CheckboxDiv>
+                            </styledDashboard.ToggleButton>
+                        </styledDashboard.ToggleButtonGroup>
                     </styled.inputDiv>
                     <div>
-                        {
-                            tasks.length === 0
-                                ? (
-                                    <styled.nullTask>
+                        <Paper className={classes.root}>
+                            <Table className={classes.table}>
+                                <TableHead>
+                                    <TableRow className={classes.header}>
+                                        <CustomTableCell align="left">Is done</CustomTableCell>
+                                        <CustomTableCell align="left">Priority</CustomTableCell>
+                                        <CustomTableCell align="left">Name</CustomTableCell>
+                                        <CustomTableCell align="left">Created date</CustomTableCell>
+                                        <CustomTableCell align="left">Completed date</CustomTableCell>
+                                        <CustomTableCell align="left">Duration time</CustomTableCell>
+                                        <CustomTableCell align="left">Delete task</CustomTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                {
+                                    tasks.length === 0
+                                        ? (
+                                            <styled.nullTask>
                                         You have no tasks yet, it's time to be active!
-                                    </styled.nullTask>
-                                )
-                                : tasks.map(i => (
-                                    <TaskForList
-                                        idTask={i.id}
-                                        idList={match.params.id}
-                                        key={i.id}
-                                        selected={i.isComplete}
-                                        nameTask={i.body}
-                                        actionsBoard={actionsBoard}
-                                        actionsList={actions}
-                                        priority={i.priority}
-                                        createdDate={i.createdDate}
-                                        completedDate={i.completedDate}
-                                        durationTime={i.durationTime}
-                                    />
-                                ))
-                        }
+                                            </styled.nullTask>
+                                        )
+                                        : tasks.map(i => (
+
+                                            <TableBody>
+                                                <TaskForList
+                                                    idTask={i.id}
+                                                    idList={match.params.id}
+                                                    key={i.id}
+                                                    selected={i.isComplete}
+                                                    nameTask={i.body}
+                                                    actionsBoard={actionsBoard}
+                                                    actionsList={actions}
+                                                    priority={i.priority}
+                                                    createdDate={i.createdDate}
+                                                    completedDate={i.completedDate}
+                                                    durationTime={i.durationTime}
+                                                />
+                                            </TableBody>
+                                        ))
+                                }
+                            </Table>
+                        </Paper>
                     </div>
                     <styled.addTaskContainer
                         visible={!stateComment}
@@ -277,37 +361,37 @@ class OneList extends Component {
                                     name: 'age',
                                     id: 'age-simple',
                                 }}
-                                style={{ width: '155px' }}
+                                style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    <em>NOT SPECIFIED</em>
+                                    <img
+                                        src={empty}
+                                        width="15px"
+                                        alt="EMPTY"
+                                        style={{ marginLeft: '8px' }}
+                                    />
+                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                 </MenuItem>
                                 <MenuItem value="LOW">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={low}
                                         alt="LOW"
                                     />
-                                    LOW
+                                    <em>LOW</em>
                                 </MenuItem>
                                 <MenuItem value="MEDIUM">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={medium}
                                         alt="MEDIUM"
                                     />
-                                    MEDIUM
+                                    <em>MEDIUM</em>
                                 </MenuItem>
                                 <MenuItem value="HIGH">
-                                    <img
-                                        width="15%"
-                                        height="15%"
+                                    <styled.PriorityImage
                                         src={high}
                                         alt="HIGH"
                                     />
-                                    HIGH
+                                    <em>HIGH</em>
                                 </MenuItem>
                             </Select>
                         </FormControl>
@@ -323,7 +407,7 @@ class OneList extends Component {
                     <styled.Expand
                         visible={stateComment}
                     >
-                        { data.comment !== undefined ? (
+                        { (data.comment !== undefined && data.comment !== null) ? (
                             <TextField
                                 onChange={e => this.handleUpdateComment(e.target.value)}
                                 defaultValue={data.comment}
@@ -378,4 +462,4 @@ OneList.defaultProps = {
     data: {},
 };
 
-export default OneList;
+export default withStyles(styles)(OneList);

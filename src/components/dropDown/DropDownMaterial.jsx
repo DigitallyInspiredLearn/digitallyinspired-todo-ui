@@ -37,12 +37,11 @@ export class DropDownMaterial extends Component {
                     onChange={this.handleChange}
                     input={<Input id="select-multiple-chip" placeholder="choose"/>}
                     style={style}
+                    onClick={(e) => selectSorting(e.target.value)}
                 >
                         {
                             value.map(i => (
-                                <MenuItem value={i}>
-                                    <div onClick={() => selectSorting(i)} >{i}</div>
-                                </MenuItem>))
+                                <MenuItem value={i}>{i}</MenuItem>))
                         }
                 </Select>
             </div>
