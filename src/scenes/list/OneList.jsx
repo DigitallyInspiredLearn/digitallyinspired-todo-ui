@@ -23,6 +23,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import Delete from '@material-ui/icons/Delete';
 import Search from '@material-ui/icons/Search';
+import Empty from '@material-ui/icons/ArrowUpward';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
@@ -364,12 +365,13 @@ class OneList extends Component {
                                 style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    <img
+                                    {/* <img
                                         src={empty}
                                         width="15px"
                                         alt="EMPTY"
                                         style={{ marginLeft: '8px' }}
-                                    />
+                                    /> */}
+                                    <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }}/>
                                     <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                 </MenuItem>
                                 <MenuItem value="LOW">
