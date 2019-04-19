@@ -185,3 +185,8 @@ export const ButtonPlus = styled.img`
     }    
 }
 `;
+
+export const PriorityImage = styled.img`
+    width: 15%;
+    height: 15px;
+`;
