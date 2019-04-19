@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
+import Empty from '@material-ui/icons/ArrowUpward';
 import plus from '../../../image/plus.svg';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
@@ -37,9 +38,7 @@ class Sidebar extends Component {
     };
 
     addBoard = (title, tasks, { addNewDashboard } = this.props) => {
-        const titleValue = !title ? 'DashboardList' : title;
-        // const tasksValue = tasks === {} ? [] : tasks;
-        // console.log(tasksValue);
+        const titleValue = !title ? 'To do list' : title;
         addNewDashboard({
             todoListName: titleValue,
             tasks,
@@ -145,38 +144,40 @@ class Sidebar extends Component {
                                                     name: 'age',
                                                     id: 'age-simple',
                                                 }}
-                                                style={{ width: '155px' }}
+                                                style={{ width: '170px' }}
                                             >
                                                 <MenuItem value="NOT_SPECIFIED">
-                                                    <em>NOT SPECIFIED</em>
-                                                </MenuItem>
-                                                <MenuItem value="LOW">
-                                                    <img
-                                                        width="15%"
-                                                        height="15%"
-                                                        src={low}
-                                                        alt="LOW"
-                                                    />
-                                                    LOW
-                                                </MenuItem>
-                                                <MenuItem value="MEDIUM">
-                                                    <img
-                                                        width="15%"
-                                                        height="15%"
-                                                        src={medium}
-                                                        alt="MEDIUM"
-                                                    />
-                                                    MEDIUM
-                                                </MenuItem>
-                                                <MenuItem value="HIGH">
-                                                    <img
-                                                        width="15%"
-                                                        height="15%"
-                                                        src={high}
-                                                        alt="HIGH"
-                                                    />
-                                                    HIGH
-                                                </MenuItem>
+                                                {/* <img
+                                                    src={empty}
+                                                    width="15px"
+                                                    alt="EMPTY"
+                                                    style={{ marginLeft: '8px' }}
+                                                /> */}
+                                                <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }} />
+                                                <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                            </MenuItem>
+                                            <MenuItem value="LOW">
+                                                <styled.PriorityImage
+                                                    src={low}
+                                                    alt="LOW"
+                                                />
+                                                LOW
+                                            </MenuItem>
+                                            <MenuItem value="MEDIUM">
+                                                <styled.PriorityImage
+                                                    src={medium}
+                                                    alt="MEDIUM"
+                                                    style={{ color: 'gray' }}
+                                                />
+                                                MEDIUM
+                                            </MenuItem>
+                                            <MenuItem value="HIGH">
+                                                <styled.PriorityImage
+                                                    src={high}
+                                                    alt="HIGH"
+                                                />
+                                                HIGH
+                                            </MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Tooltip>

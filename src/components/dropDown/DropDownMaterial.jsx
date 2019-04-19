@@ -35,7 +35,6 @@ export class DropDownMaterial extends Component {
                 <Select
                     value={valueSelect}
                     onChange={this.handleChange}
-                    input={<Input id="select-multiple-chip" placeholder="choose"/>}
                     style={style}
                     onClick={(e) => selectSorting(e.target.value)}
                 >
