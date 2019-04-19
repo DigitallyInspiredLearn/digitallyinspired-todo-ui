@@ -11,6 +11,7 @@ import Delete from '@material-ui/icons/Delete';
 import Restore from '@material-ui/icons/RestoreFromTrash';
 import Done from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
+import Empty from '@material-ui/icons/ArrowUpward';
 import Share from '@material-ui/icons/Share';
 import Info from '@material-ui/icons/Info';
 import FormControl from '@material-ui/core/FormControl';
@@ -140,6 +141,7 @@ export class Dashboard extends Component {
     handleUpdateCommentSuccess = () => {
         const { actions, idList, title } = this.props;
         const { newComment } = this.state;
+        this.setState({ stateComment: !this.state.stateComment });
         actions.updateComment({ id: idList, title, newComment });
     };
 
@@ -377,12 +379,13 @@ export class Dashboard extends Component {
                                             style={{ width: '190px' }}
                                         >
                                             <MenuItem value="NOT_SPECIFIED">
-                                                <img
+                                                {/* <img
                                                     src={empty}
                                                     width="15px"
                                                     alt="EMPTY"
                                                     style={{ marginLeft: '8px' }}
-                                                />
+                                                /> */}
+                                                <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }} />
                                                 <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                             </MenuItem>
                                             <MenuItem value="LOW">
@@ -396,6 +399,7 @@ export class Dashboard extends Component {
                                                 <styled.PriorityImage
                                                     src={medium}
                                                     alt="MEDIUM"
+                                                    style={{ color: 'gray' }}
                                                 />
                                                 MEDIUM
                                             </MenuItem>
@@ -408,7 +412,7 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <Tooltip title={high} placement="top">
+                                    <Tooltip title="Comment" placement="top">
                                         <IconButton
                                             aria-label="Comment"
                                             onClick={this.toggleComment}
@@ -447,13 +451,13 @@ export class Dashboard extends Component {
                             style={{ padding: '12px' }}
                             onClick={this.handlerOnBlur}
                         >
-                            <Cancel />
+                            <Cancel style={{ color: 'red' }} />
                         </IconButton>
                         <IconButton
                             style={{ padding: '12px' }}
                             onClick={() => this.handleUpdateCommentSuccess()}
                         >
-                            <Done />
+                            <Done style={{ color: 'green' }} />
                         </IconButton>
                     </div>
                 </styled.Expand>

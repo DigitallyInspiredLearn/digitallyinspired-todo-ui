@@ -143,5 +143,5 @@ export const Textarea = styled.textarea`
 
 export const PriorityImage = styled.img`
     width: 15%;
-    height: 20px;
+    height: 15px;
 `;

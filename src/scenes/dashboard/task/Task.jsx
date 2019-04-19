@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Delete from '@material-ui/icons/Delete';
 import Info from '@material-ui/icons/Info';
+import Empty from '@material-ui/icons/ArrowUpward';
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
@@ -108,25 +109,25 @@ class Task extends Component {
             case 'LOW':
                 return (
                     <Tooltip title="Priority: LOW">
-                        <img src={low} width="20px" height="25px" alt="low" style={{ marginLeft: '4px' }} />
+                        <img src={low} width="20px" height="25px" alt="low" style={{ padding: '0 4px' }} />
                     </Tooltip>
                 );
             case 'MEDIUM':
                 return (
                     <Tooltip title="Priority: MEDIUM">
-                        <img src={medium} width="20px" height="25px" alt="medium" style={{ marginLeft: '4px' }} />
+                        <img src={medium} width="20px" height="25px" alt="medium" style={{ padding: '0 4px' }} />
                     </Tooltip>
                 );
             case 'HIGH':
                 return (
                     <Tooltip title="Priority: HIGH">
-                        <img src={high} width="20px" height="25px" alt="high" style={{ marginLeft: '4px' }} />
+                        <img src={high} width="20px" height="25px" alt="high" style={{ padding: '0 4px' }} />
                     </Tooltip>
                 );
             default:
                 return (
                     <Tooltip title="Priority: NOT SPECIFIED">
-                        <img src={empty} width="20px" height="20px" alt="not_specified" style={{ marginLeft: '2px', marginTop: '2px' }} />
+                        <Empty width="20px" height="20px" alt="not_specified" style={{ padding: '3px 4px', width: '20px', height: '20px' }} />
                     </Tooltip>
                 );
         }
@@ -191,8 +192,8 @@ class Task extends Component {
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
                             style={todoListStatus === 'ACTIVE'
-                                ? { textDecoration: selected ? 'line-through' : 'none', width: '100%', marginLeft: '0' }
-                                : { textDecoration: selected ? 'line-through' : 'none', width: '100%', pointerEvents: 'none' }}
+                                ? { textDecoration: selected ? 'line-through' : 'none', width: '80%', marginLeft: '0' }
+                                : { textDecoration: selected ? 'line-through' : 'none', width: '80%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
                     {
@@ -236,10 +237,10 @@ class Task extends Component {
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                         : 'in process'}<br />
                                     {
-                                        (durationTime !== '' && durationTime !== 0)
-                                            ? ` Duration time: ${(moment.duration(durationTime).days())}d 
-                                        ${(moment.duration(durationTime).hours())}h
-                                        ${(moment.duration(durationTime).minutes())}m`
+                                        (durationTime !== null && durationTime !== 0)
+                                            ? `Duration time: ${(moment.duration(durationTime).days())}d
+                                                ${(moment.duration(durationTime).hours())}h
+                                                ${(moment.duration(durationTime).minutes())}m`
                                             : null
                                     }
                                 </p>
