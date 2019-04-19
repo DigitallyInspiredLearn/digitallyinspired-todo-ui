@@ -8,22 +8,11 @@ export const Subscribes = styled.div`
 `;
 
 export const Title = styled.div`
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     align-self: center;
     margin: 8px 0px 16px;
     font-size: 30px;
     font-weight: 400;
     color: ${p => p.theme.mainText};
-`;
-
-export const SearchInput = styled.input`
-    width: 97%;
-    margin-left: 10px;
-    border-radius: 5px;
-    padding-left: 10px;
-    outline: none;
-    height: 32px;
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
 `;
 
 export const TableSubscribers = styled.table`
@@ -46,7 +35,6 @@ export const Tr = styled.tr`
 `;
 
 export const Td = styled.td`
-    font-family: Helvetica;
     padding:5px;
     &:nth-child(1){
         border-radius:5px 0 0 5px;
