@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import InputCom from '@material-ui/core/Input';
 import * as styled from './Search.styles';
+import Input from '@material-ui/core/Input';
 
 class Search extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Search extends Component {
 
         return (
             <styled.SearchCont>
-                <InputCom
+                <Input
                     value={value}
                     onChange={this.handleChange}
                     placeholder={placeholder}

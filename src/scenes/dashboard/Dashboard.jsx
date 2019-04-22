@@ -388,6 +388,7 @@ export class Dashboard extends Component {
                                             <MenuItem
                                                 value="NOT_SPECIFIED"
                                                 component=""
+                                                button=""
                                             >
                                                 <Empty
                                                     style={{
@@ -502,11 +503,7 @@ Dashboard.propTypes = {
     comment: PropTypes.string,
     actionsBasket: PropTypes.objectOf(PropTypes.func),
     shared: PropTypes.bool,
-    // currentUser: PropTypes.,
-    // createdBy
-    // createdDate,
-    // modifiedBy,
-    // modifiedDate,
+    currentUser:  PropTypes.object,
 };
 
 Dashboard.defaultProps = {
@@ -519,5 +516,5 @@ Dashboard.defaultProps = {
     comment: '',
     actionsBasket: {},
     shared: false,
-    // currentUser: {},
+    currentUser: {},
 };

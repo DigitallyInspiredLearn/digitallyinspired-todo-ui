@@ -16,7 +16,8 @@ import {
     deleteTask as deleteTaskApi,
 } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
-import { getTagTaskKeys,
+import {
+    getTagTaskKeys,
     getTags,
     addTag as addTagAPI,
     deleteTag as deleteTagAPI,
@@ -134,7 +135,6 @@ export const reducer = handleActions({
 export const getDashboard = state => state.dashboard;
 // unsuccessful test
 export const getSorting = (sort) => {
-    
     let sortValue;
     switch (sort) {
         case 'By id, low to high':
@@ -193,22 +193,15 @@ export function* fetchAllLists() {
     const pageValue = getPageSize(pageSize);
     const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
-        if (viewList === 'my') {
-        const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', selectedTags);
-        yield put(actions.fetchDashboardSuccess({
-            toDoBoardRaw: res.data.content,
-            totalElements: res.data.totalElements,
-            totalPages: res.data.totalPages,
-        }));
-    } else {
-        const res = yield call(getSharedLists, currentPage, pageValue, sortValue);
-        const shared = res.data.content.map(l => ({ ...l, shared: true }));
-        yield put(actions.fetchDashboardSuccess({
-            toDoBoardRaw: shared,
-            totalElements: res.data.totalElements,
-            totalPages: res.data.totalPages,
-        }));
-    }
+    const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
+    const {
+        data: { totalElements, totalPages, content },
+    } = yield call(fetchRequest, currentPage, pageValue, sortValue, 'ACTIVE', selectedTags);
+    yield put(actions.fetchDashboardSuccess({
+        toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
+        totalElements,
+        totalPages,
+    }));
 }
 
 export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.find(l => l.id === id);

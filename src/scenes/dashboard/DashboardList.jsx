@@ -58,6 +58,7 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
+            sort,
         } = this.props;
         const { alignment } = this.state;
         return (
@@ -76,7 +77,8 @@ class DashboardList extends Component {
                             />
                         </styled.SearchContent>
                         <DropDownMaterial
-                            label="Sorting: "
+                            label='Sorting:'
+                            defaultValue={sort}
                             value={[
                                 'By id, low to high',
                                 'By id, high to low',
@@ -185,7 +187,7 @@ class DashboardList extends Component {
                                 '16/page',
                             ]}
                             selectSorting={actions.changeSize}
-                            default={pageSize}
+                            defaultValue={pageSize}
                         />
                     </div>
                     <VisibleSidebar />
