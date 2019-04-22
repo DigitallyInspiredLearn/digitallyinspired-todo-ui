@@ -21,8 +21,6 @@ class MultiSelect extends Component {
         );
     };
 
-    componentWillMount = ({ actions } = this.props) => actions.fetchTags();
-
     render() {
         const {
             classes, tags, actions, visible,

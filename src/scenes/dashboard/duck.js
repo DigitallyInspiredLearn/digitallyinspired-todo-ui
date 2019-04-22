@@ -4,6 +4,7 @@ import {
 } from 'redux-saga/effects';
 import {
     getMyList,
+    deleteList,
     addDashboard,
     updateList,
     getSharedLists,
@@ -193,10 +194,10 @@ export function* fetchAllLists() {
     const pageValue = getPageSize(pageSize);
     const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
+    const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
     const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
-    const {
-        data: { totalElements, totalPages, content },
-    } = yield call(fetchRequest, currentPage, pageValue, sortValue, 'ACTIVE', selectedTags);
+    const { data: { totalElements, totalPages, content } } = yield call(fetchRequest,
+        currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
     yield put(actions.fetchDashboardSuccess({
         toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
         totalElements,
