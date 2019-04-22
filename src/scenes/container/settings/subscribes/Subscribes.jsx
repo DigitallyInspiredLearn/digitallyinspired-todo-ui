@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as styled from './Subscribes.styles';
 import { InputLabel } from '../../../../components/dropDown/DropDown.styled';
 import Search from '../../../../components/search/Search';
-import { SearchContent } from '../../../../scenes/dashboard/DashboardList.styles';
+import { SearchContent } from '../../../dashboard/DashboardList.styles';
 
 
 class Subscribes extends Component {
@@ -29,11 +29,11 @@ class Subscribes extends Component {
                 </SearchContent>
                 <styled.TableSubscribers>
                     <tbody>
-                    <styled.NullTr>
-                        <th style={{ padding: '8px' }}>Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                    </styled.NullTr>
+                        <styled.NullTr>
+                            <th style={{ padding: '8px' }}>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </styled.NullTr>
                         {
                             subscribers.length === 0
                                 ? (

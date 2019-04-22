@@ -19,6 +19,7 @@ class DashboardListBasket extends Component {
             visible: false,
         };
     }
+
     componentWillMount = ({ actions } = this.props) => actions.fetchDeletedDashboard();
 
     handlePageChange = ({ selected }) => {
@@ -30,7 +31,7 @@ class DashboardListBasket extends Component {
         const { visible } = this.state;
         this.setState({
             visible: !visible,
-        })
+        });
     };
 
     render() {
@@ -120,7 +121,7 @@ class DashboardListBasket extends Component {
                         <AlertDialog
                             visible={visible}
                             onClose={this.showAlertDialog}
-                            value='Do you want to clear basket forever?'
+                            value="Do you want to clear basket forever?"
                             onConfirm={actions.deleteAllLists}
                         />
                     </styledDialog.Dialog>

@@ -1,4 +1,24 @@
 import styled from 'styled-components';
+import _IconButton from '@material-ui/core/IconButton';
+import _FormControl from '@material-ui/core/FormControl';
+import _Empty from '@material-ui/icons/ArrowUpward';
+
+export const IconButton = styled(_IconButton)`
+    border-radius: 40%;
+    padding: 4px;
+`;
+
+export const Empty = styled(_Empty)`
+     width: 15px;
+     height: 15px;
+     padding-left: 4px;
+     margin-left: 4px;
+`;
+
+export const FormControl = styled(_FormControl)`
+    margin-top: -10px;
+    margin-right: 80px;
+`;
 
 export const Dashboard = styled.section`
     display: flex;
@@ -36,6 +56,26 @@ export const DashboardHeader = styled.div`
     justify-content: space-between;
     margin: 8px;
     width: 100%
+`;
+
+export const AllTagsContainer = styled.div`
+    display:  ${p => (p.show ? 'flex' : 'none')};
+    margin: 0 8px 0 0,
+    opacity: 0.8,
+`;
+
+export const Tag = styled.span`
+    background-color:  ${p => p.color};
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 8px;
+`;
+
+export const AllTagsVisible = styled.div`
+    display: flex;
+    align-items: center;
+    color: grey;
+    cursor: default;
 `;
 
 export const IconContainer = styled.div`
@@ -134,11 +174,6 @@ export const Expand = styled.div`
     min-height: 100px;
     padding: 8px 0 0 8px;
     justify-content: space-between;
-`;
-
-export const Textarea = styled.textarea`
-    width: 100%;
-    height: 50px;
 `;
 
 export const PriorityImage = styled.img`

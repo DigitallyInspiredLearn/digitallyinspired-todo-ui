@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types,react/forbid-prop-types,
-react/require-default-props,react/default-props-match-prop-types */
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -28,7 +25,6 @@ import pushpin from '../../image/pushpin.svg';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import empty from '../../image/empty.svg';
 import PopupContainer from '../popup/PopupContainer';
 
 export const getTaskList = (tasks, props) => (
@@ -87,8 +83,9 @@ export class Dashboard extends Component {
     };
 
     toggleComment = (e) => {
+        const { stateComment } = this.state;
         this.setState({
-            stateComment: !this.state.stateComment,
+            stateComment: !stateComment,
             newComment: e.target.value = '',
         });
     };
@@ -195,21 +192,20 @@ export class Dashboard extends Component {
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
                         style={todoListStatus === 'ACTIVE' ? {
-                            textDecoration: 'none', width: '80%', fontWeight: 'bold', margin: '0 8px', fontSize: '20px'
+                            textDecoration: 'none', width: '80%', fontWeight: 'bold', margin: '0 8px', fontSize: '20px',
                         } : {
-                            textDecoration: 'none', pointerEvents: 'none', width: '80%',
-                            fontWeight: 'bold', marginLeft: '8px', fontSize: '20px'
+                            textDecoration: 'none',
+                            pointerEvents: 'none',
+                            width: '80%',
+                            fontWeight: 'bold',
+                            marginLeft: '8px',
+                            fontSize: '20px',
                         }}
                         placeholder="Add title"
                     />
                     {
-                        shared
-                            ? (
-                                <styled.IconContainer>
-                                    <styled.Icon src={pushpin} alt="List is shared" />
-                                </styled.IconContainer>
-                            )
-                            : (todoListStatus === 'ACTIVE'
+                        !shared
+                            ? (todoListStatus === 'ACTIVE'
                                 ? (
                                     <styled.IconContainer>
                                         <div
@@ -228,14 +224,15 @@ export class Dashboard extends Component {
                                             <styled.IconInfo>
                                                 <p>
                                                     <b>Information about list "{title}":</b><br />
-                                                Created by: {createdBy}<br />
-                                                Created time: {new Date(createdDate).toLocaleString()}<br />
-                                                Modyfied by: {modifiedBy}<br />
-                                                Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
-                                                Comment: {comment || 'not written yet'}
+                                                    Created by: {createdBy}<br />
+                                                    Created time: {new Date(createdDate).toLocaleString()}<br />
+                                                    Modyfied by: {modifiedBy}<br />
+                                                    Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
+                                                    Comment: {comment || 'not written yet'}
                                                 </p>
 
                                                 <IconButton
+                                                    href=""
                                                     aria-label="info"
                                                     style={{ borderRadius: '40%', padding: '4px' }}
                                                     alt="Information about this list"
@@ -246,6 +243,7 @@ export class Dashboard extends Component {
                                         </Link>
                                         <Tooltip title="Share list">
                                             <IconButton
+                                                href=""
                                                 aria-label="share"
                                                 style={{ borderRadius: '40%', padding: '4px' }}
                                                 onClick={this.showPopup}
@@ -256,6 +254,7 @@ export class Dashboard extends Component {
                                         </Tooltip>
                                         <Tooltip title="Delete list">
                                             <IconButton
+                                                href=""
                                                 aria-label="trash"
                                                 onClick={this.showAlertDeleteDialog}
                                                 style={{ borderRadius: '40%', padding: '4px' }}
@@ -278,6 +277,7 @@ export class Dashboard extends Component {
                                     <styled.IconContainer>
                                         <Tooltip title="Restore list">
                                             <IconButton
+                                                href=""
                                                 aria-label="restore"
                                                 onClick={this.showAlertRestoreDialog}
                                                 alt="Restore this list"
@@ -296,6 +296,7 @@ export class Dashboard extends Component {
                                         />
                                         <Tooltip title="Delete list forever">
                                             <IconButton
+                                                href=""
                                                 aria-label="trash"
                                                 onClick={this.showAlertDeleteDialog}
                                                 style={{ borderRadius: '40%', padding: '4px' }}
@@ -315,7 +316,11 @@ export class Dashboard extends Component {
                                     </styled.IconContainer>
                                 )
                             )
-
+                            : (
+                                <styled.IconContainer>
+                                    <styled.Icon src={pushpin} alt="List is shared" />
+                                </styled.IconContainer>
+                            )
                     }
                 </styled.DashboardHeader>
                 <div
@@ -330,6 +335,7 @@ export class Dashboard extends Component {
                     && (tagTaskKeys.map(key => tasks.map(task => key.taskId === task.id
                             && (
                                 <span
+                                    key={key}
                                     style={{
                                         backgroundColor: key.tag.color,
                                         padding: '4px 8px',
@@ -347,7 +353,7 @@ export class Dashboard extends Component {
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>
                 {
-                    todoListStatus === 'ACTIVE' ? (
+                    todoListStatus === 'ACTIVE' && (
                         shared ? ''
                             : (
                                 <styled.addTaskContainer visible={!stateComment}>
@@ -379,24 +385,37 @@ export class Dashboard extends Component {
                                             }}
                                             style={{ width: '190px' }}
                                         >
-                                            <MenuItem value="NOT_SPECIFIED">
-                                                {/* <img
-                                                    src={empty}
-                                                    width="15px"
-                                                    alt="EMPTY"
-                                                    style={{ marginLeft: '8px' }}
-                                                /> */}
-                                                <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }} />
+                                            <MenuItem
+                                                value="NOT_SPECIFIED"
+                                                component=""
+                                                button=""
+                                            >
+                                                <Empty
+                                                    style={{
+                                                        width: '15px',
+                                                        height: '15px',
+                                                        paddingLeft: '4px',
+                                                        marginLeft: '4px',
+                                                    }}
+                                                />
                                                 <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                             </MenuItem>
-                                            <MenuItem value="LOW">
+                                            <MenuItem
+                                                value="LOW"
+                                                button=""
+                                                component=""
+                                            >
                                                 <styled.PriorityImage
                                                     src={low}
                                                     alt="LOW"
                                                 />
                                                 LOW
                                             </MenuItem>
-                                            <MenuItem value="MEDIUM">
+                                            <MenuItem
+                                                value="MEDIUM"
+                                                button=""
+                                                component=""
+                                            >
                                                 <styled.PriorityImage
                                                     src={medium}
                                                     alt="MEDIUM"
@@ -404,7 +423,11 @@ export class Dashboard extends Component {
                                                 />
                                                 MEDIUM
                                             </MenuItem>
-                                            <MenuItem value="HIGH">
+                                            <MenuItem
+                                                value="HIGH"
+                                                button=""
+                                                component=""
+                                            >
                                                 <styled.PriorityImage
                                                     src={high}
                                                     alt="HIGH"
@@ -415,6 +438,7 @@ export class Dashboard extends Component {
                                     </FormControl>
                                     <Tooltip title="Comment" placement="top">
                                         <IconButton
+                                            href=""
                                             aria-label="Comment"
                                             onClick={this.toggleComment}
                                         >
@@ -423,7 +447,7 @@ export class Dashboard extends Component {
                                     </Tooltip>
                                 </styled.addTaskContainer>
                             )
-                    ) : null
+                    )
                 }
                 <styled.Expand
                     visible={stateComment}
@@ -449,12 +473,14 @@ export class Dashboard extends Component {
                     />
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <IconButton
+                            href=""
                             style={{ padding: '12px' }}
                             onClick={this.handlerOnBlur}
                         >
                             <Cancel style={{ color: 'red' }} />
                         </IconButton>
                         <IconButton
+                            href=""
                             style={{ padding: '12px' }}
                             onClick={() => this.handleUpdateCommentSuccess()}
                         >
@@ -468,13 +494,27 @@ export class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-    tasks: PropTypes.array.isRequired,
+    tasks: PropTypes.arrayOf(PropTypes.object),
     idList: PropTypes.number,
     title: PropTypes.string,
+    actions: PropTypes.objectOf(PropTypes.func),
+    todoListStatus: PropTypes.string,
+    tagTaskKeys: PropTypes.arrayOf(PropTypes.object),
+    comment: PropTypes.string,
+    actionsBasket: PropTypes.objectOf(PropTypes.func),
+    shared: PropTypes.bool,
     currentUser:  PropTypes.object,
 };
 
 Dashboard.defaultProps = {
     tasks: [],
+    idList: undefined,
+    title: 'To-do list',
+    actions: {},
+    todoListStatus: 'ACTIVE',
+    tagTaskKeys: [],
+    comment: '',
+    actionsBasket: {},
+    shared: false,
     currentUser: {},
 };

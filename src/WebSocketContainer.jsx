@@ -56,7 +56,7 @@ class WebSocketContainer extends Component {
                         style={{}}
                         aria-describedby="client-snackbar"
                         message={(<span id="id">{message}</span>)}
-                        action={[
+                        action={(
                             <IconButton
                                 key="close"
                                 href=""
@@ -64,9 +64,9 @@ class WebSocketContainer extends Component {
 
                                 onClick={this.handleClose}
                             >
-                                <CloseIcon color="white" style={{color: 'white'}}/>
-                            </IconButton>,
-                        ]}
+                                <CloseIcon color="white" style={{ color: 'white' }} />
+                            </IconButton>
+                        )}
                     />
                 </Snackbar>
             </div>

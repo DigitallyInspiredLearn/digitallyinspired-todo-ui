@@ -5,7 +5,6 @@ import { Select, InputLabel } from './DropDown.styled';
 
 
 export class DropDownMaterial extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -15,12 +14,14 @@ export class DropDownMaterial extends Component {
 
     handleChange = (e) => {
         this.setState({
-                valueSelect: e.target.value
+            valueSelect: e.target.value,
         });
     };
 
     render() {
-        const { value, selectSorting, label,style, styleLabel,pageSize } = this.props;
+        const {
+            value, selectSorting, label,style, styleLabel,pageSize
+        } = this.props;
         const { valueSelect } = this.state;
         return (
             <div>
@@ -33,15 +34,16 @@ export class DropDownMaterial extends Component {
                 <Select
                     value={valueSelect}
                     onChange={this.handleChange}
+                    // input={<Input id="select-multiple-chip" placeholder="choose" />}
                     style={style}
-                    onClick={(e) => selectSorting(e.target.value)}
+                    onClick={e => selectSorting(e.target.value)}
                 >
-                        {
-                            value.map(i => (
-                                <MenuItem value={i}>{i}</MenuItem>))
-                        }
+                    {
+                        value.map(i => (
+                            <MenuItem key={i} value={i}>{i}</MenuItem>))
+                    }
                 </Select>
             </div>
-        )
+        );
     }
 }

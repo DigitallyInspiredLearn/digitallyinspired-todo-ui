@@ -35,6 +35,7 @@ class InputGlobal extends Component {
         const { style, placeholder, icon } = this.props;
         const { value } = this.state;
         return (
+
             <Input
                 value={value}
                 onChange={this.handleChange}
