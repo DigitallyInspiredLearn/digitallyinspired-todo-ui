@@ -285,48 +285,51 @@ class OneList extends Component {
                             </styledDashboard.ToggleButton>
                         </styledDashboard.ToggleButtonGroup>
                     </styled.inputDiv>
-                    <div>
-                        <Paper className={classes.root}>
-                            <Table className={classes.table}>
-                                <TableHead>
-                                    <TableRow className={classes.header}>
-                                        <CustomTableCell align="left">Is done</CustomTableCell>
-                                        <CustomTableCell align="left">Priority</CustomTableCell>
-                                        <CustomTableCell align="left">Name</CustomTableCell>
-                                        <CustomTableCell align="left">Created date</CustomTableCell>
-                                        <CustomTableCell align="left">Completed date</CustomTableCell>
-                                        <CustomTableCell align="left">Duration time</CustomTableCell>
-                                        <CustomTableCell align="center">Delete task</CustomTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                {
-                                    tasks.length === 0
-                                        ? (
-                                            <styled.nullTask>
-                                        You have no tasks yet, it's time to be active!
-                                            </styled.nullTask>
-                                        )
-                                        : tasks.map(i => (
-                                            <TableBody key={i}>
-                                                <TaskForList
-                                                    idTask={i.id}
-                                                    idList={match.params.id}
-                                                    key={i.id}
-                                                    selected={i.isComplete}
-                                                    nameTask={i.body}
-                                                    actionsBoard={actionsBoard}
-                                                    actionsList={actions}
-                                                    priority={i.priority}
-                                                    createdDate={i.createdDate}
-                                                    completedDate={i.completedDate}
-                                                    durationTime={i.durationTime}
-                                                />
-                                            </TableBody>
-                                        ))
-                                }
-                            </Table>
-                        </Paper>
-                    </div>
+                    {
+                        tasks.length === 0
+                            ? (
+                                <styled.nullTask>
+                                    You have no tasks yet, it's time to be active!
+                                </styled.nullTask>
+                            ) : (
+                                <div>
+                                    <Paper className={classes.root}>
+                                        <Table className={classes.table}>
+                                            <TableHead>
+                                                <TableRow className={classes.header}>
+                                                    <CustomTableCell align="left">Is done</CustomTableCell>
+                                                    <CustomTableCell align="left">Priority</CustomTableCell>
+                                                    <CustomTableCell align="left">Name</CustomTableCell>
+                                                    <CustomTableCell align="left">Created date</CustomTableCell>
+                                                    <CustomTableCell align="left">Completed date</CustomTableCell>
+                                                    <CustomTableCell align="left">Duration time</CustomTableCell>
+                                                    <CustomTableCell align="center">Delete task</CustomTableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            {
+                                                tasks.map(i => (
+                                                    <TableBody key={i}>
+                                                        <TaskForList
+                                                            idTask={i.id}
+                                                            idList={match.params.id}
+                                                            key={i.id}
+                                                            selected={i.isComplete}
+                                                            nameTask={i.body}
+                                                            actionsBoard={actionsBoard}
+                                                            actionsList={actions}
+                                                            priority={i.priority}
+                                                            createdDate={i.createdDate}
+                                                            completedDate={i.completedDate}
+                                                            durationTime={i.durationTime}
+                                                        />
+                                                    </TableBody>
+                                                ))
+                                            }
+                                        </Table>
+                                    </Paper>
+                                </div>
+                            )
+                    }
                     <styled.addTaskContainer
                         visible={!stateComment}
                     >
@@ -364,17 +367,14 @@ class OneList extends Component {
                                 style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    {/* <img
-                                        src={empty}
-                                        width="15px"
-                                        alt="EMPTY"
-                                        style={{ marginLeft: '8px' }}
-                                    /> */}
-                                    <Empty style={{
-                                        width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
-                                    }}
-                                    />
-                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                    <div>
+                                        <Empty
+                                            style={{
+                                                width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                            }}
+                                        />
+                                        <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                    </div>
                                 </MenuItem>
                                 <MenuItem value="LOW">
                                     <styled.PriorityImage
@@ -399,7 +399,7 @@ class OneList extends Component {
                                 </MenuItem>
                             </Select>
                         </FormControl>
-                        <Tooltip title="Comment" placement="top" style={{ marginTop: 'auto', marginLeft: 'auto' }}>
+                        <Tooltip title="Comment" placement="top">
                             <IconButton
                                 aria-label="Comment"
                                 onClick={this.toggleComment}

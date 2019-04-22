@@ -69,7 +69,7 @@ class Task extends Component {
         if (!selected) {
             this.setState({ statePopup: true });
         } else {
-            this.setState({ durationTime });
+            this.setState({ durationTime: 0 });
             actions.updateCheckbox({
                 nameTask, idTask, selected, body: nameTask, durationTime: 0, priority,
             });
