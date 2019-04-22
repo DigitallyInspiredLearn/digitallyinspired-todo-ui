@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
     currentPage: state.dashboard.currentPage,
     totalPages: state.dashboard.totalPages,
     currentUser: state.profile.currentUser,
-    tags: state.tags.tags,
+    tags: state.dashboard.tags,
     tagTaskKeys: state.dashboard.tagTaskKeys,
 });
 
@@ -34,8 +34,8 @@ const mapDispatchToProps = dispatch => ({
         changeSize: actions.changeSize,
         changePagination: actions.changePagination,
         changeSort: actions.changeSort,
-        addTagToTask: actionsTags.addTagToTask,
-        removeTagFromTask: actionsTags.removeTagFromTask,
+        addTagToTask: actions.addTagToTask,
+        removeTagFromTask: actions.removeTagFromTask,
         updateComment: actions.updateComment,
         updateCommentSuccess: actions.updateCommentSuccess,
     }, dispatch),

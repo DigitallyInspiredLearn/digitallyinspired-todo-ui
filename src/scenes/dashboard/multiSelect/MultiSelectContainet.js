@@ -2,12 +2,12 @@ import { compose, bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MultiSelect from './MultiSelect';
-import { actions } from './duck';
+import { actions } from '../duck';
 
 const mapStateToProps = state => ({
-    tags: state.tags.tags,
-    visible: state.tags.visible,
-    selectedTags: state.tags.selectedTags,
+    tags: state.dashboard.tags,
+    visible: state.dashboard.visible,
+    selectedTags: state.dashboard.selectedTags,
 });
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({

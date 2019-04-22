@@ -34,7 +34,7 @@ function* rootSaga() {
         followSaga(),
         profileSaga(),
         subscribeSaga(),
-        tagSaga(),
+        // tagSaga(),
         basketSaga(),
     ]);
 }
