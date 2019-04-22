@@ -38,6 +38,7 @@ class DashboardList extends Component {
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
+        // console.log(selected);
         actions.changePagination(selected);
     };
 
@@ -75,7 +76,7 @@ class DashboardList extends Component {
                             />
                         </styled.SearchContent>
                         <DropDownMaterial
-                            label='Sorting: '
+                            label="Sorting: "
                             value={[
                                 'By id, low to high',
                                 'By id, high to low',
@@ -176,28 +177,17 @@ class DashboardList extends Component {
                             />
                         </styled.Pagination>
                         <DropDownMaterial
-                            style={{width: '200px', height: '48px'}}
-                            styleLabel={{fontSize: '13px'}}
-                            label='Change of size:'
+                            style={{ width: '150px', height: '42px', marginTop: '4px' }}
+                            styleLabel={{ fontSize: '10px' }}
+                            // label="Change size:"
                             value={[
                                 '4/page',
                                 '8/page',
                                 '16/page',
                             ]}
                             selectSorting={actions.changeSize}
+                            default={pageSize}
                         />
-                        {/*<DropDown*/}
-                            {/*changeValue={actions.changeSize}*/}
-                            {/*currentValue={pageSize}*/}
-                            {/*titleButton="Change size"*/}
-                            {/*possibleValues={[4, 8, 16]}*/}
-                            {/*drop="up"*/}
-                            {/*stylesContainer="top: -87px;"*/}
-                            {/*stylesValues="width: 75px; margin-left: 17px;"*/}
-                            {/*stylesButton="padding: 12px 10px; margin: 16px;"*/}
-                            {/*tooltip="Change visible lists"*/}
-                            {/*placement="right"*/}
-                        {/*/>*/}
                     </div>
                     <VisibleSidebar />
                 </styled.Footer>,

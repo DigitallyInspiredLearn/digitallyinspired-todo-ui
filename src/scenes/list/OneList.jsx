@@ -34,12 +34,14 @@ import high from '../../image/high.svg';
 import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
 import empty from '../../image/empty.svg';
+
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: 'gray',
         color: theme.palette.common.white,
         fontSize: 16,
-        maxWidth: '1px',
+        width: 5,
+        height: 10,
     },
 }))(TableCell);
 
@@ -253,7 +255,8 @@ class OneList extends Component {
                                 margin: '6px 0 4px 8px',
                                 borderRadius: '4px',
                             }}
-                            value={alignment} onChange={this.handleFormat}
+                            value={alignment}
+                            onChange={this.handleFormat}
                         >
                             <styledDashboard.ToggleButton
                                 style={{
@@ -296,7 +299,7 @@ class OneList extends Component {
                                         <CustomTableCell align="left">Created date</CustomTableCell>
                                         <CustomTableCell align="left">Completed date</CustomTableCell>
                                         <CustomTableCell align="left">Duration time</CustomTableCell>
-                                        <CustomTableCell align="left">Delete task</CustomTableCell>
+                                        <CustomTableCell align="center">Delete task</CustomTableCell>
                                     </TableRow>
                                 </TableHead>
                                 {
@@ -307,7 +310,6 @@ class OneList extends Component {
                                             </styled.nullTask>
                                         )
                                         : tasks.map(i => (
-
                                             <TableBody>
                                                 <TaskForList
                                                     idTask={i.id}

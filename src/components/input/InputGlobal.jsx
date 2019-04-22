@@ -35,14 +35,14 @@ class InputGlobal extends Component {
         const { style, placeholder, icon } = this.props;
         const { value } = this.state;
         return (
-                <Input
-                    value={value}
-                    onChange={this.handleChange}
-                    style={style}
-                    onKeyPress={e => e.key === 'Enter' && e.target.blur()}
-                    onBlur={this.handleBlur}
-                    placeholder={placeholder}
-                />
+            <Input
+                value={value}
+                onChange={this.handleChange}
+                style={style}
+                onKeyPress={e => e.key === 'Enter' && e.target.blur()}
+                onBlur={this.handleBlur}
+                placeholder={placeholder}
+            />
         );
     }
 }
