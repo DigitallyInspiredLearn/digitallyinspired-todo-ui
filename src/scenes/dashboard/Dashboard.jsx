@@ -470,8 +470,10 @@ Dashboard.propTypes = {
     tasks: PropTypes.array.isRequired,
     idList: PropTypes.number,
     title: PropTypes.string,
+    currentUser:  PropTypes.object,
 };
 
 Dashboard.defaultProps = {
     tasks: [],
+    currentUser: {},
 };

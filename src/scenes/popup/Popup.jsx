@@ -83,7 +83,7 @@ export class Popup extends Component {
 }
 
 Popup.propTypes = {
-    users: PropTypes.array,
+    users: PropTypes.array.isRequired,
     idList: PropTypes.number,
     search: PropTypes.string,
 };
