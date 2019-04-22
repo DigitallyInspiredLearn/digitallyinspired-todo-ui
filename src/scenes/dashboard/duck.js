@@ -10,14 +10,22 @@ import {
     getSharedLists,
     shareTodoListToUser, disableTodoList,
 } from '../../api/dashboard';
+
 import {
     updateTask,
     addTask,
     deleteTask as deleteTaskApi,
 } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
-import { getTagTaskKeys } from '../../api/tag';
+import { getTagTaskKeys,
+    getTags,
+    addTag as addTagAPI,
+    deleteTag as deleteTagAPI,
+    addTagToTask as addTagToTaskAPI,
+    removeTagFromTask as removeTagFromTaskAPI,
+} from '../../api/tag';
 
+export const INITIALIZE = 'dashboard/INITIALIZE';
 export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
 
@@ -47,7 +55,17 @@ export const CHANGE_PAGINATION = 'CHANGE_PAGINATION';
 
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 
+export const FETCH_TAGS = 'tags/FETCH_TAGS';
+export const FETCH_TAGS_SUCCESS = 'tags/FETCH_TAGS_SUCCESS';
+export const ADD_TAG = 'tags/ADD_TAG';
+export const ADD_TAG_TO_TASK = 'tags/ADD_TAG_TO_TASK';
+export const DELETE_TAG = 'tags/DELETE_TAG';
+export const VISIBLE_POPAP_ADD_TAG = 'tags/VISIBLE_POPAP_ADD_TAG';
+export const REMOVE_TAG_FROM_TASK = 'tags/REMOVE_TAG_FROM_TASK';
+export const GET_SELECTED_TAGS = 'tags/GET_SELECTED_TAGS';
+
 export const actions = {
+    initialize: createAction(INITIALIZE),
     changeSize: createAction(CHANGE_SIZE),
     changeSort: createAction(CHANGE_SORT),
     fetchDashboard: createAction(FETCH_DASHBOARD),
@@ -69,6 +87,14 @@ export const actions = {
     shareList: createAction(SHARE_LIST),
     changePagination: createAction(CHANGE_PAGINATION),
     updateComment: createAction(UPDATE_COMMENT),
+    fetchTags: createAction(FETCH_TAGS),
+    fetchTagsSuccess: createAction(FETCH_TAGS_SUCCESS),
+    addTag: createAction(ADD_TAG),
+    addTagToTask: createAction(ADD_TAG_TO_TASK),
+    deleteTag: createAction(DELETE_TAG),
+    visiblePopap: createAction(VISIBLE_POPAP_ADD_TAG),
+    removeTagFromTask: createAction(REMOVE_TAG_FROM_TASK),
+    getSelectedTags: createAction(GET_SELECTED_TAGS),
 };
 
 const initialState = {
@@ -81,6 +107,10 @@ const initialState = {
     totalElements: 0,
     sort: 'By id, low to high',
     tagTaskKeys: [],
+    tags: [],
+    selectedTags: [],
+    stringIdSelectedTag: '&tagId=',
+    visible: false,
 };
 
 export const reducer = handleActions({
@@ -97,11 +127,15 @@ export const reducer = handleActions({
     [FETCH_TAG_TAKS_KEYS_SUCCESS]: (state, action) => ({ ...state, tagTaskKeys: action.payload }),
     [MUTATE_SUCCESS]: (state, action) => ({ ...state, toDoBoard: action.payload }),
     [UPDATE_VIEW_LIST]: (state, action) => ({ ...state, viewList: action.payload }),
+    [FETCH_TAGS_SUCCESS]: (state, action) => ({ ...state, tags: action.payload }),
+    [GET_SELECTED_TAGS]: (state, action) => ({ ...state, selectedTags: action.payload }),
+    [VISIBLE_POPAP_ADD_TAG]: state => ({ ...state, visible: !state.visible }),
 }, initialState);
 
 export const getDashboard = state => state.dashboard;
 // unsuccessful test
 export const getSorting = (sort) => {
+    
     let sortValue;
     switch (sort) {
         case 'By id, low to high':
@@ -154,11 +188,8 @@ export const getPageSize = (pageSize) => {
 
 export function* fetchAllLists() {
     const {
-        dashboard: {
-            viewList, pageSize, currentPage, sort,
-        },
-        tags: { selectedTags },
-    } = yield select(state => state);
+        viewList, pageSize, currentPage, sort, selectedTags,
+    } = yield select(state => state.dashboard);
     const sortValue = getSorting(sort);
     const pageValue = getPageSize(pageSize);
     const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
@@ -276,7 +307,47 @@ export function* mutate() {
     const { toDoBoardRaw, search } = yield select(getDashboard);
     yield put(actions.mutateSuccessDashboard(getMutateList(toDoBoardRaw, search)));
 }
+
+export function* fetchTags() {
+    const tags = (yield call(getTags)).data;
+    yield put(actions.fetchTagsSuccess(tags));
+}
+
+export function* initialize() {
+    yield call(fetchTags);
+    yield call(fetchAllLists);
+}
+
+export function* addTag(action) {
+    const { payload: { tagName, color } } = action;
+    yield call(addTagAPI, { tagName, color });
+    yield call(fetchTags);
+}
+
+export function* deleteTag(action) {
+    const { payload: { id } } = action;
+    yield call(deleteTagAPI, id);
+    yield call(fetchTags);
+}
+
+export function* addTagToTask(action) {
+    const { payload: { idTask, idTag } } = action;
+    yield call(addTagToTaskAPI, idTag, idTask);
+    yield call(fetchTags);
+}
+
+export function* removeTagFromTask(action) {
+    const { payload: { idTask, idTag } } = action;
+    yield call(removeTagFromTaskAPI, idTag, idTask);
+    yield call(fetchTags);
+}
+
+export function* getSelectedTegInString() {
+    yield call(fetchAllLists);
+}
+
 export function* saga() {
+    yield safeTakeLatest([INITIALIZE, FETCH_TAGS], initialize);
     yield safeTakeEvery([
         FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT,
     ], fetchAllLists);
@@ -290,4 +361,9 @@ export function* saga() {
     yield safeTakeLatest(UPDATE_TASK_NAME_SUCCESS, updateNameTask);
     yield safeTakeEvery([FETCH_DASHBOARD_SUCCESS, SEARCH], mutate);
     yield safeTakeEvery(SHARE_LIST, shareList);
+    yield safeTakeEvery(ADD_TAG, addTag);
+    yield safeTakeEvery(ADD_TAG_TO_TASK, addTagToTask);
+    yield safeTakeEvery(DELETE_TAG, deleteTag);
+    yield safeTakeEvery(REMOVE_TAG_FROM_TASK, removeTagFromTask);
+    yield safeTakeEvery(GET_SELECTED_TAGS, getSelectedTegInString);
 }

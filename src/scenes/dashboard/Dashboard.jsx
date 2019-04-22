@@ -129,7 +129,8 @@ export class Dashboard extends Component {
     };
 
     handleUpdateComment = (newValue) => {
-        this.setState({ newComment: newValue });
+        console.log(newValue);
+        //this.setState({ newComment: newValue });
     };
 
     handleUpdateTitleSuccess = () => {

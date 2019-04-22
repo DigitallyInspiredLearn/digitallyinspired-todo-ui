@@ -92,7 +92,7 @@ class Sidebar extends Component {
 
             [
                 <div className="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 10 }} />,
-                <Tooltip title="Add list" placement="left" style={{ fontSize: '30px' }}>
+                <Tooltip title="Add list" placement="left">
                     <styled.Plus
                         key="plus"
                         className="plus"

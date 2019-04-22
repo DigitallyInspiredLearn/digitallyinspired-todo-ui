@@ -47,26 +47,28 @@ export const SearchContent = styled.div`
 export const Footer = styled.div`
    display: flex;
    flex-direction: row;
-   flex: auto;
    justify-content: space-between;
    align-content: space-between;
    width:100%;
    z-index: 5;
    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
    background-color: ${p => p.theme.background};
+   max-height: 80px;
+   height: 8vh;
    .pagination-container {
 	    outline: none;
         display: flex;
+        
     }
     li {
-        margin: 0 8px;
+        margin: 8px 8px;
 		cursor: pointer;
 		background-color: ${p => p.theme.backgroundButton};
 		border-radius: 3px;
-		height: 16px;
+		/* height: 16px;
 		width: auto;
 		text-align: center;
-		padding: 0 8px;
+		padding: 0 8px; */
 		outline: none !important;
 		list-style-type: none;
 		text-decoration: none !important;
@@ -80,12 +82,16 @@ export const Footer = styled.div`
 export const Pagination = styled.div`
    display: flex;
    width: auto;
+   height: auto;
    background-color: ${p => p.theme.background};
    .pagination-container {
        display: flex;
+       margin-left: -10px;
+       margin-top: 8px;
+       height: 40px;
        li {
            transition: background-color .3s;
-           padding: 16px 20px;
+           padding: 12px 16px;
            background-color: ${p => p.theme.backgroundList};
        };
        li:hover {
@@ -97,10 +103,11 @@ export const Pagination = styled.div`
        }
        li a {
            outline: none;
+           
        }
    }
    li {
-       margin: 7px 4px;
+       margin: 0px 4px;
        box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
    }
 `;

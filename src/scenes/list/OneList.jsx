@@ -34,12 +34,14 @@ import high from '../../image/high.svg';
 import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
 import empty from '../../image/empty.svg';
+
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: 'gray',
         color: theme.palette.common.white,
         fontSize: 16,
-        maxWidth: '1px',
+        width: 5,
+        height: 10,
     },
 }))(TableCell);
 
@@ -157,7 +159,6 @@ class OneList extends Component {
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes,
         } = this.props;
-        console.log(data.comment);
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -253,7 +254,8 @@ class OneList extends Component {
                                 margin: '6px 0 4px 8px',
                                 borderRadius: '4px',
                             }}
-                            value={alignment} onChange={this.handleFormat}
+                            value={alignment}
+                            onChange={this.handleFormat}
                         >
                             <styledDashboard.ToggleButton
                                 style={{
@@ -285,49 +287,52 @@ class OneList extends Component {
                             </styledDashboard.ToggleButton>
                         </styledDashboard.ToggleButtonGroup>
                     </styled.inputDiv>
-                    <div>
-                        <Paper className={classes.root}>
-                            <Table className={classes.table}>
-                                <TableHead>
-                                    <TableRow className={classes.header}>
-                                        <CustomTableCell align="left">Is done</CustomTableCell>
-                                        <CustomTableCell align="left">Priority</CustomTableCell>
-                                        <CustomTableCell align="left">Name</CustomTableCell>
-                                        <CustomTableCell align="left">Created date</CustomTableCell>
-                                        <CustomTableCell align="left">Completed date</CustomTableCell>
-                                        <CustomTableCell align="left">Duration time</CustomTableCell>
-                                        <CustomTableCell align="left">Delete task</CustomTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                {
-                                    tasks.length === 0
-                                        ? (
-                                            <styled.nullTask>
-                                        You have no tasks yet, it's time to be active!
-                                            </styled.nullTask>
-                                        )
-                                        : tasks.map(i => (
+                    {
+                        tasks.length === 0
+                            ? (
+                                <styled.nullTask>
+                                    You have no tasks yet, it's time to be active!
+                                </styled.nullTask>
+                            ) : (
+                                <div>
+                                    <Paper className={classes.root}>
+                                        <Table className={classes.table}>
+                                            <TableHead>
+                                                <TableRow className={classes.header}>
+                                                    <CustomTableCell align="left">Is done</CustomTableCell>
+                                                    <CustomTableCell align="left">Priority</CustomTableCell>
+                                                    <CustomTableCell align="left">Name</CustomTableCell>
+                                                    <CustomTableCell align="left">Created date</CustomTableCell>
+                                                    <CustomTableCell align="left">Completed date</CustomTableCell>
+                                                    <CustomTableCell align="left">Duration time</CustomTableCell>
+                                                    <CustomTableCell align="center">Delete task</CustomTableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            {
+                                                tasks.map(i => (
+                                                    <TableBody>
+                                                        <TaskForList
+                                                            idTask={i.id}
+                                                            idList={match.params.id}
+                                                            key={i.id}
+                                                            selected={i.isComplete}
+                                                            nameTask={i.body}
+                                                            actionsBoard={actionsBoard}
+                                                            actionsList={actions}
+                                                            priority={i.priority}
+                                                            createdDate={i.createdDate}
+                                                            completedDate={i.completedDate}
+                                                            durationTime={i.durationTime}
+                                                        />
+                                                    </TableBody>
+                                                ))
+                                            }
+                                        </Table>
+                                    </Paper>
+                                </div>
+                            )
+                    }
 
-                                            <TableBody>
-                                                <TaskForList
-                                                    idTask={i.id}
-                                                    idList={match.params.id}
-                                                    key={i.id}
-                                                    selected={i.isComplete}
-                                                    nameTask={i.body}
-                                                    actionsBoard={actionsBoard}
-                                                    actionsList={actions}
-                                                    priority={i.priority}
-                                                    createdDate={i.createdDate}
-                                                    completedDate={i.completedDate}
-                                                    durationTime={i.durationTime}
-                                                />
-                                            </TableBody>
-                                        ))
-                                }
-                            </Table>
-                        </Paper>
-                    </div>
                     <styled.addTaskContainer
                         visible={!stateComment}
                     >
@@ -365,13 +370,11 @@ class OneList extends Component {
                                 style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    {/* <img
-                                        src={empty}
-                                        width="15px"
-                                        alt="EMPTY"
-                                        style={{ marginLeft: '8px' }}
-                                    /> */}
-                                    <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }}/>
+                                    <Empty
+                                        style={{
+                                            width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                        }}
+                                    />
                                     <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                 </MenuItem>
                                 <MenuItem value="LOW">
@@ -397,7 +400,7 @@ class OneList extends Component {
                                 </MenuItem>
                             </Select>
                         </FormControl>
-                        <Tooltip title="Comment" placement="top" style={{ marginTop: 'auto', marginLeft: 'auto' }}>
+                        <Tooltip title="Comment" placement="top">
                             <IconButton
                                 aria-label="Comment"
                                 onClick={this.toggleComment}
