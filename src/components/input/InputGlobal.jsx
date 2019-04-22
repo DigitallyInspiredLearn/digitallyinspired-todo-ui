@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import InputCom from '@material-ui/core/Input';
+import Input from '@material-ui/core/Input';
 
 class InputGlobal extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class InputGlobal extends Component {
 
     handleBlur = (e, { onBlur } = this.props) => {
         const { target: { value } } = e;
-        this.setState({ value: (value || 'New value') });
+        this.setState({ value: (value || 'To do list') });
         onBlur(value);
     };
 
@@ -35,7 +35,8 @@ class InputGlobal extends Component {
         const { style, placeholder, icon } = this.props;
         const { value } = this.state;
         return (
-            <InputCom
+
+            <Input
                 value={value}
                 onChange={this.handleChange}
                 style={style}

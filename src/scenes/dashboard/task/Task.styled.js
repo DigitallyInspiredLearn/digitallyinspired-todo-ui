@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import AddCircle from '@material-ui/icons/AddCircle';
+
 export const Task = styled.div`
     display: flex;
     flex-flow: row nowrap;

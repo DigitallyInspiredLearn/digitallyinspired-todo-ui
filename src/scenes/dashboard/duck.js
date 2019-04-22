@@ -162,9 +162,8 @@ export function* fetchAllLists() {
     const pageValue = getPageSize(pageSize);
     const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
-    const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
-    if (viewList === 'my') {
-        const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
+        if (viewList === 'my') {
+        const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', selectedTags);
         yield put(actions.fetchDashboardSuccess({
             toDoBoardRaw: res.data.content,
             totalElements: res.data.totalElements,

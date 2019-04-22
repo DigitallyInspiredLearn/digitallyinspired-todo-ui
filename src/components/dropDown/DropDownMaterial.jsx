@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
-import { Select } from './DropDown.styled';
-import { InputLabel } from './DropDown.styled';
+import { Select, InputLabel } from './DropDown.styled';
 
 
 export class DropDownMaterial extends Component {
@@ -36,7 +35,7 @@ export class DropDownMaterial extends Component {
                 <Select
                     value={valueSelect}
                     onChange={this.handleChange}
-                    input={<Input id="select-multiple-chip" placeholder="choose" />}
+                    // input={<Input id="select-multiple-chip" placeholder="choose" />}
                     style={style}
                     onClick={e => selectSorting(e.target.value)}
                 >

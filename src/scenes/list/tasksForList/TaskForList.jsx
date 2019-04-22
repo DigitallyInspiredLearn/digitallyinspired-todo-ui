@@ -16,6 +16,7 @@ import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
 import Dialog from './dialog/Dialog';
 
+
 const styles = () => ({
     root: {
         width: '100%',
@@ -27,14 +28,14 @@ const styles = () => ({
     header: {
         color: 'red',
     },
-    width: {
-        width: '15px',
-    },
     max: {
         width: 'auto',
     },
     duration: {
-        maxWidth: '3px',
+        marginLeft: '3px',
+    },
+    delete: {
+        width: 50,
     },
 });
 
@@ -90,10 +91,7 @@ class TaskForList extends Component {
 
         this.setState({ statePopup: false });
         const durationTime = moment.duration(time.duration).valueOf();
-        // console.log(moment.duration(time.duration).days());
         this.setState({ durationTime });
-        // console.log(moment.duration(time.duration).getHours());
-        // console.log(moment.duration(time.duration).getMinutes());
         actionsList.updateCheckboxList({
             idDashboard: idList, idTask, selected, nameTask, priority, durationTime,
         });
@@ -122,7 +120,7 @@ class TaskForList extends Component {
             default:
                 return (
                     <Tooltip title="Priority: NOT SPECIFIED">
-                        <Empty width="20px" height="20px" alt="not_specified" style={{ padding: '3px 4px', width: '20px', height: '20px' }} />
+                        <Empty width="20px" height="20px" alt="not_specified" style={{ padding: '3px 4px', width: '20px', height: '20px', marginBottom: '-7px' }} />
                     </Tooltip>
                 );
         }
@@ -152,7 +150,7 @@ class TaskForList extends Component {
                 }
 
                 <TableRow>
-                    <TableCell className={classes.width} align="left">
+                    <TableCell align="right">
                         <Checkbox
                             checked={selected}
                             onChange={this.handleSelectTask}
@@ -174,10 +172,10 @@ class TaskForList extends Component {
                     </TableCell>
                     <TableCell align="left">{new Date(createdDate).toLocaleString()}</TableCell>
                     <TableCell align="left">{selected ? new Date(completedDate).toLocaleString()
-                        : 'in process'}
+                        : null }
                     </TableCell>
 
-                    <TableCell align="left">
+                    <TableCell align="left" className={classes.duration}>
                         {
                             (durationTime !== null && durationTime !== 0)
                                 ? ` ${(moment.duration(durationTime).days())}d
@@ -186,7 +184,7 @@ class TaskForList extends Component {
                                 : null
                         }
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell align="center" className={classes.delete}>
                         <Tooltip title="Delete task">
                             <Delete
                                 aria-label="trash"

@@ -38,6 +38,7 @@ class DashboardList extends Component {
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
+        // console.log(selected);
         actions.changePagination(selected);
     };
 
@@ -176,15 +177,15 @@ class DashboardList extends Component {
                             />
                         </styled.Pagination>
                         <DropDownMaterial
-                            style={{ width: '200px', height: '48px' }}
-                            styleLabel={{ fontSize: '13px' }}
-                            label="Change of size:"
+                            style={{ width: '150px', height: '42px', marginTop: '4px' }}
+                            styleLabel={{ fontSize: '10px' }}
                             value={[
                                 '4/page',
                                 '8/page',
                                 '16/page',
                             ]}
                             selectSorting={actions.changeSize}
+                            default={pageSize}
                         />
                     </div>
                     <VisibleSidebar />

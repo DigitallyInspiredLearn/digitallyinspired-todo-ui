@@ -39,7 +39,8 @@ const CustomTableCell = withStyles(() => ({
         backgroundColor: 'gray',
         color: 'white',
         fontSize: 16,
-        maxWidth: '1px',
+        width: 5,
+        height: 10,
     },
 }))(TableCell);
 
@@ -295,7 +296,7 @@ class OneList extends Component {
                                         <CustomTableCell align="left">Created date</CustomTableCell>
                                         <CustomTableCell align="left">Completed date</CustomTableCell>
                                         <CustomTableCell align="left">Duration time</CustomTableCell>
-                                        <CustomTableCell align="left">Delete task</CustomTableCell>
+                                        <CustomTableCell align="center">Delete task</CustomTableCell>
                                     </TableRow>
                                 </TableHead>
                                 {
@@ -306,7 +307,6 @@ class OneList extends Component {
                                             </styled.nullTask>
                                         )
                                         : tasks.map(i => (
-
                                             <TableBody key={i}>
                                                 <TaskForList
                                                     idTask={i.id}

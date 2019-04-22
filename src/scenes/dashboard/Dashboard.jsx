@@ -386,7 +386,6 @@ export class Dashboard extends Component {
                                         >
                                             <MenuItem
                                                 value="NOT_SPECIFIED"
-                                                button=""
                                                 component=""
                                             >
                                                 <Empty
