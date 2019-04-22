@@ -162,10 +162,9 @@ export class Dashboard extends Component {
             modifiedDate,
             comment,
             currentUser: { gravatarUrl },
-            tagTaskKeys,
         } = this.props;
         const {
-            valueNewTask, statePopup, stateComment, priority, visibleAllDashboardTags, visibleDelete, visibleRestore,
+            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore,
         } = this.state;
 
         return ([
@@ -196,7 +195,7 @@ export class Dashboard extends Component {
                         } : {
                             textDecoration: 'none',
                             pointerEvents: 'none',
-                            width: '80%',
+                            width: '90%',
                             fontWeight: 'bold',
                             marginLeft: '8px',
                             fontSize: '20px',
@@ -208,18 +207,6 @@ export class Dashboard extends Component {
                             ? (todoListStatus === 'ACTIVE'
                                 ? (
                                     <styled.IconContainer>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                color: 'grey',
-                                                cursor: 'default',
-                                            }}
-                                            onClick={() => this.setState({
-                                                visibleAllDashboardTags: !visibleAllDashboardTags,
-                                            })}
-                                        >tags
-                                        </div>
                                         <Link to={`/lists/${idList}`}>
                                             <styled.IconInfo>
                                                 <p>
@@ -323,32 +310,6 @@ export class Dashboard extends Component {
                             )
                     }
                 </styled.DashboardHeader>
-                <div
-                    style={{
-                        display: visibleAllDashboardTags ? 'flex' : 'none',
-                        margin: ' 0 8px 0 0',
-                        opacity: 0.8,
-                    }}
-                >
-                    {
-                        todoListStatus === 'ACTIVE'
-                    && (tagTaskKeys.map(key => tasks.map(task => key.taskId === task.id
-                            && (
-                                <span
-                                    key={key}
-                                    style={{
-                                        backgroundColor: key.tag.color,
-                                        padding: '4px 8px',
-                                        margin: '4px',
-                                        borderRadius: '8px',
-                                    }}
-                                >
-                                    {key.tag.tagName}
-                                </span>
-                            )))
-                    )
-                    }
-                </div>
                 <styled.TaskList>
                     {getTaskList(tasks, this.props)}
                 </styled.TaskList>
@@ -388,7 +349,6 @@ export class Dashboard extends Component {
                                             <MenuItem
                                                 value="NOT_SPECIFIED"
                                                 component=""
-                                                button=""
                                             >
                                                 <Empty
                                                     style={{
@@ -402,7 +362,6 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                             <MenuItem
                                                 value="LOW"
-                                                button=""
                                                 component=""
                                             >
                                                 <styled.PriorityImage
@@ -413,7 +372,7 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                             <MenuItem
                                                 value="MEDIUM"
-                                                button=""
+
                                                 component=""
                                             >
                                                 <styled.PriorityImage
@@ -425,7 +384,7 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                             <MenuItem
                                                 value="HIGH"
-                                                button=""
+
                                                 component=""
                                             >
                                                 <styled.PriorityImage

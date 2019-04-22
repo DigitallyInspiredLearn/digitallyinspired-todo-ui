@@ -37,7 +37,6 @@ class Task extends Component {
 
     closePopapAddTagToTask = () => this.setState({ visiblePopapAddTagToTask: false });
 
-    showPopup = () => this.setState({ statePopup: true });
 
     closePopup = () => this.setState({ statePopup: false });
 
