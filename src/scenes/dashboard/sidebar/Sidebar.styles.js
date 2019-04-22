@@ -12,7 +12,6 @@ export const Close = styled.span`
    }
 `;
 export const Plus = styled.div`
-    width: 50px;
     cursor: pointer;
     margin: 8px;
     align-self: center;
@@ -163,10 +162,10 @@ export const TrashTask = styled.img`
 }
 `;
 export const ButtonPlus = styled.img`
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    -moz-transform: rotate(0deg);
+    /* -moz-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
@@ -175,6 +174,7 @@ export const ButtonPlus = styled.img`
     -moz-transition: all 1000ms;
     -o-transition: all 1000ms;
     transition: all 1000ms;
+   
     &:hover{
         opacity: 1;
         -moz-transform: rotate(360deg);
@@ -182,8 +182,7 @@ export const ButtonPlus = styled.img`
         -o-transform: rotate(360deg);
         -ms-transform: rotate(360deg);
         transform: rotate(360deg);
-    }    
-}
+    }      */
 `;
 
 export const PriorityImage = styled.img`

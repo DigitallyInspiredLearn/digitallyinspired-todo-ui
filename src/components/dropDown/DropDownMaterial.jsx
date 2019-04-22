@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
-import { Select } from "./DropDown.styled";
-import { InputLabel } from "./DropDown.styled";
+import { Select, InputLabel } from './DropDown.styled';
 
 
 export class DropDownMaterial extends Component {
