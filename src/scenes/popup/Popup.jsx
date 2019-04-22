@@ -10,7 +10,9 @@ export class Popup extends Component {
     };
 
     render() {
-        const { statePopup, closePopup, actions, actionsBoard, users, search, idList } = this.props;
+        const {
+            statePopup, closePopup, actions, actionsBoard, users, search, idList,
+        } = this.props;
         return (
             <styled.showPopup show={statePopup}>
                 <styled.popupContent>
@@ -42,13 +44,10 @@ export class Popup extends Component {
                         </styled.buttonCloSeOk>
                         <styled.buttonCloSeOk
                             onClick={() => {
-                                const conformity = users.map(i => {
-                                    return search !== i;
-                                });
+                                const conformity = users.map(i => search !== i);
                                 if (users[0] === 'User is not found!' || search === '' || conformity[0] === true) {
                                     alert('Data is not correct!');
-                                }
-                                else {
+                                } else {
                                     actionsBoard.shareList({ idList, userName: search });
                                     closePopup();
                                     actions.searchUser('');
@@ -60,19 +59,15 @@ export class Popup extends Component {
                     <styled.users search={search}>
                         {
                             users.map(i => (
-                                search === i ? null : i === 'User is not found!' ?
-                                    <div>
-                                        <input
-                                            value={i}
-                                        />
-                                    </div> :
-                                    <div onClick={() => actions.searchUser(i)}>
-                                        <input
-                                            value={i}
-                                            key='user'
-                                        />
-                                    </div>),
-                            )
+                                search === i ? null : i === 'User is not found!'
+                                    ? (
+                                        <div key={i}> { i } </div>
+                                    )
+                                    : (
+                                        <div key={i} onClick={() => actions.searchUser(i)}>
+                                            <div key={i}> { i } </div>
+                                        </div>
+                                    )))
                         }
                     </styled.users>
                 </styled.popupContent>

@@ -90,10 +90,9 @@ class Sidebar extends Component {
         } = this.state;
         const displaysTrash = { display: displayTrash };
         return (
-
             [
-                <div className="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 10 }} />,
-                <Tooltip title="Add list" placement="left" style={{ fontSize: '30px' }}>
+                <div className="fon" style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 10 }} key="rootDivSidebar" />,
+                <Tooltip title="Add list" placement="left" style={{ fontSize: '30px' }} key="plus">
                     <styled.Plus
                         key="plus"
                         className="plus"
@@ -122,7 +121,7 @@ class Sidebar extends Component {
                                 <styled.AddTaskPlace
                                     onMouseOut={this.updateDisplayTrashHide}
                                     onMouseOver={this.updateDisplayTrashVisible}
-                                    key={i}
+                                    key={task}
                                 >
                                     <styled.InputTask
                                         type="text"
@@ -134,7 +133,10 @@ class Sidebar extends Component {
                                     <Tooltip title="Select priority" placement="left-end">
                                         <FormControl
                                             style={{
-                                                marginTop: '-20px', marginRight: '90px', minWidth: '30px', padding: '8px'
+                                                marginTop: '-20px',
+                                                marginRight: '90px',
+                                                minWidth: '30px',
+                                                padding: '8px',
                                             }}
                                         >
                                             <InputLabel htmlFor="age-simple">Priority</InputLabel>
@@ -203,7 +205,6 @@ class Sidebar extends Component {
                                 this.updateDisplaySidebar();
                                 this.addBoard(todoListName, tasks);
                                 this.handlerOnClick(e);
-                                
                             }}
                         >Add
                         </styled.AddButton>

@@ -21,29 +21,30 @@ export default class FormDialog extends React.Component {
 
     changeDurationDays = (days) => {
         this.setState({ days: Number(days) });
-    }
+    };
 
     changeDurationHours = (hours) => {
         this.setState({ hours: Number(hours) });
-    }
+    };
 
     changeDurationMinutes = (minutes) => {
         this.setState({ minutes: Number(minutes) });
-    }
+    };
 
     render() {
         const {
             days, hours, minutes,
         } = this.state;
         const {
-            show, onClose, onConfirm, createdDate,
+            show, onClose, onConfirm, createdDate, key,
         } = this.props;
         return (
-            <div>
+            <div key="dialogForTasksRoot">
                 <Dialog
                     open={show}
                     onClose={onClose}
                     aria-labelledby="form-dialog-title"
+                    key={key}
                 >
                     <DialogTitle
                         id="form-dialog-title"
@@ -94,7 +95,9 @@ export default class FormDialog extends React.Component {
                         <Button
                             onClick={() => onConfirm({
                                 completedDate: moment(createdDate).add({ days, hours, minutes }),
-                                duration: moment.duration(moment(moment(createdDate).add({ days, hours, minutes })).diff(moment(createdDate))),
+                                duration: moment.duration(moment(moment(createdDate).add(
+                                    { days, hours, minutes },
+                                )).diff(moment(createdDate))),
                             })}
                             color="primary"
                         >

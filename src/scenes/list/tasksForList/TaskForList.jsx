@@ -5,13 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Delete from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Info from '@material-ui/icons/Info';
 import Empty from '@material-ui/icons/ArrowUpward';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import * as stylesTask from '../../dashboard/task/Task.styled';
@@ -19,22 +14,11 @@ import Checkbox from '../../../components/checkbox/Checkbox';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
-import empty from '../../../image/empty.svg';
 import Dialog from './dialog/Dialog';
 
-const CustomTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: 'gray',
-        color: theme.palette.common.white,
-        fontSize: 16,
-        maxWidth: '2px',
-    },
-}))(TableCell);
-
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
     },
     table: {
@@ -67,6 +51,7 @@ class TaskForList extends Component {
             visible: false,
         };
     }
+
 
     updateDisplayFlex = () => this.setState({ display: 'flex' });
 
@@ -165,63 +150,6 @@ class TaskForList extends Component {
                         />
                     )
                 }
-                {/* <stylesTask.Task
-            //         id={idTask}
-            //         onMouseOver={this.updateDisplayFlex}
-            //         onMouseOut={this.updateDisplayNone}
-            //     >
-            //         <stylesTask.NameAdnCheckedTask>
-            //             <Checkbox
-            //                 checked={selected}
-            //                 onChange={this.handleSelectTask}
-            //             />
-            //             { this.setIcon(priority) }
-            //             <stylesTask.TaskName
-            //                 type="text"
-            //                 value={nameTask}
-            //                 selected={selected}
-            //                 onChange={e => actionsList.updateTaskList({
-            //                     idDashboard: idList, idTask, selected, priority, newTaskName: e.target.value,
-            //                 })}
-            //             />
-            //             <stylesTask.IconInfo>
-            //                 <p>
-            //                     <b>Information about this task:</b><br />
-            //                         Created Date: {new Date(createdDate).toLocaleString()}<br />
-            //                         Completed Date: {selected ? new Date(completedDate).toLocaleString()
-            //                         : 'in process'}<br />
-            //                     {
-            //                         (durationTime !== '' && durationTime !== 0)
-            //                             ? ` Duration time: ${(moment.duration(durationTime).days())}d
-            //                             ${(moment.duration(durationTime).hours())}h
-            //                             ${(moment.duration(durationTime).minutes())}m`
-            //                             : null
-            //                     }
-            //                 </p>
-            //                 <Info
-            //                     aria-label="info"
-            //                     style={displayStyle}
-            //                     alt="Information about this task"
-            //                 />
-            //             </stylesTask.IconInfo>
-            //             <Tooltip title="Delete task">
-            //                 <Delete
-            //                     aria-label="trash"
-            //                     onClick={this.showAlertDialog}
-            //                     style={displayStyle}
-            //                     alt="Delete task"
-            //                 />
-            //             </Tooltip>
-            //             <AlertDialog
-            //                 visible={visible}
-            //                 onClose={this.showAlertDialog}
-            //                 value="Do you want to delete this task?"
-            //                 onConfirm={() => actionsList.deleteTaskList({
-            //                     idDashboard: idList, idTask,
-            //                 })}
-            //             />
-            //         </stylesTask.NameAdnCheckedTask>
-            //     </stylesTask.Task> */}
 
                 <TableRow>
                     <TableCell className={classes.width} align="left">

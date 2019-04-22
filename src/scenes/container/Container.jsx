@@ -7,28 +7,24 @@ import { bindActionCreators } from 'redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import Account from '@material-ui/icons/AccountBox';
-import logout from '../../image/logout.svg';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
-import DropDown from '../../components/dropDown/DropDown';
 import list from '../../image/list-menu.svg';
 import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
 import settings from '../../image/settings.svg';
 import exit from '../../image/exit.svg';
 
-const styles = theme => ({
+const styles = () => ({
     typography: {
-        padding: theme.spacing(2),
+        padding: '8px',
     },
 });
 
@@ -100,7 +96,9 @@ class Container extends Component {
     };
 
     render() {
-        const { visible, visibleDialog, sections, anchorEl, open } = this.state;
+        const {
+            visible, visibleDialog, sections, anchorEl, open,
+        } = this.state;
         const { location: { pathname } } = history;
         const {
             children, data, actions, classes,
@@ -151,7 +149,7 @@ class Container extends Component {
                                 display: iconVisible, width: '30px', height: '30px',
                             }}
                         />
-                        
+
                         <Popper placement="bottom" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
                             {({ TransitionProps }) => (
                                 <Fade {...TransitionProps} timeout={350}>

@@ -46,7 +46,7 @@ class Profile extends Component {
         const { visibleContainer } = this.state;
         this.setState({
             visibleContainer: !visibleContainer,
-        })
+        });
     };
 
     handleClickSave = () => {
@@ -65,7 +65,7 @@ class Profile extends Component {
         }
         this.setState({
             visibleContainer: !visibleContainer,
-        })
+        });
     };
 
     render() {
@@ -143,7 +143,7 @@ class Profile extends Component {
                                         <Button
                                             onClick={this.handleClickDelete}
                                             value="Delete profile"
-                                            style={{ height: 'auto', padding: '4px 8px'}}
+                                            style={{ height: 'auto', padding: '4px 8px' }}
                                         />
                                     </Link>
                                 </styled.DeleteProfile>
@@ -151,7 +151,7 @@ class Profile extends Component {
                                     onClick={this.handleClickSave}
                                     value="Save"
                                     style={{
-                                        width: 'auto', minWidth: '80px', alignSelf: 'flex-end', padding: '4px 8px', margin: '8px'
+                                        width: 'auto', minWidth: '80px', alignSelf: 'flex-end', padding: '4px 8px', margin: '8px',
                                     }}
                                 >
                                     Save
@@ -160,7 +160,7 @@ class Profile extends Component {
                         </styled.Info>
                     ) : (
                         <styled.Statistics>
-                            <p style={{fontSize: '24px'}}>Profile statistics</p>
+                            <p style={{ fontSize: '24px' }}>Profile statistics</p>
                             <p> { `Number of lists: ${statistics.todoListsNumber}` } </p>
                             <p> { `Number of tasks: ${statistics.tasksNumber}`} </p>
                             <p> { `Number of completed tasks:  ${statistics.completedTasksNumber}` } </p>

@@ -14,8 +14,8 @@ const getUsersRaw = state => state.popup.data.users;
 const getUsers = createSelector(
     getUsersRaw,
     getCurrentUserName,
-    (users, currentUserName) => users.length === 0 ?
-        users.concat(['User is not found!']) : users.filter(i => i !== currentUserName),
+    (users, currentUserName) => (users.length === 0
+        ? users.concat(['User is not found!']) : users.filter(i => i !== currentUserName)),
 );
 
 const mapStateToProps = state => (

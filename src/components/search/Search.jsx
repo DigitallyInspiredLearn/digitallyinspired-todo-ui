@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as styled from './Search.styles';
 import InputCom from '@material-ui/core/Input';
+import * as styled from './Search.styles';
 
 class Search extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class Search extends Component {
 
     handleChange = (e, { onChange } = this.props) => {
         const { target: { value } } = e;
-        this.setState({ value: value });
+        this.setState({ value });
         onChange(value);
     };
 
@@ -31,7 +31,7 @@ class Search extends Component {
             </styled.SearchCont>
 
 
-    );
+        );
     }
 }
 

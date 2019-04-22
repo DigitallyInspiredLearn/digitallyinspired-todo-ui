@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import * as styled from './Theme.styles';
 import dayImage from '../../../../image/day.png';
 import nightImage from '../../../../image/night.png';
-import paint from '../../../../image/paint.svg';
 import theme from '../../../../config/theme';
 import Input from '../../../../components/input/Input';
 import Button from '../../../../components/button/Button';
@@ -65,7 +64,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('background', value)}
                             value={data.background}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -74,7 +73,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('mainText', value)}
                             value={data.mainText}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -83,7 +82,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('backgroundList', value)}
                             value={data.backgroundList}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -92,7 +91,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('backgroundHeader', value)}
                             value={data.backgroundHeader}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -101,7 +100,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('textHeader', value)}
                             value={data.textHeader}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -110,7 +109,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('backgroundButton', value)}
                             value={data.backgroundButton}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -119,7 +118,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('hoverButton', value)}
                             value={data.hoverButton}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -128,7 +127,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('activeButton', value)}
                             value={data.activeButton}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -137,7 +136,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('buttonText', value)}
                             value={data.buttonText}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -146,7 +145,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('activeButtonText', value)}
                             value={data.activeButtonText}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -155,7 +154,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('checkboxBackground', value)}
                             value={data.checkboxBackground}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -164,7 +163,7 @@ class Theme extends Component {
                         <Input
                             onChange={value => this.handleDataChange('activeCheckbox', value)}
                             value={data.activeCheckbox}
-                            border={true}
+                            border
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
@@ -172,7 +171,7 @@ class Theme extends Component {
                         onClick={this.handleApply}
                         value="Apply"
                         style={{
-                            marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px'
+                            marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px',
                         }}
                     >
                         Apply

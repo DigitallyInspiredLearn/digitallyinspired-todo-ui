@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Dialog = styled.div`
-    display: ${p => p.visible ? 'flex' : 'none'};  
+    display: ${p => (p.visible ? 'flex' : 'none')};  
 `;
 
 export const closeWindow = styled.span`    

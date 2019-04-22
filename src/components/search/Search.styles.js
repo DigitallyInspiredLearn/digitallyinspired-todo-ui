@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import _SearchIcon from '@material-ui/icons/Search';
 
-export const SearchCont =  styled.div`
+export const SearchCont = styled.div`
     display: flex;
     height: 52px;
     flex-direction: row;

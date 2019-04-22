@@ -33,20 +33,19 @@ import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
 import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
-import empty from '../../image/empty.svg';
-const CustomTableCell = withStyles(theme => ({
+
+const CustomTableCell = withStyles(() => ({
     head: {
         backgroundColor: 'gray',
-        color: theme.palette.common.white,
+        color: 'white',
         fontSize: 16,
         maxWidth: '1px',
     },
 }))(TableCell);
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         height: 'auto',
     },
@@ -157,7 +156,6 @@ class OneList extends Component {
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes,
         } = this.props;
-        console.log(data.comment);
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -253,7 +251,8 @@ class OneList extends Component {
                                 margin: '6px 0 4px 8px',
                                 borderRadius: '4px',
                             }}
-                            value={alignment} onChange={this.handleFormat}
+                            value={alignment}
+                            onChange={this.handleFormat}
                         >
                             <styledDashboard.ToggleButton
                                 style={{
@@ -308,7 +307,7 @@ class OneList extends Component {
                                         )
                                         : tasks.map(i => (
 
-                                            <TableBody>
+                                            <TableBody key={i}>
                                                 <TaskForList
                                                     idTask={i.id}
                                                     idList={match.params.id}
@@ -371,7 +370,10 @@ class OneList extends Component {
                                         alt="EMPTY"
                                         style={{ marginLeft: '8px' }}
                                     /> */}
-                                    <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }}/>
+                                    <Empty style={{
+                                        width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                    }}
+                                    />
                                     <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
                                 </MenuItem>
                                 <MenuItem value="LOW">

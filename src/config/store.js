@@ -13,7 +13,7 @@ import { loginPageSaga } from '../scenes/account/duck';
 import { saga as profileSaga } from '../scenes/container/settings/profile/duck';
 import { saga } from '../scenes/dashboard/duck';
 import { saga as subscribeSaga } from '../scenes/container/settings/subscribes/duck';
-import { saga as tagSaga } from '../scenes/dashboard/multiSelect/duck'
+import { saga as tagSaga } from '../scenes/dashboard/multiSelect/duck';
 
 const persistConfig = {
     key: 'app',

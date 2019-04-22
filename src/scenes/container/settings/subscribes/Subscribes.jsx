@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as styled from './Subscribes.styles';
 import { InputLabel } from '../../../../components/dropDown/DropDown.styled';
 import Search from '../../../../components/search/Search';
-import { SearchContent } from '../../../../scenes/dashboard/DashboardList.styles';
+import { SearchContent } from '../../../dashboard/DashboardList.styles';
 
 
 class Subscribes extends Component {
@@ -18,15 +18,15 @@ class Subscribes extends Component {
         return (
             <styled.Subscribes>
                 <styled.Title> Your subscribers list</styled.Title>
-                {/*<Search*/}
-                    {/*value={search}*/}
-                    {/*placeholder="Enter username..."*/}
-                    {/*type="text"*/}
-                    {/*onChange={this.handleChange}*/}
-                    {/*style={{ flex: 'none', border: '5px', boxShadow: '0 0 15px 0 rgba(0,0,0,0.2)', width: '97%',*/}
-                        {/*marginLeft: '8px', borderRadius: '5px', paddingLeft: '8px', height: '34px' }}*/}
-                {/*/>*/}
-                <SearchContent style={{margin: '8px 12px 8px 8px'}}>
+                {/* <Search */}
+                {/* value={search} */}
+                {/* placeholder="Enter username..." */}
+                {/* type="text" */}
+                {/* onChange={this.handleChange} */}
+                {/* style={{ flex: 'none', border: '5px', boxShadow: '0 0 15px 0 rgba(0,0,0,0.2)', width: '97%', */}
+                {/* marginLeft: '8px', borderRadius: '5px', paddingLeft: '8px', height: '34px' }} */}
+                {/* /> */}
+                <SearchContent style={{ margin: '8px 12px 8px 8px' }}>
                     <InputLabel htmlFor="select-multiple-chip">Search subscribers:</InputLabel>
                     <Search
                         onChange={this.handleChange}
@@ -37,11 +37,11 @@ class Subscribes extends Component {
                 </SearchContent>
                 <styled.TableSubscribers>
                     <tbody>
-                    <styled.NullTr>
-                        <th style={{ padding: '8px' }}>Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                    </styled.NullTr>
+                        <styled.NullTr>
+                            <th style={{ padding: '8px' }}>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </styled.NullTr>
                         {
                             subscribers.length === 0
                                 ? (

@@ -67,11 +67,11 @@ export const Icon = styled.img`
 
 export const IconInfo = styled.div`
     position: relative;
-    p{
+    div{
         display: none;
         padding: 8px;
     }
-    &:hover p{
+    &:hover div{
         display: block;
         position: absolute;
         top: 10px;
