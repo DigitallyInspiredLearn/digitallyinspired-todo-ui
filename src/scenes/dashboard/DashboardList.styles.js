@@ -40,7 +40,6 @@ export const Head = styled.div`
 
 export const SearchContent = styled.div`
     display: flex;
-    margin: 0px 4px 4px 0; 
     flex-direction: column;
     flex: auto;
 `;

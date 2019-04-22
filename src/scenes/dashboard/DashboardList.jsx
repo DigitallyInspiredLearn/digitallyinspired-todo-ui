@@ -57,6 +57,7 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
+            sort,
         } = this.props;
         const { alignment } = this.state;
         return (
@@ -75,7 +76,8 @@ class DashboardList extends Component {
                             />
                         </styled.SearchContent>
                         <DropDownMaterial
-                            label='Sorting: '
+                            label='Sorting:'
+                            defaultValue={sort}
                             value={[
                                 'By id, low to high',
                                 'By id, high to low',
@@ -179,6 +181,7 @@ class DashboardList extends Component {
                             style={{width: '200px', height: '48px'}}
                             styleLabel={{fontSize: '13px'}}
                             label='Change of size:'
+                            defaultValue={pageSize}
                             value={[
                                 '4/page',
                                 '8/page',
@@ -186,18 +189,6 @@ class DashboardList extends Component {
                             ]}
                             selectSorting={actions.changeSize}
                         />
-                        {/*<DropDown*/}
-                            {/*changeValue={actions.changeSize}*/}
-                            {/*currentValue={pageSize}*/}
-                            {/*titleButton="Change size"*/}
-                            {/*possibleValues={[4, 8, 16]}*/}
-                            {/*drop="up"*/}
-                            {/*stylesContainer="top: -87px;"*/}
-                            {/*stylesValues="width: 75px; margin-left: 17px;"*/}
-                            {/*stylesButton="padding: 12px 10px; margin: 16px;"*/}
-                            {/*tooltip="Change visible lists"*/}
-                            {/*placement="right"*/}
-                        {/*/>*/}
                     </div>
                     <VisibleSidebar />
                 </styled.Footer>,

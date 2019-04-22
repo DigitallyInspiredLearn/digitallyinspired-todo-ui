@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
+import _AlertIcon from '@material-ui/icons/Share';
 
 export const closeWindow = styled.span`    
     font-weight: bold; 
@@ -8,6 +9,14 @@ export const closeWindow = styled.span`
     align-self: flex-end;
     cursor: pointer;
 `;
+
+export const AlertIcon = styled(_AlertIcon)`
+    margin: 16px 24px 16px 24px;
+    color: grey;
+    width: 20px !important;
+    height: 20px !important;
+`;
+
 
 export const searchTask = styled.div`
     display: flex;
@@ -119,17 +128,20 @@ export const buttonCloSeOk = styled.button`
 `;
 
 export const users = styled.div`
-    display: ${props => (props.search === '' ? 'none' : 'flex')};
+    display: ${props => ((props.search === '' || props.foundUser === true) ? 'none' : 'flex')};
+    flex: auto;
+    cursor: pointer;
+    overflow: auto;
     position: absolute;
     flex-direction: column;
-    height: auto;
+    height: 50px;
     z-index: 60;
-    border-radius: 5px;
-    top: 170px;
-    left: 18px;
-    right: 18px;
+    top: 140px;
+    left: 16px;
+    right: 16px;
     padding: 8px;
-    width: 94%;
     background: ${p => p.theme.backgroundList};
     opacity: 0.9;
+    border: rgb(128, 128, 128, 0.1) solid 1px;
+    border-radius: 8px;
 `;

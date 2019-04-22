@@ -161,27 +161,34 @@ export function* fetchAllLists() {
     } = yield select(state => state);
     const sortValue = getSorting(sort);
     const pageValue = getPageSize(pageSize);
-    console.log(pageValue);
     const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
-    if (viewList === 'my') {
-        const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
-        yield put(actions.fetchDashboardSuccess({
-            toDoBoardRaw: res.data.content,
-            totalElements: res.data.totalElements,
-            totalPages: res.data.totalPages,
-        }));
-    }
-    else {
-        const res = yield call(getSharedLists, currentPage, pageValue, sortValue);
-        const shared = res.data.content.map(l => ({ ...l, shared: true }));
-        yield put(actions.fetchDashboardSuccess({
-            toDoBoardRaw: shared,
-            totalElements: res.data.totalElements,
-            totalPages: res.data.totalPages,
-        }));
-    }
+    const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
+    const { data: { totalElements, totalPages, content } } =
+        yield call(fetchRequest, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
+    yield put(actions.fetchDashboardSuccess({
+                toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
+                totalElements,
+                totalPages,
+    }));
+    // if (viewList === 'my') {
+    //     const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
+    //     yield put(actions.fetchDashboardSuccess({
+    //         toDoBoardRaw: res.data.content,
+    //         totalElements: res.data.totalElements,
+    //         totalPages: res.data.totalPages,
+    //     }));
+    // }
+    // else {
+    //     const res = yield call(getSharedLists, currentPage, pageValue, sortValue);
+    //     const shared = res.data.content.map(l => ({ ...l, shared: true }));
+    //     yield put(actions.fetchDashboardSuccess({
+    //         toDoBoardRaw: shared,
+    //         totalElements: res.data.totalElements,
+    //         totalPages: res.data.totalPages,
+    //     }));
+    // }
 }
 
 export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.find(l => l.id === id);
