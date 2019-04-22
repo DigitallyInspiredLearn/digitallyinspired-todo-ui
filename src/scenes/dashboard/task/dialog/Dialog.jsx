@@ -36,7 +36,7 @@ export default class FormDialog extends React.Component {
             days, hours, minutes,
         } = this.state;
         const {
-            show, onClose, onConfirm, createdDate, key,
+            show, onClose, onConfirm, createdDate,
         } = this.props;
         return (
             <div key="dialogForTasksRoot">
@@ -44,7 +44,7 @@ export default class FormDialog extends React.Component {
                     open={show}
                     onClose={onClose}
                     aria-labelledby="form-dialog-title"
-                    key={key}
+                    key="form-dialog-title"
                 >
                     <DialogTitle
                         id="form-dialog-title"
