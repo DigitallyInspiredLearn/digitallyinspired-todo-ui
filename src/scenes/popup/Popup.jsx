@@ -106,25 +106,6 @@ export class Popup extends Component {
                         )
                     }
                     </styles.users>
-
-                    {/*<styles.users search={search}>*/}
-                        {/*{*/}
-                            {/*users.map(i => (*/}
-                                {/*search === i ? null : i === 'User is not found!' ?*/}
-                                    {/*<div>*/}
-                                        {/*<input*/}
-                                            {/*value={i}*/}
-                                        {/*/>*/}
-                                    {/*</div> :*/}
-                                    {/*<div onClick={() => actions.searchUser(i)}>*/}
-                                        {/*<input*/}
-                                            {/*value={i}*/}
-                                            {/*key='user'*/}
-                                        {/*/>*/}
-                                    {/*</div>),*/}
-                            {/*)*/}
-                        {/*}*/}
-                    {/*</styles.users>*/}
                 </DialogActions>
             </Dialog>
         );
