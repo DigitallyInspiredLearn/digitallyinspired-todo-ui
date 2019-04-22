@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import InputCom from '@material-ui/core/Input';
 import InputStyles from './Input.styles';
+import PropTypes from "prop-types";
+import Profile from "../../scenes/container/settings/profile/Profile";
 
 
 class Input extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: props.value,
-        };
+        const { value } = props;
+        this.state = { value };
     }
 
     componentWillReceiveProps = (newProps) => {
-        if (newProps.value !== this.props.value) {
+        const { value } = this.props;
+        if (newProps.value !== value) {
             this.setState({
                 value: newProps.value,
             });
@@ -27,14 +28,8 @@ class Input extends Component {
         }
     };
 
-    handleBlur = (e, { onBlur } = this.props) => {
-        const { target: { value } } = e;
-        this.setState({ value: (value || 'New value') });
-        onBlur(value);
-    };
-
     render() {
-        const { border, style, onBlur } = this.props;
+        const { border, style } = this.props;
         const { value } = this.state;
         return (
             <InputStyles
@@ -43,10 +38,22 @@ class Input extends Component {
                 border={border}
                 style={style}
                 onKeyPress={e => e.key === 'Enter' && e.target.blur()}
-                onBlur={this.handleBlur}
+                onBlur={() => this.setState({ value: (value || 'black') })}
             />
         );
     }
 }
 
 export default Input;
+
+Profile.propTypes = {
+    value: PropTypes.string,
+    border: PropTypes.string,
+    style: PropTypes.objectOf(PropTypes.string),
+};
+
+Profile.defaultProps = {
+    style: {},
+    value: '',
+    border: '',
+};
