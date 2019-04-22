@@ -5,6 +5,8 @@ export const Theme = styled.div`
     width: 100%;
     height: fit-content;
     justify-content: space-around;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+
 `;
 
 export const ColumnContainer = styled.div`
@@ -15,7 +17,7 @@ export const ColumnContainer = styled.div`
 export const ColumnTitle = styled.div`
     font-size: 30px;
     align-self: center;
-    font-weight: bold; 
+    font-weight: 400; 
     color: ${p => p.theme.mainText};
     border-bottom: 1px solid grey; 
 `;
@@ -110,7 +112,7 @@ export const ApplyButton = styled.button`
     cursor: pointer;
     color: ${p => p.theme.buttonText};
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 400;
     width: 20%;
     height: 8%;
 

@@ -18,14 +18,6 @@ class Subscribes extends Component {
         return (
             <styled.Subscribes>
                 <styled.Title> Your subscribers list</styled.Title>
-                {/*<Search*/}
-                    {/*value={search}*/}
-                    {/*placeholder="Enter username..."*/}
-                    {/*type="text"*/}
-                    {/*onChange={this.handleChange}*/}
-                    {/*style={{ flex: 'none', border: '5px', boxShadow: '0 0 15px 0 rgba(0,0,0,0.2)', width: '97%',*/}
-                        {/*marginLeft: '8px', borderRadius: '5px', paddingLeft: '8px', height: '34px' }}*/}
-                {/*/>*/}
                 <SearchContent style={{margin: '8px 12px 8px 8px'}}>
                     <InputLabel htmlFor="select-multiple-chip">Search subscribers:</InputLabel>
                     <Search

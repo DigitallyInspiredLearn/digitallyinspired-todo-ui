@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import { Select, InputLabel } from './DropDown.styled';
@@ -10,7 +9,7 @@ export class DropDownMaterial extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            valueSelect: props.value[0],
+            valueSelect: props.defaultValue,
         };
     }
 
@@ -21,7 +20,7 @@ export class DropDownMaterial extends Component {
     };
 
     render() {
-        const { value, selectSorting, label,style, styleLabel } = this.props;
+        const { value, selectSorting, label,style, styleLabel,pageSize } = this.props;
         const { valueSelect } = this.state;
         return (
             <div>

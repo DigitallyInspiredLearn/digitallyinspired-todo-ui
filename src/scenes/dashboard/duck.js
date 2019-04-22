@@ -195,22 +195,31 @@ export function* fetchAllLists() {
     const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
-    if (viewList === 'my') {
-        const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
-        yield put(actions.fetchDashboardSuccess({
-            toDoBoardRaw: res.data.content,
-            totalElements: res.data.totalElements,
-            totalPages: res.data.totalPages,
-        }));
-    } else {
-        const res = yield call(getSharedLists, currentPage, pageValue, sortValue);
-        const shared = res.data.content.map(l => ({ ...l, shared: true }));
-        yield put(actions.fetchDashboardSuccess({
-            toDoBoardRaw: shared,
-            totalElements: res.data.totalElements,
-            totalPages: res.data.totalPages,
-        }));
-    }
+    const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
+    const { data: { totalElements, totalPages, content } } =
+        yield call(fetchRequest, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
+    yield put(actions.fetchDashboardSuccess({
+                toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
+                totalElements,
+                totalPages,
+    }));
+    // if (viewList === 'my') {
+    //     const res = yield call(getMyList, currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
+    //     yield put(actions.fetchDashboardSuccess({
+    //         toDoBoardRaw: res.data.content,
+    //         totalElements: res.data.totalElements,
+    //         totalPages: res.data.totalPages,
+    //     }));
+    // }
+    // else {
+    //     const res = yield call(getSharedLists, currentPage, pageValue, sortValue);
+    //     const shared = res.data.content.map(l => ({ ...l, shared: true }));
+    //     yield put(actions.fetchDashboardSuccess({
+    //         toDoBoardRaw: shared,
+    //         totalElements: res.data.totalElements,
+    //         totalPages: res.data.totalPages,
+    //     }));
+    // }
 }
 
 export const getToDoBoardFiltered = id => state => state.dashboard.toDoBoardRaw.find(l => l.id === id);
@@ -338,7 +347,7 @@ export function* getSelectedTegInString() {
 }
 
 export function* saga() {
-    yield safeTakeLatest(INITIALIZE, initialize);
+    yield safeTakeLatest([INITIALIZE, FETCH_TAGS], initialize);
     yield safeTakeEvery([
         FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT,
     ], fetchAllLists);
@@ -352,7 +361,6 @@ export function* saga() {
     yield safeTakeLatest(UPDATE_TASK_NAME_SUCCESS, updateNameTask);
     yield safeTakeEvery([FETCH_DASHBOARD_SUCCESS, SEARCH], mutate);
     yield safeTakeEvery(SHARE_LIST, shareList);
-    yield safeTakeEvery(FETCH_TAGS, fetchAllTags);
     yield safeTakeEvery(ADD_TAG, addTag);
     yield safeTakeEvery(ADD_TAG_TO_TASK, addTagToTask);
     yield safeTakeEvery(DELETE_TAG, deleteTag);

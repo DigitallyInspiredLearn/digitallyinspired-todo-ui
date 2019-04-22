@@ -5,7 +5,8 @@ import nightImage from '../../../../image/night.png';
 import paint from '../../../../image/paint.svg';
 import theme from '../../../../config/theme';
 import Input from '../../../../components/input/Input';
-import Button from '../../../../components/button/Button';
+// import Button from '../../../../components/button/Button';
+import Button from '@material-ui/core/Button';
 
 class Theme extends Component {
     constructor(props) {
@@ -168,15 +169,19 @@ class Theme extends Component {
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
-                    <Button
-                        onClick={this.handleApply}
-                        value="Apply"
-                        style={{
-                            marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px'
-                        }}
-                    >
-                        Apply
+                    {/*<Button*/}
+                        {/*onClick={this.handleApply}*/}
+                        {/*value="Apply"*/}
+                        {/*style={{*/}
+                            {/*marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px'*/}
+                        {/*}}*/}
+                    {/*>*/}
+                        {/*Apply*/}
+                    {/*</Button>*/}
+                    <Button variant="contained" color="default">
+                        Upload
                     </Button>
+
                 </styled.ColumnContainer>
             </styled.Theme>
         );

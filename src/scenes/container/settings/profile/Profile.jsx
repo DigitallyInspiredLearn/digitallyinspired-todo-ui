@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from './Profile.styles';
-import download from '../../../../image/download.svg';
 import Button from '../../../../components/button/Button';
+import {Dashboard} from "../../../dashboard/Dashboard";
+import PropTypes from 'prop-types';
 
 class Profile extends Component {
     constructor(props) {
@@ -175,3 +176,12 @@ class Profile extends Component {
     }
 }
 export default Profile;
+
+Profile.propTypes = {
+    statistics: PropTypes.object,
+    currentUser:  PropTypes.object,
+};
+
+Profile.defaultProps = {
+    currentUser: {},
+};
