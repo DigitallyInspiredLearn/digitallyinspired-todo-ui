@@ -18,7 +18,7 @@ class DashboardList extends Component {
         };
     }
 
-    componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
+    componentWillMount = ({ actions } = this.props) => actions.initialize();
 
     componentWillUnmount = () => {
         const { actions } = this.props;
@@ -58,7 +58,6 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
-            sort,
         } = this.props;
         const { alignment } = this.state;
         return (
@@ -77,8 +76,7 @@ class DashboardList extends Component {
                             />
                         </styled.SearchContent>
                         <DropDownMaterial
-                            label='Sorting:'
-                            defaultValue={sort}
+                            label="Sorting: "
                             value={[
                                 'By id, low to high',
                                 'By id, high to low',
@@ -179,7 +177,7 @@ class DashboardList extends Component {
                             />
                         </styled.Pagination>
                         <DropDownMaterial
-                            style={{ width: '150px', height: '42px', marginTop: '4px' }}
+                            style={{ width: '150px', height: '41px', marginTop: '4px' }}
                             styleLabel={{ fontSize: '10px' }}
                             // label="Change size:"
                             value={[
@@ -188,7 +186,7 @@ class DashboardList extends Component {
                                 '16/page',
                             ]}
                             selectSorting={actions.changeSize}
-                            defaultValue={pageSize}
+                            default={pageSize}
                         />
                     </div>
                     <VisibleSidebar />

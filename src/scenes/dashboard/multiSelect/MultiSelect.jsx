@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
 import { styles, style, MenuProps, Select, Button } from './MultiSelect.styled';
-import { InputLabel } from "../../../components/dropDown/DropDown.styled";
+import { InputLabel } from '../../../components/dropDown/DropDown.styled';
 
 class MultiSelect extends Component {
     state = { selectTags: [] };
@@ -18,8 +18,6 @@ class MultiSelect extends Component {
             () => getSelectedTags(this.state.selectTags),
         );
     };
-
-    componentWillMount = ({ actions } = this.props) => actions.fetchTags();
 
     render() {
         const {
