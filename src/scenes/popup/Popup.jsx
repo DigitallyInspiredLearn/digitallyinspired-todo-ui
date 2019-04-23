@@ -11,13 +11,7 @@ import Search from '../../components/search/Search';
 import * as styled from '../../components/dialog/AlertDialog.styles';
 import * as styles from './Popup.styles';
 
-class Popup extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            foundUser: false,
-        };
-    }
+export class Popup extends Component {
 
     handleChange = (newValue) => {
         const { actions } = this.props;
@@ -25,10 +19,7 @@ class Popup extends Component {
     };
 
     render() {
-        const {
-            statePopup, closePopup, actions, actionsBoard, users, search, idList,
-        } = this.props;
-        const { foundUser } = this.state;
+        const { statePopup, closePopup, actions, actionsBoard, users, search, idList } = this.props;
         return (
             <Dialog
                 open={statePopup}
@@ -49,7 +40,7 @@ class Popup extends Component {
                     >&times;
                     </styled.closeWindow>
                 </styled.Content>
-                <SearchContent style={{ margin: '0px 16px 24px 24px' }}>
+                <SearchContent style={{margin: '0px 16px 24px 24px',}}>
                     <Search
                         onChange={this.handleChange}
                         value={search}
@@ -59,7 +50,7 @@ class Popup extends Component {
                         placeholder="Enter username ..."
                     />
                 </SearchContent>
-                <DialogActions style={{ margin: '32px 8px 8px 8px' }}>
+                <DialogActions style={{ margin: '56px 8px 8px 8px' }}>
                     <Button
                         href=""
                         onClick={() => {
@@ -86,42 +77,25 @@ class Popup extends Component {
                     >
                         Enter
                     </Button>
-                    <styles.users search={search} foundUser={foundUser}>
-                        {
-                            users.map(i => (
-                                search === i && i === 'User is not found!'
-                                    ? (
-                                        <List key={i}>
-                                            <ListItemText primary={i} />
-                                        </List>
-                                    )
-                                    : (
-                                        <div onClick={() => actions.searchUser(i)} key={i}>
+                    {
+                        users.length === 1 && users[0] === search ? (<styles.users search={''} />) : (
+                            <styles.users search={search}>
+                                {
+                                    users.map(i => (
+                                        i === 'User is not found!' ?
                                             <List>
-                                                <ListItemText primary={i} />
-                                            </List>
-                                        </div>
-                                    )))
-                        }
-                    </styles.users>
-                    {/* <styles.users search={search}> */}
-                    {/* { */}
-                    {/* users.map(i => ( */}
-                    {/* search === i ? null : i === 'User is not found!' ? */}
-                    {/* <div> */}
-                    {/* <input */}
-                    {/* value={i} */}
-                    {/* /> */}
-                    {/* </div> : */}
-                    {/* <div onClick={() => actions.searchUser(i)}> */}
-                    {/* <input */}
-                    {/* value={i} */}
-                    {/* key='user' */}
-                    {/* /> */}
-                    {/* </div>), */}
-                    {/* ) */}
-                    {/* } */}
-                    {/* </styles.users> */}
+                                                <ListItemText primary={i}/>
+                                            </List> :
+                                            <div onClick={() => actions.searchUser(i)}>
+                                                <List>
+                                                    <ListItemText primary={i}/>
+                                                </List>
+                                            </div>),
+                                    )
+                                }
+                            </styles.users>
+                        )
+                    }
                 </DialogActions>
             </Dialog>
         );

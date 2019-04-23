@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
-import Input from '@material-ui/core/Input';
 import { Select, InputLabel } from './DropDown.styled';
 
 
@@ -16,27 +15,26 @@ export class DropDownMaterial extends Component {
         this.setState({
             valueSelect: e.target.value,
         });
+        this.props.selectSorting(e.target.value);
     };
 
     render() {
-        const {
-            value, selectSorting, label, style, styleLabel, pageSize,
-        } = this.props;
+        const { value, label, style, styleLabel } = this.props;
         const { valueSelect } = this.state;
         return (
             <div>
                 <InputLabel
+                    key='label'
                     htmlFor="select-multiple-chip"
                     style={styleLabel}
                 >
                     {label}
                 </InputLabel>
                 <Select
+                    key='DropDownSelect'
                     value={valueSelect}
                     onChange={this.handleChange}
-                    // input={<Input id="select-multiple-chip" placeholder="choose" />}
                     style={style}
-                    onClick={e => selectSorting(e.target.value)}
                 >
                     {
                         value.map(i => (

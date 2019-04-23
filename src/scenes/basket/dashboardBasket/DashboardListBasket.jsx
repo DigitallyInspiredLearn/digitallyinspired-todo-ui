@@ -8,6 +8,7 @@ import DeleteForever from '@material-ui/icons/DeleteForever';
 import * as styledList from '../../list/OneList.styles';
 import * as styled from '../../dashboard/DashboardList.styles';
 import DropDown from '../../../components/dropDown/DropDown';
+import { DropDownMaterial } from '../../../components/dropDown/DropDownMaterial';
 import { Dashboard } from '../../dashboard/Dashboard';
 import * as styledDialog from '../../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
@@ -95,15 +96,16 @@ class DashboardListBasket extends Component {
                                 onPageChange={this.handlePageChange}
                             />
                         </styled.Pagination>
-                        <DropDown
-                            changeValue={actions.changeSize}
-                            currentValue={pageSize}
-                            titleButton="Change size"
-                            possibleValues={[4, 8, 16]}
-                            drop="up"
-                            stylesContainer="top: -87px;"
-                            stylesValues="width: 75px; margin-left: 17px;"
-                            stylesButton="padding: 12px 10px; margin: 16px;"
+                        <DropDownMaterial
+                            style={{ width: '150px', height: '42px', marginTop: '4px' }}
+                            styleLabel={{ fontSize: '10px' }}
+                            value={[
+                                '4/page',
+                                '8/page',
+                                '16/page',
+                            ]}
+                            selectSorting={actions.changeSize}
+                            defaultValue={pageSize}
                         />
                     </div>
                     <IconButton

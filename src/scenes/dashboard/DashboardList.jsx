@@ -38,7 +38,6 @@ class DashboardList extends Component {
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
-        // console.log(selected);
         actions.changePagination(selected);
     };
 
@@ -58,6 +57,7 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
+            sort,
         } = this.props;
         const { alignment } = this.state;
         return (
@@ -88,6 +88,7 @@ class DashboardList extends Component {
                                 'By Modified Date, high to low',
                             ]}
                             selectSorting={actions.changeSort}
+                            defaultValue={sort}
                         />
                         <MultiSelect />
                         <styled.CheckboxDiv style={{ padding: 0, margin: 0 }}>
@@ -177,7 +178,7 @@ class DashboardList extends Component {
                             />
                         </styled.Pagination>
                         <DropDownMaterial
-                            style={{ width: '150px', height: '41px', marginTop: '4px' }}
+                            style={{ width: '150px', height: '42px', marginTop: '4px' }}
                             styleLabel={{ fontSize: '10px' }}
                             value={[
                                 '4/page',
@@ -185,7 +186,7 @@ class DashboardList extends Component {
                                 '16/page',
                             ]}
                             selectSorting={actions.changeSize}
-                            default={pageSize}
+                            defaultValue={pageSize}
                         />
                     </div>
                     <VisibleSidebar />
