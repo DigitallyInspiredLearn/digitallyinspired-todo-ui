@@ -75,7 +75,6 @@ class OneList extends Component {
             visible: false,
             alignment: ['notDone', 'done'],
         };
-        console.log(this.props);
     }
 
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
