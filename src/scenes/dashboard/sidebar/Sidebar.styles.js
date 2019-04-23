@@ -13,7 +13,7 @@ export const Close = styled.span`
 `;
 export const Plus = styled.div`
     cursor: pointer;
-    margin: 8px;
+    margin: 8px 16px;
     align-self: center;
 `;
 export const AddButton = styled.div`

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
-    z-index:5;
-     width: 17px;
+     z-index:5;
+     width: 16px;
      height: 15px;
      margin-top: 4px;
      margin-left: 1px;

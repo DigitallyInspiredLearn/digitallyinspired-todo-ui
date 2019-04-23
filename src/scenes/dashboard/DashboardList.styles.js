@@ -86,9 +86,10 @@ export const Pagination = styled.div`
    background-color: ${p => p.theme.background};
    .pagination-container {
        display: flex;
-       margin-left: -10px;
+       margin-left: 16px;
        margin-top: 8px;
        height: 40px;
+       padding-left: 0;
        li {
            transition: background-color .3s;
            padding: 12px 16px;
