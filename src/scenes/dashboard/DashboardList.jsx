@@ -38,7 +38,6 @@ class DashboardList extends Component {
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
-        // console.log(selected);
         actions.changePagination(selected);
     };
 
