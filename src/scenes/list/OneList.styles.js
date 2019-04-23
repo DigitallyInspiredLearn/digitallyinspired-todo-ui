@@ -114,6 +114,7 @@ export const nullTask = styled.div`
     margin: 10px 20px;
     opacity: 0.6;
     font-size: 20px;
+    align-self: center;
 `;
 
 export const addTaskContainer = styled.div`

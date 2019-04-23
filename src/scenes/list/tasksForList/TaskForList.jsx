@@ -130,16 +130,16 @@ class TaskForList extends Component {
             default:
                 return (
                     <Tooltip title="Priority: NOT SPECIFIED">
-                        <div>
+                        <span>
                             <Empty
                                 width="20px"
                                 height="20px"
                                 alt="not_specified"
                                 style={{
-                                    padding: '3px 4px', width: '20px', height: '20px', marginBottom: '-7px',
+                                    padding: '3px 0 3px 4px', width: '20px', height: '20px', marginBottom: '-7px',
                                 }}
                             />
-                        </div>
+                        </span>
                     </Tooltip>
                 );
         }
@@ -152,7 +152,9 @@ class TaskForList extends Component {
         } = this.state;
         const {
             idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes,
+            tagTaskKeys, tags,
         } = this.props;
+        console.log(this.props);
         return (
             <React.Fragment>
                 {
@@ -185,7 +187,7 @@ class TaskForList extends Component {
                         />
                     </TableCell>
                     <TableCell align="left">
-                        { this.setIcon(priority) } {priority}
+                        { this.setIcon(priority)} {priority}
                     </TableCell>
                     <TableCell align="left">{new Date(createdDate).toLocaleString()}</TableCell>
                     <TableCell align="left">{selected ? new Date(completedDate).toLocaleString()
@@ -199,6 +201,36 @@ class TaskForList extends Component {
                                     ${(moment.duration(durationTime).hours())}h
                                     ${(moment.duration(durationTime).minutes())}m`
                                 : 'in process'
+                        }
+                    </TableCell>
+                    <TableCell align="center">
+                        Tags: {
+                            tagTaskKeys.map(key => key.taskId === idTask
+                                            && (
+                                                <span
+                                                    key={key}
+                                                    style={{
+                                                        backgroundColor: key.tag.color,
+                                                        padding: '2px 4px',
+                                                        margin: '4px',
+                                                        borderRadius: '2px',
+                                                    }}
+                                                >
+                                                    {key.tag.tagName}
+                                                    <span
+                                                        style={{
+                                                            backgroundColor: 'white',
+                                                            padding: ' 0 4px',
+                                                            borderRadius: '2px',
+                                                            border: '1px solid grey',
+                                                            marginLeft: '4px',
+                                                            opacity: 0.8,
+                                                        }}
+                                                        // onClick={() => this.props.actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
+                                                    >x
+                                                    </span>
+                                                </span>
+                                            ))
                         }
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>

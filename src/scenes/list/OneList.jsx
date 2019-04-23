@@ -159,8 +159,9 @@ class OneList extends Component {
             valueNewTask, stateComment, comment, priority, visible, alignment, newComment,
         } = this.state;
         const {
-            match, actions, data, actionsBoard, done, notDone, tasks, classes,
+            match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
         } = this.props;
+        // console.log(this.props);
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -305,6 +306,7 @@ class OneList extends Component {
                                                     <CustomTableCell align="left">Created date</CustomTableCell>
                                                     <CustomTableCell align="left">Completed date</CustomTableCell>
                                                     <CustomTableCell align="left">Duration time</CustomTableCell>
+                                                    <CustomTableCell align="center">Tags</CustomTableCell>
                                                     <CustomTableCell align="center" />
                                                 </TableRow>
                                             </TableHead>
@@ -322,6 +324,8 @@ class OneList extends Component {
                                                             createdDate={i.createdDate}
                                                             completedDate={i.completedDate}
                                                             durationTime={i.durationTime}
+                                                            tags={this.props.location.state.tags}
+                                                            tagTaskKeys={this.props.location.state.tagTaskKeys}
                                                         />
                                                     </TableBody>
                                                 ))

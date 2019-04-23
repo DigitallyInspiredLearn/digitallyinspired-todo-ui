@@ -25,7 +25,7 @@ export const AddButton = styled.div`
     padding: 8px;
     text-align: center;
     cursor: pointer;
-    color: #3c3c3c;
+    color: white;
     text-transform: uppercase;
     width:100%;
     text-decoration:none;
@@ -38,8 +38,8 @@ export const AddButton = styled.div`
     transition: all .25s ease-in;
     border: 1px solid #3c3c3c;
     &:hover {
-        background-position: 0 0;
-        color:${p => p.theme.activeButton};
+        // background-position: 0 0;
+        // color:${p => p.theme.activeButton};
     }    
 `;
 export const AddTask = styled.div`

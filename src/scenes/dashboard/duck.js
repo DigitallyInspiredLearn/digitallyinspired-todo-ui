@@ -289,7 +289,7 @@ export function* removeTagFromTask(action) {
 }
 
 export function* saga() {
-    yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK ], initialize);
+    yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK], initialize);
     yield safeTakeEvery([
         FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT, GET_SELECTED_TAGS, FETCH_TAGS, GET_SELECTED_TAGS,
     ], fetchAllLists);

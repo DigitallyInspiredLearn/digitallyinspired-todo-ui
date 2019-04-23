@@ -66,6 +66,8 @@ export class Dashboard extends Component {
             visibleAllDashboardTags: true,
             visibleDelete: false,
             visibleRestore: false,
+            tags: props.allTags,
+            tagTaskKeys: props.tagTaskKeys,
         };
     }
 
@@ -164,7 +166,7 @@ export class Dashboard extends Component {
             currentUser: { gravatarUrl },
         } = this.props;
         const {
-            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore,
+            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore, tags, tagTaskKeys,
         } = this.state;
 
         return ([
@@ -207,7 +209,12 @@ export class Dashboard extends Component {
                             ? (todoListStatus === 'ACTIVE'
                                 ? (
                                     <styled.IconContainer>
-                                        <Link to={`/lists/${idList}`}>
+                                        <Link
+                                            to={{
+                                                pathname: `/lists/${idList}`,
+                                                state: { tags, tagTaskKeys }
+                                            }}
+                                        >
                                             <styled.IconInfo>
                                                 <p>
                                                     <b>Information about list "{title}":</b><br />
@@ -221,7 +228,7 @@ export class Dashboard extends Component {
                                                 <IconButton
                                                     href=""
                                                     aria-label="info"
-                                                    style={{ borderRadius: '40%', padding: '4px' }}
+                                                    style={{ borderRadius: '40%', padding: '4px 4px 8px' }}
                                                     alt="Information about this list"
                                                 >
                                                     <Info />
@@ -232,7 +239,7 @@ export class Dashboard extends Component {
                                             <IconButton
                                                 href=""
                                                 aria-label="share"
-                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                style={{ borderRadius: '40%', padding: '4px 4px 8px' }}
                                                 onClick={this.showPopup}
                                                 alt="Share list"
                                             >
@@ -244,7 +251,7 @@ export class Dashboard extends Component {
                                                 href=""
                                                 aria-label="trash"
                                                 onClick={this.showAlertDeleteDialog}
-                                                style={{ borderRadius: '40%', padding: '4px' }}
+                                                style={{ borderRadius: '40%', padding: '4px 4px 8px' }}
                                                 alt="Delete this list"
                                             >
                                                 <Delete />

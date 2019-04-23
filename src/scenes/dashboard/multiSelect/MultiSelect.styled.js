@@ -27,15 +27,14 @@ export const styles = () => ({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'column',
-
     },
     chips: {
         display: 'flex',
         padding: '4px',
         flexWrap: 'wrap',
-        height: '45px',
+        height: '40px',
         overflow: 'auto',
-        width: '275px',
+        width: '290px',
         backgroundColor: 'white',
         borderRadius: '5px',
     },
