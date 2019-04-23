@@ -87,12 +87,14 @@ export default class FormDialog extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button
+                            key="1"
                             onClick={onClose}
                             color="primary"
                         >
                             Cancel
                         </Button>
                         <Button
+                            key="2"
                             onClick={() => onConfirm({
                                 completedDate: moment(createdDate).add({ days, hours, minutes }),
                                 duration: moment.duration(moment(moment(createdDate).add(

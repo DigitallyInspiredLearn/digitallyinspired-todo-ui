@@ -26,6 +26,7 @@ class DashboardList extends Component {
             { alignment: 'my' },
             () => actions.updateViewLists('my'),
         );
+        actions.clean();
     };
 
 

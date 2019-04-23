@@ -168,17 +168,15 @@ class Theme extends Component {
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
-                    {/* <Button */}
-                    {/* onClick={this.handleApply} */}
-                    {/* value="Apply" */}
-                    {/* style={{ */}
-                    {/* marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px' */}
-                    {/* }} */}
-                    {/* > */}
-                    {/* Apply */}
-                    {/* </Button> */}
-                    <Button variant="contained" color="default">
-                        Upload
+                    <Button
+                        variant="contained"
+                        color="default"
+                        style={{
+                            marginTop: '16px', width: '40%', height: '8%', alignSelf: 'center', borderRadius: '8px'
+                        }}
+                        onClick={this.handleApply}
+                    >
+                        Apply
                     </Button>
 
                 </styled.ColumnContainer>
