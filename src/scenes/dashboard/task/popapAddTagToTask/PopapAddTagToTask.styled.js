@@ -21,4 +21,5 @@ export const Tag = styled('button')`
      align-items: center;
      outline: none;
      border: none;
+     max-height: 60px;
 `;

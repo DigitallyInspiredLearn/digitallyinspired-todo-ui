@@ -33,22 +33,20 @@ import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
 import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
-import empty from '../../image/empty.svg';
 
-const CustomTableCell = withStyles(theme => ({
+const CustomTableCell = withStyles(() => ({
     head: {
         backgroundColor: 'gray',
-        color: theme.palette.common.white,
+        color: 'white',
         fontSize: 16,
         width: 5,
         height: 10,
     },
 }))(TableCell);
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         height: 'auto',
     },
@@ -82,6 +80,10 @@ class OneList extends Component {
 
     componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
+    componentWillUnmount = () => {
+        this.props.actions.clean();
+    };
+
     changeValueNewTask = e => this.setState({ valueNewTask: e.target.value });
 
     handleFormat = (event, alignment) => this.setState({ alignment });
@@ -102,7 +104,7 @@ class OneList extends Component {
     };
 
     handleUpdateComment = (e) => {
-        this.setState({ newComment: e.target.value }, () => console.log(this.state.newComment));
+        this.setState({ newComment: e.target.value });
     };
 
     handleUpdate = () => {
@@ -188,14 +190,11 @@ class OneList extends Component {
                     />
                     <Link to="/lists">
                         <Tooltip title="Delete list">
-                            <IconButton
-                                aria-label="trash"
+                            <Delete
+                                style={{ height: '30px', color: 'black' }}
                                 onClick={this.showAlertDialog}
-                                style={{ borderRadius: '40%', padding: '4px' }}
                                 alt="Delete this list"
-                            >
-                                <Delete />
-                            </IconButton>
+                            />
                         </Tooltip>
                     </Link>
                     <AlertDialog
@@ -209,7 +208,7 @@ class OneList extends Component {
                             src={pdf}
                             alt="download in pdf"
                             onClick={() => this.downloadToPDF(data)}
-                            style={{ height: '37px' }}
+                            style={{ height: '30px' }}
                         />
                     </Tooltip>
                     <Workbook
@@ -220,7 +219,7 @@ class OneList extends Component {
                                 <img
                                     src={xls}
                                     alt="download in xls"
-                                    style={{ height: '37px', paddingTop: '4px' }}
+                                    style={{ height: '30px', paddingTop: '4px' }}
                                 />
                             </Tooltip>
                         )}
@@ -312,7 +311,7 @@ class OneList extends Component {
                                             </TableHead>
                                             {
                                                 tasks.map(i => (
-                                                    <TableBody>
+                                                    <TableBody key={i}>
                                                         <TaskForList
                                                             idTask={i.id}
                                                             idList={match.params.id}
@@ -334,7 +333,6 @@ class OneList extends Component {
                                 </div>
                             )
                     }
-
                     <styled.addTaskContainer
                         visible={!stateComment}
                     >
@@ -372,12 +370,14 @@ class OneList extends Component {
                                 style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    <Empty
-                                        style={{
-                                            width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
-                                        }}
-                                    />
-                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                    <div>
+                                        <Empty
+                                            style={{
+                                                width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                            }}
+                                        />
+                                        <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                    </div>
                                 </MenuItem>
                                 <MenuItem value="LOW">
                                     <styled.PriorityImage
@@ -418,7 +418,7 @@ class OneList extends Component {
                             { (data.comment !== undefined && data.comment !== null) ? (
                                 <TextField
                                     onChange={this.handleUpdateComment}
-                                    value={newComment}
+                                    defaultValue={data.comment}
                                     multiline
                                     autoFocus
                                     rowsMax="8"

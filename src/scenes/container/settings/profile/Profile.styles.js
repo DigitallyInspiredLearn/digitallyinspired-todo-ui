@@ -21,17 +21,6 @@ export const Avatar = styled.img`
     border-radius: 50%;
     padding: 8px;
 `;
-export const AvatarInput = styled.input`
-   display: none;
-`;
-export const UploadButton = styled.input`
-    position: absolute;
-    bottom: 8px; 
-    left:75px;
-    width: 40px;
-    outline: none;
-    cursor:pointer;
-`;
 
 export const DeleteProfile = styled.div`
     display: flex;
@@ -56,7 +45,7 @@ export const CurrentUser = styled.div`
     display: flex;
     flex-direction:column;
     align-items: center;
-    & > p{
+    & > div{
         font-size: 20px;
         margin: 8px;
         font-weight: bold;
@@ -65,15 +54,7 @@ export const CurrentUser = styled.div`
     }
 `;
 
-export const Account = styled.p`
-    margin: 16px 8px;
-    font-size: 18px;
-    font-weight: bold;
-    color:${p => p.theme.mainText};
-    cursor: default;
-`;
-
-export const Info = styled.p`
+export const Info = styled.div`
     display: flex;
     flex-direction:column;
     flex:auto;

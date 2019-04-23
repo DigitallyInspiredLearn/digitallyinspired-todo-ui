@@ -42,7 +42,13 @@ export default class FormDialog extends React.Component {
                         >
                             <p>Choose tag:</p>
                             <div style={{
-                                display: 'flex', flexFlow: 'row wrap', flex: 'auto', border: '1px solid whitesmoke',
+                                display: 'flex',
+                                flexFlow: 'row wrap',
+                                width: '99.5%',
+                                overflowX: 'hidden',
+                                overflowY: 'auto',
+                                flex: 'auto',
+                                border: '1px solid whitesmoke',
                             }}
                             >
                                 {
@@ -50,7 +56,9 @@ export default class FormDialog extends React.Component {
                                         <thisStyled.Tag
                                             style={{
                                                 backgroundColor: tag.color,
-                                                boxShadow: selectedTag === tag.id ? '0 0 6px 0 rgba(0,0,0,0.7)': 'none',
+                                                boxShadow: selectedTag === tag.id
+                                                    ? '0 0 6px 0 rgba(0,0,0,0.7)'
+                                                    : 'none',
                                             }}
                                             onClick={() => this.setState({ selectedTag: tag.id })}
                                         >{tag.tagName}

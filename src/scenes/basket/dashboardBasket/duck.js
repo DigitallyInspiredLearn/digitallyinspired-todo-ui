@@ -29,7 +29,12 @@ const initialState = {
     deletedListsRaw: [],
     allDeletedLists: [],
     currentPage: 0,
-    pageSize: 4,
+    options: {
+        '4/page': 4,
+        '8/page': 8,
+        '16/page': 16,
+    },
+    pageSize: '4/page',
     totalElements: 0,
 };
 
@@ -47,14 +52,16 @@ export const reducer = handleActions({
 }, initialState);
 
 function* fetchAllDeletedLists() {
-    const { pageSize, currentPage } = yield select(state => state.basket);
-    const res = yield call(getMyList, currentPage, pageSize, 'id,asc', 'INACTIVE', '&tagId=');
+    const { pageSize, currentPage, options } = yield select(state => state.basket);
+    const res = yield call(getMyList, currentPage, options[pageSize], 'id,asc', 'INACTIVE', '&tagId=');
     const r = yield call(getMyList, '', '', 'id,asc', 'INACTIVE', '&tagId=');
     const allDeletedLists = r.data.content;
     const countElements = res.data.totalElements;
     const countPages = res.data.totalPages;
     const deletedLists = res.data.content;
-    yield put(actions.fetchDashboardDeletedSuccess({ deletedLists, countElements, countPages, allDeletedLists }));
+    yield put(actions.fetchDashboardDeletedSuccess({
+        deletedLists, countElements, countPages, allDeletedLists,
+    }));
 }
 
 function* deleteListFromBasket(action) {
@@ -69,7 +76,7 @@ function* restoreListFromBasket(action) {
 
 function* deleteAllLists() {
     const lists = yield select(getAllLists);
-    for (let i=0; i < lists.length; i++) {
+    for (let i = 0; i < lists.length; i++) {
         yield call(deleteList, lists[i].id);
     }
     yield call(fetchAllDeletedLists);

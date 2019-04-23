@@ -4,7 +4,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import * as styled from './DropDown.styled';
 import list from '../../image/list-menu.svg';
 
-class  DropDown extends Component {
+class DropDown extends Component {
     static propTypes = {
         changeValue: PropTypes.func,
         titleButton: PropTypes.string,
@@ -76,19 +76,23 @@ class  DropDown extends Component {
                         }
                     </styled.Ul>
                     {
-                        titleButton !== '' ? <styled.Button
-                            onClick={this.changeVisible}
-                            stylesButton={stylesButton}
-                        >
-                            { titleButton }
-                            <styled.Down className="fa fa-angle-down" />
-                            </styled.Button>
-                            : <styled.Icon
-                                src={list}
-                                alt="list"
+                        titleButton !== '' ? (
+                            <styled.Button
                                 onClick={this.changeVisible}
-                                style={{ display: iconVisible }}
-                            />
+                                stylesButton={stylesButton}
+                            >
+                                { titleButton }
+                                <styled.Down className="fa fa-angle-down" />
+                            </styled.Button>
+                        )
+                            : (
+                                <styled.Icon
+                                    src={list}
+                                    alt="list"
+                                    onClick={this.changeVisible}
+                                    style={{ display: iconVisible }}
+                                />
+                            )
 
                     }
                 </styled.Container>

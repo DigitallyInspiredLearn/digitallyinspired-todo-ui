@@ -56,7 +56,7 @@ export const style = { display: 'flex', flex: 'auto' };
 export const MenuProps = {
     PaperProps: {
         style: {
-            maxHeight: 48 * 3 + 8,
+            maxHeight: 152,
             width: 300,
         },
     },

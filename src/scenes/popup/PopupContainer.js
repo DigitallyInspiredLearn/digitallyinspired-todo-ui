@@ -4,7 +4,7 @@ import { compose, bindActionCreators } from 'redux';
 import { createSelector } from 'reselect/lib/index';
 import { actions } from './duck';
 import { actions as actionsBoard } from '../dashboard/duck';
-import { Popup } from './Popup';
+import Popup from './Popup';
 
 
 const getCurrentUserName = state => state.popup.data.currentUserName;
@@ -14,8 +14,8 @@ const getUsersRaw = state => state.popup.data.users;
 const getUsers = createSelector(
     getUsersRaw,
     getCurrentUserName,
-    (users, currentUserName) => users.length === 0 ?
-        users.concat(['User is not found!']) : users.filter(i => i !== currentUserName),
+    (users, currentUserName) => (users.length === 0
+        ? users.concat(['User is not found!']) : users.filter(i => i !== currentUserName)),
 );
 
 const mapStateToProps = state => (

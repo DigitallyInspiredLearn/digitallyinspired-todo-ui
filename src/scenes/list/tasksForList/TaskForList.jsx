@@ -16,10 +16,10 @@ import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
 import Dialog from './dialog/Dialog';
 
-const styles = theme => ({
+
+const styles = () => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
     },
     table: {
@@ -28,9 +28,6 @@ const styles = theme => ({
     header: {
         color: 'red',
     },
-    // width: {
-    //     width: '15px',
-    // },
     max: {
         width: 'auto',
     },
@@ -55,6 +52,7 @@ class TaskForList extends Component {
             visible: false,
         };
     }
+
 
     updateDisplayFlex = () => this.setState({ display: 'flex' });
 
@@ -150,63 +148,6 @@ class TaskForList extends Component {
                         />
                     )
                 }
-                {/* <stylesTask.Task
-            //         id={idTask}
-            //         onMouseOver={this.updateDisplayFlex}
-            //         onMouseOut={this.updateDisplayNone}
-            //     >
-            //         <stylesTask.NameAdnCheckedTask>
-            //             <Checkbox
-            //                 checked={selected}
-            //                 onChange={this.handleSelectTask}
-            //             />
-            //             { this.setIcon(priority) }
-            //             <stylesTask.TaskName
-            //                 type="text"
-            //                 value={nameTask}
-            //                 selected={selected}
-            //                 onChange={e => actionsList.updateTaskList({
-            //                     idDashboard: idList, idTask, selected, priority, newTaskName: e.target.value,
-            //                 })}
-            //             />
-            //             <stylesTask.IconInfo>
-            //                 <p>
-            //                     <b>Information about this task:</b><br />
-            //                         Created Date: {new Date(createdDate).toLocaleString()}<br />
-            //                         Completed Date: {selected ? new Date(completedDate).toLocaleString()
-            //                         : 'in process'}<br />
-            //                     {
-            //                         (durationTime !== '' && durationTime !== 0)
-            //                             ? ` Duration time: ${(moment.duration(durationTime).days())}d
-            //                             ${(moment.duration(durationTime).hours())}h
-            //                             ${(moment.duration(durationTime).minutes())}m`
-            //                             : null
-            //                     }
-            //                 </p>
-            //                 <Info
-            //                     aria-label="info"
-            //                     style={displayStyle}
-            //                     alt="Information about this task"
-            //                 />
-            //             </stylesTask.IconInfo>
-            //             <Tooltip title="Delete task">
-            //                 <Delete
-            //                     aria-label="trash"
-            //                     onClick={this.showAlertDialog}
-            //                     style={displayStyle}
-            //                     alt="Delete task"
-            //                 />
-            //             </Tooltip>
-            //             <AlertDialog
-            //                 visible={visible}
-            //                 onClose={this.showAlertDialog}
-            //                 value="Do you want to delete this task?"
-            //                 onConfirm={() => actionsList.deleteTaskList({
-            //                     idDashboard: idList, idTask,
-            //                 })}
-            //             />
-            //         </stylesTask.NameAdnCheckedTask>
-            //     </stylesTask.Task> */}
 
                 <TableRow>
                     <TableCell align="right">
@@ -231,7 +172,7 @@ class TaskForList extends Component {
                     </TableCell>
                     <TableCell align="left">{new Date(createdDate).toLocaleString()}</TableCell>
                     <TableCell align="left">{selected ? new Date(completedDate).toLocaleString()
-                        : null }
+                        : 'in process' }
                     </TableCell>
 
                     <TableCell align="left" className={classes.duration}>
@@ -240,7 +181,7 @@ class TaskForList extends Component {
                                 ? ` ${(moment.duration(durationTime).days())}d
                                     ${(moment.duration(durationTime).hours())}h
                                     ${(moment.duration(durationTime).minutes())}m`
-                                : null
+                                : 'in process'
                         }
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>
@@ -248,7 +189,6 @@ class TaskForList extends Component {
                             <Delete
                                 aria-label="trash"
                                 onClick={this.showAlertDialog}
-                                // style={displayStyle}
                                 alt="Delete task"
                             />
                         </Tooltip>
