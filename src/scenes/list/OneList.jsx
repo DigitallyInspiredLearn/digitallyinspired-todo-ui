@@ -180,12 +180,13 @@ class OneList extends Component {
                     <styled.titleNameOneList
                         type="text"
                         placeholder="Enter dashboard title"
-                        value={data.todoListName}
+                        defaultValue={data.todoListName}
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
                     <Link to="/lists">
                         <Tooltip title="Delete list">
                             <IconButton
+                                href=""
                                 aria-label="trash"
                                 onClick={this.showAlertDialog}
                                 style={{ borderRadius: '40%', padding: '4px' }}
@@ -308,11 +309,10 @@ class OneList extends Component {
                                             </TableHead>
                                             {
                                                 tasks.map(i => (
-                                                    <TableBody key={i}>
+                                                    <TableBody key={i.id}>
                                                         <TaskForList
                                                             idTask={i.id}
                                                             idList={match.params.id}
-                                                            key={i.id}
                                                             selected={i.isComplete}
                                                             nameTask={i.body}
                                                             actionsBoard={actionsBoard}
@@ -447,7 +447,6 @@ class OneList extends Component {
                             </IconButton>
                         </div>
                     </styled.Expand>
-
                 </styled.blockTask>
             </styled.List>
         );

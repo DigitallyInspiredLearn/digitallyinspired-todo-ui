@@ -20,7 +20,7 @@ export class DropDownMaterial extends Component {
 
     render() {
         const {
-            value, selectSorting, label,style, styleLabel,pageSize
+            value, selectSorting, label, style, styleLabel, pageSize,
         } = this.props;
         const { valueSelect } = this.state;
         return (

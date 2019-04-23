@@ -43,22 +43,14 @@ class TaskForList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display: 'none',
             statePopup: false,
-            days: '',
-            hours: '',
-            minutes: '',
+            // days: '',
+            // hours: '',
+            // minutes: '',
             durationTime: props.durationTime,
             visible: false,
         };
     }
-
-
-    updateDisplayFlex = () => this.setState({ display: 'flex' });
-
-    updateDisplayNone = () => this.setState({ display: 'none' });
-
-    showPopup = () => this.setState({ statePopup: true });
 
     closePopup = () => this.setState({ statePopup: false });
 
@@ -102,25 +94,52 @@ class TaskForList extends Component {
             case 'LOW':
                 return (
                     <Tooltip title="LOW">
-                        <img src={low} width="20px" height="25px" alt="LOW" style={{ marginLeft: '4px', marginBottom: '-7px' }} />
+                        <img
+                            src={low}
+                            width="20px"
+                            height="25px"
+                            alt="LOW"
+                            style={{ marginLeft: '4px', marginBottom: '-7px' }}
+                        />
                     </Tooltip>
                 );
             case 'MEDIUM':
                 return (
                     <Tooltip title="MEDIUM">
-                        <img src={medium} width="20px" height="25px" alt="MEDIUM" style={{ marginLeft: '4px', marginBottom: '-7px' }} />
+                        <img
+                            src={medium}
+                            width="20px"
+                            height="25px"
+                            alt="MEDIUM"
+                            style={{ marginLeft: '4px', marginBottom: '-7px' }}
+                        />
                     </Tooltip>
                 );
             case 'HIGH':
                 return (
                     <Tooltip title="HIGH">
-                        <img src={high} width="20px" height="25px" alt="HIGH" style={{ marginLeft: '4px', marginBottom: '-7px' }} />
+                        <img
+                            src={high}
+                            width="20px"
+                            height="25px"
+                            alt="HIGH"
+                            style={{ marginLeft: '4px', marginBottom: '-7px' }}
+                        />
                     </Tooltip>
                 );
             default:
                 return (
                     <Tooltip title="Priority: NOT SPECIFIED">
-                        <Empty width="20px" height="20px" alt="not_specified" style={{ padding: '3px 4px', width: '20px', height: '20px', marginBottom: '-7px' }} />
+                        <div>
+                            <Empty
+                                width="20px"
+                                height="20px"
+                                alt="not_specified"
+                                style={{
+                                    padding: '3px 4px', width: '20px', height: '20px', marginBottom: '-7px',
+                                }}
+                            />
+                        </div>
                     </Tooltip>
                 );
         }
@@ -128,10 +147,9 @@ class TaskForList extends Component {
 
     render() {
         const {
-            display, statePopup, days, hours, minutes, durationTime, visible,
+            statePopup, durationTime, visible,
+            // days, hours, minutes
         } = this.state;
-        const displayStyle = { display, zIndex: 50, color: 'rgba(0, 0, 0, 0.54)' };
-
         const {
             idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes,
         } = this.props;
@@ -148,7 +166,6 @@ class TaskForList extends Component {
                         />
                     )
                 }
-
                 <TableRow>
                     <TableCell align="right">
                         <Checkbox
@@ -178,31 +195,34 @@ class TaskForList extends Component {
                     <TableCell align="left" className={classes.duration}>
                         {
                             (durationTime !== null && durationTime !== 0)
-                                ? ` ${(moment.duration(durationTime).days())}d
+                                && ` ${(moment.duration(durationTime).days())}d
                                     ${(moment.duration(durationTime).hours())}h
                                     ${(moment.duration(durationTime).minutes())}m`
-                                : null
                         }
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>
                         <Tooltip title="Delete task">
-                            <Delete
-                                aria-label="trash"
-                                onClick={this.showAlertDialog}
-                                // style={displayStyle}
-                                alt="Delete task"
-                            />
+                            <span>
+                                <Delete
+                                    aria-label="trash"
+                                    onClick={this.showAlertDialog}
+                                    alt="Delete task"
+                                />
+                            </span>
                         </Tooltip>
-                        <AlertDialog
-                            visible={visible}
-                            onClose={this.showAlertDialog}
-                            value="Do you want to delete this task?"
-                            onConfirm={() => actionsList.deleteTaskList({
-                                idDashboard: idList, idTask,
-                            })}
-                        />
                     </TableCell>
                 </TableRow>
+                {
+                    <AlertDialog
+                        visible={visible}
+                        onClose={this.showAlertDialog}
+                        value="Do you want to delete this task?"
+                        onConfirm={() => actionsList.deleteTaskList({
+                            idDashboard: idList, idTask,
+                        })}
+                    />
+
+                }
             </React.Fragment>
         );
     }
@@ -212,6 +232,12 @@ TaskForList.propTypes = {
     idTask: PropTypes.number,
     selected: PropTypes.bool,
     nameTask: PropTypes.string,
+};
+
+TaskForList.defaultProps = {
+    idTask: undefined,
+    selected: false,
+    nameTask: '',
 };
 
 export default withStyles(styles)(TaskForList);

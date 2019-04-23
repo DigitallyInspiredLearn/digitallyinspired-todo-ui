@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import InputStyles from './Input.styles';
-import PropTypes from "prop-types";
-import Profile from "../../scenes/container/settings/profile/Profile";
+import Profile from '../../scenes/container/settings/profile/Profile';
 
 
 class Input extends Component {

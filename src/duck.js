@@ -19,6 +19,8 @@ export function* errorHandler(gen) {
             history.push('/error500');
         } else if (e.response && e.response.status === 400) {
             console.log('Error 400');
+        } else if (e.response && e.response.status === 403) {
+            console.log('Error 403');
         } else if (e.response && e.response.status === 404) {
             console.log('Error 404');
             history.push('/error404');
