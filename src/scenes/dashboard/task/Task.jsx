@@ -184,6 +184,7 @@ class Task extends Component {
                     onMouseOver={this.updateDisplayFlex}
                     onMouseOut={this.updateDisplayNone}
                     key={idTask}
+                    shared={shared}
                 >
                     <styled.NameAdnCheckedTask>
                         <Checkbox

@@ -18,7 +18,7 @@ export const inputBlock = styled.span`
     margin: 8px;
     border-radius: 5px;
     padding: 8px;
-    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     font-size: 15px;
     cursor: pointer;
     height: auto;
@@ -30,7 +30,6 @@ export const inputBlock = styled.span`
 
 export const animationButton = styled.div`
     color: ${p => p.theme.mainText};
-
     height: auto;
     width: 20px;
     padding: 2px 3px;
@@ -58,9 +57,9 @@ export const titleNameOneList = styled.input`
     outline: none;
     display: flex;
     width: 97%;
-    margin-left: 16px;
+    margin-left: 8px;
     text-overflow: ellipsis;
-    color: ${p => p.theme.mainText}
+    color: ${p => p.theme.textHeader}
 `;
 
 export const inputDiv = styled.main`
@@ -68,7 +67,7 @@ export const inputDiv = styled.main`
     flex-direction: row;
     padding: 6px 0 8px 8px;
     border-radius: 4px;
-    box-shadow: 0 0  10px 0  rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     height: 40px;
     align-items: center;
     width: auto;
@@ -89,7 +88,7 @@ export const blockTask = styled.article`
     flex-direction: column;
     align-content: space-between;
     background-color:  ${p => p.theme.backgroundList};
-    box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     margin: 0px 8px;
     border-radius: 5px;
     font-size: 15px;
