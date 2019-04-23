@@ -49,22 +49,34 @@ class MultiSelect extends Component {
                     )}
                     MenuProps={MenuProps}
                 >
-                    {tags.map(tag => (
-                        <MenuItem key={tag.id} value={tag}>
-                            <div
-                                style={style}
-                                onMouseOver={this.changeVisible}
-                                onMouseOut={this.changeVisible}
-                            >
-                                <p style={style}> {tag.tagName} </p>
-                                <p
-                                    key={tag.id}
-                                    onClick={() => actions.deleteTag({ id: tag.id })}
-                                > X
-                                </p>
-                            </div>
-                        </MenuItem>
-                    ))}
+                    {
+                        tags.length
+                            ? tags.map(tag => (
+                                <MenuItem key={tag.id} value={tag}>
+                                    <div
+                                        style={style}
+                                        onMouseOver={this.changeVisible}
+                                        onMouseOut={this.changeVisible}
+                                    >
+                                        <p style={style}> {tag.tagName} </p>
+                                        <p
+                                            key={tag.id}
+                                            onClick={() => actions.deleteTag({ id: tag.id })}
+                                        > X
+                                        </p>
+                                    </div>
+                                </MenuItem>
+                            ))
+                            : (
+                                <MenuItem>
+                                    <div
+                                        style={style}
+                                    >
+                                   Not tags yet
+                                    </div>
+                                </MenuItem>
+                            )
+                    }
                 </Select>
                 <PopapAddTag actions={actions} visible={visible} allTags={tags} />
 

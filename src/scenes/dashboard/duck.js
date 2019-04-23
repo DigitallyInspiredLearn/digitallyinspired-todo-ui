@@ -285,14 +285,10 @@ export function* removeTagFromTask(action) {
     yield call(fetchTags);
 }
 
-export function* getSelectedTegInString() {
-    yield call(fetchAllLists);
-}
-
 export function* saga() {
-    yield safeTakeLatest([INITIALIZE, FETCH_TAGS], initialize);
+    yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK ], initialize);
     yield safeTakeEvery([
-        FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT,
+        FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT, GET_SELECTED_TAGS, FETCH_TAGS, GET_SELECTED_TAGS,
     ], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
@@ -308,5 +304,4 @@ export function* saga() {
     yield safeTakeEvery(ADD_TAG_TO_TASK, addTagToTask);
     yield safeTakeEvery(DELETE_TAG, deleteTag);
     yield safeTakeEvery(REMOVE_TAG_FROM_TASK, removeTagFromTask);
-    yield safeTakeEvery(GET_SELECTED_TAGS, getSelectedTegInString);
 }
