@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as styled from './Search.styles';
 import Input from '@material-ui/core/Input';
+import * as styled from './Search.styles';
 
 class Search extends Component {
     constructor(props) {

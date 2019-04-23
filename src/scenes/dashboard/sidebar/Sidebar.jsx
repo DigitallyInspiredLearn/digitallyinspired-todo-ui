@@ -93,7 +93,8 @@ class Sidebar extends Component {
                 <div
                     className="fon"
                     style={{ backgroundColor: 'whitesmoke', opacity: 0.98, zIndex: 10 }}
-                    key="rootDivSidebar" />,
+                    key="rootDivSidebar"
+                />,
                 <Tooltip title="Add list" placement="left" key="Add list">
                     <styled.Plus
                         key="plus"
@@ -152,37 +153,40 @@ class Sidebar extends Component {
                                                 style={{ width: '170px' }}
                                             >
                                                 <MenuItem value="NOT_SPECIFIED">
-                                                {/* <img
+                                                    {/* <img
                                                     src={empty}
                                                     width="15px"
                                                     alt="EMPTY"
                                                     style={{ marginLeft: '8px' }}
                                                 /> */}
-                                                <Empty style={{ width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px' }} />
-                                                <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
-                                            </MenuItem>
-                                            <MenuItem value="LOW">
-                                                <styled.PriorityImage
-                                                    src={low}
-                                                    alt="LOW"
-                                                />
+                                                    <Empty style={{
+                                                        width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                                    }}
+                                                    />
+                                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                                </MenuItem>
+                                                <MenuItem value="LOW">
+                                                    <styled.PriorityImage
+                                                        src={low}
+                                                        alt="LOW"
+                                                    />
                                                 LOW
-                                            </MenuItem>
-                                            <MenuItem value="MEDIUM">
-                                                <styled.PriorityImage
-                                                    src={medium}
-                                                    alt="MEDIUM"
-                                                    style={{ color: 'gray' }}
-                                                />
+                                                </MenuItem>
+                                                <MenuItem value="MEDIUM">
+                                                    <styled.PriorityImage
+                                                        src={medium}
+                                                        alt="MEDIUM"
+                                                        style={{ color: 'gray' }}
+                                                    />
                                                 MEDIUM
-                                            </MenuItem>
-                                            <MenuItem value="HIGH">
-                                                <styled.PriorityImage
-                                                    src={high}
-                                                    alt="HIGH"
-                                                />
+                                                </MenuItem>
+                                                <MenuItem value="HIGH">
+                                                    <styled.PriorityImage
+                                                        src={high}
+                                                        alt="HIGH"
+                                                    />
                                                 HIGH
-                                            </MenuItem>
+                                                </MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Tooltip>

@@ -18,7 +18,7 @@ class Subscribes extends Component {
         return (
             <styled.Subscribes>
                 <styled.Title> Your subscribers list</styled.Title>
-                <SearchContent style={{margin: '8px 12px 8px 8px'}}>
+                <SearchContent style={{ margin: '8px 12px 8px 8px' }}>
                     <InputLabel htmlFor="select-multiple-chip">Search subscribers:</InputLabel>
                     <Search
                         onChange={this.handleChange}
@@ -43,10 +43,10 @@ class Subscribes extends Component {
                                         </td>
                                     </styled.NullTr>
                                 )
-                                : subscribers.map(subscriber => (
+                                : subscribers.map((subscriber, i) => (
                                     <styled.Tr key={subscriber}>
                                         <styled.Td key={subscriber.name}>{subscriber.name}</styled.Td>
-                                        <styled.Td key={subscriber.username}>{subscriber.username}</styled.Td>
+                                        <styled.Td kesubscribery={i}>{subscriber.username}</styled.Td>
                                         <styled.Td key={subscriber.email}>{subscriber.email}</styled.Td>
                                     </styled.Tr>
                                 ))

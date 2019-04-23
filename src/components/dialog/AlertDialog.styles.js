@@ -3,7 +3,7 @@ import _DialogContentText from '@material-ui/core/DialogContentText'
 
 
 export const Dialog = styled.div`
-    display: ${p => p.visible ? 'flex' : 'none'}; 
+    display: ${p => (p.visible ? 'flex' : 'none')}; 
 `;
 export const DialogContentText = styled(_DialogContentText)`
     display: flex;

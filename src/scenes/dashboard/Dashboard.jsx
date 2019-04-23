@@ -127,7 +127,7 @@ export class Dashboard extends Component {
 
     handleUpdateComment = (newValue) => {
         console.log(newValue);
-        //this.setState({ newComment: newValue });
+        // this.setState({ newComment: newValue });
     };
 
     handleUpdateTitleSuccess = () => {
@@ -462,7 +462,7 @@ Dashboard.propTypes = {
     comment: PropTypes.string,
     actionsBasket: PropTypes.objectOf(PropTypes.func),
     shared: PropTypes.bool,
-    currentUser:  PropTypes.object,
+    currentUser: PropTypes.object,
 };
 
 Dashboard.defaultProps = {
