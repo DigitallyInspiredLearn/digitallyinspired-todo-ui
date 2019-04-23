@@ -6,7 +6,7 @@ export const getMyList = (page, size, sort, status, stringTagsId) => (
     axios.get(`/api/todolists/?page=${page}&size=${size}&sort=${sort}&status=${status}${stringTagsId}`)
 );
 
-export const getSharedLists = () => axios.get('/api/todolists/shared');
+export const getSharedLists = (page, size, sort) => axios.get(`/api/todolists/shared?page=${page}&size=${size}&sort=${sort}`);
 
 export const deleteList = id => axios.delete(`/api/todolists/${id}`);
 

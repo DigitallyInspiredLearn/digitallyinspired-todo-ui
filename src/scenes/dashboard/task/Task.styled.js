@@ -67,27 +67,44 @@ export const Icon = styled.img`
 `;
 
 export const IconInfo = styled.div`
-    position: relative;
+    position: relative; border-radius: 8px;
     div{
         display: none;
         padding: 8px;
+        border-radius: 8px;
     }
     &:hover div{
+    border-radius: 8px 0 8px 8px;
+    max-height: 100px;
+    height: auto;
+        font-size: 12px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    overflow-y: auto;
+    overflow-x: hidden;
         display: block;
         position: absolute;
         top: 10px;
         right: 10px;
-        font-size: 12px;
-        z-index: 9999;
-        width: auto;
+        width: 300px;
         min-width: 210px;
         margin-top: 16px;
-        background: ${p => p.theme.background};
-        height: auto;
-        overflow-y: auto;
-        -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
-        -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
-        box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+        background: white;
+        box-shadow: 0 0px 4px rgba(0,0,0,0.4);
+         ::-webkit-scrollbar {
+        width: 6px;
+    };
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    };
+    ::-webkit-scrollbar-thumb {
+        background: lightgrey; 
+    };
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey; 
+    };
     }
 `;
 
@@ -104,13 +121,17 @@ export const AddTag = styled(AddCircle)`
     cursor: pointer;
 `;
 
-export const TagsInfo = styled.div`
-    display: flex;
-    flexWrap: wrap;
-    alignItems: center;
+export const Tags = styled.div`
+     margin-top: -6px;
+      width: 40%;
+     overflow-y: hidden;
+     height: 40px;
+     
+     display: flex;
+     overflow-x: auto;
     cursor: default;
     ::-webkit-scrollbar {
-        width: 8px;
+        height: 4px;
     };
     ::-webkit-scrollbar-track {
         background: #f1f1f1; 
