@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
-import Input from '@material-ui/core/Input';
 import { Select, InputLabel } from './DropDown.styled';
 
 

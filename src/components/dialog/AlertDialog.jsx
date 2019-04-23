@@ -3,8 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import * as styled from '../dialog/AlertDialog.styles';
-import { AlertIcon } from '../../scenes/popup/Popup.styles';
+import * as styled from './AlertDialog.styles';
 
 export class AlertDialog extends Component {
     render() {
@@ -37,16 +36,17 @@ export class AlertDialog extends Component {
                        color="primary"
                    >
                        Cancel
-                   </Button>
-                   <Button
-                       onClick={() => {
-                           onConfirm();
-                           onClose();
-                       }}
-                       color="primary"
-                   >
+                    </Button>
+                    <Button
+                        href=""
+                        onClick={() => {
+                            onConfirm();
+                            onClose();
+                        }}
+                        color="primary"
+                    >
                        Enter
-                   </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         );
