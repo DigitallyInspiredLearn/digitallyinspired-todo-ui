@@ -5,8 +5,10 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import PopapAddTag from './popapAddTag/PopapAddTag';
-import { styles, style, MenuProps, Select, Button } from './MultiSelect.styled';
-import { InputLabel } from "../../../components/dropDown/DropDown.styled";
+import {
+    styles, style, MenuProps, Select, Button,
+} from './MultiSelect.styled';
+import { InputLabel } from '../../../components/dropDown/DropDown.styled';
 
 class MultiSelect extends Component {
     state = { selectTags: [] };
@@ -19,16 +21,14 @@ class MultiSelect extends Component {
         );
     };
 
-    componentWillMount = ({ actions } = this.props) => actions.fetchTags();
-
     render() {
         const {
             classes, tags, actions, visible,
         } = this.props;
         const { selectTags } = this.state;
         return ([
-            <div className={classes.root}>
-                <InputLabel htmlFor="select-multiple-chip" >Tags:</InputLabel>
+            <div className={classes.root} key="multiSelect">
+                <InputLabel htmlFor="select-multiple-chip">Tags:</InputLabel>
                 <Select
                     multiple
                     placeholder="input"
@@ -39,7 +39,7 @@ class MultiSelect extends Component {
                         <div className={classes.chips}>
                             {selected.map(value => (
                                 <Chip
-                                    key={value.id}
+                                    key={value.tagName}
                                     label={value.tagName}
                                     className={classes.chip}
                                     style={{ backgroundColor: value.color }}
@@ -70,6 +70,7 @@ class MultiSelect extends Component {
 
             </div>,
             <Button
+                key="+ tag"
                 className={classes.addButton}
                 onClick={() => { actions.visiblePopap(); }}
             >

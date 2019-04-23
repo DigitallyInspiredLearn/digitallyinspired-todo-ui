@@ -17,7 +17,8 @@ import {
     deleteTask as deleteTaskApi,
 } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
-import { getTagTaskKeys,
+import {
+    getTagTaskKeys,
     getTags,
     addTag as addTagAPI,
     deleteTag as deleteTagAPI,
@@ -158,9 +159,9 @@ export function* fetchAllLists() {
     const { data: { totalElements, totalPages, content } } =
         yield call(fetchRequest, currentPage, options[pageSize], options[sort], 'ACTIVE', stringTagsId);
     yield put(actions.fetchDashboardSuccess({
-                toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
-                totalElements,
-                totalPages,
+        toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
+        totalElements,
+        totalPages,
     }));
 }
 

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as styles from './Popup.styles';
-import * as styled from '../../components/dialog/AlertDialog.styles';
-import Search from '../../components/search/Search';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { SearchContent} from '../dashboard/DashboardList.styles';
-import { AlertIcon } from './Popup.styles';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import { SearchContent } from '../dashboard/DashboardList.styles';
+import Search from '../../components/search/Search';
+import * as styled from '../../components/dialog/AlertDialog.styles';
+import * as styles from './Popup.styles';
 
 export class Popup extends Component {
 
@@ -27,7 +26,7 @@ export class Popup extends Component {
                 onClose={closePopup}
             >
                 <styled.Content>
-                    <AlertIcon />
+                    <styles.AlertIcon />
                     <DialogTitle
                         id="form-dialog-title"
                     >
@@ -41,18 +40,19 @@ export class Popup extends Component {
                     >&times;
                     </styled.closeWindow>
                 </styled.Content>
-                    <SearchContent style={{margin: '0px 16px 24px 24px',}}>
-                        <Search
-                            onChange={this.handleChange}
-                            value={search}
-                            style={{
-                                width: '95%',
-                            }}
-                            placeholder="Enter username ..."
-                        />
-                    </SearchContent>
+                <SearchContent style={{margin: '0px 16px 24px 24px',}}>
+                    <Search
+                        onChange={this.handleChange}
+                        value={search}
+                        style={{
+                            width: '95%',
+                        }}
+                        placeholder="Enter username ..."
+                    />
+                </SearchContent>
                 <DialogActions style={{ margin: '56px 8px 8px 8px' }}>
                     <Button
+                        href=""
                         onClick={() => {
                             closePopup();
                             actions.searchUser('');
@@ -62,15 +62,12 @@ export class Popup extends Component {
                         Cancel
                     </Button>
                     <Button
-                        onClick={() =>
-                        {
-                            const conformity = users.map(i => {
-                                return search !== i;
-                            });
+                        href=""
+                        onClick={() => {
+                            const conformity = users.map(i => search !== i);
                             if (users[0] === 'User is not found!' || search === '' || conformity[0] === true) {
                                 alert('Data is not correct!');
-                            }
-                            else {
+                            } else {
                                 actionsBoard.shareList({ idList, userName: search });
                                 closePopup();
                                 actions.searchUser('');
@@ -106,11 +103,23 @@ export class Popup extends Component {
 }
 
 Popup.propTypes = {
-    users: PropTypes.array.isRequired,
+    users: PropTypes.arrayOf(PropTypes.string),
     idList: PropTypes.number,
     search: PropTypes.string,
+    statePopup: PropTypes.bool,
+    closePopup: PropTypes.func,
+    actions: PropTypes.objectOf(PropTypes.func),
+    actionsBoard: PropTypes.objectOf(PropTypes.func),
 };
 
 Popup.defaultProps = {
     users: [],
+    idList: undefined,
+    search: '',
+    statePopup: false,
+    closePopup: undefined,
+    actions: {},
+    actionsBoard: {},
 };
+
+export default Popup;

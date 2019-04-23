@@ -59,7 +59,9 @@ function* fetchAllDeletedLists() {
     const countElements = res.data.totalElements;
     const countPages = res.data.totalPages;
     const deletedLists = res.data.content;
-    yield put(actions.fetchDashboardDeletedSuccess({ deletedLists, countElements, countPages, allDeletedLists }));
+    yield put(actions.fetchDashboardDeletedSuccess({
+        deletedLists, countElements, countPages, allDeletedLists,
+    }));
 }
 
 function* deleteListFromBasket(action) {
@@ -74,7 +76,7 @@ function* restoreListFromBasket(action) {
 
 function* deleteAllLists() {
     const lists = yield select(getAllLists);
-    for (let i=0; i < lists.length; i++) {
+    for (let i = 0; i < lists.length; i++) {
         yield call(deleteList, lists[i].id);
     }
     yield call(fetchAllDeletedLists);

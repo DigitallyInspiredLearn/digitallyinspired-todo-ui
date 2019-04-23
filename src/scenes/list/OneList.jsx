@@ -33,22 +33,20 @@ import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
 import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
-import empty from '../../image/empty.svg';
 
-const CustomTableCell = withStyles(theme => ({
+const CustomTableCell = withStyles(() => ({
     head: {
         backgroundColor: 'gray',
-        color: theme.palette.common.white,
+        color: 'white',
         fontSize: 16,
         width: 5,
         height: 10,
     },
 }))(TableCell);
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         height: 'auto',
     },
@@ -310,7 +308,7 @@ class OneList extends Component {
                                             </TableHead>
                                             {
                                                 tasks.map(i => (
-                                                    <TableBody>
+                                                    <TableBody key={i}>
                                                         <TaskForList
                                                             idTask={i.id}
                                                             idList={match.params.id}
@@ -332,7 +330,6 @@ class OneList extends Component {
                                 </div>
                             )
                     }
-
                     <styled.addTaskContainer
                         visible={!stateComment}
                     >
@@ -370,12 +367,14 @@ class OneList extends Component {
                                 style={{ width: '190px' }}
                             >
                                 <MenuItem value="NOT_SPECIFIED">
-                                    <Empty
-                                        style={{
-                                            width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
-                                        }}
-                                    />
-                                    <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                    <div>
+                                        <Empty
+                                            style={{
+                                                width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                            }}
+                                        />
+                                        <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                    </div>
                                 </MenuItem>
                                 <MenuItem value="LOW">
                                     <styled.PriorityImage

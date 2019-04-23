@@ -18,7 +18,7 @@ class DashboardList extends Component {
         };
     }
 
-    componentWillMount = ({ actions } = this.props) => actions.fetchDashboard();
+    componentWillMount = ({ actions } = this.props) => actions.initialize();
 
     componentWillUnmount = () => {
         const { actions } = this.props;
@@ -77,8 +77,7 @@ class DashboardList extends Component {
                             />
                         </styled.SearchContent>
                         <DropDownMaterial
-                            label='Sorting:'
-                            defaultValue={sort}
+                            label="Sorting: "
                             value={[
                                 'By id, low to high',
                                 'By id, high to low',
@@ -90,6 +89,7 @@ class DashboardList extends Component {
                                 'By Modified Date, high to low',
                             ]}
                             selectSorting={actions.changeSort}
+                            defaultValue={sort}
                         />
                         <MultiSelect />
                         <styled.CheckboxDiv style={{ padding: 0, margin: 0 }}>

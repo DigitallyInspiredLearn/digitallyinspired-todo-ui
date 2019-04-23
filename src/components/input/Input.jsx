@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import InputStyles from './Input.styles';
 import InputCom from '@material-ui/core/Input';
+import InputStyles from './Input.styles';
 
 
 class Input extends Component {

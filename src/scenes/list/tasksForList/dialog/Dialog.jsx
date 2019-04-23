@@ -21,15 +21,15 @@ export default class FormDialog extends React.Component {
 
     changeDurationDays = (days) => {
         this.setState({ days: Number(days) });
-    }
+    };
 
     changeDurationHours = (hours) => {
         this.setState({ hours: Number(hours) });
-    }
+    };
 
     changeDurationMinutes = (minutes) => {
         this.setState({ minutes: Number(minutes) });
-    }
+    };
 
     render() {
         const {
@@ -39,7 +39,7 @@ export default class FormDialog extends React.Component {
             show, onClose, onConfirm, createdDate,
         } = this.props;
         return (
-            <div>
+            <div key="dialogForOneList">
                 <Dialog
                     open={show}
                     onClose={onClose}

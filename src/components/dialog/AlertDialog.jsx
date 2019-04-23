@@ -8,9 +8,10 @@ import { AlertIcon } from '../../scenes/popup/Popup.styles';
 import { DialogContentText } from '../dialog/AlertDialog.styles';
 
 export class AlertDialog extends Component {
-
     render() {
-        const { visible, value, onClose, onConfirm } = this.props;
+        const {
+            visible, value, onClose, onConfirm,
+        } = this.props;
         return (
            <Dialog
                open={visible}
@@ -47,8 +48,8 @@ export class AlertDialog extends Component {
                    >
                        Enter
                    </Button>
-               </DialogActions>
-           </Dialog>
+                </DialogActions>
+            </Dialog>
         );
     }
 }

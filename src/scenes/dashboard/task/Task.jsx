@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types,react/require-default-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Delete from '@material-ui/icons/Delete';
@@ -15,7 +14,6 @@ import Dialog from './dialog/Dialog';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
-import empty from '../../../image/empty.svg';
 
 class Task extends Component {
     constructor(props) {
@@ -39,7 +37,6 @@ class Task extends Component {
 
     closePopapAddTagToTask = () => this.setState({ visiblePopapAddTagToTask: false });
 
-    showPopup = () => this.setState({ statePopup: true });
 
     closePopup = () => this.setState({ statePopup: false });
 
@@ -127,7 +124,14 @@ class Task extends Component {
             default:
                 return (
                     <Tooltip title="Priority: NOT SPECIFIED">
-                        <Empty width="20px" height="20px" alt="not_specified" style={{ padding: '3px 4px', width: '20px', height: '20px' }} />
+                        <div>
+                            <Empty
+                                width="20px"
+                                height="20px"
+                                alt="not_specified"
+                                style={{ padding: '3px 4px', width: '20px', height: '20px' }}
+                            />
+                        </div>
                     </Tooltip>
                 );
         }
@@ -164,7 +168,7 @@ class Task extends Component {
                     )
                 }
                 {
-                    todoListStatus === 'ACTIVE' ? (
+                    todoListStatus === 'ACTIVE' && (
                         <PopapAddTagToTask
                             show={visiblePopapAddTagToTask}
                             handleClose={this.closePopapAddTagToTask}
@@ -172,7 +176,7 @@ class Task extends Component {
                             allTags={allTags}
                             selectedTask={selectedTask}
                         />
-                    ) : null
+                    )
                 }
                 <styled.Task
                     id={idTask}
@@ -197,12 +201,12 @@ class Task extends Component {
                         />
                     </styled.NameAdnCheckedTask>
                     {
-                        todoListStatus === 'ACTIVE' ? ([
-                            <styled.IconInfo>
-                                <p>
+                        todoListStatus === 'ACTIVE' && ([
+                            <styled.IconInfo key="IconInfo ">
+                                <div>
                                     <b>Information about this task:</b><br />
                                     Created Date: {new Date(createdDate).toLocaleString()}<br />
-                                    <div style={{
+                                    <p style={{
                                         display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
                                     }}
                                     >
@@ -210,6 +214,7 @@ class Task extends Component {
                                             tagTaskKeys.map(key => key.taskId === idTask
                                             && (
                                                 <span
+                                                    key={key}
                                                     style={{
                                                         backgroundColor: key.tag.color,
                                                         padding: '2px 4px',
@@ -233,7 +238,7 @@ class Task extends Component {
                                                 </span>
                                             ))
                                         }
-                                    </div>
+                                    </p>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                         : 'in process'}<br />
                                     {
@@ -243,37 +248,39 @@ class Task extends Component {
                                                 ${(moment.duration(durationTime).minutes())}m`
                                             : null
                                     }
-                                </p>
+                                </div>
                                 <Info
                                     aria-label="info"
                                     style={displayStyle}
                                     alt="Information about this task"
                                 />
                             </styled.IconInfo>,
-                            <Tooltip title="Add tag for this task">
-                                <styled.AddTag
-                                    style={displayStyle}
-                                    onClick={() => this.showPopapAddTagToTask(idTask)}
-                                >
-                                    +
-                                </styled.AddTag>
+                            <Tooltip title="Add tag for this task" key="Add tag for this task">
+                                <div>
+                                    <styled.AddTag
+                                        style={displayStyle}
+                                        onClick={() => this.showPopapAddTagToTask(idTask)}
+                                    />
+                                </div>
                             </Tooltip>,
-                            <Tooltip title="Delete task">
-                                <Delete
-                                    aria-label="trash"
-                                    // onClick={() => actions.deleteTask({ idTask })}
-                                    onClick={this.showAlertDialog}
-                                    style={displayStyle}
-                                    alt="Delete task"
-                                />
+                            <Tooltip title="Delete task" key="Delete task">
+                                <div>
+                                    <Delete
+                                        aria-label="trash"
+                                        onClick={this.showAlertDialog}
+                                        style={displayStyle}
+                                        alt="Delete task"
+                                    />
+                                </div>
                             </Tooltip>,
                             <AlertDialog
+                                key=" alertDialog"
                                 visible={visible}
                                 onClose={this.showAlertDialog}
                                 value="Do you want to delete this task?"
                                 onConfirm={() => actions.deleteTask({ idTask })}
                             />,
-                        ]) : null
+                        ])
                     }
                 </styled.Task>
             </React.Fragment>
