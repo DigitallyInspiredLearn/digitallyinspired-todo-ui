@@ -8,7 +8,7 @@ export const Task = styled.div`
     align-items: center;
     &:before{ 
           content: '';
-          background-color: ${p => p.theme.background};
+          background-color: ${p => p.shared === false ? p.theme.background : null};
           z-index: -1;
           position: absolute;
           width: 0;

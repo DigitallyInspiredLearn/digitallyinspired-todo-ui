@@ -29,7 +29,10 @@ export const Head = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
-    margin: 8px;
+    z-index: 5;
+    margin: 0px 0px 8px 0px;
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+    padding: 8px;
     justify-content: space-between;
    position:relative;
     @media (max-width: 600px) {
@@ -51,8 +54,8 @@ export const Footer = styled.div`
    align-content: space-between;
    width:100%;
    z-index: 5;
-   box-shadow: 0 0  40px 0  rgba(0,0,0,0.2);
-   background-color: ${p => p.theme.background};
+   box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+   background-color: ${ p => p.theme.backgroundHeader };
    max-height: 80px;
    height: 8vh;
    .pagination-container {
@@ -83,12 +86,13 @@ export const Pagination = styled.div`
    display: flex;
    width: auto;
    height: auto;
-   background-color: ${p => p.theme.background};
+   background-color: ${ p => p.theme.backgroundHeader };
    .pagination-container {
        display: flex;
-       margin-left: -10px;
+       margin-left: 16px;
        margin-top: 8px;
        height: 40px;
+       padding-left: 0;
        li {
            transition: background-color .3s;
            padding: 12px 16px;
@@ -149,10 +153,13 @@ export const DashboardList = styled('main')`
     align-content: flex-start;
     flex: auto;
     margin: -8px 0px;
+    padding-bottom: 8px;
     height: 100vh;
     @media (max-width: 600px) {
         flex-flow: column nowrap;
     }
+    overflow: auto;
+    
 `;
 
 export const NullLenghtDashboards = styled.div`

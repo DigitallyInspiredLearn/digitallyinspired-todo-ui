@@ -31,6 +31,7 @@ export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
 
 export const FETCH_TAG_TAKS_KEYS_SUCCESS = 'dashboard/FETCH_TAG_TAKS_KEYS_SUCCESS';
+export const CLEAN = 'dashboard/CLEAN';
 
 export const UPDATE_VIEW_LIST = 'dashboard/UPDATE_VIEW_LIST';
 export const ADD_DASHBOARD = 'dashboard/ADD_DASHBOARD';
@@ -96,6 +97,7 @@ export const actions = {
     visiblePopap: createAction(VISIBLE_POPAP_ADD_TAG),
     removeTagFromTask: createAction(REMOVE_TAG_FROM_TASK),
     getSelectedTags: createAction(GET_SELECTED_TAGS),
+    clean: createAction(CLEAN),
 };
 
 const initialState = {
@@ -144,6 +146,7 @@ export const reducer = handleActions({
     [FETCH_TAGS_SUCCESS]: (state, action) => ({ ...state, tags: action.payload }),
     [GET_SELECTED_TAGS]: (state, action) => ({ ...state, selectedTags: action.payload }),
     [VISIBLE_POPAP_ADD_TAG]: state => ({ ...state, visible: !state.visible }),
+    [CLEAN]: () => initialState,
 }, initialState);
 
 export const getDashboard = state => state.dashboard;

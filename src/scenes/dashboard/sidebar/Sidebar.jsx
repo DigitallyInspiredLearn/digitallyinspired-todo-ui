@@ -8,11 +8,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import Empty from '@material-ui/icons/ArrowUpward';
+import InputGlobal from '../../../components/input/InputGlobal';
 import plus from '../../../image/plus.svg';
 import low from '../../../image/low.svg';
 import medium from '../../../image/medium.svg';
 import high from '../../../image/high.svg';
 import * as styled from './Sidebar.styles';
+import { Close } from '../../../components/dialog/AlertDialog.styles';
+
 
 class Sidebar extends Component {
     constructor(props) {
@@ -109,10 +112,10 @@ class Sidebar extends Component {
                         onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                     />
                     <styled.Aside style={{ animation }}>
-                        <styled.Close
+                        <Close
+                            style={{padding: '8px'}}
                             onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
-                        >&times;
-                        </styled.Close>
+                        />
                         <styled.InputTitle
                             type="text"
                             placeholder="Add title"
@@ -203,9 +206,9 @@ class Sidebar extends Component {
                                     </Tooltip>
                                 </styled.AddTaskPlace>
                             ))}
-                        </styled.TaskList>
+                            </styled.TaskList>
                         <styled.AddTask type="button" onClick={this.handleAddInputTask}>
-                            Add one more task
+                            Add task
                         </styled.AddTask>
                         <styled.AddButton
                             type="submit"

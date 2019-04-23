@@ -18,7 +18,7 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     padding: 8px;
-    box-shadow: 0 0 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     z-index:1;
     background-color: ${ p => p.theme.backgroundHeader };
     & > b{

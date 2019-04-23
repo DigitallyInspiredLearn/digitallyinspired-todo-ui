@@ -5,7 +5,6 @@ import Info from '@material-ui/icons/Info';
 import Empty from '@material-ui/icons/ArrowUpward';
 import moment from 'moment';
 import Tooltip from '@material-ui/core/Tooltip';
-import Pointers from '@material-ui/icons/MoreHoriz';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import PopapAddTagToTask from './popapAddTagToTask/PopapAddTagToTask';
 import * as styled from './Task.styled';
@@ -165,6 +164,7 @@ class Task extends Component {
             tagTaskKeys,
             todoListStatus,
             priority,
+            shared,
         } = this.props;
         return (
             <React.Fragment>
@@ -196,11 +196,12 @@ class Task extends Component {
                     onMouseOver={this.updateDisplayFlex}
                     onMouseOut={this.updateDisplayNone}
                     key={idTask}
+                    shared={shared}
                 >
                     <styled.NameAdnCheckedTask>
                         <Checkbox
                             checked={selected}
-                            onChange={this.handleSelectTask}
+                            onChange={() => (!shared ? this.handleSelectTask : null)}
                         />
                         { this.setIcon(priority) }
                         <Input
@@ -208,16 +209,16 @@ class Task extends Component {
                             value={nameTask}
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
-                            style={todoListStatus === 'ACTIVE'
-                                ? { textDecoration: selected ? 'line-through' : 'none', width: '45%', marginLeft: '0' }
-                                : { textDecoration: selected ? 'line-through' : 'none', width: '45%', pointerEvents: 'none' }}
+                            style={todoListStatus === 'ACTIVE' && !shared
+                                ? { textDecoration: selected ? 'line-through' : 'none', width: '80%', marginLeft: '0' }
+                                : { textDecoration: selected ? 'line-through' : 'none', width: '80%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
                     {
-                        todoListStatus === 'ACTIVE' && ([
+                        todoListStatus === 'ACTIVE' && !shared && ([
                             <styled.IconInfo key="IconInfo ">
                                 <div>
-                                    {/*<b>Information about this task:</b><br />*/}
+                                    {/* <b>Information about this task:</b><br /> */}
                                     Created Date: {new Date(createdDate).toLocaleString()}<br />
                                     <p style={{
                                         display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
@@ -245,7 +246,10 @@ class Task extends Component {
                                                             color: 'black',
                                                             cursor: 'pointer',
                                                         }}
-                                                        onClick={() => { actions.removeTagFromTask({ idTag: key.tag.id, idTask }); this.getTagsTaks()}}
+                                                        onClick={() => {
+                                                            actions.removeTagFromTask({ idTag: key.tag.id, idTask });
+                                                            this.getTagsTaks();
+                                                        }}
                                                     >x
                                                     </span>
                                                 </span>

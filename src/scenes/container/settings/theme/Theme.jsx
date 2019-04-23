@@ -171,14 +171,14 @@ class Theme extends Component {
                         />
                     </styled.Row>
                     <Button
-                        href=""
-                        onClick={this.handleApply}
-                        value="Apply"
+                        variant="contained"
+                        color="default"
                         style={{
-                            marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px',
+                            marginTop: '16px', width: '40%', height: '8%', alignSelf: 'center', borderRadius: '8px'
                         }}
+                        onClick={this.handleApply}
                     >
-                     Apply
+                        Apply
                     </Button>
                     {/* <Button variant="contained" color="default"> */}
                     {/*    Upload */}

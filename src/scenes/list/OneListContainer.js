@@ -52,6 +52,7 @@ const mapDispatchToProps = dispatch => ({
         selectDoneAction: actions.selectDoneAction,
         selectedNotDoneAction: actions.selectedNotDoneAction,
         updateComment: actions.updateCommentSuccess,
+        clean: actions.clean,
     }, dispatch),
     actionsBoard: bindActionCreators({
         onBlurs: actionsBoard.updateTitleSuccess,

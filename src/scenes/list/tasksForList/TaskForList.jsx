@@ -173,9 +173,6 @@ class TaskForList extends Component {
                             onChange={this.handleSelectTask}
                         />
                     </TableCell>
-                    <TableCell align="left">
-                        { this.setIcon(priority) } {priority}
-                    </TableCell>
                     <TableCell align="left" className={classes.max}>
                         <stylesTask.TaskName
                             type="text"
@@ -187,17 +184,21 @@ class TaskForList extends Component {
                             style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
                         />
                     </TableCell>
+                    <TableCell align="left">
+                        { this.setIcon(priority) } {priority}
+                    </TableCell>
                     <TableCell align="left">{new Date(createdDate).toLocaleString()}</TableCell>
                     <TableCell align="left">{selected ? new Date(completedDate).toLocaleString()
-                        : null }
+                        : 'in process' }
                     </TableCell>
 
                     <TableCell align="left" className={classes.duration}>
                         {
                             (durationTime !== null && durationTime !== 0)
-                                && ` ${(moment.duration(durationTime).days())}d
+                                ? ` ${(moment.duration(durationTime).days())}d
                                     ${(moment.duration(durationTime).hours())}h
                                     ${(moment.duration(durationTime).minutes())}m`
+                                : 'in process'
                         }
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>
