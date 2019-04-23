@@ -3,9 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import * as styled from '../dialog/AlertDialog.styles';
-import { AlertIcon } from '../../scenes/popup/Popup.styles';
-import { DialogContentText } from '../dialog/AlertDialog.styles';
+import * as styled from './AlertDialog.styles';
 
 export class AlertDialog extends Component {
     render() {
@@ -18,36 +16,37 @@ export class AlertDialog extends Component {
                onClose={onClose}
            >
                <styled.Content>
-                   <AlertIcon />
+                   <styled.Close
+                       style={{}}
+                       onClick={() => onClose()}
+                   />
                    <DialogTitle
                        id="form-dialog-title"
+                       style={{padding: '0px', margin: '0px 24px 8px 24px'}}
                    >
                        Dialog
                    </DialogTitle>
-                   <styled.closeWindow
-                       onClick={() => onClose()}
-                   >&times;
-                   </styled.closeWindow>
                </styled.Content>
-               <DialogContentText style={ { margin: '16px 24px 16px 24px' } }>
+               <styled.DialogContentText style={ { margin: '0px 24px 16px 24px' } }>
                    { value }
-               </DialogContentText>
+               </styled.DialogContentText>
                <DialogActions>
                    <Button
                        onClick={onClose}
                        color="primary"
                    >
                        Cancel
-                   </Button>
-                   <Button
-                       onClick={() => {
-                           onConfirm();
-                           onClose();
-                       }}
-                       color="primary"
-                   >
+                    </Button>
+                    <Button
+                        href=""
+                        onClick={() => {
+                            onConfirm();
+                            onClose();
+                        }}
+                        color="primary"
+                    >
                        Enter
-                   </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         );

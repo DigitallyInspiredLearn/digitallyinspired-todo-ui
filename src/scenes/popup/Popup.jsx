@@ -12,35 +12,35 @@ import * as styled from '../../components/dialog/AlertDialog.styles';
 import * as styles from './Popup.styles';
 
 export class Popup extends Component {
-
     handleChange = (newValue) => {
         const { actions } = this.props;
         actions.searchUser(newValue);
     };
 
     render() {
-        const { statePopup, closePopup, actions, actionsBoard, users, search, idList } = this.props;
+        const {
+            statePopup, closePopup, actions, actionsBoard, users, search, idList,
+        } = this.props;
         return (
             <Dialog
                 open={statePopup}
                 onClose={closePopup}
             >
                 <styled.Content>
-                    <styles.AlertIcon />
-                    <DialogTitle
-                        id="form-dialog-title"
-                    >
-                        Share list
-                    </DialogTitle>
-                    <styled.closeWindow
+                    <styled.Close
                         onClick={() => {
                             closePopup();
                             actions.searchUser('');
                         }}
-                    >&times;
-                    </styled.closeWindow>
+                    />
+                    <DialogTitle
+                        id="form-dialog-title"
+                        style={{padding: '0px', margin: '0px 24px 8px 24px'}}
+                    >
+                        Share list
+                    </DialogTitle>
                 </styled.Content>
-                <SearchContent style={{margin: '0px 16px 24px 24px',}}>
+                <SearchContent style={{ margin: '0px 16px 24px 24px' }}>
                     <Search
                         onChange={this.handleChange}
                         value={search}
@@ -78,20 +78,23 @@ export class Popup extends Component {
                         Enter
                     </Button>
                     {
-                        users.length === 1 && users[0] === search ? (<styles.users search={''} />) : (
+                        users.length === 1 && users[0] === search ? (<styles.users search="" />) : (
                             <styles.users search={search}>
                                 {
                                     users.map(i => (
-                                        i === 'User is not found!' ?
-                                            <List>
-                                                <ListItemText primary={i}/>
-                                            </List> :
-                                            <div onClick={() => actions.searchUser(i)}>
-                                                <List>
-                                                    <ListItemText primary={i}/>
+                                        i === 'User is not found!'
+                                            ? (
+                                                <List key={i}>
+                                                    <ListItemText primary={i} />
                                                 </List>
-                                            </div>),
-                                    )
+                                            )
+                                            : (
+                                                <div onClick={() => actions.searchUser(i)} key={i}>
+                                                    <List>
+                                                        <ListItemText primary={i} />
+                                                    </List>
+                                                </div>
+                                            )))
                                 }
                             </styles.users>
                         )

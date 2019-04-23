@@ -31,6 +31,7 @@ export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
 
 export const FETCH_TAG_TAKS_KEYS_SUCCESS = 'dashboard/FETCH_TAG_TAKS_KEYS_SUCCESS';
+export const CLEAN = 'dashboard/CLEAN';
 
 export const UPDATE_VIEW_LIST = 'dashboard/UPDATE_VIEW_LIST';
 export const ADD_DASHBOARD = 'dashboard/ADD_DASHBOARD';
@@ -96,6 +97,7 @@ export const actions = {
     visiblePopap: createAction(VISIBLE_POPAP_ADD_TAG),
     removeTagFromTask: createAction(REMOVE_TAG_FROM_TASK),
     getSelectedTags: createAction(GET_SELECTED_TAGS),
+    clean: createAction(CLEAN),
 };
 
 const initialState = {
@@ -144,6 +146,7 @@ export const reducer = handleActions({
     [FETCH_TAGS_SUCCESS]: (state, action) => ({ ...state, tags: action.payload }),
     [GET_SELECTED_TAGS]: (state, action) => ({ ...state, selectedTags: action.payload }),
     [VISIBLE_POPAP_ADD_TAG]: state => ({ ...state, visible: !state.visible }),
+    [CLEAN]: () => initialState,
 }, initialState);
 
 export const getDashboard = state => state.dashboard;
@@ -285,14 +288,10 @@ export function* removeTagFromTask(action) {
     yield call(fetchTags);
 }
 
-export function* getSelectedTegInString() {
-    yield call(fetchAllLists);
-}
-
 export function* saga() {
-    yield safeTakeLatest([INITIALIZE, FETCH_TAGS], initialize);
+    yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK ], initialize);
     yield safeTakeEvery([
-        FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT,
+        FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT, GET_SELECTED_TAGS, FETCH_TAGS, GET_SELECTED_TAGS,
     ], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
@@ -308,5 +307,4 @@ export function* saga() {
     yield safeTakeEvery(ADD_TAG_TO_TASK, addTagToTask);
     yield safeTakeEvery(DELETE_TAG, deleteTag);
     yield safeTakeEvery(REMOVE_TAG_FROM_TASK, removeTagFromTask);
-    yield safeTakeEvery(GET_SELECTED_TAGS, getSelectedTegInString);
 }

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import * as styled from './Theme.styles';
 import dayImage from '../../../../image/day.png';
 import nightImage from '../../../../image/night.png';
 import theme from '../../../../config/theme';
 import Input from '../../../../components/input/Input';
+
 // import Button from '../../../../components/button/Button';
 
 class Theme extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            type: props.type,
-            data: props.data,
-        };
+        const { type, data } = props;
+        this.state = { type, data };
     }
 
 
@@ -22,17 +22,19 @@ class Theme extends Component {
     };
 
     handleDataChange = (key, newValue) => {
+        const { data } = this.state;
         this.setState({
             type: 'custom',
             data: {
-                ...this.state.data,
+                ...data,
                 [key]: newValue,
             },
         });
     };
 
     handleApply = () => {
-        this.props.actions.changeTheme(this.state);
+        const { actions } = this.props;
+        actions.changeTheme(this.state);
     };
 
     render() {
@@ -168,18 +170,19 @@ class Theme extends Component {
                             style={{ width: '120px', height: '16px', fontSize: '14px' }}
                         />
                     </styled.Row>
-                    {/* <Button */}
-                    {/* onClick={this.handleApply} */}
-                    {/* value="Apply" */}
-                    {/* style={{ */}
-                    {/* marginTop: '16px', width: '20%', height: '8%', alignSelf: 'center', borderRadius: '8px' */}
-                    {/* }} */}
-                    {/* > */}
-                    {/* Apply */}
-                    {/* </Button> */}
-                    <Button variant="contained" color="default">
-                        Upload
+                    <Button
+                        variant="contained"
+                        color="default"
+                        style={{
+                            marginTop: '16px', width: '40%', height: '8%', alignSelf: 'center', borderRadius: '8px'
+                        }}
+                        onClick={this.handleApply}
+                    >
+                        Apply
                     </Button>
+                    {/* <Button variant="contained" color="default"> */}
+                    {/*    Upload */}
+                    {/* </Button> */}
 
                 </styled.ColumnContainer>
             </styled.Theme>
@@ -188,3 +191,15 @@ class Theme extends Component {
 }
 
 export default Theme;
+
+Theme.propTypes = {
+    actions: PropTypes.objectOf(PropTypes.func),
+    type: PropTypes.string,
+    data: PropTypes.objectOf(PropTypes.string),
+};
+
+Theme.defaultProps = {
+    actions: {},
+    type: '',
+    data: {},
+};
