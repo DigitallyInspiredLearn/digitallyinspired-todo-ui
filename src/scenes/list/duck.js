@@ -22,6 +22,7 @@ export const MUTATE = 'list/MUTATE';
 export const MUTATE_SUCCESS = 'list/MUTATE_SUCCESS';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
+export const CLEAN = 'CLEAN';
 
 export const actions = {
     fetchList: createAction(FETCH_LIST),
@@ -40,6 +41,7 @@ export const actions = {
     mutateSuccess: createAction(MUTATE_SUCCESS),
     updateComment: createAction(UPDATE_COMMENT),
     updateCommentSuccess: createAction(UPDATE_COMMENT_SUCCESS),
+    clean: createAction(CLEAN),
 };
 
 const initialState = {
@@ -86,9 +88,8 @@ export const reducer = handleActions({
     [SEARCH_TASK]: (state, action) => ({ ...state, search: action.payload }),
     [SELECTED_DONE]: (state, action) => ({ ...state, selectedDone: !action.payload.done }),
     [SELECTED_NOT_DONE]: (state, action) => ({ ...state, selectedNotDone: !action.payload.notDone }),
-
+    [CLEAN]: () => initialState,
 }, initialState);
-
 
 export function* fetchList(action) {
     const r = yield call(getOneList, action.payload.idList);
@@ -106,7 +107,6 @@ export function* updateTitle(action) {
 }
 
 export function* updateComment(action) {
-    // const list = yield call(getOneList, action.payload.id);
     const list = yield select(state => state.list.data);
     yield call(updateList, action.payload.id,
         { ...list, comment: action.payload.newComment });
