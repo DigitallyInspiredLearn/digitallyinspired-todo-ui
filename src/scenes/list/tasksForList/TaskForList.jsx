@@ -195,7 +195,7 @@ class TaskForList extends Component {
                     <TableCell align="left" className={classes.duration}>
                         {
                             (durationTime !== null && durationTime !== 0)
-                                && ` ${(moment.duration(durationTime).days())}d
+                                ? ` ${(moment.duration(durationTime).days())}d
                                     ${(moment.duration(durationTime).hours())}h
                                     ${(moment.duration(durationTime).minutes())}m`
                                 : 'in process'
