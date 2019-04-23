@@ -26,10 +26,11 @@ class Task extends Component {
             selectedTask: '',
             durationTime: props.durationTime,
             visible: false,
+            tags: [],
         };
     }
 
-    updateDisplayFlex = () => this.setState({ display: 'flex' });
+    updateDisplayFlex = () => this.setState({ display: 'flex' }, () => this.getTagsTaks());
 
     updateDisplayNone = () => this.setState({ display: 'none' });
 
@@ -37,8 +38,18 @@ class Task extends Component {
 
     closePopapAddTagToTask = () => this.setState({ visiblePopapAddTagToTask: false });
 
+    getTagsTaks = () => this.setState({
+        tags: this.props.tagTaskKeys.filter(
+            key => key.taskId === this.props.idTask
+                && key.tag.id !== this.state.tags.map(tag => tag.tag.id),
+        ),
+    });
 
     closePopup = () => this.setState({ statePopup: false });
+
+    componentWillMount() {
+        this.getTagsTaks();
+    }
 
     showAlertDialog = () => {
         const { visible } = this.state;
@@ -176,6 +187,7 @@ class Task extends Component {
                             actions={actions}
                             allTags={allTags}
                             selectedTask={selectedTask}
+                            getTagsTask={this.getTagsTaks}
                         />
                     )
                 }
@@ -189,7 +201,7 @@ class Task extends Component {
                     <styled.NameAdnCheckedTask>
                         <Checkbox
                             checked={selected}
-                            onChange={() => !shared ? this.handleSelectTask : null}
+                            onChange={() => (!shared ? this.handleSelectTask : null)}
                         />
                         { this.setIcon(priority) }
                         <Input
@@ -206,35 +218,38 @@ class Task extends Component {
                         todoListStatus === 'ACTIVE' && !shared && ([
                             <styled.IconInfo key="IconInfo ">
                                 <div>
-                                    <b>Information about this task:</b><br />
+                                    {/* <b>Information about this task:</b><br /> */}
                                     Created Date: {new Date(createdDate).toLocaleString()}<br />
                                     <p style={{
                                         display: 'flex', flexWrap: 'wrap', alignItems: 'center', cursor: 'default',
                                     }}
                                     >
                                         Tags: {
-                                            tagTaskKeys.map(key => key.taskId === idTask
+                                            this.state.tags.map(key => key.taskId === idTask
                                             && (
                                                 <span
                                                     key={key}
                                                     style={{
                                                         backgroundColor: key.tag.color,
-                                                        padding: '2px 4px',
+                                                        padding: '6px 8px',
                                                         margin: '4px',
-                                                        borderRadius: '2px',
+                                                        borderRadius: '20px',
+                                                        opacity: 0.9,
                                                     }}
                                                 >
                                                     {key.tag.tagName}
                                                     <span
                                                         style={{
-                                                            backgroundColor: 'white',
                                                             padding: ' 0 4px',
-                                                            borderRadius: '2px',
-                                                            border: '1px solid grey',
                                                             marginLeft: '4px',
-                                                            opacity: 0.8,
+                                                            opacity: 0.6,
+                                                            color: 'black',
+                                                            cursor: 'pointer',
                                                         }}
-                                                        onClick={() => actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
+                                                        onClick={() => {
+                                                            actions.removeTagFromTask({ idTag: key.tag.id, idTask });
+                                                            this.getTagsTaks();
+                                                        }}
                                                     >x
                                                     </span>
                                                 </span>
@@ -285,6 +300,7 @@ class Task extends Component {
                         ])
                     }
                 </styled.Task>
+
             </React.Fragment>
         );
     }

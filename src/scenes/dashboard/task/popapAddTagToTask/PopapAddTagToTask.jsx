@@ -13,9 +13,10 @@ export default class FormDialog extends React.Component {
     }
 
     addTagToTask = (idTask, idTag) => {
-        const { actions, handleClose } = this.props;
+        const { actions, handleClose, getTagsTask } = this.props;
         actions.addTagToTask({ idTask, idTag });
         handleClose();
+        getTagsTask();
     };
 
     render() {
