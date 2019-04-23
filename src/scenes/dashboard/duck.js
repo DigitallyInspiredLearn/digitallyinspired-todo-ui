@@ -104,6 +104,19 @@ const initialState = {
     currentPage: 0,
     viewList: 'my',
     search: '',
+    options: {
+        '4/page': 4,
+        '8/page': 8,
+        '16/page': 16,
+        'By id, low to high': 'id,asc',
+        'By id, high to low': 'id,desc',
+        'By Name, a - Z': 'todoListName,asc',
+        'By Name, Z - a': 'todoListName,desc',
+        'By Created Date, low to high': 'createdDate,asc',
+        'By Created Date, high to low': 'createdDate,desc',
+        'By Modified Date, low to high': 'modifiedDate,asc',
+        'By Modified Date, high to low': 'modifiedDate,desc',
+    },
     pageSize: '4/page',
     totalElements: 0,
     sort: 'By id, low to high',
@@ -134,70 +147,17 @@ export const reducer = handleActions({
 }, initialState);
 
 export const getDashboard = state => state.dashboard;
-// unsuccessful test
-export const getSorting = (sort) => {
-    let sortValue;
-    switch (sort) {
-        case 'By id, low to high':
-            sortValue = 'id,asc';
-            break;
-        case 'By id, high to low':
-            sortValue = 'id,desc';
-            break;
-        case 'By Name, a - Z':
-            sortValue = 'todoListName,asc';
-            break;
-        case 'By Name, Z - a':
-            sortValue = 'todoListName,desc';
-            break;
-        case 'By Created Date, low to high':
-            sortValue = 'createdDate,asc';
-            break;
-        case 'By Created Date, high to low':
-            sortValue = 'createdDate,desc';
-            break;
-        case 'By Modified Date, low to high':
-            sortValue = 'modifiedDate,asc';
-            break;
-        case 'By Modified Date, high to low':
-            sortValue = 'modifiedDate,desc';
-            break;
-        default:
-            sortValue = 'todoListName,asc';
-    }
-    return sortValue;
-};
-
-export const getPageSize = (pageSize) => {
-    let pageValue;
-    switch (pageSize) {
-        case '4/page':
-            pageValue = 4;
-            break;
-        case '8/page':
-            pageValue = 8;
-            break;
-        case '16/page':
-            pageValue = 16;
-            break;
-        default:
-            pageValue = 4;
-    }
-    return pageValue;
-};
 
 export function* fetchAllLists() {
     const {
-        viewList, pageSize, currentPage, sort, selectedTags,
+        viewList, pageSize, options, currentPage, sort, selectedTags,
     } = yield select(state => state.dashboard);
-    const sortValue = getSorting(sort);
-    const pageValue = getPageSize(pageSize);
-    const keys = (yield call(getTagTaskKeys, currentPage, pageValue, sortValue)).data;
+    const keys = (yield call(getTagTaskKeys, currentPage, options[pageSize], options[sort])).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
     const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
-    const { data: { totalElements, totalPages, content } } = yield call(fetchRequest,
-        currentPage, pageValue, sortValue, 'ACTIVE', stringTagsId);
+    const { data: { totalElements, totalPages, content } } =
+        yield call(fetchRequest, currentPage, options[pageSize], options[sort], 'ACTIVE', stringTagsId);
     yield put(actions.fetchDashboardSuccess({
         toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
         totalElements,
