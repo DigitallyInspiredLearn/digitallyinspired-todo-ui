@@ -181,7 +181,6 @@ class DashboardList extends Component {
                         <DropDownMaterial
                             style={{ width: '150px', height: '42px', marginTop: '4px' }}
                             styleLabel={{ fontSize: '10px' }}
-                            // label="Change size:"
                             value={[
                                 '4/page',
                                 '8/page',

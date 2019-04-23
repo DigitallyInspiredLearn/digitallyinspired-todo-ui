@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { compose, bindActionCreators } from 'redux';
 import DashboardList from './DashboardList';
 import { actions } from './duck';
-import { actions as actionsTags } from './multiSelect/duck';
 
 const mapStateToProps = state => ({
     toDoBoard: state.dashboard.toDoBoard,

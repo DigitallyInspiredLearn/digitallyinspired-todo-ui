@@ -17,28 +17,30 @@ export class DropDownMaterial extends Component {
         this.setState({
                 valueSelect: e.target.value
         });
+        this.props.selectSorting(e.target.value);
     };
 
     render() {
-        const { value, selectSorting, label,style, styleLabel,pageSize } = this.props;
+        const { value, label, style, styleLabel } = this.props;
         const { valueSelect } = this.state;
         return (
             <div>
                 <InputLabel
+                    key='label'
                     htmlFor="select-multiple-chip"
                     style={styleLabel}
                 >
                     {label}
                 </InputLabel>
                 <Select
+                    key='DropDownSelect'
                     value={valueSelect}
                     onChange={this.handleChange}
                     style={style}
-                    onClick={(e) => selectSorting(e.target.value)}
                 >
                         {
                             value.map(i => (
-                                <MenuItem value={i}>{i}</MenuItem>))
+                                <MenuItem key={i} value={i}>{i}</MenuItem>))
                         }
                 </Select>
             </div>

@@ -7,21 +7,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { SearchContent} from '../dashboard/DashboardList.styles';
 import { AlertIcon } from './Popup.styles';
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 export class Popup extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            foundUser: false,
-        }
-    }
 
     handleChange = (newValue) => {
         const { actions } = this.props;
@@ -30,7 +21,6 @@ export class Popup extends Component {
 
     render() {
         const { statePopup, closePopup, actions, actionsBoard, users, search, idList } = this.props;
-        const { foundUser } = this.state;
         return (
             <Dialog
                 open={statePopup}
@@ -61,8 +51,7 @@ export class Popup extends Component {
                             placeholder="Enter username ..."
                         />
                     </SearchContent>
-                <DialogActions style={{margin: '32px 8px 8px 8px',
-                }}>
+                <DialogActions style={{ margin: '56px 8px 8px 8px' }}>
                     <Button
                         onClick={() => {
                             closePopup();
@@ -91,21 +80,25 @@ export class Popup extends Component {
                     >
                         Enter
                     </Button>
-                    <styles.users search={search} foundUser={foundUser}>
                     {
-                        users.map(i => (
-                            search === i ? null : i === 'User is not found!' ?
-                                <List>
-                                    <ListItemText primary={i}/>
-                                </List> :
-                                <div onClick={() => actions.searchUser(i)}>
-                                    <List>
-                                        <ListItemText primary={i}/>
-                                    </List>
-                                </div>),
+                        users.length === 1 && users[0] === search ? (<styles.users search={''} />) : (
+                            <styles.users search={search}>
+                                {
+                                    users.map(i => (
+                                        i === 'User is not found!' ?
+                                            <List>
+                                                <ListItemText primary={i}/>
+                                            </List> :
+                                            <div onClick={() => actions.searchUser(i)}>
+                                                <List>
+                                                    <ListItemText primary={i}/>
+                                                </List>
+                                            </div>),
+                                    )
+                                }
+                            </styles.users>
                         )
                     }
-                    </styles.users>
                 </DialogActions>
             </Dialog>
         );
