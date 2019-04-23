@@ -215,9 +215,6 @@ class TaskForList extends Component {
                             onChange={this.handleSelectTask}
                         />
                     </TableCell>
-                    <TableCell align="left">
-                        { this.setIcon(priority) } {priority}
-                    </TableCell>
                     <TableCell align="left" className={classes.max}>
                         <stylesTask.TaskName
                             type="text"
@@ -228,6 +225,9 @@ class TaskForList extends Component {
                             })}
                             style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
                         />
+                    </TableCell>
+                    <TableCell align="left">
+                        { this.setIcon(priority) } {priority}
                     </TableCell>
                     <TableCell align="left">{new Date(createdDate).toLocaleString()}</TableCell>
                     <TableCell align="left">{selected ? new Date(completedDate).toLocaleString()

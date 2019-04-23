@@ -72,12 +72,15 @@ class OneList extends Component {
         this.state = {
             valueNewTask: '',
             stateComment: false,
-            newComment: props.data.comment || '',
+            newComment: props.comment,
             priority: 'NOT_SPECIFIED',
             visible: false,
             alignment: ['notDone', 'done'],
         };
+        console.log(this.props);
     }
+
+    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
     changeValueNewTask = e => this.setState({ valueNewTask: e.target.value });
 
@@ -98,8 +101,8 @@ class OneList extends Component {
         });
     };
 
-    handleUpdateComment = (newValue) => {
-        this.setState({ newComment: newValue });
+    handleUpdateComment = (e) => {
+        this.setState({ newComment: e.target.value }, () => console.log(this.state.newComment));
     };
 
     handleUpdate = () => {
@@ -119,8 +122,6 @@ class OneList extends Component {
             visible: !visible,
         });
     };
-
-    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
 
     downloadToPDF = (data) => {
         const doc = new jsPDF();
@@ -299,13 +300,14 @@ class OneList extends Component {
                                         <Table className={classes.table}>
                                             <TableHead>
                                                 <TableRow className={classes.header}>
-                                                    <CustomTableCell align="left">Is done</CustomTableCell>
-                                                    <CustomTableCell align="left">Priority</CustomTableCell>
+                                                    <CustomTableCell align="left" />
                                                     <CustomTableCell align="left">Name</CustomTableCell>
+                                                    <CustomTableCell align="left">Priority</CustomTableCell>
+                                                    
                                                     <CustomTableCell align="left">Created date</CustomTableCell>
                                                     <CustomTableCell align="left">Completed date</CustomTableCell>
                                                     <CustomTableCell align="left">Duration time</CustomTableCell>
-                                                    <CustomTableCell align="center">Delete task</CustomTableCell>
+                                                    <CustomTableCell align="center" />
                                                 </TableRow>
                                             </TableHead>
                                             {
@@ -412,27 +414,29 @@ class OneList extends Component {
                     <styled.Expand
                         visible={stateComment}
                     >
-                        { (data.comment !== undefined && data.comment !== null) ? (
-                            <TextField
-                                onChange={e => this.handleUpdateComment(e.target.value)}
-                                defaultValue={data.comment}
-                                multiline
-                                autoFocus
-                                rowsMax="8"
-                                variant="outlined"
-                                margin="normal"
-                                placeholder="Type comment about this list"
-                                style={{
-                                    width: '100%', fontWeight: 'bold',
-                                }}
-                                InputProps={{
-                                    style: {
-                                        height: '200px',
-                                    },
-                                }}
-                            />
-                        ) : null
-                        }
+                        <React.Fragment>
+                            { (data.comment !== undefined && data.comment !== null) ? (
+                                <TextField
+                                    onChange={this.handleUpdateComment}
+                                    value={newComment}
+                                    multiline
+                                    autoFocus
+                                    rowsMax="8"
+                                    variant="outlined"
+                                    margin="normal"
+                                    placeholder="Type comment about this list"
+                                    style={{
+                                        width: '100%', fontWeight: 'bold',
+                                    }}
+                                    InputProps={{
+                                        style: {
+                                            height: '200px',
+                                        },
+                                    }}
+                                />
+                            ) : null
+                            }
+                        </React.Fragment>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
                             <IconButton
                                 style={{ padding: '12px' }}

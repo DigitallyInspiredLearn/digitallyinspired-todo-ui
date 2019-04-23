@@ -18,7 +18,7 @@ import {
 } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 import {
- getTagTaskKeys,
+    getTagTaskKeys,
     getTags,
     addTag as addTagAPI,
     deleteTag as deleteTagAPI,

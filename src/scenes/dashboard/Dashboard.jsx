@@ -129,8 +129,7 @@ export class Dashboard extends Component {
     };
 
     handleUpdateComment = (newValue) => {
-        console.log(newValue);
-        //this.setState({ newComment: newValue });
+        this.setState({ newComment: newValue });
     };
 
     handleUpdateTitleSuccess = () => {
@@ -224,7 +223,10 @@ export class Dashboard extends Component {
                                             })}
                                         >tags
                                         </div>
-                                        <Link to={`/lists/${idList}`}>
+                                        <Link to={{
+                                            pathname: `/lists/${idList}`,
+                                            state: { comment }
+                                        }}>
                                             <styled.IconInfo>
                                                 <p>
                                                     <b>Information about list "{title}":</b><br />
