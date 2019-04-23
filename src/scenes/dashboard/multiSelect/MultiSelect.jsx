@@ -68,11 +68,11 @@ class MultiSelect extends Component {
                                 </MenuItem>
                             ))
                             : (
-                                <MenuItem>
+                                <MenuItem style={{ pointerEvents: 'none', color: 'grey' }}>
                                     <div
                                         style={style}
                                     >
-                                   Not tags yet
+                                   No tags yet
                                     </div>
                                 </MenuItem>
                             )
