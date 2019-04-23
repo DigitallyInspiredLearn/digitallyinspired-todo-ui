@@ -49,6 +49,7 @@ export const getTaskList = (tasks, props) => (
                 durationTime={i.durationTime}
                 tagTaskKeys={props.tagTaskKeys}
                 priority={i.priority}
+                shared={props.shared}
             />
         )));
 
@@ -190,7 +191,7 @@ export class Dashboard extends Component {
                         onChange={this.handleUpdateTitle}
                         value={title}
                         onBlur={this.handleUpdateTitleSuccess}
-                        style={todoListStatus === 'ACTIVE' ? {
+                        style={todoListStatus === 'ACTIVE' && !shared ? {
                             textDecoration: 'none', width: '80%', fontWeight: 'bold', margin: '0 8px', fontSize: '20px',
                         } : {
                             textDecoration: 'none',

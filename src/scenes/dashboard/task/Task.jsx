@@ -153,6 +153,7 @@ class Task extends Component {
             tagTaskKeys,
             todoListStatus,
             priority,
+            shared,
         } = this.props;
         return (
             <React.Fragment>
@@ -187,7 +188,7 @@ class Task extends Component {
                     <styled.NameAdnCheckedTask>
                         <Checkbox
                             checked={selected}
-                            onChange={this.handleSelectTask}
+                            onChange={() => !shared ? this.handleSelectTask : null}
                         />
                         { this.setIcon(priority) }
                         <Input
@@ -195,13 +196,13 @@ class Task extends Component {
                             value={nameTask}
                             onBlur={this.handleUpdateTaskSuccess}
                             border={false}
-                            style={todoListStatus === 'ACTIVE'
+                            style={todoListStatus === 'ACTIVE' && !shared
                                 ? { textDecoration: selected ? 'line-through' : 'none', width: '80%', marginLeft: '0' }
                                 : { textDecoration: selected ? 'line-through' : 'none', width: '80%', pointerEvents: 'none' }}
                         />
                     </styled.NameAdnCheckedTask>
                     {
-                        todoListStatus === 'ACTIVE' && ([
+                        todoListStatus === 'ACTIVE' && !shared && ([
                             <styled.IconInfo key="IconInfo ">
                                 <div>
                                     <b>Information about this task:</b><br />
