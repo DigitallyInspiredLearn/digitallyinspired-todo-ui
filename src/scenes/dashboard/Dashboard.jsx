@@ -180,7 +180,7 @@ export class Dashboard extends Component {
             >
                 <styled.DashboardHeader>
                     {
-                        gravatarUrl ? (
+                        gravatarUrl && !shared ? (
                             <styled.Avatar
                                 src={`${gravatarUrl}?s=120&d=retro`}
                             />

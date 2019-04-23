@@ -27,18 +27,18 @@ export class Popup extends Component {
                 onClose={closePopup}
             >
                 <styled.Content>
+                    <DialogTitle
+                        id="form-dialog-title"
+                        style={{display: 'flex', flex: 'auto', padding: '8px 0px 8px 24px',}}
+                    >
+                        Share list
+                    </DialogTitle>
                     <styled.Close
                         onClick={() => {
                             closePopup();
                             actions.searchUser('');
                         }}
                     />
-                    <DialogTitle
-                        id="form-dialog-title"
-                        style={{padding: '0px', margin: '0px 24px 8px 24px'}}
-                    >
-                        Share list
-                    </DialogTitle>
                 </styled.Content>
                 <SearchContent style={{ margin: '0px 16px 24px 24px' }}>
                     <Search

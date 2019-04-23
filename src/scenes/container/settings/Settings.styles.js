@@ -9,17 +9,16 @@ export const CloseWindow = styled.div`
 `;
 
 export const Background = styled.div`
+    width: 100%;
+    z-index: 10;
+    flex-direction: row;
+    background-color: ${p => p.theme.mainText};
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
     position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex:auto;
-    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.6);
-    z-index: 11;
+    top:0;
 `;
 
 export const Window = styled.div`
