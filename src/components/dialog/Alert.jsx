@@ -1,0 +1,51 @@
+import React, { Component } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import * as styled from './AlertDialog.styles';
+
+export class Alert extends Component {
+    render() {
+        const {
+            visible, value, onClose,  onConfirm,
+        } = this.props;
+        return (
+            <Dialog
+                open={visible}
+                onClose={onClose}
+            >
+                <styled.Content>
+                    <DialogTitle
+                        id="form-dialog-title"
+                        style={{display: 'flex', flex: 'auto', padding: '8px 0px 8px 24px',}}
+                    >
+                        Dialog
+                    </DialogTitle>
+                    <styled.Close
+                        style={{}}
+                        onClick={() => onClose()}
+                    />
+                </styled.Content>
+                <styled.DialogContentText style={ { margin: '8px 24px 16px 24px' } }>
+                    { value }
+                </styled.DialogContentText>
+                <DialogActions>
+                    <Link to={`/auth`} >
+                        <Button
+                            href=""
+                            onClick={() => {
+                                onClose();
+                                onConfirm();
+                            }}
+                            color="primary"
+                        >
+                            Ok
+                        </Button>
+                    </Link>
+                </DialogActions>
+            </Dialog>
+        );
+    }
+}

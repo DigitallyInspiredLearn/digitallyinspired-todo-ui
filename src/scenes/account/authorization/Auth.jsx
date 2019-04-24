@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as styled from '../Account.styled';
 import Button from '../../../components/button/Button';
+import { Alert } from '../../../components/dialog/Alert';
 
 const validateFields = ['login', 'password'];
 
@@ -31,8 +32,16 @@ class Authorization extends Component {
             password: '',
             login: '',
             errors: {},
+            visible: false,
         };
     }
+
+    showAlert = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        });
+    };
 
     onChangeLogin = (e) => {
         this.setState({ login: e.target.value }, () => {
@@ -47,8 +56,9 @@ class Authorization extends Component {
     };
 
     render() {
-        const { actions } = this.props;
-        const { password, login } = this.state;
+        const { actions, errorMessage } = this.props;
+        const { password, login, visible } = this.state;
+        console.log(errorMessage);
         return (
             <styled.Content>
                 <styled.NavigationForm>
@@ -73,9 +83,23 @@ class Authorization extends Component {
                             />
                         </styled.EnterInformation>
                         <styled.SuccessButton
-                            onClick={() => actions.authorization({ password, usernameOrEmail: login })}
+                            onClick={() => {
+                                actions.authorization({ password, usernameOrEmail: login });
+                            }}
                         >ENTER
                         </styled.SuccessButton>
+                        {/*{*/}
+                            {/*errorMessage === '' ? null : (*/}
+
+                            {/*<Alert*/}
+                            {/*visible={visible}*/}
+                            {/*onClose={this.showAlert}*/}
+                            {/*onConfirm={actions.fetchErrors('')}*/}
+                            {/*value={errorMessage}*/}
+                            {/*>*/}
+                                {/*{ this.showAlert() }*/}
+                            {/*</Alert>)*/}
+                        {/*}*/}
                     </styled.Form>
                     <styled.HrefButton>
                         <Link to="/reg">
