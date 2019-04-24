@@ -161,7 +161,7 @@ class OneList extends Component {
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
         } = this.props;
-        // console.log(this.props);
+        console.log(this.props);
         const dataXLS = data.tasks && data.tasks.length
             ? data.tasks.map(i => ({
                 doneOrNot: i.isComplete ? '+' : '-',
@@ -324,8 +324,8 @@ class OneList extends Component {
                                                             createdDate={i.createdDate}
                                                             completedDate={i.completedDate}
                                                             durationTime={i.durationTime}
-                                                            tags={this.props.location.state.tags}
-                                                            tagTaskKeys={this.props.location.state.tagTaskKeys}
+                                                            tags={tags}
+                                                            tagTaskKeys={tagTaskKeys}
                                                         />
                                                     </TableBody>
                                                 ))

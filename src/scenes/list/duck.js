@@ -111,12 +111,18 @@ export const reducer = handleActions({
     [FETCH_TAGS_SUCCESS]: (state, action) => ({ ...state, tags: action.payload }),
 }, initialState);
 
+export function* fetchTags() {
+    const tags = (yield call(getTags)).data;
+    yield put(actions.fetchTagsSuccess(tags));
+}
+
 export function* fetchList(action) {
     const r = yield call(getOneList, action.payload.idList);
     yield put(actions.fetchListSuccess({
         ...r.data,
         tasks: r.data.tasks,
     }));
+    yield call(fetchTags);
 }
 
 export function* updateTitle(action) {
@@ -178,10 +184,7 @@ export function* fetchUpdateCheckbox(action) {
     yield put(actions.fetchListSuccess(r.data));
 }
 
-export function* fetchTags() {
-    const tags = (yield call(getTags)).data;
-    yield put(actions.fetchTagsSuccess(tags));
-}
+
 
 export function* saga() {
     yield safeTakeEvery([FETCH_LIST, SELECTED_NOT_DONE, SELECTED_DONE], fetchList);
