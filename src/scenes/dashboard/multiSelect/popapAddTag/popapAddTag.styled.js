@@ -6,7 +6,6 @@ export const showPopup = styled.div`
 
 export const Title = styled.div`
     font-size:20px;
-    font-weight: bold;
     color: rgba(34,37,33,0.87);
     width: 290px;
     margin-left: 4px;

@@ -255,7 +255,7 @@ class Task extends Component {
                                                     </span>
                                                 </span>
                                             ))
-                                            : <span>not t</span>
+                                            : <span>not tags</span>
                                         }
                                     </p>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()

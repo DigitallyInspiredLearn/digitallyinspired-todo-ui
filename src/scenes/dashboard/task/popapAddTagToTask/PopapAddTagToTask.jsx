@@ -27,7 +27,7 @@ export default class FormDialog extends React.Component {
         return (
             <div>
                 <Dialog open={show} onClose={handleClose}>
-                    <styledSettings.Window style={{ width: '315px', height: '50vh', overflowY: 'hidden' }}>
+                    <styledSettings.Window style={{ width: '315px', height: '45vh', overflowY: 'hidden' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <styled.Title>Add tag to task</styled.Title>
                             <styledSettings.CloseWindow onClick={() => handleClose()}>
