@@ -327,7 +327,7 @@ class OneList extends Component {
                                                             createdDate={i.createdDate}
                                                             completedDate={i.completedDate}
                                                             durationTime={i.durationTime}
-                                                            tags={tags}
+                                                            tags={i.tags}
                                                             tagTaskKeys={tagTaskKeys}
                                                         />
                                                     </TableBody>
