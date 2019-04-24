@@ -58,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
     }, dispatch),
     actionsBoard: bindActionCreators({
         onBlurs: actionsBoard.updateTitleSuccess,
+        fetchDashboard: actionsBoard.fetchDashboard,
     }, dispatch),
 });
 
