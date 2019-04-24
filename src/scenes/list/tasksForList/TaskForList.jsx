@@ -41,6 +41,12 @@ const styles = () => ({
     delete: {
         width: 50,
     },
+    tags: {
+        maxWidth: 30,
+        overflowX: 'scroll',
+        // textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+    },
 });
 
 class TaskForList extends Component {
@@ -55,8 +61,18 @@ class TaskForList extends Component {
             visible: false,
             anchorEl: null,
             open: true,
+            tags: [],
         };
     }
+
+    getTagsTaks = () => this.setState({
+        tags: this.props.tagTaskKeys.filter(
+            key => key.taskId === this.props.idTask
+                && key.tag.id !== this.state.tags.map(tag => tag.tag.id),
+        ),
+    });
+
+    componentWillMount = () => this.getTagsTaks();
 
     closePopup = () => this.setState({ statePopup: false });
 
@@ -168,7 +184,8 @@ class TaskForList extends Component {
             idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes,
             tagTaskKeys, tags,
         } = this.props;
-        console.log(this.props);
+
+        // console.log(this.props);
         return (
             <React.Fragment>
                 {
@@ -217,50 +234,12 @@ class TaskForList extends Component {
                                 : 'in process'
                         }
                     </TableCell>
-                    <TableCell align="center">
-                        <Popper placement="bottom" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
-                                {({ TransitionProps }) => (
-                                    <Fade {...TransitionProps} timeout={350}>
-                                        <Paper>
-                                            <Typography
-                                                // className={classes.typography}
-                                            >
-                                                {/* <Tooltip title="Account">
-                                                    <styled.Icon
-                                                        src={account}
-                                                        alt="account"
-                                                        onClick={this.handlerAccountClick}
-                                                    />
-                                                </Tooltip>
-                                                <Tooltip title="Settings">
-                                                    <styled.Icon
-                                                        src={settings}
-                                                        alt="logout"
-                                                        onClick={this.openSettings}
-                                                    />
-                                                </Tooltip>
-                                                <Tooltip title="Basket page">
-                                                    <styled.Icon
-                                                        src={basket}
-                                                        alt="logout"
-                                                        onClick={this.handlerBasketClick}
-                                                    />
-                                                </Tooltip>
-                                                <Tooltip title="Logout">
-                                                    <styled.Icon
-                                                        src={exit}
-                                                        alt="logout"
-                                                        onClick={this.showAlertDialog}
-                                                    />
-                                                </Tooltip> */}
-                                                ,,,,
-                                            </Typography>
-                                        </Paper>
-                                </Fade>
-                            )}
-                        </Popper>
+                    <TableCell align="center" className={classes.tags}>
+                        
                         {
-                            tagTaskKeys.map(key => key.taskId === idTask
+                            (this.props.tags.length !== 0 && this.props.tagTaskKeys.length !== 0) ?
+                            (
+                                    this.state.tags.map(key => key.taskId === idTask
                                             && (
                                                 <span
                                                     key={key}
@@ -271,7 +250,6 @@ class TaskForList extends Component {
                                                         borderRadius: '20px',
                                                         opacity: 0.9,
                                                     }}
-                                                    // onMouseOver={this.handleClick}
                                                 >
                                                     {key.tag.tagName}
                                                     <span
@@ -288,11 +266,11 @@ class TaskForList extends Component {
                                                         }}
                                                     >x
                                                     </span>
-                                                    
                                                 </span>
                                             ))
+                            ) : null
                         }
-                        
+
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>
                         <Tooltip title="Delete task">

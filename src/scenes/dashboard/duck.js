@@ -268,7 +268,6 @@ export function* addTag(action) {
     const { payload: { tagName, color } } = action;
     yield call(addTagAPI, { tagName, color });
     yield call(fetchTags);
-    yield call(fetchAllLists);
 }
 
 export function* deleteTag(action) {
