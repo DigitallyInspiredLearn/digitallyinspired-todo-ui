@@ -36,6 +36,8 @@ const mapStateToProps = state => (
         notDone: state.list.selectedNotDone,
         todo: state.dashboard.toDoBoardRow,
         search: state.list.search,
+        tags: state.list.tags,
+        tagTaskKeys: state.list.tagTaskKeys,
     }
 );
 
