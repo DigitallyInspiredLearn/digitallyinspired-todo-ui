@@ -16,18 +16,18 @@ export class AlertDialog extends Component {
                onClose={onClose}
            >
                <styled.Content>
+                   <DialogTitle
+                       id="form-dialog-title"
+                       style={{display: 'flex', flex: 'auto', padding: '8px 0px 8px 24px',}}
+                   >
+                       Dialog
+                   </DialogTitle>
                    <styled.Close
                        style={{}}
                        onClick={() => onClose()}
                    />
-                   <DialogTitle
-                       id="form-dialog-title"
-                       style={{padding: '0px', margin: '0px 24px 8px 24px'}}
-                   >
-                       Dialog
-                   </DialogTitle>
                </styled.Content>
-               <styled.DialogContentText style={ { margin: '0px 24px 16px 24px' } }>
+               <styled.DialogContentText style={ { margin: '8px 24px 16px 24px' } }>
                    { value }
                </styled.DialogContentText>
                <DialogActions>

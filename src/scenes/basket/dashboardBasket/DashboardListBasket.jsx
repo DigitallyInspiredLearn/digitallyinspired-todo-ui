@@ -5,9 +5,9 @@ import ReactPaginate from 'react-paginate';
 import Link from 'react-router-dom/es/Link';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForever';
+import Arrow from '@material-ui/icons/ArrowBackIos';
 import * as styledList from '../../list/OneList.styles';
 import * as styled from '../../dashboard/DashboardList.styles';
-import DropDown from '../../../components/dropDown/DropDown';
 import { DropDownMaterial } from '../../../components/dropDown/DropDownMaterial';
 import { Dashboard } from '../../dashboard/Dashboard';
 import * as styledDialog from '../../../components/dialog/AlertDialog.styles';
@@ -45,12 +45,13 @@ class DashboardListBasket extends Component {
                 <styled.App key="app">
                     <styledList.inputBlock>
                         <Link to="/lists">
-                            <styledList.animationButton className="fa fa-arrow-left fa-2x" />
+                            <Arrow style={{color: 'black', padding: '2px 0px 0px 4px' }}/>
                         </Link>
                         <styledList.titleNameOneList
                             type="text"
                             placeholder="Enter dashboard title"
                             value="Basket page"
+                            style={{color: 'black', fontWeight: '400', pointerEvents: 'none'}}
                         />
                     </styledList.inputBlock>
                     <styled.DashboardList>

@@ -24,11 +24,11 @@ export const Dashboard = styled.section`
     display: flex;
     flex-direction: column;
     background-color: ${p => p.theme.backgroundList};
-    box-shadow: 0 0  40px 0  rgba(0,0,0,0.1);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.1);
     flex: 1;
     width: auto;
     min-width: 500px;
-    max-width: 48.75%;
+    max-width: 48.98%;
     margin: 8px;
     border-radius: 4px;
     min-height: 300px;
@@ -97,6 +97,7 @@ export const Icon = styled.img`
 export const IconInfo = styled.div`
     position: relative;
     p{
+        border-radius: 8px;
         display: none;
         padding: 8px;
     }
@@ -106,21 +107,33 @@ export const IconInfo = styled.div`
         top: 10px;
         right: 10px;
         font-size: 12px;
-        z-index: 9999;
-        width: auto;
-        min-width: 200px;
-        max-width: 250px;
+        color: black;
         margin-top: 16px;
-        background: #f3f3f3;
-        height: auto;
+        width:300px;
         min-height: 70px;
-        -moz-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
-        -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.3);
-        box-shadow: 0 5px 5px rgba(0,0,0,0.3);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+        max-height: 100px;
+        height: auto;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 0.00938em;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background: white;
+        box-shadow: 0 0px 4px rgba(0,0,0,0.4);
+        ::-webkit-scrollbar {
+            width: 6px;
+        };
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        };
+        ::-webkit-scrollbar-thumb {
+            background: lightgrey; 
+        };
+        ::-webkit-scrollbar-thumb:hover {
+            background: grey; 
+        };
+    } 
 `;
 
 export const TaskList = styled.div`

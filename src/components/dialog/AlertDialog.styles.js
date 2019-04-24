@@ -15,13 +15,16 @@ export const DialogContentText = styled(_DialogContentText)`
 export const Close = styled(_Close)`    
     display: flex;
     align-self: flex-end; 
-    margin: 8px; 
     cursor: pointer;
+    padding: 0px 16px 32px 8px;
 `;
 
 export const Content = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     max-width: 600px;
     width: 600px;
+    align-items: center;
+    margin-top: 16px;
 `;

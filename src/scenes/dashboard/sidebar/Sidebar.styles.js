@@ -18,28 +18,29 @@ export const Plus = styled.div`
 `;
 export const AddButton = styled.div`
     position: absolute;
-    background-color: black;
-    height: 30px;
+    background-color: ${p => p.theme.activeButton};
+    height: 50px;
     margin: 0 -5px;
     bottom: 0;
     padding: 8px;
     text-align: center;
     cursor: pointer;
-    color: white;
+    color: ${p => p.theme.activeButtonText};
     text-transform: uppercase;
     width:100%;
     text-decoration:none;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to left,transparent,transparent 50%, #3c3c3c 50%, #3c3c3c);
-    background-position: 100% 0;
-    background-size: 200% 100%;
-    transition: all .25s ease-in;
+    // background-image: linear-gradient(to left,transparent,transparent 50%, #3c3c3c 50%, #3c3c3c);
+    // background-position: 100% 0;
+    // background-size: 200% 100%;
+    // transition: all .25s ease-in;
     border: 1px solid #3c3c3c;
     &:hover {
         // background-position: 0 0;
-        // color:${p => p.theme.activeButton};
+        background-color: #3c3c3c;
+        color:${p => p.theme.activeButtonText};
     }    
 `;
 export const AddTask = styled.div`
@@ -63,14 +64,14 @@ export const AddTask = styled.div`
     }
 `;
 export const InputTitle = styled.input`
-    margin-top: 40px;
+    margin-top: 8px;
     margin-left: 8px;
     border: none;
     width: 470px;
     height: 25px;
     outline: none;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 400;
     color:${p => p.theme.mainText};
     cursor: pointer; 
 `;

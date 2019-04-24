@@ -7,6 +7,10 @@ import Delete from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Popper from '@material-ui/core/Popper';
+import Typography from '@material-ui/core/Typography';
+import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
 import Empty from '@material-ui/icons/ArrowUpward';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import * as stylesTask from '../../dashboard/task/Task.styled';
@@ -49,6 +53,8 @@ class TaskForList extends Component {
             // minutes: '',
             durationTime: props.durationTime,
             visible: false,
+            anchorEl: null,
+            open: true,
         };
     }
 
@@ -87,6 +93,14 @@ class TaskForList extends Component {
         actionsList.updateCheckboxList({
             idDashboard: idList, idTask, selected, nameTask, priority, durationTime,
         });
+    };
+
+    handleClick = (event) => {
+        const { currentTarget } = event;
+        this.setState(state => ({
+            anchorEl: currentTarget,
+            open: !state.open,
+        }));
     };
 
     setIcon = (priority) => {
@@ -147,7 +161,7 @@ class TaskForList extends Component {
 
     render() {
         const {
-            statePopup, durationTime, visible,
+            statePopup, durationTime, visible, anchorEl, open,
             // days, hours, minutes
         } = this.state;
         const {
@@ -204,34 +218,81 @@ class TaskForList extends Component {
                         }
                     </TableCell>
                     <TableCell align="center">
-                        Tags: {
+                        <Popper placement="bottom" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
+                                {({ TransitionProps }) => (
+                                    <Fade {...TransitionProps} timeout={350}>
+                                        <Paper>
+                                            <Typography
+                                                // className={classes.typography}
+                                            >
+                                                {/* <Tooltip title="Account">
+                                                    <styled.Icon
+                                                        src={account}
+                                                        alt="account"
+                                                        onClick={this.handlerAccountClick}
+                                                    />
+                                                </Tooltip>
+                                                <Tooltip title="Settings">
+                                                    <styled.Icon
+                                                        src={settings}
+                                                        alt="logout"
+                                                        onClick={this.openSettings}
+                                                    />
+                                                </Tooltip>
+                                                <Tooltip title="Basket page">
+                                                    <styled.Icon
+                                                        src={basket}
+                                                        alt="logout"
+                                                        onClick={this.handlerBasketClick}
+                                                    />
+                                                </Tooltip>
+                                                <Tooltip title="Logout">
+                                                    <styled.Icon
+                                                        src={exit}
+                                                        alt="logout"
+                                                        onClick={this.showAlertDialog}
+                                                    />
+                                                </Tooltip> */}
+                                                ,,,,
+                                            </Typography>
+                                        </Paper>
+                                </Fade>
+                            )}
+                        </Popper>
+                        {
                             tagTaskKeys.map(key => key.taskId === idTask
                                             && (
                                                 <span
                                                     key={key}
                                                     style={{
                                                         backgroundColor: key.tag.color,
-                                                        padding: '2px 4px',
+                                                        padding: '6px 8px',
                                                         margin: '4px',
-                                                        borderRadius: '2px',
+                                                        borderRadius: '20px',
+                                                        opacity: 0.9,
                                                     }}
+                                                    // onMouseOver={this.handleClick}
                                                 >
                                                     {key.tag.tagName}
                                                     <span
                                                         style={{
-                                                            backgroundColor: 'white',
                                                             padding: ' 0 4px',
-                                                            borderRadius: '2px',
-                                                            border: '1px solid grey',
                                                             marginLeft: '4px',
-                                                            opacity: 0.8,
+                                                            opacity: 0.6,
+                                                            color: 'black',
+                                                            cursor: 'pointer',
                                                         }}
-                                                        // onClick={() => this.props.actions.removeTagFromTask({ idTag: key.tag.id, idTask })}
+                                                        onClick={() => {
+                                                            // actions.removeTagFromTask({ idTag: key.tag.id, idTask });
+                                                            // this.getTagsTaks();
+                                                        }}
                                                     >x
                                                     </span>
+                                                    
                                                 </span>
                                             ))
                         }
+                        
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>
                         <Tooltip title="Delete task">
