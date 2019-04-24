@@ -6,15 +6,20 @@ import Button from '../../../components/button/Button';
 
 const validatedFields = ['email', 'username', 'password', 'name', 'repeatPassword'];
 
-const validateEmail = email => (email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$') ? 'Invalid' : 'Ok');
+const validateEmail = email => (email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$')
+    && 'fill in the field by example: example@mail.com');
 
-const validateUsername = username => (username.length === 0 || username.length < 6 ? 'Invalid' : 'Ok');
+const validateUsername = username => ((username.length === 0 || username.length) < 6
+    && 'line length must be more than 6 characters');
 
-const validatePassword = password => (password.length === 0 || password.length < 6 ? 'Invalid' : 'Ok');
+const validatePassword = password => ((password.length === 0 || password.length) < 6
+    && 'line length must be more than 6 characters');
 
-const validateRepeatPassword = repeatPassword => (repeatPassword.length === 0 ? 'Invalid' : 'Ok');
+const validateRepeatPassword = (repeatPassword, password) => (
+    (repeatPassword.length === 0 || repeatPassword !== password )
+    && 'invalid password');
 
-const validateName = name => (name.length === 0 ? 'Invalid' : 'Ok');
+const validateName = name => ((name.length === 0 || name.length < 3) && 'line length must be more than 3 characters');
 
 
 const registryValidator = {
@@ -80,7 +85,7 @@ class Registration extends Component {
     render() {
         const { actions } = this.props;
         const {
-            email, name, password, username,
+            email, name, password, username, errors,
         } = this.state;
 
         return (
@@ -90,6 +95,7 @@ class Registration extends Component {
                         <styled.Title>Registration</styled.Title>
                         <styled.EnterInformation>
                             <styled.Input
+                                style={{ borderBottom: `1px solid ${errors.email ? 'red' : 'lightgray'}` }}
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
@@ -97,8 +103,10 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error>{errors.email}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
+                                style={{ borderBottom: `1px solid ${errors.name ? 'red' : 'lightgray'}` }}
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your name"
@@ -106,8 +114,10 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error>{errors.name}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
+                                style={{ borderBottom: `1px solid ${errors.username ? 'red' : 'lightgray'}` }}
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your username"
@@ -115,8 +125,10 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error>{errors.username}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
+                                style={{ borderBottom: `1px solid ${errors.password ? 'red' : 'lightgray'}` }}
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
@@ -124,35 +136,28 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
-                        <styled.EnterInformation>
-                            <styled.Input
-                                type="password"
-                                name="passEx"
-                                placeholder="Repeat password"
-                                onBlur={this.onChangePassword2}
-                                required
-                            />
-                        </styled.EnterInformation>
+                        <styled.Error>{errors.password}</styled.Error>
+                        {/*<styled.EnterInformation>*/}
+                        {/*    <styled.Input*/}
+                        {/*        style={{ borderBottom: `2px solid ${errors.repeatPassword ? 'red' : 'lightgray'}` }}*/}
+                        {/*        type="password"*/}
+                        {/*        name="passEx"*/}
+                        {/*        placeholder="Repeat password"*/}
+                        {/*        onBlur={this.onChangePassword2}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*</styled.EnterInformation>*/}
+                        {/*<styled.Error>{errors.repeatPassword}</styled.Error>*/}
                         <styled.SuccessButton
                             onClick={() => {
-                                if (this.state.errors.email !== 'Invalid'
-                                    && this.state.errors.name !== 'Invalid'
-                                    && this.state.errors.username !== 'Invalid'
-                                    && this.state.errors.password !== 'Invalid'
-                                    && this.state.password === this.state.repeatPassword
+                                if (!errors.email
+                                    && !errors.name
+                                    && !errors.username
+                                    && !errors.password
                                 ) {
                                     actions.registration({
                                         email, name, password, username,
                                     });
-                                } else {
-                                    const error = `Email: ${this.state.errors.email
-                                    }\nName: ${this.state.errors.name
-                                    }\nUsername: ${this.state.errors.username
-                                    }\nPassword: ${this.state.errors.password
-                                    }\nRepeat password`;
-                                    alert(
-                                        error,
-                                    );
                                 }
                             }
                             }

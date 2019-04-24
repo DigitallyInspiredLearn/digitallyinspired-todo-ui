@@ -7,12 +7,10 @@ import { actions } from './duck';
 import OneList from './OneList';
 
 const getDoneFilter = state => state.list.selectedDone;
-
 const getNotDoneFilter = state => state.list.selectedNotDone;
-
 const getSearch = state => state.list.search;
-
 const getTasksRaw = state => state.list.data.tasks;
+const getTaskTagKeys = state => state.dashboard.tagTaskKeys;
 
 const getFilteredTasks = createSelector(
     getTasksRaw,
@@ -28,10 +26,16 @@ const getTasks = createSelector(
     (tasks, done, notDone) => (!(done ^ notDone) ? tasks : tasks.filter(task => task.isComplete === done)),
 );
 
+const getTasksWithTags = createSelector(
+    getTasks,
+    getTaskTagKeys,
+    (tasks, tagsConnections) => tasks.map(t => ({ ...t, tags: tagsConnections.filter(c => c.taskId === t.id).map(c => c.tag) })),
+);
+
 const mapStateToProps = state => (
     {
         data: state.list.data,
-        tasks: getTasks(state),
+        tasks: getTasksWithTags(state),
         done: state.list.selectedDone,
         notDone: state.list.selectedNotDone,
         todo: state.dashboard.toDoBoardRow,
@@ -58,6 +62,7 @@ const mapDispatchToProps = dispatch => ({
     }, dispatch),
     actionsBoard: bindActionCreators({
         onBlurs: actionsBoard.updateTitleSuccess,
+        fetchDashboard: actionsBoard.fetchDashboard,
     }, dispatch),
 });
 
