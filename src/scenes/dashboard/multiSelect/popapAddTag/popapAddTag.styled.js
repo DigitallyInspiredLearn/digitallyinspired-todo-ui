@@ -31,7 +31,6 @@ export const ButtonLine = styled.div`
     width: 270px;
     justify-content: flex-end;
     margin: 8px;
-    marginLeft: 4px;
 `;
 
 export const ButtonSuccess = styled.button`
@@ -52,6 +51,7 @@ export const ButtonCancel = styled.div`
     color: white;
     padding: 8px 22px;
     margin-right: 8px;
+    margin-left: 8px;
     cursor: default;
 `;
 

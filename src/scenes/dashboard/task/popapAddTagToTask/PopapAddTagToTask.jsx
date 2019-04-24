@@ -56,6 +56,10 @@ export default class FormDialog extends React.Component {
                                     allTags.map(tag => (
                                         <thisStyled.Tag
                                             style={{
+                                                padding: '6px 8px',
+                                                margin: '4px',
+                                                borderRadius: '20px',
+                                                opacity: 0.9,
                                                 backgroundColor: tag.color,
                                                 boxShadow: selectedTag === tag.id
                                                     ? '0 0 6px 0 rgba(0,0,0,0.7)'

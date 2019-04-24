@@ -32,7 +32,7 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     background: ${p => p.theme.backgroundWindow};
-    box-shadow: 0 0  42px 0  rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.3);
     border-radius: 8px;
 `;
 
@@ -101,7 +101,7 @@ export const HrefButton = styled.p`
     margin: 8px;
     padding: 16px;
     background: ${p => p.theme.hrefButton};
-    box-shadow: 0 0  42px 0  rgba(0,0,0,0.2);
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.3);
     border-radius: 8px;
     font-size: 16px;
 `;

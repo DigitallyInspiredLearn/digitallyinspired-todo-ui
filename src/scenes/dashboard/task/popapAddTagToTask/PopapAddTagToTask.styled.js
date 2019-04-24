@@ -14,12 +14,9 @@ export const TagsDiv = styled.button`
 `;
 
 export const Tag = styled('button')`
-     padding: 4px 8px;
-     margin: 4px;
-     border-radius: 4px;
      display: flex;
      align-items: center;
      outline: none;
      border: none;
-     max-height: 60px;
+     height: 35px;
 `;
