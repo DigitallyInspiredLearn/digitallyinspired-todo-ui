@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import Account from '@material-ui/icons/AccountBox';
+import Expand from '@material-ui/icons/ExpandMore';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
@@ -77,7 +78,7 @@ class Container extends Component {
     closeSettings = () => {
         const { visible } = this.state;
         this.setState(({ visible: !visible }));
-    }
+    };
 
     showAlertDialog = () => {
         const { visibleDialog } = this.state;
@@ -141,6 +142,7 @@ class Container extends Component {
                         <b>To</b>
                         <styled.Line />
                         <b>do</b>
+                        {/*<Expand />*/}
                         <styled.Icon
                             src={list}
                             alt="settings"

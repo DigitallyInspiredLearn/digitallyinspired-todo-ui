@@ -32,13 +32,13 @@ export const SearchInput = styled.input`
     padding-left: 8px;
     outline: none;
     height: 34px;
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
 `;
 
 export const UsernameList = styled.div`
     border-radius: 0 0 5px 5px;
     background-color: ${p => p.theme.background};
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
     color:${p => p.theme.mainText};
 `;
 export const Ul = styled.div`
@@ -63,5 +63,5 @@ export const SearchUserBtn = styled.div`
     font-weight: bold;
     color: ${p => p.theme.mainText};
     background-color: ${p => p.theme.background};
-    box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
 `;

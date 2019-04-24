@@ -127,6 +127,7 @@ const initialState = {
     selectedTags: [],
     stringIdSelectedTag: '&tagId=',
     visible: false,
+    errorMessage: '',
 };
 
 export const reducer = handleActions({
@@ -260,8 +261,14 @@ export function* fetchTags() {
 }
 
 export function* initialize() {
-    yield call(fetchTags);
-    yield call(fetchAllLists);
+    const { errorMessage } = yield select(state => state.dashboard);
+    try {
+        yield call(fetchTags);
+        yield call(fetchAllLists);
+    }
+    catch (e) {
+        e.response.status === 401 ? alert('You are not authorized!') : null;
+    }
 }
 
 export function* addTag(action) {

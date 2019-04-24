@@ -39,27 +39,31 @@ export const AddButton = styled.div`
     border: 1px solid #3c3c3c;
     &:hover {
         // background-position: 0 0;
-        background-color: #3c3c3c;
+        background-color: #24272F;
         color:${p => p.theme.activeButtonText};
     }    
 `;
 export const AddTask = styled.div`
-    color: ${p => p.theme.buttonText};
+    // color: ${p => p.theme.mainText};
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${p => p.theme.backgroundButton};
-    margin-top: 0;
+    // background-color: ${p => p.theme.backgroundButton};
+    // background-color: #3C3C3D;
+    background-color: #48494A;
+    margin-top: 8px;
     width: 100%;
     height: 30px;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 0;
     cursor: pointer;
     font-size: 15px;
     outline: none;
     &:hover {
-        color: ${p => p.theme.activeButton};
-        background: ${p => p.theme.hoverButton};
+        color: white;
+        // background: ${p => p.theme.hoverButton};
+        background: #3C3C3D
         outline: none;
     }
 `;
@@ -92,7 +96,7 @@ export const InputTask = styled.input`
     height: 25px;
     outline: none;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 100;
     color: ${p => p.theme.mainText};
     cursor: pointer;
     z-index:30;
@@ -106,18 +110,29 @@ export const AddTaskPlace = styled.div`
     overflow-x: hidden;
 `;
 export const Background = styled.div`
-    width: 100%;
-    z-index: 10;
-    flex-direction: row;
-    background-color: ${p => p.theme.mainText};
-    opacity: 0.8;
-    width: 100%;
-    height: 100%;
-    position: fixed;
+   position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:auto;
+    top: 0;
     left: 0;
-    top:0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 11;
 `;
 export const Aside = styled.aside`
+    @keyframes move {
+        0%{
+            right: -30%;
+        }
+        100%{
+            top: -5px;
+            left: auto;
+            right: 0;
+        }
+    }
     display: flex;
     background-color: ${p => p.theme.backgroundHeader};
     padding: 0 5px 0 5px;
@@ -128,7 +143,7 @@ export const Aside = styled.aside`
     left: auto;
     right: 0;
     flex-direction: column;
-    z-index:  20;
+    z-index: 20;
     width: 30%;
     @media (max-width: 500px) {
         width: 100%;
