@@ -26,7 +26,7 @@ class DashboardList extends Component {
             { alignment: 'my' },
             () => actions.updateViewLists('my'),
         );
-        actions.clean();
+        // actions.clean();
     };
 
 
@@ -99,7 +99,7 @@ class DashboardList extends Component {
                                     backgroundColor: 'white',
                                     boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
                                     borderBottom: '1px solid grey',
-                                    margin: '6px 4px 4px 8px',
+                                    margin: '6px 16px 4px 8px',
                                     borderRadius: '4px',
                                 }}
                                 value={alignment}

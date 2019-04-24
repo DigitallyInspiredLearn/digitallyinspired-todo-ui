@@ -31,6 +31,7 @@ export const ButtonLine = styled.div`
     width: 270px;
     justify-content: flex-end;
     margin: 8px;
+    marginLeft: 4px;
 `;
 
 export const ButtonSuccess = styled.button`

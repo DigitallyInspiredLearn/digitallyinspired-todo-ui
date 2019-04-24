@@ -127,6 +127,7 @@ const initialState = {
     selectedTags: [],
     stringIdSelectedTag: '&tagId=',
     visible: false,
+    errorMessage: '',
 };
 
 export const reducer = handleActions({
@@ -260,14 +261,21 @@ export function* fetchTags() {
 }
 
 export function* initialize() {
-    yield call(fetchTags);
-    yield call(fetchAllLists);
+    const { errorMessage } = yield select(state => state.dashboard);
+    try {
+        yield call(fetchTags);
+        yield call(fetchAllLists);
+    }
+    catch (e) {
+        e.response.status === 401 ? alert('You are not authorized!') : null;
+    }
 }
 
 export function* addTag(action) {
     const { payload: { tagName, color } } = action;
     yield call(addTagAPI, { tagName, color });
     yield call(fetchTags);
+    yield call(fetchAllLists);
 }
 
 export function* deleteTag(action) {
@@ -289,7 +297,7 @@ export function* removeTagFromTask(action) {
 }
 
 export function* saga() {
-    yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK ], initialize);
+    yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK], initialize);
     yield safeTakeEvery([
         FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT, GET_SELECTED_TAGS, FETCH_TAGS, GET_SELECTED_TAGS,
     ], fetchAllLists);

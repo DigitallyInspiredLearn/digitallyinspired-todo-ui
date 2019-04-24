@@ -19,7 +19,7 @@ export const Select = styled(_Select)`
 
 export const Button = styled(_Button)`
     border-radius: 4px;
-    height: 52px;
+    height: 53px;
     display: flex;
     align-self: center;
    
@@ -35,9 +35,9 @@ export const styles = () => ({
         display: 'flex',
         padding: '4px',
         flexWrap: 'wrap',
-        height: '41px',
+        height: '40px',
         overflow: 'auto',
-        width: '275px',
+        width: '290px',
         backgroundColor: 'white',
         borderRadius: '5px',
     },
@@ -45,7 +45,7 @@ export const styles = () => ({
         margin: '4px',
     },
     addButton: {
-        marginTop: '20px',
+        marginTop: '21px',
         backgroundColor: 'white',
         boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
         borderBottom: '1px solid grey',
