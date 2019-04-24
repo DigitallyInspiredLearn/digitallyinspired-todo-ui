@@ -42,8 +42,9 @@ const styles = () => ({
         width: 50,
     },
     tags: {
-        maxWidth: 30,
-        overflowX: 'scroll',
+        // maxWidth: 40,
+        width: 'auto',
+        // overflowX: 'hidden',
         // textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
     },
@@ -54,25 +55,12 @@ class TaskForList extends Component {
         super(props);
         this.state = {
             statePopup: false,
-            // days: '',
-            // hours: '',
-            // minutes: '',
             durationTime: props.durationTime,
             visible: false,
             anchorEl: null,
             open: true,
-            tags: [],
         };
     }
-
-    getTagsTaks = () => this.setState({
-        tags: this.props.tagTaskKeys.filter(
-            key => key.taskId === this.props.idTask
-                && key.tag.id !== this.state.tags.map(tag => tag.tag.id),
-        ),
-    });
-
-    componentWillMount = () => this.getTagsTaks();
 
     closePopup = () => this.setState({ statePopup: false });
 
@@ -181,8 +169,7 @@ class TaskForList extends Component {
             // days, hours, minutes
         } = this.state;
         const {
-            idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes,
-            tagTaskKeys, tags,
+            idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes, tags,
         } = this.props;
 
         // console.log(this.props);
@@ -234,41 +221,37 @@ class TaskForList extends Component {
                                 : 'in process'
                         }
                     </TableCell>
-                    <TableCell align="center" className={classes.tags}>
-                        
+                    <TableCell align="left" className={classes.tags}>
+
                         {
-                            (this.props.tags.length !== 0 && this.props.tagTaskKeys.length !== 0) ?
-                            (
-                                    this.state.tags.map(key => key.taskId === idTask
-                                            && (
-                                                <span
-                                                    key={key}
-                                                    style={{
-                                                        backgroundColor: key.tag.color,
-                                                        padding: '6px 8px',
-                                                        margin: '4px',
-                                                        borderRadius: '20px',
-                                                        opacity: 0.9,
-                                                    }}
-                                                >
-                                                    {key.tag.tagName}
-                                                    <span
-                                                        style={{
-                                                            padding: ' 0 4px',
-                                                            marginLeft: '4px',
-                                                            opacity: 0.6,
-                                                            color: 'black',
-                                                            cursor: 'pointer',
-                                                        }}
-                                                        onClick={() => {
-                                                            // actions.removeTagFromTask({ idTag: key.tag.id, idTask });
-                                                            // this.getTagsTaks();
-                                                        }}
-                                                    >x
-                                                    </span>
-                                                </span>
-                                            ))
-                            ) : null
+                            tags.map(t => (
+                                <span
+                                    key={t.id}
+                                    style={{
+                                        backgroundColor: t.color,
+                                        padding: '6px 8px',
+                                        margin: '4px',
+                                        borderRadius: '20px',
+                                        opacity: 0.9,
+                                    }}
+                                >
+                                    {t.tagName}
+                                    <span
+                                        style={{
+                                            // padding: ' ',
+                                            marginLeft: '4px',
+                                            opacity: 0.6,
+                                            color: 'black',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => {
+                                            // actions.removeTagFromTask({ idTag: key.tag.id, idTask });
+                                            // this.getTagsTaks();
+                                        }}
+                                    />
+                                </span>
+                            ))
+
                         }
 
                     </TableCell>
