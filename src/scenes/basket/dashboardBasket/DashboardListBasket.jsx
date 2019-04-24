@@ -43,7 +43,8 @@ class DashboardListBasket extends Component {
         return (
             [
                 <styled.App key="app">
-                    <styledList.inputBlock>
+                    <styledList.inputBlock style={{ margin: '8px',
+                        boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)', zIndex: '10'}}>
                         <Link to="/lists">
                             <Arrow style={{color: 'black', padding: '2px 0px 0px 4px' }}/>
                         </Link>
@@ -51,7 +52,7 @@ class DashboardListBasket extends Component {
                             type="text"
                             placeholder="Enter dashboard title"
                             value="Basket page"
-                            style={{color: 'black', fontWeight: '400', pointerEvents: 'none'}}
+                            style={{color: 'black', fontWeight: '400', pointerEvents: 'none', cursor: 'initial',}}
                         />
                     </styledList.inputBlock>
                     <styled.DashboardList>
