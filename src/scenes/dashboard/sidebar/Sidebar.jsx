@@ -113,7 +113,7 @@ class Sidebar extends Component {
                     />
                     <styled.Aside style={{ animation }}>
                         <Close
-                            style={{padding: '8px'}}
+                            style={{padding: '8px 4px', marginTop: '8px'}}
                             onClick={(e) => { this.updateDisplaySidebar(); this.handlerOnClick(e); }}
                         />
                         <styled.InputTitle
