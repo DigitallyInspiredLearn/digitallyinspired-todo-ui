@@ -9,16 +9,19 @@ export const CloseWindow = styled.div`
 `;
 
 export const Background = styled.div`
-    width: 100%;
-    z-index: 10;
-    flex-direction: row;
     background-color: ${p => p.theme.mainText};
-    opacity: 0.8;
-    width: 100%;
-    height: 100%;
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:auto;
+    top: 0;
     left: 0;
-    top:0;
+    right: 0;
+    bottom: 0;
+    height:100vh;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 11;
 `;
 
 export const Window = styled.div`
@@ -46,6 +49,19 @@ export const Main = styled.div`
         flex-direction: column;
         overflow:auto;
     }
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 2px;
+    };
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    };
+    ::-webkit-scrollbar-thumb {
+        background: lightgrey; 
+    };
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey; 
+    };
 `;
 
 export const TabContainer = styled.nav`

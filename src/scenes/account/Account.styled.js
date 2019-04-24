@@ -45,13 +45,14 @@ export const Title = styled.h2`
 export const EnterInformation = styled.div`
     position: relative;
     width:100%;
-    border-bottom: 1px solid ${p => p.theme.backgroundButton};
+    background: white;
+    border-bottom: 1px solid lightgrey;
     &:before {
         position: absolute;
         z-index:1;
         bottom: 0;
         content: "";
-        border-bottom: 2px solid ${p => p.theme.backgroundButton};
+        border-bottom: 2px solid lightgrey;
         transition:  width 0.2s ease-in-out;
         width: 0;
     }
@@ -65,6 +66,15 @@ export const Input = styled.input`
     outline:none;
     padding: 8px;
     width:95%;
+ `;
+
+export const Error = styled.div`
+    display: flex;
+    justify-content: center;
+    text-align:center;
+    font-size: 12px;
+    color: red;
+    margin-top: -6px;
  `;
 
 export const SuccessButton = styled.p`

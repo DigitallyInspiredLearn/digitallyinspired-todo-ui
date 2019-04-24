@@ -6,15 +6,20 @@ import Button from '../../../components/button/Button';
 
 const validatedFields = ['email', 'username', 'password', 'name', 'repeatPassword'];
 
-const validateEmail = email => (email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$') ? 'Invalid' : 'Ok');
+const validateEmail = email => (email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$')
+    && 'fill in the field by example: example@mail.com');
 
-const validateUsername = username => (username.length === 0 || username.length < 6 ? 'Invalid' : 'Ok');
+const validateUsername = username => ((username.length === 0 || username.length) < 6
+    && 'line length must be more than 6 characters');
 
-const validatePassword = password => (password.length === 0 || password.length < 6 ? 'Invalid' : 'Ok');
+const validatePassword = password => ((password.length === 0 || password.length) < 6
+    && 'line length must be more than 6 characters');
 
-const validateRepeatPassword = repeatPassword => (repeatPassword.length === 0 ? 'Invalid' : 'Ok');
+const validateRepeatPassword = (repeatPassword, password) => (
+    (repeatPassword.length === 0 || repeatPassword !== password )
+    && 'invalid password');
 
-const validateName = name => (name.length === 0 ? 'Invalid' : 'Ok');
+const validateName = name => (name.length === 0 && 'this field cannot be empty');
 
 
 const registryValidator = {
@@ -90,15 +95,19 @@ class Registration extends Component {
                         <styled.Title>Registration</styled.Title>
                         <styled.EnterInformation>
                             <styled.Input
+                                color={this.state.errors.email ? 'red' : 'lightgray'}
                                 type="email"
                                 name="loginEx"
                                 placeholder="Enter your email"
                                 onBlur={this.onChangeEmail}
                                 required
                             />
+
                         </styled.EnterInformation>
+                        <styled.Error>{this.state.errors.email}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
+                                style={{ borderBottom: `1px solid ${this.state.errors.name ? 'red' : 'lightgray'}` }}
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your name"
@@ -106,8 +115,10 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error>{this.state.errors.name}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
+                                color={this.state.errors.username ? 'red' : 'lightgray'}
                                 type="text"
                                 name="loginEx"
                                 placeholder="Enter your username"
@@ -115,8 +126,10 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error>{this.state.errors.username}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
+                                color={this.state.errors.password ? 'red' : 'lightgray'}
                                 type="password"
                                 name="passEx"
                                 placeholder="Enter your password"
@@ -124,6 +137,7 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error>{this.state.errors.password}</styled.Error>
                         <styled.EnterInformation>
                             <styled.Input
                                 type="password"
@@ -133,26 +147,18 @@ class Registration extends Component {
                                 required
                             />
                         </styled.EnterInformation>
+                        <styled.Error> error</styled.Error>
                         <styled.SuccessButton
                             onClick={() => {
-                                if (this.state.errors.email !== 'Invalid'
-                                    && this.state.errors.name !== 'Invalid'
-                                    && this.state.errors.username !== 'Invalid'
-                                    && this.state.errors.password !== 'Invalid'
+                                if (!this.state.errors.email
+                                    && !this.state.errors.name
+                                    && !this.state.errors.username
+                                    && !this.state.errors.password
                                     && this.state.password === this.state.repeatPassword
                                 ) {
                                     actions.registration({
                                         email, name, password, username,
                                     });
-                                } else {
-                                    const error = `Email: ${this.state.errors.email
-                                    }\nName: ${this.state.errors.name
-                                    }\nUsername: ${this.state.errors.username
-                                    }\nPassword: ${this.state.errors.password
-                                    }\nRepeat password`;
-                                    alert(
-                                        error,
-                                    );
                                 }
                             }
                             }

@@ -23,7 +23,7 @@ class Subscribes extends Component {
                     <Search
                         onChange={this.handleChange}
                         value={search}
-                        style={{ width: '95%', flex: 'none' }}
+                        style={{ width: '90%', flex: 'none' }}
                         placeholder="Enter username..."
                     />
                 </SearchContent>

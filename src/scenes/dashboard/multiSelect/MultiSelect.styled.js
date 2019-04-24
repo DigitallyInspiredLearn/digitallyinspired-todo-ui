@@ -11,6 +11,9 @@ export const Select = styled(_Select)`
     background-color: white;
     border-radius: 4px;
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+    &:hover{
+    background-color: white;
+    }
 `;
 
 
@@ -27,13 +30,12 @@ export const styles = () => ({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'column',
-
     },
     chips: {
         display: 'flex',
         padding: '4px',
         flexWrap: 'wrap',
-        height: '45px',
+        height: '41px',
         overflow: 'auto',
         width: '275px',
         backgroundColor: 'white',
