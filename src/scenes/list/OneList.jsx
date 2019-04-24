@@ -214,27 +214,27 @@ class OneList extends Component {
                             style={{ height: '30px' }}
                         />
                     </Tooltip>
-                    <Workbook
-                        style={{ marginTop: '8px' }}
-                        filename="list.xlsx"
-                        element={(
-                            <Tooltip title="Download as XLS">
-                                <img
-                                    src={xls}
-                                    alt="download in xls"
-                                    style={{ height: '30px', paddingTop: '4px' }}
-                                />
-                            </Tooltip>
-                        )}
-                    >
-                        <Workbook.Sheet data={dataXLS} name="list">
-                            <Workbook.Column label="+/-" value="doneOrNot" />
-                            <Workbook.Column label="name tasks" value="nameTasks" />
-                            <Workbook.Column label="priority" value="priority" />
-                            <Workbook.Column label="duration time" value="doUp" />
-                        </Workbook.Sheet>
+                    {/*<Workbook*/}
+                    {/*    style={{ marginTop: '8px' }}*/}
+                    {/*    filename="list.xlsx"*/}
+                    {/*    element={(*/}
+                    {/*        <Tooltip title="Download as XLS">*/}
+                    {/*            <img*/}
+                    {/*                src={xls}*/}
+                    {/*                alt="download in xls"*/}
+                    {/*                style={{ height: '30px', paddingTop: '4px' }}*/}
+                    {/*            />*/}
+                    {/*        </Tooltip>*/}
+                    {/*    )}*/}
+                    {/*>*/}
+                    {/*    <Workbook.Sheet data={dataXLS} name="list">*/}
+                    {/*        <Workbook.Column label="+/-" value="doneOrNot" />*/}
+                    {/*        <Workbook.Column label="name tasks" value="nameTasks" />*/}
+                    {/*        <Workbook.Column label="priority" value="priority" />*/}
+                    {/*        <Workbook.Column label="duration time" value="doUp" />*/}
+                    {/*    </Workbook.Sheet>*/}
 
-                    </Workbook>
+                    {/*</Workbook>*/}
 
                 </styled.inputBlock>
                 <styled.blockTask>

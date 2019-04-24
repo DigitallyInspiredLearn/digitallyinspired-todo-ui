@@ -83,18 +83,18 @@ class PopapAddTag extends Component {
                                 onChangeComplete={this.handleChangeComplete}
                             />
                         </styled.Line>
-                        <styled.ButtonLine>
-                            <styled.ButtonCancel onClick={this.changeVisiblePopap}>
-                                Cancel
-                            </styled.ButtonCancel>
-                            <styled.ButtonSuccess
-                                disabled={disabled}
-                                onClick={this.addNewTag}
-                            >
-                                Add new tag
-                            </styled.ButtonSuccess>
-                        </styled.ButtonLine>
                     </styledSettings.Main>
+                    <styled.ButtonLine>
+                        <styled.ButtonCancel onClick={this.changeVisiblePopap}>
+                            Cancel
+                        </styled.ButtonCancel>
+                        <styled.ButtonSuccess
+                            disabled={disabled}
+                            onClick={this.addNewTag}
+                        >
+                            Add new tag
+                        </styled.ButtonSuccess>
+                    </styled.ButtonLine>
                 </styledSettings.Window>
             </styledSettings.Background>
         );
