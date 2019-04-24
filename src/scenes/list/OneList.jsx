@@ -77,7 +77,10 @@ class OneList extends Component {
         };
     }
 
-    componentWillMount = ({ match, actions } = this.props) => actions.fetchList({ idList: match.params.id });
+    componentWillMount = ({ match, actions, actionsBoard } = this.props) => {
+        actionsBoard.fetchDashboard();
+        actions.fetchList({ idList: match.params.id });
+    };
 
     componentWillUnmount = () => {
         this.props.actions.clean();
