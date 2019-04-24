@@ -78,9 +78,8 @@ class MultiSelect extends Component {
                             )
                     }
                 </Select>
-                <PopapAddTag actions={actions} visible={visible} allTags={tags} />
-
             </div>,
+            <PopapAddTag actions={actions} visible={visible} allTags={tags} key="PopapAddTag" />,
             <Button
                 key="+ tag"
                 className={classes.addButton}

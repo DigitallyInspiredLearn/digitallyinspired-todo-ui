@@ -29,7 +29,7 @@ export const Head = styled.div`
     display: flex;
     flex-direction: row;
     height: auto;
-    z-index: 5;
+    z-index: 2;
     margin: 0px 0px 8px 0px;
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     padding: 8px;
@@ -53,7 +53,7 @@ export const Footer = styled.div`
    justify-content: space-between;
    align-content: space-between;
    width:100%;
-   z-index: 5;
+   
    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
    background-color: ${ p => p.theme.backgroundHeader };
    max-height: 80px;
@@ -158,7 +158,8 @@ export const DashboardList = styled('main')`
     @media (max-width: 600px) {
         flex-flow: column nowrap;
     }
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     
 `;
 

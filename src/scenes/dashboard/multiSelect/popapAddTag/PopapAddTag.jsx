@@ -48,7 +48,7 @@ class PopapAddTag extends Component {
         const { colorTag, nameRepeatTest, disabled } = this.state;
         return (
             <styledSettings.Background
-                style={{ display: visible ? 'flex' : 'none' }}
+                style={{ display: visible ? 'flex' : 'none', height: 'auto' }}
             >
                 <styledSettings.Window style={{ width: '315px' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -77,7 +77,7 @@ class PopapAddTag extends Component {
                             <styled.Error>{nameRepeatTest}</styled.Error>
                         </styled.Line>
                         <styled.Line>
-                            <styled.Label>Color: </styled.Label>
+                            <styled.Label style={{ marginRight: '8px' }}>Color: </styled.Label>
                             <SketchPicker
                                 color={colorTag}
                                 onChangeComplete={this.handleChangeComplete}

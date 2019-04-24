@@ -225,6 +225,7 @@ class Task extends Component {
                                     }}
                                     >
                                         Tags: {
+                                        this.state.tags.length ?
                                             this.state.tags.map(key => key.taskId === idTask
                                             && (
                                                 <span
@@ -254,6 +255,7 @@ class Task extends Component {
                                                     </span>
                                                 </span>
                                             ))
+                                            : <span>not t</span>
                                         }
                                     </p>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()

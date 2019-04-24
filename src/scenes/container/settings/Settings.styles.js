@@ -9,6 +9,7 @@ export const CloseWindow = styled.div`
 `;
 
 export const Background = styled.div`
+    background-color: ${p => p.theme.mainText};
     position: fixed;
     display: flex;
     justify-content: center;
@@ -18,7 +19,8 @@ export const Background = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.6);
+    height:100vh;
+    background-color: rgba(0,0,0,0.4);
     z-index: 11;
 `;
 
@@ -47,6 +49,19 @@ export const Main = styled.div`
         flex-direction: column;
         overflow:auto;
     }
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 2px;
+    };
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    };
+    ::-webkit-scrollbar-thumb {
+        background: lightgrey; 
+    };
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey; 
+    };
 `;
 
 export const TabContainer = styled.nav`
