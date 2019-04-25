@@ -83,7 +83,7 @@ export class Dashboard extends Component {
         const { stateComment } = this.state;
         this.setState({
             stateComment: !stateComment,
-            newComment: e.target.value = '',
+            // newComment: e.target.value = '',
         });
     };
 
@@ -327,15 +327,13 @@ export class Dashboard extends Component {
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
-                                            }), this.setState({ priority: 'NOT_SPECIFIED' })
+                                            }), this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
 
                                             ))
                                         }
                                         onBlur={e => e.target.blur()}
                                     />
-                                    <FormControl
-                                        style={{ marginTop: '-10px', marginRight: '80px' }}
-                                    >
+                                    <styled.FormControl>
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
                                             value={priority}
@@ -394,7 +392,7 @@ export class Dashboard extends Component {
                                                 HIGH
                                             </MenuItem>
                                         </Select>
-                                    </FormControl>
+                                    </styled.FormControl>
                                     <Tooltip title="Comment" placement="top">
                                         <IconButton
                                             href=""
@@ -404,6 +402,11 @@ export class Dashboard extends Component {
                                             <Comment />
                                         </IconButton>
                                     </Tooltip>
+                                    <styled.IconButton
+                                        // onClick={() => this.handleUpdateCommentSuccess()}
+                                    >
+                                        <styled.Done />
+                                    </styled.IconButton>
                                 </styled.addTaskContainer>
                             )
                     )
@@ -434,7 +437,7 @@ export class Dashboard extends Component {
                         <IconButton
                             href=""
                             style={{ padding: '12px' }}
-                            onClick={this.handlerOnBlur}
+                            onClick={this.toggleComment}
                         >
                             <Cancel style={{ color: 'red' }} />
                         </IconButton>

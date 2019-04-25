@@ -12,6 +12,7 @@ const mapDispatchToProps = dispatch => ({
         updateViewLists: actions.updateViewLists,
         search: actions.search,
         changeSort: actions.changeSort,
+        fetchDashboard: actions.fetchDashboard,
     }, dispatch),
 });
 

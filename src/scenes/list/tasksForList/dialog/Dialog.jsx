@@ -61,7 +61,9 @@ export default class FormDialog extends React.Component {
                             style={{ width: '30%' }}
                             type="number"
                             value={days}
-                            inputProps={{ min: '0', max: '30', step: '1' }}
+                            inputProps={{
+                                min: '0', max: '30', step: '1', pattern: /^([01]?\d|2[0-3])$/,
+                            }}
                         />
                         <TextField
                             onChange={e => this.changeDurationHours(e.target.value)}
@@ -81,7 +83,9 @@ export default class FormDialog extends React.Component {
                             style={{ width: '30%', marginLeft: '10px' }}
                             type="number"
                             value={minutes}
-                            inputProps={{ min: '0', max: '60', step: '1' }}
+                            inputProps={{
+                                min: '0', max: '60', step: '1', pattern: /^([01]?\d|2[0-3])$/,
+                            }}
                         />
                     </DialogContent>
                     <DialogActions>
