@@ -7,10 +7,8 @@ import Delete from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Popper from '@material-ui/core/Popper';
+import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
 import Empty from '@material-ui/icons/ArrowUpward';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import * as stylesTask from '../../dashboard/task/Task.styled';
@@ -21,7 +19,7 @@ import high from '../../../image/high.svg';
 import Dialog from './dialog/Dialog';
 
 
-const styles = () => ({
+const styles = theme => ({
     root: {
         width: '100%',
         overflowX: 'auto',
@@ -29,11 +27,21 @@ const styles = () => ({
     table: {
         minWidth: 700,
     },
-    header: {
-        color: 'red',
+    popover: {
+        pointerEvents: 'none',
     },
-    max: {
+    paper: {
+        padding: theme.spacing.unit,
+    },
+    typography: {
+        padding: '8px',
+        display: 'flex',
+        flexWrap: 'wrap',
         width: 'auto',
+        maxWidth: 190,
+    },
+    name: {
+        width: 150,
     },
     duration: {
         marginLeft: '3px',
@@ -41,11 +49,18 @@ const styles = () => ({
     delete: {
         width: 50,
     },
+    priority: {
+        maxWidth: 5,
+        // padding: 3,
+    },
+    completedDate: {
+        maxWidth: 5,
+    },
     tags: {
-        // maxWidth: 40,
+        maxWidth: 140,
         width: 'auto',
-        // overflowX: 'hidden',
-        // textOverflow: 'ellipsis',
+        overflowX: 'hidden',
+        textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
     },
 });
@@ -99,12 +114,18 @@ class TaskForList extends Component {
         });
     };
 
-    handleClick = (event) => {
-        const { currentTarget } = event;
-        this.setState(state => ({
-            anchorEl: currentTarget,
-            open: !state.open,
-        }));
+    handleClose = () => {
+        this.setState({
+            anchorEl: null,
+        });
+    };
+
+    handlePopoverOpen = (e) => {
+        this.setState({ anchorEl: e.currentTarget });
+    };
+
+    handlePopoverClose = () => {
+        this.setState({ anchorEl: null });
     };
 
     setIcon = (priority) => {
@@ -165,14 +186,13 @@ class TaskForList extends Component {
 
     render() {
         const {
-            statePopup, durationTime, visible, anchorEl, open,
-            // days, hours, minutes
+            statePopup, durationTime, visible, anchorEl,
         } = this.state;
         const {
             idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes, tags,
         } = this.props;
 
-        // console.log(this.props);
+        const openPopover = Boolean(anchorEl);
         return (
             <React.Fragment>
                 {
@@ -187,13 +207,13 @@ class TaskForList extends Component {
                     )
                 }
                 <TableRow>
-                    <TableCell align="right">
+                    <TableCell align="right" className={classes.priority}>
                         <Checkbox
                             checked={selected}
                             onChange={this.handleSelectTask}
                         />
                     </TableCell>
-                    <TableCell align="left" className={classes.max}>
+                    <TableCell align="left" className={classes.name}>
                         <stylesTask.TaskName
                             type="text"
                             value={nameTask}
@@ -208,21 +228,26 @@ class TaskForList extends Component {
                         { this.setIcon(priority)} {priority}
                     </TableCell>
                     <TableCell align="left">{new Date(createdDate).toLocaleString()}</TableCell>
-                    <TableCell align="left">{selected ? new Date(completedDate).toLocaleString()
+                    <TableCell align="left" className={classes.completedDate}>{selected ? new Date(completedDate).toLocaleString()
                         : 'in process' }
                     </TableCell>
 
                     <TableCell align="left" className={classes.duration}>
                         {
-                            (durationTime !== null && durationTime !== 0)
+                            (durationTime !== null && durationTime !== undefined)
                                 ? ` ${(moment.duration(durationTime).days())}d
                                     ${(moment.duration(durationTime).hours())}h
                                     ${(moment.duration(durationTime).minutes())}m`
                                 : 'in process'
                         }
                     </TableCell>
-                    <TableCell align="center" className={classes.tags}>
-
+                    <TableCell
+                        align="left"
+                        className={classes.tags}
+                        onMouseEnter={tags.length !== 0 ? this.handlePopoverOpen : null}
+                        onMouseLeave={tags.length !== 0 ? this.handlePopoverClose : null}
+                        // onClick={this.handleClick}
+                    >
                         {
                             tags.map(t => (
                                 <span
@@ -234,26 +259,53 @@ class TaskForList extends Component {
                                         borderRadius: '20px',
                                         opacity: 0.9,
                                     }}
+                                    // onClick={this.handleClick}
+
                                 >
                                     {t.tagName}
-                                    <span
-                                        style={{
-                                            // padding: ' ',
-                                            marginLeft: '4px',
-                                            opacity: 0.6,
-                                            color: 'black',
-                                            cursor: 'pointer',
-                                        }}
-                                        onClick={() => {
-                                            // actions.removeTagFromTask({ idTag: key.tag.id, idTask });
-                                            // this.getTagsTaks();
-                                        }}
-                                    />
                                 </span>
                             ))
 
                         }
+                        <Popover
+                            id="simple-popper"
+                            className={classes.popover}
+                            classes={{
+                                paper: classes.paper,
+                            }}
+                            open={openPopover}
+                            anchorEl={anchorEl}
+                            onClose={this.handleClose}
+                            disableRestoreFocus
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                        >
+                            <Typography className={classes.typography}>
+                                {
+                                    tags.map(t => (
+                                        <span
+                                            key={t.id}
+                                            style={{
+                                                backgroundColor: t.color,
+                                                padding: '6px 8px',
+                                                margin: '4px',
+                                                borderRadius: '20px',
+                                                opacity: 0.9,
+                                            }}
+                                        >
+                                            {t.tagName}
+                                        </span>
+                                    ))
 
+                                }
+                            </Typography>
+                        </Popover>
                     </TableCell>
                     <TableCell align="center" className={classes.delete}>
                         <Tooltip title="Delete task">

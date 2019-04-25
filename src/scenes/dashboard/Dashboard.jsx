@@ -77,12 +77,6 @@ export class Dashboard extends Component {
 
     handlerOnBlur = (e) => {
         e.target.blur();
-        this.setState({
-            valueNewTask: e.target.value = '',
-            newComment: e.target.value = '',
-            priority: 'NOT_SPECIFIED',
-            stateComment: false,
-        });
     };
 
     toggleComment = (e) => {
@@ -224,7 +218,6 @@ export class Dashboard extends Component {
                                                     Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
                                                     Comment: {comment || 'not written yet'}
                                                 </p>
-
                                                 <IconButton
                                                     href=""
                                                     aria-label="info"
@@ -338,7 +331,7 @@ export class Dashboard extends Component {
 
                                             ))
                                         }
-                                        onBlur={this.handlerOnBlur}
+                                        onBlur={e => e.target.blur()}
                                     />
                                     <FormControl
                                         style={{ marginTop: '-10px', marginRight: '80px' }}

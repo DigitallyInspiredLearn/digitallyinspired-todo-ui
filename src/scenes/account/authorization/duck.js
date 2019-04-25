@@ -13,6 +13,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const ERRORS = 'login/ERRORS';
+
 
 export const actions = {
     login: createAction(LOGIN),
@@ -20,11 +22,13 @@ export const actions = {
     logout: createAction(LOGOUT),
     refreshToken: createAction(REFRESH_TOKEN),
     refreshTokenSuccess: createAction(REFRESH_TOKEN_SUCCESS),
+    fetchErrors: createAction(ERRORS),
 };
 
 const initialState = {
     user: '',
     token: '',
+    errorMessage: '',
 };
 
 export const getToken = state => state.auth;
@@ -36,6 +40,7 @@ export const reducer = handleActions({
         token: action.payload.token,
     }),
     [REFRESH_TOKEN_SUCCESS]: (state, action) => ({ ...state, token: action.payload }),
+    [ERRORS]: (state, action) => ({ ...state, errorMessage: action.payload }),
 }, initialState);
 
 export function setDefaultApiToken(token) {
@@ -43,13 +48,19 @@ export function setDefaultApiToken(token) {
 }
 
 export function* authorization(action) {
-    const token = yield call(authorizationApi, action.payload);
-    yield put(actions.loginSuccess({
-        user: action.payload.usernameOrEmail,
-        token: token.data.accessToken,
-    }));
-    yield call(setDefaultApiToken, token.data.accessToken);
-    history.replace('/lists');
+    try {
+        const token = yield call(authorizationApi, action.payload);
+        yield put(actions.loginSuccess({
+            user: action.payload.usernameOrEmail,
+            token: token.data.accessToken,
+        }));
+        yield call(setDefaultApiToken, token.data.accessToken);
+        history.replace('/lists');
+    }
+    catch (e) {
+        e.response.status === 401 ? (yield put(actions.fetchErrors('You are not authorized!'))) : null;
+    }
+
 }
 
 export function* refreshTokenProcess() {

@@ -5,10 +5,25 @@ import ReactPaginate from 'react-paginate';
 import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import VisibleSidebar from './sidebar/SidebarContainer';
-import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
+import { Alert } from '../../components/dialog/Alert';
+import {DropDownMaterial} from "../../components/dropDown/DropDownMaterial";
 
 class DashboardList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+        };
+    }
+
     componentWillMount = ({ actions } = this.props) => actions.initialize();
+
+    showAlert = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        });
+    };
 
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
@@ -25,72 +40,79 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
+            errorMessage,
         } = this.props;
-
-        return (
-            [
-                <styled.App key="app">
-                    <styled.DashboardList>
-                        {
-                            toDoBoard.length === 0
-                                ? (
-                                    <styled.NullLenghtDashboards>
+        const { visible } = this.state;
+        return ([
+            <Alert
+                visible={errorMessage === '' ? visible : this.showAlert}
+                onClose={this.showAlert}
+                value={errorMessage}
+                onConfirm={() => actions.fetchErrors('')}
+                button="back"
+            />,
+            <styled.App key="app">
+                <styled.DashboardList>
+                    {
+                        toDoBoard.length === 0
+                            ? (
+                                <styled.NullLenghtDashboards>
                                         You don't have to-do yet. Plan your tasks with DI To-do! Press to +
-                                    </styled.NullLenghtDashboards>
-                                )
-                                : toDoBoard.map(i => (
-                                    <Dashboard
-                                        userOwnerId={i.userOwnerId}
-                                        idList={i.id}
-                                        key={i.id}
-                                        title={i.todoListName}
-                                        tasks={i.tasks}
-                                        toDoBoard={toDoBoard}
-                                        actions={actions}
-                                        actionsBasket={actionsBasket}
-                                        shared={i.shared}
-                                        createdBy={i.createdBy}
-                                        modifiedBy={i.modifiedBy}
-                                        createdDate={i.createdDate}
-                                        modifiedDate={i.modifiedDate}
-                                        currentUser={currentUser}
-                                        allTags={tags}
-                                        todoListStatus={i.todoListStatus}
-                                        comment={i.comment}
-                                        tagTaskKeys={tagTaskKeys}
-                                    />
-                                ))
-                        }
-                    </styled.DashboardList>
-                </styled.App>,
-                <styled.Footer key="footer">
-                    <div style={{ display: 'flex' }}>
-                        <styled.Pagination>
-                            <ReactPaginate
-                                pageCount={totalPages}
-                                pageRangeDisplayed={3}
-                                marginPagesDisplayed={1}
-                                previousLabel="&laquo;"
-                                nextLabel="&raquo;"
-                                containerClassName="pagination-container"
-                                onPageChange={this.handlePageChange}
-                            />
-                        </styled.Pagination>
-                        <DropDownMaterial
-                            style={{ width: '150px', height: '42px', marginTop: '4px' }}
-                            styleLabel={{ fontSize: '10px' }}
-                            value={[
-                                '6/page',
-                                '9/page',
-                                '12/page',
-                            ]}
-                            selectSorting={actions.changeSize}
-                            defaultValue={pageSize}
+                                </styled.NullLenghtDashboards>
+                            )
+                            : toDoBoard.map(i => (
+                                <Dashboard
+                                    userOwnerId={i.userOwnerId}
+                                    idList={i.id}
+                                    key={i.id}
+                                    title={i.todoListName}
+                                    tasks={i.tasks}
+                                    toDoBoard={toDoBoard}
+                                    actions={actions}
+                                    actionsBasket={actionsBasket}
+                                    shared={i.shared}
+                                    createdBy={i.createdBy}
+                                    modifiedBy={i.modifiedBy}
+                                    createdDate={i.createdDate}
+                                    modifiedDate={i.modifiedDate}
+                                    currentUser={currentUser}
+                                    allTags={tags}
+                                    todoListStatus={i.todoListStatus}
+                                    comment={i.comment}
+                                    tagTaskKeys={tagTaskKeys}
+                                />
+                            ))
+                    }
+                </styled.DashboardList>
+            </styled.App>,
+            <styled.Footer key="footer">
+                <div style={{ display: 'flex' }}>
+                    <styled.Pagination>
+                        <ReactPaginate
+                            pageCount={totalPages}
+                            pageRangeDisplayed={3}
+                            marginPagesDisplayed={1}
+                            previousLabel="&laquo;"
+                            nextLabel="&raquo;"
+                            containerClassName="pagination-container"
+                            onPageChange={this.handlePageChange}
                         />
-                    </div>
-                    <VisibleSidebar />
-                </styled.Footer>,
-            ]
+                    </styled.Pagination>
+                    <DropDownMaterial
+                        style={{ width: '150px', height: '42px', marginTop: '4px' }}
+                        styleLabel={{ fontSize: '10px' }}
+                        value={[
+                            '6/page',
+                            '9/page',
+                            '12/page',
+                        ]}
+                        selectSorting={actions.changeSize}
+                        defaultValue={pageSize}
+                    />
+                </div>
+                <VisibleSidebar />
+            </styled.Footer>,
+        ]
         );
     }
 }

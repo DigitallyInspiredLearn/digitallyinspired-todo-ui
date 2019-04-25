@@ -2,25 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
 import { bindActionCreators } from 'redux';
+
+import { ThemeProvider } from 'styled-components';
 import Tooltip from '@material-ui/core/Tooltip';
-import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
-import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Popover from '@material-ui/core/Popover';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
-import { actions } from '../account/authorization/duck';
 import history from '../../config/history';
 import * as styledDialog from '../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
+import { actions } from '../account/authorization/duck';
 import list from '../../image/list-menu.svg';
 import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
 import settings from '../../image/settings.svg';
 import exit from '../../image/exit.svg';
-import {Redirect, Route, Switch} from "react-router-dom";
 import HeaderToolbar from '../dashboard/heaaderToolbar/HeaderToolbarContainer';
 
 const styles = () => ({
@@ -36,59 +35,64 @@ class Container extends Component {
             visible: false,
             visibleDialog: false,
             anchorEl: null,
+            sections: '',
             open: false,
         };
     }
 
     handlerAccountClick = () => {
         history.push('/lists/account');
-        this.setState(state => ({
+        this.setState(({
             open: false,
         }));
     };
 
     handlerBasketClick = () => {
         history.push('/lists/basket');
-        this.setState(state => ({
+        this.setState(({
             open: false,
         }));
     };
 
     openSettings = () => {
-        const { visible } = this.state;
-        this.setState(state => ({ visible: !visible, open: false }));
+        this.setState(state => ({ visible: !state.visible, open: false }));
     };
 
     closeSettings = () => {
-        const { visible } = this.state;
-        this.setState(({ visible: !visible }));
+        this.setState(state => ({ visible: !state.visible }));
     };
 
     showAlertDialog = () => {
-        const { visibleDialog } = this.state;
         this.setState(state => ({
-            visibleDialog: !visibleDialog,
+            visibleDialog: !state.visibleDialog,
             open: false,
         }));
     };
 
     handleClick = (event) => {
-        const { currentTarget } = event;
-        this.setState(state => ({
-            anchorEl: currentTarget,
-            open: !state.open,
-        }));
+        this.setState({
+            anchorEl: event.currentTarget,
+        });
+    };
+
+    handleClose = () => {
+        this.setState({
+            anchorEl: null,
+        });
     };
 
     render() {
         const {
-            visible, visibleDialog, anchorEl, open,
+            visible, visibleDialog, anchorEl, open, sections,
         } = this.state;
         const { location: { pathname } } = history;
         const {
             children, data, actions, classes,
         } = this.props;
+
         const iconVisible = (pathname === '/reg' || pathname === '/auth') ? 'none' : 'inherit';
+
+        const openPopover = Boolean(anchorEl);
         return (
             <ThemeProvider theme={data}>
                 <styled.Container>
@@ -145,47 +149,51 @@ class Container extends Component {
                                 display: iconVisible, width: '35px', height: '37px',
                             }}
                         />
-
-                        <Popper placement="bottom" open={open} anchorEl={anchorEl} transition style={{ zIndex: 1000 }}>
-                            {({ TransitionProps }) => (
-                                <Fade {...TransitionProps} timeout={350}>
-                                    <Paper>
-                                        <Typography
-                                            className={classes.typography}
-                                        >
-                                            <Tooltip title="Account">
-                                                <styled.Icon
-                                                    src={account}
-                                                    alt="account"
-                                                    onClick={this.handlerAccountClick}
-                                                />
-                                            </Tooltip>
-                                            <Tooltip title="Settings">
-                                                <styled.Icon
-                                                    src={settings}
-                                                    alt="logout"
-                                                    onClick={this.openSettings}
-                                                />
-                                            </Tooltip>
-                                            <Tooltip title="Basket page">
-                                                <styled.Icon
-                                                    src={basket}
-                                                    alt="logout"
-                                                    onClick={this.handlerBasketClick}
-                                                />
-                                            </Tooltip>
-                                            <Tooltip title="Logout">
-                                                <styled.Icon
-                                                    src={exit}
-                                                    alt="logout"
-                                                    onClick={this.showAlertDialog}
-                                                />
-                                            </Tooltip>
-                                        </Typography>
-                                    </Paper>
-                                </Fade>
-                            )}
-                        </Popper>
+                        <Popover
+                            id="simple-popper"
+                            open={openPopover}
+                            anchorEl={anchorEl}
+                            onClose={this.handleClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                        >
+                            <Typography className={classes.typography}>
+                                <Tooltip title="Account">
+                                    <styled.Icon
+                                        src={account}
+                                        alt="account"
+                                        onClick={this.handlerAccountClick}
+                                    />
+                                </Tooltip>
+                                <Tooltip title="Settings">
+                                    <styled.Icon
+                                        src={settings}
+                                        alt="logout"
+                                        onClick={this.openSettings}
+                                    />
+                                </Tooltip>
+                                <Tooltip title="Basket page">
+                                    <styled.Icon
+                                        src={basket}
+                                        alt="logout"
+                                        onClick={this.handlerBasketClick}
+                                    />
+                                </Tooltip>
+                                <Tooltip title="Logout">
+                                    <styled.Icon
+                                        src={exit}
+                                        alt="logout"
+                                        onClick={this.showAlertDialog}
+                                    />
+                                </Tooltip>
+                            </Typography>
+                        </Popover>
                         <styledDialog.Dialog>
                             <AlertDialog
                                 visible={visibleDialog}

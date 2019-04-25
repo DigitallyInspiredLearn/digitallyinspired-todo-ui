@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
     currentUser: state.profile.currentUser,
     tags: state.dashboard.tags,
     tagTaskKeys: state.dashboard.tagTaskKeys,
+    errorMessage: state.dashboard.errorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,6 +40,7 @@ const mapDispatchToProps = dispatch => ({
         removeTagFromTask: actions.removeTagFromTask,
         updateComment: actions.updateComment,
         updateCommentSuccess: actions.updateCommentSuccess,
+        fetchErrors: actions.fetchErrors,
     }, dispatch),
 });
 
