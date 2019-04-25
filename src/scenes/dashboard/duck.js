@@ -165,6 +165,7 @@ export function* fetchAllLists() {
     const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
     const { data: { totalElements, totalPages, content } } =
         yield call(fetchRequest, currentPage, options[pageSize], options[sort], 'ACTIVE', stringTagsId);
+
     yield put(actions.fetchDashboardSuccess({
         toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
         totalElements,
