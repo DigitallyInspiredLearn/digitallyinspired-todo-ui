@@ -70,7 +70,6 @@ export const Logo = styled.svg`
     width: 50px;
     height: 50px;
     fill: ${ p => p.theme.textHeader };
-    cursor: pointer;
 `;
 
 export const Line = styled.div`

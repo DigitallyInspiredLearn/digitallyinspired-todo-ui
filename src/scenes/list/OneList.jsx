@@ -72,7 +72,8 @@ class OneList extends Component {
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
             visible: false,
-            visibleInfoList: false,
+            visibleButton: false,
+            visibleInfoList: true,
             alignment: ['notDone', 'done'],
         };
     }
@@ -113,7 +114,7 @@ class OneList extends Component {
         const { actions, data } = this.props;
         const { newComment } = this.state;
         actions.updateComment({ id: data.id, newComment });
-        this.toggleComment();
+        this.showButton();
     };
 
     handleChangePriority = (e) => {
@@ -134,14 +135,21 @@ class OneList extends Component {
         });
     };
 
+    showButton = () => {
+        const { visibleButton } = this.state;
+        this.setState({
+            visibleButton: !visibleButton,
+        });
+    };
+
+
     render() {
         const {
-            valueNewTask, stateComment, priority, visible, visibleInfoList, alignment,
+            valueNewTask, stateComment, priority, visible, visibleInfoList, alignment, visibleButton,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
         } = this.props;
-
         return (
             <styled.List>
                 <styled.inputBlock>
@@ -157,6 +165,7 @@ class OneList extends Component {
 
                     <Tooltip title="Info list">
                         <styled.Info
+                            // style={{ boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)', }}
                             onClick={this.showBlockListDetails}
                             alt="Info"
                         />
@@ -343,60 +352,76 @@ class OneList extends Component {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
-                            <Tooltip title="Comment" placement="top">
-                                <IconButton
-                                    aria-label="Comment"
-                                    onClick={this.toggleComment}
-                                >
-                                    <Comment />
-                                </IconButton>
-                            </Tooltip>
                         </styled.addTaskContainer>
-                        <styled.Expand
-                            visible={stateComment}
-                        >
-                            <React.Fragment>
-                                { (data.comment !== undefined && data.comment !== null) ? (
-                                    <TextField
-                                        onChange={this.handleUpdateComment}
-                                        defaultValue={data.comment}
-                                        multiline
-                                        autoFocus
-                                        rowsMax="8"
-                                        variant="outlined"
-                                        margin="normal"
-                                        placeholder="Type comment about this list"
-                                        style={{
-                                            width: '100%', fontWeight: 'bold',
-                                        }}
-                                        InputProps={{
-                                            style: {
-                                                height: '200px',
-                                            },
-                                        }}
-                                    />
-                                ) : null
-                                }
-                            </React.Fragment>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-                                <IconButton
-                                    style={{ padding: '12px' }}
-                                    onClick={this.toggleComment}
-                                >
-                                    <Cancel style={{ color: 'red' }} />
-                                </IconButton>
-                                <IconButton
-                                    style={{ padding: '12px' }}
-                                    onClick={() => this.handleUpdate()}
-                                >
-                                    <Done style={{ color: 'green' }} />
-                                </IconButton>
-                            </div>
-                        </styled.Expand>
                     </styled.blockTask>
                     <styled.DetailsList
                         visibleInfo={visibleInfoList}
-                    />
+                    >
+                        <Tooltip title="Created time">
+                            <styled.ListCreateData>
+                                {new Date(data.createdDate).toLocaleString()}
+                            </styled.ListCreateData>
+                        </Tooltip>
+                        <styled.DetailTitle>
+                            List details
+                        </styled.DetailTitle>
+                        <styled.Create>
+                            Created by: {data.createdBy}
+                        </styled.Create>
+                        <styled.Create>
+                            Modified by: {data.modifiedBy}
+                        </styled.Create>
+                        <styled.Create>
+                            Modified time: {new Date(data.modifiedDate).toLocaleString()}
+                        </styled.Create>
+                        <styled.BlockComment>
+                            <styled.Expand
+                                visible={true}
+                            >
+                                <React.Fragment>
+                                    { (data.comment !== undefined && data.comment !== null) ? (
+                                        <TextField
+                                            onChange={this.handleUpdateComment}
+                                            onFocus={this.showButton}
+                                            defaultValue={data.comment}
+                                            multiline
+                                            rowsMax="8"
+                                            variant="outlined"
+                                            margin="normal"
+                                            placeholder="Type comment about this list"
+                                            style={{width: '90%', fontWeight: '400', marginTop: '8px', }}
+                                            InputProps={{
+                                                style: {
+                                                    height: '20vh', alignItems: 'flex-start',
+                                                },
+                                            }}
+                                        />
+                                    ) : null
+                                    }
+                                </React.Fragment>
+                                <div
+                                    style={{
+                                        display: !visibleButton ? 'none' : 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'space-between'
+                                    }}>
+                                    <IconButton
+                                        style={{ padding: '4px' }}
+                                        onClick={this.showButton}
+                                    >
+                                        <Cancel style={{ color: 'red' }} />
+                                    </IconButton>
+                                    <IconButton
+                                        style={{ padding: '4px' }}
+                                        onClick={() => this.handleUpdate()}
+                                    >
+                                        <Done style={{ color: 'green' }} />
+                                    </IconButton>
+                                </div>
+                            </styled.Expand>
+                        </styled.BlockComment>
+
+                    </styled.DetailsList>
                 </styled.BlockInfoContent>
             </styled.List>
         );

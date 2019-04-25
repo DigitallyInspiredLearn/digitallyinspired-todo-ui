@@ -81,6 +81,7 @@ export const blockTask = styled.article`
 
 export const DetailsList = styled.div`
     display: ${p => p.visibleInfo ? 'flex' :  'none'};
+    flex-direction: column;
     background-color:  ${p => p.theme.backgroundList};
     height: 78vh;
     width: 25%;
@@ -88,6 +89,36 @@ export const DetailsList = styled.div`
     padding: 8px; 
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     border-radius: 4px;
+`;
+
+export const ListCreateData = styled.div`
+    display: flex;
+    font-size: 14px;
+    margin: 8px 8px 8px auto;
+    color: gray;
+`;
+
+export const Create = styled.div`
+    font-size: 16px;
+    margin: 8px 16px;
+`;
+
+export const BlockComment = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: auto 8px 8px 16px;
+`;
+
+export const Comment = styled.div`
+    font-size: 16px;
+    height: 20vh;
+    border-radius: 4px;
+    border: rgb(128, 128, 128, 0.1) solid 1px;
+`;
+
+export const DetailTitle = styled.div`
+    font-size: 28px;
+    margin: 8px 16px;
 `;
 
 export const titleNameOneList = styled.input`
@@ -157,7 +188,6 @@ export const Expand = styled.div`
     display: ${p => (p.visible ? 'flex' : 'none')};
     height: auto;
     min-height: 100px;
-    padding: 8px 0 0 8px;
     justify-content: space-between;
 `;
 
