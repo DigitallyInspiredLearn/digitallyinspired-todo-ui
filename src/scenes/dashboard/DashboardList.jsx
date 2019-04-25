@@ -12,12 +12,11 @@ class DashboardList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchValue: '',
             visible: false,
         };
     }
 
-    componentWillMount = ({ actions } = this.props) => actions.initialize('');
+    componentWillMount = ({ actions } = this.props) => actions.initialize();
 
     showAlert = () => {
         const { visible } = this.state;
@@ -29,13 +28,6 @@ class DashboardList extends Component {
     handlePageChange = ({ selected }) => {
         const { actions } = this.props;
         actions.changePagination(selected);
-    };
-
-    handleChange = (newValue) => {
-        const { actions } = this.props;
-        this.setState({ searchValue: newValue });
-        actions.search(newValue);
-        actions.fetchDashboard();
     };
 
     render() {
