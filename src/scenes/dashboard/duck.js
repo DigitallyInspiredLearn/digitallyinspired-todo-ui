@@ -243,7 +243,8 @@ export function* shareList(action) {
         yield call(fetchAllLists);
         // alert('Successfully shared!');
     } catch (e) {
-        // e.response.status === 409 ? alert('This list is already shared with the selected user.') : null;
+        e.response.status === 409 ?
+            (yield put(actions.fetchErrors('This list is already shared with the selected user!'))) : null;
     }
 }
 

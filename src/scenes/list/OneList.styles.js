@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
+import _Info from '@material-ui/icons/Info';
 
 export const List = styled.span`
     display: flex;
@@ -51,6 +52,44 @@ export const iconTrash = styled.img`
     color: ${p => p.theme.mainText}
 `;
 
+export const BlockInfoContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;    
+`;
+
+export const blockTask = styled.article`
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    align-content: space-between;
+    background-color:  ${p => p.theme.backgroundList};
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+    margin: 0px 8px;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    height: 78vh;
+    padding: 8px;
+    width: 65%;
+    & > div {
+        height: 85vh;
+        overflow: auto;
+        margin: 8px 0px;
+    }
+`;
+
+export const DetailsList = styled.div`
+    display: ${p => p.visibleInfo ? 'flex' :  'none'};
+    background-color:  ${p => p.theme.backgroundList};
+    height: 78vh;
+    width: 25%;
+    margin: 0px 8px;
+    padding: 8px; 
+    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
+    border-radius: 4px;
+`;
+
 export const titleNameOneList = styled.input`
     font-size: 30px;
     font-weight: bold;
@@ -59,7 +98,16 @@ export const titleNameOneList = styled.input`
     width: 97%;
     margin-left: 8px;
     text-overflow: ellipsis;
-    color: ${p => p.theme.textHeader}
+    color: ${p => p.theme.buttonText} !important; 
+    font-weight: 400;
+    cursor: pointer;
+`;
+
+export const Info = styled(_Info)`
+    height: 50px !important; 
+    width: 35px !important; 
+    color: black; 
+    padding: 0px 0px 4px 0px;
 `;
 
 export const inputDiv = styled.main`
@@ -81,25 +129,6 @@ export const searchToDo = styled.input`
     padding-left: 8px;
     cursor: pointer;
     background-color: ${p => p.theme.backgroundList};
-`;
-
-export const blockTask = styled.article`
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    background-color:  ${p => p.theme.backgroundList};
-    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
-    margin: 0px 8px;
-    border-radius: 5px;
-    font-size: 15px;
-    cursor: pointer;
-    height: 78vh;
-    padding: 8px;
-    & > div {
-        height: 85vh;
-        overflow: auto;
-        margin: 8px 0px;
-    }
 `;
 
 export const addNewTask = styled.input`
