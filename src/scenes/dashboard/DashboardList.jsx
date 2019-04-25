@@ -77,6 +77,7 @@ class DashboardList extends Component {
                 onClose={this.showAlert}
                 value={errorMessage}
                 onConfirm={() => actions.fetchErrors('')}
+                button="back"
             />,
                 <styled.App key="app">
                     <styled.Head>

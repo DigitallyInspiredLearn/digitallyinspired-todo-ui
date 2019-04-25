@@ -9,7 +9,7 @@ import * as styled from './AlertDialog.styles';
 export class Alert extends Component {
     render() {
         const {
-            visible, value, onClose, onConfirm,
+            visible, value, onClose, onConfirm, button,
         } = this.props;
         return (
             <Dialog
@@ -23,22 +23,36 @@ export class Alert extends Component {
                     >
                         Dialog
                     </DialogTitle>
-                    <styled.Close onClick={() => onClose()} />
                 </styled.Content>
                 <styled.DialogContentText style={ { margin: '8px 24px 16px 24px' } }>
                     { value }
                 </styled.DialogContentText>
                 <DialogActions>
+
                     <Link to={`/auth`} >
-                        <Button
-                            onClick={() => {
-                                onClose();
-                                onConfirm();
-                            }}
-                            color="primary"
-                        >
-                            Ok
-                        </Button>
+                        {
+                            !button ? (
+                                <Button
+                                    onClick={() => {
+                                        onClose();
+                                        onConfirm();
+                                    }}
+                                    color="primary"
+                                >
+                                    Ok
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={() => {
+                                        onClose();
+                                        onConfirm();
+                                    }}
+                                    color="primary"
+                                >
+                                    Back
+                                </Button>
+                            )
+                        }
                     </Link>
                 </DialogActions>
             </Dialog>

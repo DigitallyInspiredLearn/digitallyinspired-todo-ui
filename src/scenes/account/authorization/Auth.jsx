@@ -41,6 +41,7 @@ class Authorization extends Component {
         this.setState({
             visible: !visible,
         });
+        this.props.actions.fetchErrors('');
     };
 
     onChangeLogin = (e) => {
@@ -68,6 +69,7 @@ class Authorization extends Component {
                                 onClose={this.showAlert}
                                 value={errorMessage}
                                 onConfirm={() => actions.fetchErrors('')}
+                                button=""
                             />
                         ) : null
                     }
