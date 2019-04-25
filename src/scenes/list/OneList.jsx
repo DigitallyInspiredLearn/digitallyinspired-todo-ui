@@ -93,7 +93,7 @@ class OneList extends Component {
     handlerOnBlur = (e) => {
         e.target.blur();
         this.setState({
-            valueNewTask: e.target.value = '',
+            valueNewTask: '',
             priority: 'NOT_SPECIFIED',
         });
     };
@@ -356,10 +356,7 @@ class OneList extends Component {
                                 }),
                                 this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
                             )}
-                            onBlur={(e) => {
-                                this.handlerOnBlur(e);
-                                // actions.fetchList(match.params.id);
-                            }}
+                            // onBlur={e => e.target.blur()}
                         />
                         <FormControl
                             style={{ marginTop: '-4px', marginLeft: 'auto' }}
@@ -389,21 +386,21 @@ class OneList extends Component {
                                         src={low}
                                         alt="LOW"
                                     />
-                                    <em>LOW</em>
+                                    LOW
                                 </MenuItem>
                                 <MenuItem value="MEDIUM">
                                     <styled.PriorityImage
                                         src={medium}
                                         alt="MEDIUM"
                                     />
-                                    <em>MEDIUM</em>
+                                    MEDIUM
                                 </MenuItem>
                                 <MenuItem value="HIGH">
                                     <styled.PriorityImage
                                         src={high}
                                         alt="HIGH"
                                     />
-                                    <em>HIGH</em>
+                                    HIGH
                                 </MenuItem>
                             </Select>
                         </FormControl>
