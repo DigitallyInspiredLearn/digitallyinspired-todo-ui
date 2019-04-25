@@ -44,13 +44,6 @@ class DashboardList extends Component {
         } = this.props;
         const { visible } = this.state;
         return ([
-            <Alert
-                visible={errorMessage === '' ? visible : this.showAlert}
-                onClose={this.showAlert}
-                value={errorMessage}
-                onConfirm={() => actions.fetchErrors('')}
-                button="back"
-            />,
             <styled.App key="app">
                 <styled.DashboardList>
                     {

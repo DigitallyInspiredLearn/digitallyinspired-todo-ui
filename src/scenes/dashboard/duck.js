@@ -4,7 +4,6 @@ import {
 } from 'redux-saga/effects';
 import {
     getMyList,
-
     addDashboard,
     updateList,
     getSharedLists,
@@ -266,13 +265,8 @@ export function* fetchTags() {
 }
 
 export function* initialize() {
-    try {
         yield call(fetchTags);
         yield call(fetchAllLists);
-    }
-    catch (e) {
-        e.response.status === 401 ? (yield put(actions.fetchErrors('You are not authorized!'))) : null;
-    }
 }
 
 export function* addTag(action) {

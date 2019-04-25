@@ -102,9 +102,9 @@ class DashboardListBasket extends Component {
                             style={{ width: '150px', height: '42px', marginTop: '4px' }}
                             styleLabel={{ fontSize: '10px' }}
                             value={[
-                                '4/page',
-                                '8/page',
-                                '16/page',
+                                '6/page',
+                                '12/page',
+                                '24/page',
                             ]}
                             selectSorting={actions.changeSize}
                             defaultValue={pageSize}
