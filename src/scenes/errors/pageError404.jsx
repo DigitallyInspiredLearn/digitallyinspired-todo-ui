@@ -1,5 +1,4 @@
 import React from 'react';
-import '../list/styleList.css';
 
 const PageError404 = () => (
     <div>

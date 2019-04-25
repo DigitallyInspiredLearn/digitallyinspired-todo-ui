@@ -16,10 +16,8 @@ export const Dashboard = styled.section`
     flex-direction: column;
     background-color: ${p => p.theme.backgroundList};
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.1);
-    flex: 1;
-    width: auto;
-    min-width: 500px;
-    max-width: 48.98%;
+    
+    width: 32%;
     margin: 8px;
     border-radius: 4px;
     min-height: 300px;

@@ -8,10 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Popover from '@material-ui/core/Popover';
-import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
-import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
 import Empty from '@material-ui/icons/ArrowUpward';
 import { AlertDialog } from '../../../components/dialog/AlertDialog';
 import * as stylesTask from '../../dashboard/task/Task.styled';
@@ -117,12 +114,6 @@ class TaskForList extends Component {
         });
     };
 
-    handleClick = (event) => {
-        this.setState({
-            anchorEl: event.currentTarget,
-        });
-    };
-
     handleClose = () => {
         this.setState({
             anchorEl: null,
@@ -195,15 +186,13 @@ class TaskForList extends Component {
 
     render() {
         const {
-            statePopup, durationTime, visible, anchorEl, open,
-            // days, hours, minutes
+            statePopup, durationTime, visible, anchorEl,
         } = this.state;
         const {
             idTask, selected, actionsList, idList, nameTask, priority, createdDate, completedDate, classes, tags,
         } = this.props;
 
         const openPopover = Boolean(anchorEl);
-        // console.log(this.props);
         return (
             <React.Fragment>
                 {
@@ -258,7 +247,6 @@ class TaskForList extends Component {
                         onMouseLeave={tags.length !== 0 ? this.handlePopoverClose : null}
                         // onClick={this.handleClick}
                     >
-
                         {
                             tags.map(t => (
                                 <span
@@ -274,19 +262,6 @@ class TaskForList extends Component {
 
                                 >
                                     {t.tagName}
-                                    <span
-                                        style={{
-                                            // padding: ' ',
-                                            marginLeft: '4px',
-                                            opacity: 0.6,
-                                            color: 'black',
-                                            cursor: 'pointer',
-                                        }}
-                                        onClick={() => {
-                                            // actions.removeTagFromTask({ idTag: key.tag.id, idTask });
-                                            // this.getTagsTaks();
-                                        }}
-                                    />
                                 </span>
                             ))
 
@@ -322,23 +297,8 @@ class TaskForList extends Component {
                                                 borderRadius: '20px',
                                                 opacity: 0.9,
                                             }}
-                                            // onClick={this.handleClick}
-
                                         >
                                             {t.tagName}
-                                            <span
-                                                style={{
-                                                    // padding: ' ',
-                                                    marginLeft: '4px',
-                                                    opacity: 0.6,
-                                                    color: 'black',
-                                                    cursor: 'pointer',
-                                                }}
-                                                onClick={() => {
-                                                    // actions.removeTagFromTask({ idTag: key.tag.id, idTask });
-                                                    // this.getTagsTaks();
-                                                }}
-                                            />
                                         </span>
                                     ))
 

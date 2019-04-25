@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Workbook from 'react-excel-workbook';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,17 +19,18 @@ import Cancel from '@material-ui/icons/Cancel';
 import Done from '@material-ui/icons/CheckCircle';
 import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-import Delete from '@material-ui/icons/Delete';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Search from '@material-ui/icons/Search';
 import Empty from '@material-ui/icons/ArrowUpward';
+import Arrow from '@material-ui/icons/ArrowBackIos';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
-import * as styledDashboard from '../dashboard/DashboardList.styles';
+import * as styledHeaderToolbar
+    from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
 
 const CustomTableCell = withStyles(() => ({
@@ -73,6 +72,7 @@ class OneList extends Component {
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
             visible: false,
+            visibleInfoList: false,
             alignment: ['notDone', 'done'],
         };
     }
@@ -127,63 +127,26 @@ class OneList extends Component {
         });
     };
 
-    downloadToPDF = (data) => {
-        const doc = new jsPDF();
-        doc.text(`Dashboard: "${data.todoListName}"`, 15, 10);
-        data.tasks.length
-            ? doc.autoTable({
-                head: [['+/-', 'name tasks', 'priority', 'created data', 'tags', 'completed data']],
-                body: data.tasks.map(i => ([i.isComplete ? '+' : '-', i.body, '1', '03.03.2019', 'tags', 'completed data'])),
-                headStyles: { fillColor: 'lightblue' },
-            })
-            : doc.autoTable({
-                body: [['You have no tasks yet, it\'s time to be active!']],
-            });
-        doc.save(`${data.todoListName}.pdf`);
-    };
-
-    handleSelectTask = () => {
-        const {
-            selected, actionsList, nameTask, idTask, idList, priority,
-        } = this.props;
-
-        if (!selected) {
-            this.setState({ statePopup: true });
-        } else {
-            this.setState({ durationTime: 0 });
-            actionsList.updateCheckboxList({
-                idDashboard: idList, nameTask, idTask, selected, body: nameTask, durationTime: 0, priority,
-            });
-        }
+    showBlockListDetails = () => {
+        const { visibleInfoList } = this.state;
+        this.setState({
+            visibleInfoList: !visibleInfoList,
+        });
     };
 
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible, alignment, newComment,
+            valueNewTask, stateComment, priority, visible, visibleInfoList, alignment,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
         } = this.props;
-        console.log(this.props);
-        const dataXLS = data.tasks && data.tasks.length
-            ? data.tasks.map(i => ({
-                doneOrNot: i.isComplete ? '+' : '-',
-                nameTasks: i.body,
-                priority: 'null',
-                doUp: 'null',
-            }))
-            : [{
-                doneOrNot: 'null',
-                nameTasks: 'null',
-                priority: 'null',
-                doUp: 'null',
-            }];
 
         return (
             <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
-                        <styled.animationButton className="fa fa-arrow-left fa-2x" />
+                        <Arrow style={{ color: 'black', padding: '2px 0px 0px 4px' }} />
                     </Link>
                     <styled.titleNameOneList
                         type="text"
@@ -191,10 +154,17 @@ class OneList extends Component {
                         defaultValue={data.todoListName}
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
+
+                    <Tooltip title="Info list">
+                        <styled.Info
+                            onClick={this.showBlockListDetails}
+                            alt="Info"
+                        />
+                    </Tooltip>
                     <Link to="/lists">
                         <Tooltip title="Delete list">
-                            <Delete
-                                style={{ height: '30px', color: 'black' }}
+                            <DeleteOutline
+                                style={{ height: '50px', width: '35px', color: 'black' }}
                                 onClick={this.showAlertDialog}
                                 alt="Delete this list"
                             />
@@ -206,255 +176,228 @@ class OneList extends Component {
                         value="Do you want to delete this list?"
                         onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
                     />
-                    <Tooltip title="Download as PDF">
-                        <img
-                            src={pdf}
-                            alt="download in pdf"
-                            onClick={() => this.downloadToPDF(data)}
-                            style={{ height: '30px' }}
-                        />
-                    </Tooltip>
-                    {/*<Workbook*/}
-                    {/*    style={{ marginTop: '8px' }}*/}
-                    {/*    filename="list.xlsx"*/}
-                    {/*    element={(*/}
-                    {/*        <Tooltip title="Download as XLS">*/}
-                    {/*            <img*/}
-                    {/*                src={xls}*/}
-                    {/*                alt="download in xls"*/}
-                    {/*                style={{ height: '30px', paddingTop: '4px' }}*/}
-                    {/*            />*/}
-                    {/*        </Tooltip>*/}
-                    {/*    )}*/}
-                    {/*>*/}
-                    {/*    <Workbook.Sheet data={dataXLS} name="list">*/}
-                    {/*        <Workbook.Column label="+/-" value="doneOrNot" />*/}
-                    {/*        <Workbook.Column label="name tasks" value="nameTasks" />*/}
-                    {/*        <Workbook.Column label="priority" value="priority" />*/}
-                    {/*        <Workbook.Column label="duration time" value="doUp" />*/}
-                    {/*    </Workbook.Sheet>*/}
-
-                    {/*</Workbook>*/}
-
                 </styled.inputBlock>
-                <styled.blockTask>
-                    <styled.inputDiv>
-                        <styled.searchToDo
-                            type="text"
-                            placeholder="Search to-do"
-                            onChange={e => actions.changeSearch({
-                                idDashboard: match.params.id,
-                                search: e.target.value,
-                            })}
-                        />
-                        <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-
-                        <styledDashboard.ToggleButtonGroup
-                            style={{
-                                backgroundColor: 'white',
-                                boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
-                                borderBottom: '1px solid grey',
-                                margin: '6px 0 4px 8px',
-                                borderRadius: '4px',
-                            }}
-                            value={alignment}
-                            onChange={this.handleFormat}
-                        >
-                            <styledDashboard.ToggleButton
-                                style={{
-                                    color: 'black',
-                                    height: '52px',
-                                    display: 'flex',
-                                    alignSelf: 'center',
-                                    borderRight: '1px solid lightgrey',
-                                }}
-                                onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
-                                value="done"
-                            >
-                                done
-                            </styledDashboard.ToggleButton>
-                            <styledDashboard.ToggleButton
-                                style={{
-                                    color: 'black',
-                                    height: '52px',
-                                    display: 'flex',
-                                    alignSelf: 'center',
-                                }}
-                                onClick={() => actions.selectedNotDoneAction({
-                                    notDone,
-                                    idList: match.params.id,
-                                })}
-                                value="notDone"
-                            >
-                                not done
-                            </styledDashboard.ToggleButton>
-                        </styledDashboard.ToggleButtonGroup>
-                    </styled.inputDiv>
-                    {
-                        tasks.length === 0
-                            ? (
-                                <styled.nullTask>
-                                    You have no tasks yet, it's time to be active!
-                                </styled.nullTask>
-                            ) : (
-                                <div>
-                                    <Paper className={classes.root}>
-                                        <Table className={classes.table}>
-                                            <TableHead>
-                                                <TableRow className={classes.header}>
-                                                    <CustomTableCell align="left" />
-                                                    <CustomTableCell align="left">Name</CustomTableCell>
-                                                    <CustomTableCell align="left">Priority</CustomTableCell>
-                                                    
-                                                    <CustomTableCell align="left">Created date</CustomTableCell>
-                                                    <CustomTableCell align="left">Completed date</CustomTableCell>
-                                                    <CustomTableCell align="left">Duration time</CustomTableCell>
-                                                    <CustomTableCell align="left">Tags</CustomTableCell>
-                                                    <CustomTableCell align="center" />
-                                                </TableRow>
-                                            </TableHead>
-                                            {
-                                                tasks.map(i => (
-                                                    <TableBody key={i.id}>
-                                                        <TaskForList
-                                                            idTask={i.id}
-                                                            idList={match.params.id}
-                                                            selected={i.isComplete}
-                                                            nameTask={i.body}
-                                                            actionsBoard={actionsBoard}
-                                                            actionsList={actions}
-                                                            priority={i.priority}
-                                                            createdDate={i.createdDate}
-                                                            completedDate={i.completedDate}
-                                                            durationTime={i.durationTime}
-                                                            tags={i.tags}
-                                                            tagTaskKeys={tagTaskKeys}
-                                                        />
-                                                    </TableBody>
-                                                ))
-                                            }
-                                        </Table>
-                                    </Paper>
-                                </div>
-                            )
-                    }
-                    <styled.addTaskContainer
-                        visible={!stateComment}
-                    >
-                        <styled.addNewTask
-                            className="addNewTask"
-                            placeholder="add to-do"
-                            style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
-                            value={valueNewTask}
-                            onChange={this.changeValueNewTask}
-                            onKeyPress={event => event.key === 'Enter' && (
-                                event.target.blur(),
-                                actions.addTaskList({
+                <styled.BlockInfoContent>
+                    <styled.blockTask>
+                        <styled.inputDiv>
+                            <styled.searchToDo
+                                type="text"
+                                placeholder="Search to-do"
+                                onChange={e => actions.changeSearch({
                                     idDashboard: match.params.id,
-                                    nameTask: valueNewTask,
-                                    priority,
-                                }),
-                                this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
-                            )}
-                            // onBlur={e => e.target.blur()}
-                        />
-                        <FormControl
-                            style={{ marginTop: '-4px', marginLeft: 'auto' }}
-                        >
-                            <InputLabel htmlFor="age-simple">Priority</InputLabel>
-                            <Select
-                                value={priority}
-                                onChange={this.handleChangePriority}
-                                inputProps={{
-                                    name: 'age',
-                                    id: 'age-simple',
+                                    search: e.target.value,
+                                })}
+                            />
+                            <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
+                            <styledHeaderToolbar.ToggleButtonGroup
+                                style={{
+                                    backgroundColor: 'white',
+                                    boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
+                                    borderBottom: '1px solid grey',
+                                    margin: '6px 0 4px 8px',
+                                    borderRadius: '4px',
                                 }}
-                                style={{ width: '190px' }}
+                                value={alignment}
+                                onChange={this.handleFormat}
                             >
-                                <MenuItem value="NOT_SPECIFIED">
-                                    <div>
-                                        <Empty
-                                            style={{
-                                                width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
-                                            }}
-                                        />
-                                        <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
-                                    </div>
-                                </MenuItem>
-                                <MenuItem value="LOW">
-                                    <styled.PriorityImage
-                                        src={low}
-                                        alt="LOW"
-                                    />
-                                    LOW
-                                </MenuItem>
-                                <MenuItem value="MEDIUM">
-                                    <styled.PriorityImage
-                                        src={medium}
-                                        alt="MEDIUM"
-                                    />
-                                    MEDIUM
-                                </MenuItem>
-                                <MenuItem value="HIGH">
-                                    <styled.PriorityImage
-                                        src={high}
-                                        alt="HIGH"
-                                    />
-                                    HIGH
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Tooltip title="Comment" placement="top">
-                            <IconButton
-                                aria-label="Comment"
-                                onClick={this.toggleComment}
-                            >
-                                <Comment />
-                            </IconButton>
-                        </Tooltip>
-                    </styled.addTaskContainer>
-                    <styled.Expand
-                        visible={stateComment}
-                    >
-                        <React.Fragment>
-                            { (data.comment !== undefined && data.comment !== null) ? (
-                                <TextField
-                                    onChange={this.handleUpdateComment}
-                                    defaultValue={data.comment}
-                                    multiline
-                                    autoFocus
-                                    rowsMax="8"
-                                    variant="outlined"
-                                    margin="normal"
-                                    placeholder="Type comment about this list"
+                                <styledHeaderToolbar.ToggleButton
                                     style={{
-                                        width: '100%', fontWeight: 'bold',
+                                        color: 'black',
+                                        height: '52px',
+                                        display: 'flex',
+                                        alignSelf: 'center',
+                                        borderRight: '1px solid lightgrey',
                                     }}
-                                    InputProps={{
-                                        style: {
-                                            height: '200px',
-                                        },
+                                    onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
+                                    value="done"
+                                >
+                                    done
+                                </styledHeaderToolbar.ToggleButton>
+                                <styledHeaderToolbar.ToggleButton
+                                    style={{
+                                        color: 'black',
+                                        height: '52px',
+                                        display: 'flex',
+                                        alignSelf: 'center',
                                     }}
-                                />
-                            ) : null
-                            }
-                        </React.Fragment>
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-                            <IconButton
-                                style={{ padding: '12px' }}
-                                onClick={this.toggleComment}
+                                    onClick={() => actions.selectedNotDoneAction({
+                                        notDone,
+                                        idList: match.params.id,
+                                    })}
+                                    value="notDone"
+                                >
+                                    not done
+                                </styledHeaderToolbar.ToggleButton>
+                            </styledHeaderToolbar.ToggleButtonGroup>
+                        </styled.inputDiv>
+                        {
+                            tasks.length === 0
+                                ? (
+                                    <styled.nullTask>
+                                        You have no tasks yet, it's time to be active!
+                                    </styled.nullTask>
+                                ) : (
+                                    <div>
+                                        <Paper className={classes.root}>
+                                            <Table className={classes.table}>
+                                                <TableHead>
+                                                    <TableRow className={classes.header}>
+                                                        <CustomTableCell align="left" />
+                                                        <CustomTableCell align="left">Name</CustomTableCell>
+                                                        <CustomTableCell align="left">Priority</CustomTableCell>
+                                                        <CustomTableCell align="left">Created date</CustomTableCell>
+                                                        <CustomTableCell align="left">Completed date</CustomTableCell>
+                                                        <CustomTableCell align="left">Duration time</CustomTableCell>
+                                                        <CustomTableCell align="center">Tags</CustomTableCell>
+                                                        <CustomTableCell align="center" />
+                                                    </TableRow>
+                                                </TableHead>
+                                                {
+                                                    tasks.map(i => (
+                                                        <TableBody key={i.id}>
+                                                            <TaskForList
+                                                                idTask={i.id}
+                                                                idList={match.params.id}
+                                                                selected={i.isComplete}
+                                                                nameTask={i.body}
+                                                                actionsBoard={actionsBoard}
+                                                                actionsList={actions}
+                                                                priority={i.priority}
+                                                                createdDate={i.createdDate}
+                                                                completedDate={i.completedDate}
+                                                                durationTime={i.durationTime}
+                                                                tags={i.tags}
+                                                                tagTaskKeys={tagTaskKeys}
+                                                            />
+                                                        </TableBody>
+                                                    ))
+                                                }
+                                            </Table>
+                                        </Paper>
+                                    </div>
+                                )
+                        }
+                        <styled.addTaskContainer
+                            visible={!stateComment}
+                        >
+                            <styled.addNewTask
+                                className="addNewTask"
+                                placeholder="add to-do"
+                                style={{ outline: 'none', fontSize: '20px', marginLeft: '15px' }}
+                                value={valueNewTask}
+                                onChange={this.changeValueNewTask}
+                                onKeyPress={event => event.key === 'Enter' && (
+                                    event.target.blur(),
+                                    actions.addTaskList({
+                                        idDashboard: match.params.id,
+                                        nameTask: valueNewTask,
+                                        priority,
+                                    }),
+                                    this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
+                                )}
+                                // onBlur={e => e.target.blur()}
+                            />
+                            <FormControl
+                                style={{ marginTop: '-4px', marginLeft: 'auto' }}
                             >
-                                <Cancel style={{ color: 'red' }} />
-                            </IconButton>
-                            <IconButton
-                                style={{ padding: '12px' }}
-                                onClick={() => this.handleUpdate()}
-                            >
-                                <Done style={{ color: 'green' }} />
-                            </IconButton>
-                        </div>
-                    </styled.Expand>
-                </styled.blockTask>
+                                <InputLabel htmlFor="age-simple">Priority</InputLabel>
+                                <Select
+                                    value={priority}
+                                    onChange={this.handleChangePriority}
+                                    inputProps={{
+                                        name: 'age',
+                                        id: 'age-simple',
+                                    }}
+                                    style={{ width: '190px' }}
+                                >
+                                    <MenuItem value="NOT_SPECIFIED">
+                                        <div>
+                                            <Empty
+                                                style={{
+                                                    width: '15px', height: '15px', paddingLeft: '4px', marginLeft: '4px',
+                                                }}
+                                            />
+                                            <span style={{ marginLeft: '8px' }}>NOT SPECIFIED</span>
+                                        </div>
+                                    </MenuItem>
+                                    <MenuItem value="LOW">
+                                        <styled.PriorityImage
+                                            src={low}
+                                            alt="LOW"
+                                        />
+                                        LOW
+                                    </MenuItem>
+                                    <MenuItem value="MEDIUM">
+                                        <styled.PriorityImage
+                                            src={medium}
+                                            alt="MEDIUM"
+                                        />
+                                        MEDIUM
+                                    </MenuItem>
+                                    <MenuItem value="HIGH">
+                                        <styled.PriorityImage
+                                            src={high}
+                                            alt="HIGH"
+                                        />
+                                        HIGH
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                            <Tooltip title="Comment" placement="top">
+                                <IconButton
+                                    aria-label="Comment"
+                                    onClick={this.toggleComment}
+                                >
+                                    <Comment />
+                                </IconButton>
+                            </Tooltip>
+                        </styled.addTaskContainer>
+                        <styled.Expand
+                            visible={stateComment}
+                        >
+                            <React.Fragment>
+                                { (data.comment !== undefined && data.comment !== null) ? (
+                                    <TextField
+                                        onChange={this.handleUpdateComment}
+                                        defaultValue={data.comment}
+                                        multiline
+                                        autoFocus
+                                        rowsMax="8"
+                                        variant="outlined"
+                                        margin="normal"
+                                        placeholder="Type comment about this list"
+                                        style={{
+                                            width: '100%', fontWeight: 'bold',
+                                        }}
+                                        InputProps={{
+                                            style: {
+                                                height: '200px',
+                                            },
+                                        }}
+                                    />
+                                ) : null
+                                }
+                            </React.Fragment>
+                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
+                                <IconButton
+                                    style={{ padding: '12px' }}
+                                    onClick={this.toggleComment}
+                                >
+                                    <Cancel style={{ color: 'red' }} />
+                                </IconButton>
+                                <IconButton
+                                    style={{ padding: '12px' }}
+                                    onClick={() => this.handleUpdate()}
+                                >
+                                    <Done style={{ color: 'green' }} />
+                                </IconButton>
+                            </div>
+                        </styled.Expand>
+                    </styled.blockTask>
+                    <styled.DetailsList
+                        visibleInfo={visibleInfoList}
+                    />
+                </styled.BlockInfoContent>
             </styled.List>
         );
     }
