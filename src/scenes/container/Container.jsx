@@ -9,8 +9,6 @@ import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
-import Account from '@material-ui/icons/AccountBox';
-import Expand from '@material-ui/icons/ExpandMore';
 import Settings from './settings/SettingsContainer';
 import * as styled from './Container.styles';
 import { actions } from '../account/authorization/duck';
@@ -22,6 +20,8 @@ import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
 import settings from '../../image/settings.svg';
 import exit from '../../image/exit.svg';
+import {Redirect, Route, Switch} from "react-router-dom";
+import HeaderToolbar from '../dashboard/heaaderToolbar/HeaderToolbarContainer';
 
 const styles = () => ({
     typography: {
@@ -35,26 +35,10 @@ class Container extends Component {
         this.state = {
             visible: false,
             visibleDialog: false,
-            sections: '',
             anchorEl: null,
             open: false,
         };
     }
-
-    selectSection = (newValue) => {
-        const { visible } = this.state;
-        if (newValue === 'Settings') {
-            this.setState({ visible: !visible, sections: newValue });
-        }
-        if (newValue === 'Basket') {
-            this.setState({ sections: newValue });
-            history.push('/lists/basket');
-        }
-        if (newValue === 'Account') {
-            this.setState({ sections: newValue });
-            history.push('/lists/account');
-        }
-    };
 
     handlerAccountClick = () => {
         history.push('/lists/account');
@@ -98,7 +82,7 @@ class Container extends Component {
 
     render() {
         const {
-            visible, visibleDialog, sections, anchorEl, open,
+            visible, visibleDialog, anchorEl, open,
         } = this.state;
         const { location: { pathname } } = history;
         const {
@@ -142,13 +126,23 @@ class Container extends Component {
                         <b>To</b>
                         <styled.Line />
                         <b>do</b>
-                        {/*<Expand />*/}
+                        <Switch>
+                            <Route path="/lists/account" component={null} />
+                            <Route path="/lists/:id" component={null} />
+                            <Route path="/lists" component={HeaderToolbar} />
+                            <Route path="/lists/basket" component={null} />
+                            <Route path="/auth" component={null} />
+                            <Route path="/reg" component={null} />
+                            <Route path="/error404" component={null} />
+                            <Route path="/error500" component={null} />
+                            <Redirect to="/auth" />
+                        </Switch>
                         <styled.Icon
                             src={list}
                             alt="settings"
                             onClick={this.handleClick}
                             style={{
-                                display: iconVisible, width: '30px', height: '30px',
+                                display: iconVisible, width: '35px', height: '37px',
                             }}
                         />
 
@@ -215,6 +209,7 @@ Container.propTypes = {
 
 const mapStateToProps = state => ({
     data: state.theme.data,
+    sort: state.dashboard.sort,
 });
 
 const mapDispatchToProps = dispatch => ({

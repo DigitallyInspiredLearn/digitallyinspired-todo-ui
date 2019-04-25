@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Workbook from 'react-excel-workbook';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,11 +26,11 @@ import Empty from '@material-ui/icons/ArrowUpward';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
-import * as styledDashboard from '../dashboard/DashboardList.styles';
+import * as styledHeaderToolbar
+    from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
 
 const CustomTableCell = withStyles(() => ({
@@ -159,7 +158,7 @@ class OneList extends Component {
 
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible, alignment, newComment,
+            valueNewTask, stateComment, priority, visible, alignment,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
@@ -214,27 +213,27 @@ class OneList extends Component {
                             style={{ height: '30px' }}
                         />
                     </Tooltip>
-                    {/*<Workbook*/}
-                    {/*    style={{ marginTop: '8px' }}*/}
-                    {/*    filename="list.xlsx"*/}
-                    {/*    element={(*/}
-                    {/*        <Tooltip title="Download as XLS">*/}
-                    {/*            <img*/}
-                    {/*                src={xls}*/}
-                    {/*                alt="download in xls"*/}
-                    {/*                style={{ height: '30px', paddingTop: '4px' }}*/}
-                    {/*            />*/}
-                    {/*        </Tooltip>*/}
-                    {/*    )}*/}
-                    {/*>*/}
-                    {/*    <Workbook.Sheet data={dataXLS} name="list">*/}
-                    {/*        <Workbook.Column label="+/-" value="doneOrNot" />*/}
-                    {/*        <Workbook.Column label="name tasks" value="nameTasks" />*/}
-                    {/*        <Workbook.Column label="priority" value="priority" />*/}
-                    {/*        <Workbook.Column label="duration time" value="doUp" />*/}
-                    {/*    </Workbook.Sheet>*/}
+                    {/* <Workbook */}
+                    {/*    style={{ marginTop: '8px' }} */}
+                    {/*    filename="list.xlsx" */}
+                    {/*    element={( */}
+                    {/*        <Tooltip title="Download as XLS"> */}
+                    {/*            <img */}
+                    {/*                src={xls} */}
+                    {/*                alt="download in xls" */}
+                    {/*                style={{ height: '30px', paddingTop: '4px' }} */}
+                    {/*            /> */}
+                    {/*        </Tooltip> */}
+                    {/*    )} */}
+                    {/* > */}
+                    {/*    <Workbook.Sheet data={dataXLS} name="list"> */}
+                    {/*        <Workbook.Column label="+/-" value="doneOrNot" /> */}
+                    {/*        <Workbook.Column label="name tasks" value="nameTasks" /> */}
+                    {/*        <Workbook.Column label="priority" value="priority" /> */}
+                    {/*        <Workbook.Column label="duration time" value="doUp" /> */}
+                    {/*    </Workbook.Sheet> */}
 
-                    {/*</Workbook>*/}
+                    {/* </Workbook> */}
 
                 </styled.inputBlock>
                 <styled.blockTask>
@@ -249,7 +248,7 @@ class OneList extends Component {
                         />
                         <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
 
-                        <styledDashboard.ToggleButtonGroup
+                        <styledHeaderToolbar.ToggleButtonGroup
                             style={{
                                 backgroundColor: 'white',
                                 boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
@@ -260,7 +259,7 @@ class OneList extends Component {
                             value={alignment}
                             onChange={this.handleFormat}
                         >
-                            <styledDashboard.ToggleButton
+                            <styledHeaderToolbar.ToggleButton
                                 style={{
                                     color: 'black',
                                     height: '52px',
@@ -272,8 +271,8 @@ class OneList extends Component {
                                 value="done"
                             >
                                 done
-                            </styledDashboard.ToggleButton>
-                            <styledDashboard.ToggleButton
+                            </styledHeaderToolbar.ToggleButton>
+                            <styledHeaderToolbar.ToggleButton
                                 style={{
                                     color: 'black',
                                     height: '52px',
@@ -287,8 +286,8 @@ class OneList extends Component {
                                 value="notDone"
                             >
                                 not done
-                            </styledDashboard.ToggleButton>
-                        </styledDashboard.ToggleButtonGroup>
+                            </styledHeaderToolbar.ToggleButton>
+                        </styledHeaderToolbar.ToggleButtonGroup>
                     </styled.inputDiv>
                     {
                         tasks.length === 0
@@ -305,7 +304,7 @@ class OneList extends Component {
                                                     <CustomTableCell align="left" />
                                                     <CustomTableCell align="left">Name</CustomTableCell>
                                                     <CustomTableCell align="left">Priority</CustomTableCell>
-                                                    
+
                                                     <CustomTableCell align="left">Created date</CustomTableCell>
                                                     <CustomTableCell align="left">Completed date</CustomTableCell>
                                                     <CustomTableCell align="left">Duration time</CustomTableCell>

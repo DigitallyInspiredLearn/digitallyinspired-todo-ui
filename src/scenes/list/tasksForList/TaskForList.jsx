@@ -221,7 +221,7 @@ class TaskForList extends Component {
                                 : 'in process'
                         }
                     </TableCell>
-                    <TableCell align="left" className={classes.tags}>
+                    <TableCell align="center" className={classes.tags}>
 
                         {
                             tags.map(t => (

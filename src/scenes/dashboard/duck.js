@@ -4,7 +4,7 @@ import {
 } from 'redux-saga/effects';
 import {
     getMyList,
-    deleteList,
+
     addDashboard,
     updateList,
     getSharedLists,
@@ -107,9 +107,9 @@ const initialState = {
     viewList: 'my',
     search: '',
     options: {
-        '4/page': 4,
-        '8/page': 8,
-        '16/page': 16,
+        '6/page': 6,
+        '12/page': 12,
+        '24/page': 24,
         'By id, low to high': 'id,asc',
         'By id, high to low': 'id,desc',
         'By Name, a - Z': 'todoListName,asc',
@@ -119,7 +119,7 @@ const initialState = {
         'By Modified Date, low to high': 'modifiedDate,asc',
         'By Modified Date, high to low': 'modifiedDate,desc',
     },
-    pageSize: '4/page',
+    pageSize: '6/page',
     totalElements: 0,
     sort: 'By id, low to high',
     tagTaskKeys: [],

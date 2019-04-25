@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Select, InputLabel } from './DropDown.styled';
+import { Select, InputLabel, MenuItem } from './DropDown.styled';
 
 
 export class DropDownMaterial extends Component {
@@ -22,7 +21,7 @@ export class DropDownMaterial extends Component {
         const { value, label, style, styleLabel } = this.props;
         const { valueSelect } = this.state;
         return (
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'row'}}>
                 <InputLabel
                     key='label'
                     htmlFor="select-multiple-chip"
@@ -31,14 +30,24 @@ export class DropDownMaterial extends Component {
                     {label}
                 </InputLabel>
                 <Select
-                    key='DropDownSelect'
+                    key="DropDownSelect"
                     value={valueSelect}
                     onChange={this.handleChange}
                     style={style}
                 >
                     {
                         value.map(i => (
-                            <MenuItem key={i} value={i}>{i}</MenuItem>))
+                            <MenuItem
+                                key={i}
+                                value={i}
+                                style={{
+                                    fontSize: '12px',
+                                    height: '15px important!',
+                                    maxHeight: '20px',
+                                }}
+                            >
+                                {i}
+                            </MenuItem>))
                     }
                 </Select>
             </div>

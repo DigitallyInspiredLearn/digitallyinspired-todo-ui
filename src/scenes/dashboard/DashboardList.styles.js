@@ -1,20 +1,4 @@
 import styled from 'styled-components';
-import _ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import _ToggleButton from '@material-ui/lab/ToggleButton';
-
-export const ToggleButtonGroup = styled(_ToggleButtonGroup)`
-    border-radius: 4px;
-    height: 52px;
-    display: flex;
-    align-self: center;
-`;
-
-export const ToggleButton = styled(_ToggleButton)`
-    border-radius: 4px;
-    height: 52px;
-    display: flex;
-    align-self: center;
-`;
 
 export const App = styled.div`
     display: flex;
@@ -23,28 +7,6 @@ export const App = styled.div`
     width: 100%;
     height: 100vh;
     overflow: auto;
-`;
-
-export const Head = styled.div`
-    display: flex;
-    flex-direction: row;
-    height: auto;
-    z-index: 2;
-    margin: 0px 0px 8px 0px;
-    box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
-    padding: 8px;
-    justify-content: space-between;
-   position:relative;
-    @media (max-width: 600px) {
-        flex-direction: column-reverse;
-        min-height: 64px;
-    }
-`;
-
-export const SearchContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: auto;
 `;
 
 export const Footer = styled.div`
@@ -116,15 +78,6 @@ export const Pagination = styled.div`
    }
 `;
 
-export const CheckboxDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 7px;
-    @media (max-width: 600px) {
-        margin-bottom: 8px;
-    }
-`;
-
 export const ShowButton = styled.div`
     border-radius: 5px;
     background-color: ${p => (p.checked ? p.theme.activeButton : p.theme.backgroundButton)};
@@ -149,7 +102,7 @@ export const ShowButton = styled.div`
 export const DashboardList = styled('main')`
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-content: flex-start;
     flex: auto;
     margin: -8px 0px;

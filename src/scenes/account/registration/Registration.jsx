@@ -6,7 +6,8 @@ import Button from '../../../components/button/Button';
 
 const validatedFields = ['email', 'username', 'password', 'name', 'repeatPassword'];
 
-const validateEmail = email => (email.length === 0 || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$')
+const validateEmail = email => ((email.length === 0
+    || !email.match('^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+\.[a-z]{2,6}$'))
     && 'fill in the field by example: example@mail.com');
 
 const validateUsername = username => ((username.length === 0 || username.length) < 6
