@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     env.NUM_BUILD_UI = env.BUILD_NUMBER
-                    sh 'sed -i "s|localhost:8080|todo-list-frontdev.k8s.local:80|" src/api/dashboard.js src/api/userController.js src/WebSocketContainer.jsx'
+                    sh 'sed -i "s|localhost:8080|todo-list-frontdev.k8s.ws.local:80|" src/api/dashboard.js src/api/userController.js src/WebSocketContainer.jsx'
                     docker.withRegistry('https://' + ECR_ADDRESS, ECR_CREDS) {
                         image = docker.build(ECR_ADDRESS + IMAGE_NAME)
                     }
