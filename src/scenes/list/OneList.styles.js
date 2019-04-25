@@ -139,14 +139,14 @@ export const Info = styled(_Info)`
     height: 50px !important; 
     width: 35px !important; 
     color: black; 
-    padding: 0px 0px 4px 0px;
+    padding: 0px;
 `;
 
 export const InfoOutlined = styled(_InfoOutlined)`
     height: 50px !important; 
     width: 35px !important; 
     color: black; 
-    padding: 0px 0px 4px 0px;
+    padding: 0px;
 `;
 
 export const inputDiv = styled.main`
