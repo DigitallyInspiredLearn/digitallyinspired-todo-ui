@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Workbook from 'react-excel-workbook';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,8 +19,6 @@ import Cancel from '@material-ui/icons/Cancel';
 import Done from '@material-ui/icons/CheckCircle';
 import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-import Info from '@material-ui/icons/Info';
-import Delete from '@material-ui/icons/Delete';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Search from '@material-ui/icons/Search';
 import Empty from '@material-ui/icons/ArrowUpward';
@@ -30,11 +26,11 @@ import Arrow from '@material-ui/icons/ArrowBackIos';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
-import * as styledDashboard from '../dashboard/DashboardList.styles';
+import * as styledHeaderToolbar
+    from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
 
 const CustomTableCell = withStyles(() => ({
@@ -140,7 +136,7 @@ class OneList extends Component {
 
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible, visibleInfoList, alignment, newComment,
+            valueNewTask, stateComment, priority, visible, visibleInfoList, alignment,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
@@ -150,7 +146,7 @@ class OneList extends Component {
             <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
-                        <Arrow style={{color: 'black', padding: '2px 0px 0px 4px' }}/>
+                        <Arrow style={{ color: 'black', padding: '2px 0px 0px 4px' }} />
                     </Link>
                     <styled.titleNameOneList
                         type="text"
@@ -193,8 +189,7 @@ class OneList extends Component {
                                 })}
                             />
                             <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-
-                            <styledDashboard.ToggleButtonGroup
+                            <styledHeaderToolbar.ToggleButtonGroup
                                 style={{
                                     backgroundColor: 'white',
                                     boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
@@ -205,7 +200,7 @@ class OneList extends Component {
                                 value={alignment}
                                 onChange={this.handleFormat}
                             >
-                                <styledDashboard.ToggleButton
+                                <styledHeaderToolbar.ToggleButton
                                     style={{
                                         color: 'black',
                                         height: '52px',
@@ -217,8 +212,8 @@ class OneList extends Component {
                                     value="done"
                                 >
                                     done
-                                </styledDashboard.ToggleButton>
-                                <styledDashboard.ToggleButton
+                                </styledHeaderToolbar.ToggleButton>
+                                <styledHeaderToolbar.ToggleButton
                                     style={{
                                         color: 'black',
                                         height: '52px',
@@ -232,8 +227,8 @@ class OneList extends Component {
                                     value="notDone"
                                 >
                                     not done
-                                </styledDashboard.ToggleButton>
-                            </styledDashboard.ToggleButtonGroup>
+                                </styledHeaderToolbar.ToggleButton>
+                            </styledHeaderToolbar.ToggleButtonGroup>
                         </styled.inputDiv>
                         {
                             tasks.length === 0
@@ -293,12 +288,12 @@ class OneList extends Component {
                                 onChange={this.changeValueNewTask}
                                 onKeyPress={event => event.key === 'Enter' && (
                                     event.target.blur(),
-                                        actions.addTaskList({
-                                            idDashboard: match.params.id,
-                                            nameTask: valueNewTask,
-                                            priority,
-                                        }),
-                                        this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
+                                    actions.addTaskList({
+                                        idDashboard: match.params.id,
+                                        nameTask: valueNewTask,
+                                        priority,
+                                    }),
+                                    this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
                                 )}
                                 // onBlur={e => e.target.blur()}
                             />
@@ -401,9 +396,7 @@ class OneList extends Component {
                     </styled.blockTask>
                     <styled.DetailsList
                         visibleInfo={visibleInfoList}
-                    >
-
-                    </styled.DetailsList>
+                    />
                 </styled.BlockInfoContent>
             </styled.List>
         );

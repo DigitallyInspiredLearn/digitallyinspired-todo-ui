@@ -30,11 +30,11 @@ const initialState = {
     allDeletedLists: [],
     currentPage: 0,
     options: {
-        '4/page': 4,
-        '8/page': 8,
-        '16/page': 16,
+        '6/page': 6,
+        '12/page': 12,
+        '24/page': 24,
     },
-    pageSize: '4/page',
+    pageSize: '6/page',
     totalElements: 0,
 };
 

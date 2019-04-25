@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as styled from './Subscribes.styles';
 import { InputLabel } from '../../../../components/dropDown/DropDown.styled';
 import Search from '../../../../components/search/Search';
-import { SearchContent } from '../../../dashboard/DashboardList.styles';
+import { SearchContent } from '../../../dashboard/heaaderToolbar/HeaderToolbar.styled';
 
 
 class Subscribes extends Component {
