@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
+import _InfoOutlined from '@material-ui/icons/InfoOutlined';
 import _Info from '@material-ui/icons/Info';
 
 export const List = styled.span`
@@ -135,6 +136,13 @@ export const titleNameOneList = styled.input`
 `;
 
 export const Info = styled(_Info)`
+    height: 50px !important; 
+    width: 35px !important; 
+    color: black; 
+    padding: 0px 0px 4px 0px;
+`;
+
+export const InfoOutlined = styled(_InfoOutlined)`
     height: 50px !important; 
     width: 35px !important; 
     color: black; 
