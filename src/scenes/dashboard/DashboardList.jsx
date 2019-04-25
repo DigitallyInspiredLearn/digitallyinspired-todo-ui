@@ -7,6 +7,7 @@ import * as styled from './DashboardList.styles';
 import Search from '../../components/search/Search';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import MultiSelect from './multiSelect/MultiSelectContainet';
+import { Alert } from '../../components/dialog/Alert';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
 import { InputLabel } from '../../components/dropDown/DropDown.styled';
 
@@ -15,6 +16,7 @@ class DashboardList extends Component {
         super(props);
         this.state = {
             alignment: 'my',
+            visible: false,
         };
     }
 
@@ -29,6 +31,12 @@ class DashboardList extends Component {
         // actions.clean();
     };
 
+    showAlert = () => {
+        const { visible } = this.state;
+        this.setState({
+            visible: !visible,
+        });
+    };
 
     handleAlignment = () => {
         const { actions } = this.props;
@@ -59,10 +67,18 @@ class DashboardList extends Component {
             tagTaskKeys,
             actionsBasket,
             sort,
+            errorMessage,
         } = this.props;
-        const { alignment } = this.state;
-        return (
-            [
+        console.log(errorMessage);
+        const { alignment, visible } = this.state;
+        return ([
+            <Alert
+                visible={errorMessage === '' ? visible : this.showAlert}
+                onClose={this.showAlert}
+                value={errorMessage}
+                onConfirm={() => actions.fetchErrors('')}
+                button="back"
+            />,
                 <styled.App key="app">
                     <styled.Head>
                         <styled.SearchContent>

@@ -29,6 +29,7 @@ import {
 export const INITIALIZE = 'dashboard/INITIALIZE';
 export const FETCH_DASHBOARD = 'dashboard/FETCH_DASHBOARD';
 export const FETCH_DASHBOARD_SUCCESS = 'dashboard/FETCH_DASHBOARD_SUCCESS';
+export const ERRORS = 'dashboard/ERRORS';
 
 export const FETCH_TAG_TAKS_KEYS_SUCCESS = 'dashboard/FETCH_TAG_TAKS_KEYS_SUCCESS';
 export const CLEAN = 'dashboard/CLEAN';
@@ -98,6 +99,7 @@ export const actions = {
     removeTagFromTask: createAction(REMOVE_TAG_FROM_TASK),
     getSelectedTags: createAction(GET_SELECTED_TAGS),
     clean: createAction(CLEAN),
+    fetchErrors: createAction(ERRORS),
 };
 
 const initialState = {
@@ -148,6 +150,7 @@ export const reducer = handleActions({
     [GET_SELECTED_TAGS]: (state, action) => ({ ...state, selectedTags: action.payload }),
     [VISIBLE_POPAP_ADD_TAG]: state => ({ ...state, visible: !state.visible }),
     [CLEAN]: () => initialState,
+    [ERRORS]: (state, action) => ({ ...state, errorMessage: action.payload }),
 }, initialState);
 
 export const getDashboard = state => state.dashboard;
@@ -261,13 +264,12 @@ export function* fetchTags() {
 }
 
 export function* initialize() {
-    const { errorMessage } = yield select(state => state.dashboard);
     try {
         yield call(fetchTags);
         yield call(fetchAllLists);
     }
     catch (e) {
-        e.response.status === 401 ? alert('You are not authorized!') : null;
+        e.response.status === 401 ? (yield put(actions.fetchErrors('You are not authorized!'))) : null;
     }
 }
 
