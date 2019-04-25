@@ -14,7 +14,7 @@ export const SearchCont = styled.div`
 `;
 
 export const SearchIcon = styled(_SearchIcon)`
-    width: 5%;
+    width: 4%;
     margin: auto;
     color: rgba(0, 0, 0, 0.54);
 `;

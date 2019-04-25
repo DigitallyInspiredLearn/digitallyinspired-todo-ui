@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Workbook from 'react-excel-workbook';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,8 +19,6 @@ import Cancel from '@material-ui/icons/Cancel';
 import Done from '@material-ui/icons/CheckCircle';
 import InputLabel from '@material-ui/core/InputLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-import Info from '@material-ui/icons/Info';
-import Delete from '@material-ui/icons/Delete';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Search from '@material-ui/icons/Search';
 import Empty from '@material-ui/icons/ArrowUpward';
@@ -30,11 +26,11 @@ import Arrow from '@material-ui/icons/ArrowBackIos';
 import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
-import * as styledDashboard from '../dashboard/DashboardList.styles';
+import * as styledHeaderToolbar
+    from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import xls from '../../image/xls-file.svg';
 import pdf from '../../image/pdf-file.svg';
 
 const CustomTableCell = withStyles(() => ({
@@ -76,7 +72,8 @@ class OneList extends Component {
             newComment: props.comment,
             priority: 'NOT_SPECIFIED',
             visible: false,
-            visibleInfoList: false,
+            visibleButton: false,
+            visibleInfoList: true,
             alignment: ['notDone', 'done'],
         };
     }
@@ -117,7 +114,7 @@ class OneList extends Component {
         const { actions, data } = this.props;
         const { newComment } = this.state;
         actions.updateComment({ id: data.id, newComment });
-        this.toggleComment();
+        this.showButton();
     };
 
     handleChangePriority = (e) => {
@@ -138,9 +135,17 @@ class OneList extends Component {
         });
     };
 
+    showButton = () => {
+        const { visibleButton } = this.state;
+        this.setState({
+            visibleButton: !visibleButton,
+        });
+    };
+
+
     render() {
         const {
-            valueNewTask, stateComment, comment, priority, visible, visibleInfoList, alignment, newComment,
+            valueNewTask, stateComment, priority, visible, visibleInfoList, alignment, visibleButton,
         } = this.state;
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
@@ -149,7 +154,7 @@ class OneList extends Component {
             <styled.List>
                 <styled.inputBlock>
                     <Link to="/lists">
-                        <Arrow style={{color: 'black', padding: '2px 0px 0px 4px' }}/>
+                        <Arrow style={{ color: 'black', padding: '2px 0px 0px 4px' }} />
                     </Link>
                     <styled.titleNameOneList
                         type="text"
@@ -192,7 +197,7 @@ class OneList extends Component {
                                 })}
                             />
                             <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-                            <styledDashboard.ToggleButtonGroup
+                            <styledHeaderToolbar.ToggleButtonGroup
                                 style={{
                                     backgroundColor: 'white',
                                     boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
@@ -203,7 +208,7 @@ class OneList extends Component {
                                 value={alignment}
                                 onChange={this.handleFormat}
                             >
-                                <styledDashboard.ToggleButton
+                                <styledHeaderToolbar.ToggleButton
                                     style={{
                                         color: 'black',
                                         height: '52px',
@@ -215,8 +220,8 @@ class OneList extends Component {
                                     value="done"
                                 >
                                     done
-                                </styledDashboard.ToggleButton>
-                                <styledDashboard.ToggleButton
+                                </styledHeaderToolbar.ToggleButton>
+                                <styledHeaderToolbar.ToggleButton
                                     style={{
                                         color: 'black',
                                         height: '52px',
@@ -230,8 +235,8 @@ class OneList extends Component {
                                     value="notDone"
                                 >
                                     not done
-                                </styledDashboard.ToggleButton>
-                            </styledDashboard.ToggleButtonGroup>
+                                </styledHeaderToolbar.ToggleButton>
+                            </styledHeaderToolbar.ToggleButtonGroup>
                         </styled.inputDiv>
                         {
                             tasks.length === 0
@@ -291,12 +296,12 @@ class OneList extends Component {
                                 onChange={this.changeValueNewTask}
                                 onKeyPress={event => event.key === 'Enter' && (
                                     event.target.blur(),
-                                        actions.addTaskList({
-                                            idDashboard: match.params.id,
-                                            nameTask: valueNewTask,
-                                            priority,
-                                        }),
-                                        this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
+                                    actions.addTaskList({
+                                        idDashboard: match.params.id,
+                                        nameTask: valueNewTask,
+                                        priority,
+                                    }),
+                                    this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
                                 )}
                                 // onBlur={e => e.target.blur()}
                             />
@@ -355,47 +360,47 @@ class OneList extends Component {
                                 </IconButton>
                             </Tooltip>
                         </styled.addTaskContainer>
-                        <styled.Expand
-                            visible={stateComment}
-                        >
-                            <React.Fragment>
-                                { (data.comment !== undefined && data.comment !== null) ? (
-                                    <TextField
-                                        onChange={this.handleUpdateComment}
-                                        defaultValue={data.comment}
-                                        multiline
-                                        autoFocus
-                                        rowsMax="8"
-                                        variant="outlined"
-                                        margin="normal"
-                                        placeholder="Type comment about this list"
-                                        style={{
-                                            width: '100%', fontWeight: 'bold',
-                                        }}
-                                        InputProps={{
-                                            style: {
-                                                height: '200px',
-                                            },
-                                        }}
-                                    />
-                                ) : null
-                                }
-                            </React.Fragment>
-                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-                                <IconButton
-                                    style={{ padding: '12px' }}
-                                    onClick={this.toggleComment}
-                                >
-                                    <Cancel style={{ color: 'red' }} />
-                                </IconButton>
-                                <IconButton
-                                    style={{ padding: '12px' }}
-                                    onClick={() => this.handleUpdate()}
-                                >
-                                    <Done style={{ color: 'green' }} />
-                                </IconButton>
-                            </div>
-                        </styled.Expand>
+                        {/*<styled.Expand*/}
+                            {/*visible={stateComment}*/}
+                        {/*>*/}
+                            {/*<React.Fragment>*/}
+                                {/*{ (data.comment !== undefined && data.comment !== null) ? (*/}
+                                    {/*<TextField*/}
+                                        {/*onChange={this.handleUpdateComment}*/}
+                                        {/*defaultValue={data.comment}*/}
+                                        {/*multiline*/}
+                                        {/*autoFocus*/}
+                                        {/*rowsMax="8"*/}
+                                        {/*variant="outlined"*/}
+                                        {/*margin="normal"*/}
+                                        {/*placeholder="Type comment about this list"*/}
+                                        {/*style={{*/}
+                                            {/*width: '100%', fontWeight: 'bold',*/}
+                                        {/*}}*/}
+                                        {/*InputProps={{*/}
+                                            {/*style: {*/}
+                                                {/*height: '200px',*/}
+                                            {/*},*/}
+                                        {/*}}*/}
+                                    {/*/>*/}
+                                {/*) : null*/}
+                                {/*}*/}
+                            {/*</React.Fragment>*/}
+                            {/*<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>*/}
+                                {/*<IconButton*/}
+                                    {/*style={{ padding: '12px' }}*/}
+                                    {/*onClick={this.toggleComment}*/}
+                                {/*>*/}
+                                    {/*<Cancel style={{ color: 'red' }} />*/}
+                                {/*</IconButton>*/}
+                                {/*<IconButton*/}
+                                    {/*style={{ padding: '12px' }}*/}
+                                    {/*onClick={() => this.handleUpdate()}*/}
+                                {/*>*/}
+                                    {/*<Done style={{ color: 'green' }} />*/}
+                                {/*</IconButton>*/}
+                            {/*</div>*/}
+                        {/*</styled.Expand>*/}
                     </styled.blockTask>
                     <styled.DetailsList
                         visibleInfo={visibleInfoList}
@@ -417,6 +422,56 @@ class OneList extends Component {
                         <styled.Create>
                             Modified time: {new Date(data.modifiedDate).toLocaleString()}
                         </styled.Create>
+                        <styled.BlockComment>
+                            {/*<styled.Create style={{ margin: '0' }}>*/}
+                                {/*Comment:*/}
+                            {/*</styled.Create>*/}
+                            <styled.Expand
+                                visible={true}
+                            >
+                                <React.Fragment>
+                                    { (data.comment !== undefined && data.comment !== null) ? (
+                                        <TextField
+                                            onChange={this.handleUpdateComment}
+                                            onFocus={this.showButton}
+                                            defaultValue={data.comment}
+                                            multiline
+                                            rowsMax="8"
+                                            variant="outlined"
+                                            margin="normal"
+                                            placeholder="Type comment about this list"
+                                            style={{width: '90%', fontWeight: '400', marginTop: '8px', }}
+                                            InputProps={{
+                                                style: {
+                                                    height: '20vh', alignItems: 'flex-start',
+                                                },
+                                            }}
+                                        />
+                                    ) : null
+                                    }
+                                </React.Fragment>
+                                <div
+                                    style={{
+                                        display: !visibleButton ? 'none' : 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'space-between'
+                                    }}>
+                                    <IconButton
+                                        style={{ padding: '4px' }}
+                                        onClick={this.showButton}
+                                    >
+                                        <Cancel style={{ color: 'red' }} />
+                                    </IconButton>
+                                    <IconButton
+                                        style={{ padding: '4px' }}
+                                        onClick={() => this.handleUpdate()}
+                                    >
+                                        <Done style={{ color: 'green' }} />
+                                    </IconButton>
+                                </div>
+                            </styled.Expand>
+                        </styled.BlockComment>
+
                     </styled.DetailsList>
                 </styled.BlockInfoContent>
             </styled.List>

@@ -103,6 +103,19 @@ export const Create = styled.div`
     margin: 8px 16px;
 `;
 
+export const BlockComment = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: auto 8px 8px 16px;
+`;
+
+export const Comment = styled.div`
+    font-size: 16px;
+    height: 20vh;
+    border-radius: 4px;
+    border: rgb(128, 128, 128, 0.1) solid 1px;
+`;
+
 export const DetailTitle = styled.div`
     font-size: 28px;
     margin: 8px 16px;
@@ -175,7 +188,6 @@ export const Expand = styled.div`
     display: ${p => (p.visible ? 'flex' : 'none')};
     height: auto;
     min-height: 100px;
-    padding: 8px 0 0 8px;
     justify-content: space-between;
 `;
 
