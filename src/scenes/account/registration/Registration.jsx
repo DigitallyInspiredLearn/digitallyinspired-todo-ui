@@ -17,7 +17,7 @@ const validatePassword = password => ((password.length === 0 || password.length)
     && 'line length must be more than 6 characters');
 
 const validateRepeatPassword = (repeatPassword, password) => (
-    (repeatPassword.length === 0 || repeatPassword !== password )
+    (repeatPassword.length === 0 || repeatPassword !== password)
     && 'invalid password');
 
 const validateName = name => ((name.length === 0 || name.length < 3) && 'line length must be more than 3 characters');

@@ -68,6 +68,7 @@ export class Dashboard extends Component {
             visibleRestore: false,
             tags: props.allTags,
             tagTaskKeys: props.tagTaskKeys,
+            doneVisible: true,
         };
     }
 
@@ -160,7 +161,7 @@ export class Dashboard extends Component {
             currentUser: { gravatarUrl },
         } = this.props;
         const {
-            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore, tags, tagTaskKeys,
+            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore, tags, tagTaskKeys, doneVisible,
         } = this.state;
 
         return ([
@@ -206,7 +207,7 @@ export class Dashboard extends Component {
                                         <Link
                                             to={{
                                                 pathname: `/lists/${idList}`,
-                                                state: { tags, tagTaskKeys }
+                                                state: { tags, tagTaskKeys },
                                             }}
                                         >
                                             <styled.IconInfo>
@@ -402,11 +403,11 @@ export class Dashboard extends Component {
                                             <Comment />
                                         </IconButton>
                                     </Tooltip>
-                                    <styled.IconButton
-                                        // onClick={() => this.handleUpdateCommentSuccess()}
-                                    >
-                                        <styled.Done />
-                                    </styled.IconButton>
+                                    <styled.CommentContainer visible={doneVisible}>
+                                        <styled.IconButton>
+                                            <styled.Done />
+                                        </styled.IconButton>
+                                    </styled.CommentContainer>
                                 </styled.addTaskContainer>
                             )
                     )

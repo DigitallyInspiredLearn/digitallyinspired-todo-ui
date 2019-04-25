@@ -193,10 +193,6 @@ export const Expand = styled.div`
     min-height: 100px;
     padding: 8px 0 0 8px;
     justify-content: space-between;
-    visibility: hidden;
-    ${Dashboard}:hover & {
-        visibility: visible;
-    }
 `;
 
 export const PriorityImage = styled.img`
@@ -204,27 +200,14 @@ export const PriorityImage = styled.img`
     height: 15px;
 `;
 
+export const CommentContainer = styled.div`
+    display: ${p => (p.visible ? 'block' : 'none')};
+`;
+
 export const IconButton = styled(_IconButton)`
     border-radius: 40%;
-    // padding: 4px;
-    // display: block;
-    
-    ${Dashboard}:hover & {
-        display: none;
-    }
-    ${addTaskContainer}:hover & {
-        display: block;
-    }
 `;
 
 export const Done = styled(_Done)`
     color: green;
-    // display: block;
-    
-    ${Dashboard}:hover & {
-        display: none;
-    }
-    ${addTaskContainer}:hover & {
-        display: block;
-    }
 `;

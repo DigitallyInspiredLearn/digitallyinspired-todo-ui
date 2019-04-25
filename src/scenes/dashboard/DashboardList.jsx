@@ -6,7 +6,7 @@ import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import { Alert } from '../../components/dialog/Alert';
-import {DropDownMaterial} from "../../components/dropDown/DropDownMaterial";
+import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
 
 class DashboardList extends Component {
     constructor(props) {
