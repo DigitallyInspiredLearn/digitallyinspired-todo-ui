@@ -20,7 +20,7 @@ import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
 import settings from '../../image/settings.svg';
 import exit from '../../image/exit.svg';
-import HeaderToolbar from '../dashboard/heaaderToolbar/HeaderToolbarContainer';
+import HeaderToolbar from '../dashboard/headerToolbar/HeaderToolbarContainer';
 
 const styles = () => ({
     typography: {
