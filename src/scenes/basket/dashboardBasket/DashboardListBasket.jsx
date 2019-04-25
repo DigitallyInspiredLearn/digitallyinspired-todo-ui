@@ -52,7 +52,7 @@ class DashboardListBasket extends Component {
                             type="text"
                             placeholder="Enter dashboard title"
                             value="Basket page"
-                            style={{color: 'black', fontWeight: '400', pointerEvents: 'none', cursor: 'initial',}}
+                            style={{color: `${p => p.theme.buttonText} !important`, fontWeight: '400', pointerEvents: 'none', cursor: 'initial',}}
                         />
                     </styledList.inputBlock>
                     <styled.DashboardList>

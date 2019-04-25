@@ -69,7 +69,6 @@ class DashboardList extends Component {
             sort,
             errorMessage,
         } = this.props;
-        console.log(errorMessage);
         const { alignment, visible } = this.state;
         return ([
             <Alert

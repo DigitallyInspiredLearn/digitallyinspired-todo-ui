@@ -218,7 +218,6 @@ export class Dashboard extends Component {
                                                     Modyfied time: {new Date(modifiedDate).toLocaleString()}<br />
                                                     Comment: {comment || 'not written yet'}
                                                 </p>
-
                                                 <IconButton
                                                     href=""
                                                     aria-label="info"
