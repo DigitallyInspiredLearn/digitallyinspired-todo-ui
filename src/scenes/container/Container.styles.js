@@ -31,7 +31,6 @@ export const Logo = styled.svg`
     width: 48px;
     height: 48px;
     fill: ${ p => p.theme.textHeader };
-    cursor: pointer;
 `;
 
 export const Line = styled.div`

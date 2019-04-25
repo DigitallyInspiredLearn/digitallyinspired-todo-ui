@@ -145,7 +145,6 @@ class OneList extends Component {
         const {
             match, actions, data, actionsBoard, done, notDone, tasks, classes, tagTaskKeys, tags,
         } = this.props;
-
         return (
             <styled.List>
                 <styled.inputBlock>
@@ -193,7 +192,6 @@ class OneList extends Component {
                                 })}
                             />
                             <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-
                             <styledDashboard.ToggleButtonGroup
                                 style={{
                                     backgroundColor: 'white',
@@ -402,7 +400,23 @@ class OneList extends Component {
                     <styled.DetailsList
                         visibleInfo={visibleInfoList}
                     >
-
+                        <Tooltip title="Created time">
+                            <styled.ListCreateData>
+                                {new Date(data.createdDate).toLocaleString()}
+                            </styled.ListCreateData>
+                        </Tooltip>
+                        <styled.DetailTitle>
+                            List details
+                        </styled.DetailTitle>
+                        <styled.Create>
+                            Created by: {data.createdBy}
+                        </styled.Create>
+                        <styled.Create>
+                            Modified by: {data.modifiedBy}
+                        </styled.Create>
+                        <styled.Create>
+                            Modified time: {new Date(data.modifiedDate).toLocaleString()}
+                        </styled.Create>
                     </styled.DetailsList>
                 </styled.BlockInfoContent>
             </styled.List>
