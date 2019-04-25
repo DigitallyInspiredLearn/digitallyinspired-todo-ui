@@ -9,7 +9,7 @@ import * as styled from './AlertDialog.styles';
 export class Alert extends Component {
     render() {
         const {
-            visible, value, onClose,  onConfirm,
+            visible, value, onClose, onConfirm,
         } = this.props;
         return (
             <Dialog
@@ -23,10 +23,7 @@ export class Alert extends Component {
                     >
                         Dialog
                     </DialogTitle>
-                    <styled.Close
-                        style={{}}
-                        onClick={() => onClose()}
-                    />
+                    <styled.Close onClick={() => onClose()} />
                 </styled.Content>
                 <styled.DialogContentText style={ { margin: '8px 24px 16px 24px' } }>
                     { value }
@@ -34,7 +31,6 @@ export class Alert extends Component {
                 <DialogActions>
                     <Link to={`/auth`} >
                         <Button
-                            href=""
                             onClick={() => {
                                 onClose();
                                 onConfirm();

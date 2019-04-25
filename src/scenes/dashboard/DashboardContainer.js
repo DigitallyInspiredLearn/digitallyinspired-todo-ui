@@ -40,6 +40,7 @@ const mapDispatchToProps = dispatch => ({
         removeTagFromTask: actions.removeTagFromTask,
         updateComment: actions.updateComment,
         updateCommentSuccess: actions.updateCommentSuccess,
+        fetchErrors: actions.fetchErrors,
     }, dispatch),
 });
 

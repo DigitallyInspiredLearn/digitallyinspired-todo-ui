@@ -28,7 +28,7 @@ export const actions = {
 const initialState = {
     user: '',
     token: '',
-    errorMessage: ''
+    errorMessage: '',
 };
 
 export const getToken = state => state.auth;

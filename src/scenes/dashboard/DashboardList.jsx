@@ -38,8 +38,6 @@ class DashboardList extends Component {
         });
     };
 
-
-
     handleAlignment = () => {
         const { actions } = this.props;
         const { alignment } = this.state;
@@ -71,19 +69,16 @@ class DashboardList extends Component {
             sort,
             errorMessage,
         } = this.props;
+        console.log(errorMessage);
         const { alignment, visible } = this.state;
         return ([
-            // [<Alert
-            //     visible={errorMessage === '' ? visible : this.showAlert}
-            //     onClose={this.showAlert}
-            //     value={errorMessage}
-            // />,
+            <Alert
+                visible={errorMessage === '' ? visible : this.showAlert}
+                onClose={this.showAlert}
+                value={errorMessage}
+                onConfirm={() => actions.fetchErrors('')}
+            />,
                 <styled.App key="app">
-                    <Alert
-                        visible={visible}
-                        onClose={this.showAlert}
-                        value={errorMessage}
-                    />
                     <styled.Head>
                         <styled.SearchContent>
                             <InputLabel htmlFor="select-multiple-chip">Search:</InputLabel>
