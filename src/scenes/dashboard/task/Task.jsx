@@ -201,7 +201,7 @@ class Task extends Component {
                     <styled.NameAdnCheckedTask>
                         <Checkbox
                             checked={selected}
-                            onChange={() => (!shared ? this.handleSelectTask : null)}
+                            onChange={!shared ? this.handleSelectTask : null}
                         />
                         { this.setIcon(priority) }
                         <Input
@@ -225,47 +225,47 @@ class Task extends Component {
                                     }}
                                     >
                                         Tags: {
-                                        this.state.tags.length ?
-                                            this.state.tags.map(key => key.taskId === idTask
-                                            && (
-                                                <span
-                                                    key={key}
-                                                    style={{
-                                                        backgroundColor: key.tag.color,
-                                                        padding: '6px 8px',
-                                                        margin: '4px',
-                                                        borderRadius: '20px',
-                                                        opacity: 0.9,
-                                                    }}
-                                                >
-                                                    {key.tag.tagName}
+                                            this.state.tags.length
+                                                ? this.state.tags.map(key => key.taskId === idTask
+                                                && (
                                                     <span
+                                                        key={key}
                                                         style={{
-                                                            padding: ' 0 4px',
-                                                            marginLeft: '4px',
-                                                            opacity: 0.6,
-                                                            color: 'black',
-                                                            cursor: 'pointer',
+                                                            backgroundColor: key.tag.color,
+                                                            padding: '6px 8px',
+                                                            margin: '4px',
+                                                            borderRadius: '20px',
+                                                            opacity: 0.9,
                                                         }}
-                                                        onClick={() => {
-                                                            actions.removeTagFromTask({ idTag: key.tag.id, idTask });
-                                                            this.getTagsTaks();
-                                                        }}
-                                                    >x
+                                                    >
+                                                        {key.tag.tagName}
+                                                        <span
+                                                            style={{
+                                                                padding: ' 0 4px',
+                                                                marginLeft: '4px',
+                                                                opacity: 0.6,
+                                                                color: 'black',
+                                                                cursor: 'pointer',
+                                                            }}
+                                                            onClick={() => {
+                                                                actions.removeTagFromTask({ idTag: key.tag.id, idTask });
+                                                                this.getTagsTaks();
+                                                            }}
+                                                        >x
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            ))
-                                            : <span>not tags</span>
+                                                ))
+                                                : <span>   not tags yet</span>
                                         }
                                     </p>
                                     Completed Date: {selected ? new Date(completedDate).toLocaleString()
                                         : 'in process'}<br />
+                                    Duration time:
                                     {
-                                        (durationTime !== null && durationTime !== 0)
-                                            ? `Duration time: ${(moment.duration(durationTime).days())}d
+                                        selected ? ` ${(moment.duration(durationTime).days())}d
                                                 ${(moment.duration(durationTime).hours())}h
                                                 ${(moment.duration(durationTime).minutes())}m`
-                                            : null
+                                            : ' in process'
                                     }
                                 </div>
                                 <Info

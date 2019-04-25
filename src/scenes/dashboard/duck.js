@@ -154,14 +154,14 @@ export const getDashboard = state => state.dashboard;
 
 export function* fetchAllLists() {
     const {
-        viewList, pageSize, options, currentPage, sort, selectedTags,
+        viewList, pageSize, options, currentPage, sort, selectedTags, search,
     } = yield select(state => state.dashboard);
     const keys = (yield call(getTagTaskKeys, currentPage, options[pageSize], options[sort])).data;
     yield put(actions.fetchTagTaskKeysSuccess(keys));
     const stringTagsId = selectedTags.length ? selectedTags.map(tag => `&tagId=${tag.id}`).join('') : '&tagId=';
     const fetchRequest = viewList === 'my' ? getMyList : getSharedLists;
     const { data: { totalElements, totalPages, content } } =
-        yield call(fetchRequest, currentPage, options[pageSize], options[sort], 'ACTIVE', stringTagsId);
+        yield call(fetchRequest, currentPage, options[pageSize], options[sort], 'ACTIVE', stringTagsId, search);
     yield put(actions.fetchDashboardSuccess({
         toDoBoardRaw: viewList === 'my' ? content : content.map(l => ({ ...l, shared: true })),
         totalElements,
@@ -225,6 +225,7 @@ export function* deleteTask(action) {
 export function* addNewTask(action) {
     yield call(addTask, action.payload.idDashboard,
         { body: action.payload.nameTask, priority: action.payload.priority, isComplete: false });
+    
     yield call(fetchAllLists);
 }
 

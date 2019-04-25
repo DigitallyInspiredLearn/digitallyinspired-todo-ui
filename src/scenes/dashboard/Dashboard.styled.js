@@ -2,22 +2,13 @@ import styled from 'styled-components';
 import _IconButton from '@material-ui/core/IconButton';
 import _FormControl from '@material-ui/core/FormControl';
 import _Empty from '@material-ui/icons/ArrowUpward';
-
-export const IconButton = styled(_IconButton)`
-    border-radius: 40%;
-    padding: 4px;
-`;
+import _Done from '@material-ui/icons/CheckCircle';
 
 export const Empty = styled(_Empty)`
-     width: 15px;
-     height: 15px;
-     padding-left: 4px;
-     margin-left: 4px;
-`;
-
-export const FormControl = styled(_FormControl)`
-    margin-top: -10px;
-    margin-right: 80px;
+    width: 15px;
+    height: 15px;
+    padding-left: 4px;
+    margin-left: 4px;
 `;
 
 export const Dashboard = styled.section`
@@ -55,7 +46,7 @@ export const DashboardHeader = styled.div`
     flex-flow: row nowrap;
     justify-content: space-between;
     margin: 8px;
-    width: 100%
+    width: 100%;
 `;
 
 export const AllTagsContainer = styled.div`
@@ -79,11 +70,15 @@ export const AllTagsVisible = styled.div`
 `;
 
 export const IconContainer = styled.div`
+    visibility: hidden;
     width: auto;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     margin-right: 16px;
+    ${Dashboard}:hover & {
+        visibility: visible;
+    }
 `;
 
 export const Icon = styled.img`
@@ -156,6 +151,14 @@ export const TaskList = styled.div`
     margin-right: 8px;
 `;
 
+export const addTaskContainer = styled.div`
+    display: ${p => (p.visible ? 'flex' : 'none')};
+    visibility: hidden;
+    ${Dashboard}:hover & {
+        visibility: visible;
+    }
+`;
+
 export const InputAddingTask = styled.input`
     display: flex;
     flex-direction: row;
@@ -163,7 +166,16 @@ export const InputAddingTask = styled.input`
     font-size: 16px;
     outline: none;
     margin: 8px;
-    width: 93%;
+    width: 90%;
+`;
+
+export const FormControl = styled(_FormControl)`
+    visibility: hidden;
+    ${addTaskContainer}:hover & {
+        visibility: visible;
+        margin-top: -10px;
+        margin-right: 80px;
+    }
 `;
 
 export const NullLenghtTask = styled.p`
@@ -177,19 +189,44 @@ export const Avatar = styled.img`
     height: 30px;
 `;
 
-export const addTaskContainer = styled.div`
-    display: ${p => (p.visible ? 'flex' : 'none')};
-`;
-
 export const Expand = styled.div`
     display: ${p => (p.visible ? 'flex' : 'none')};
     height: auto;
     min-height: 100px;
     padding: 8px 0 0 8px;
     justify-content: space-between;
+    visibility: hidden;
+    ${Dashboard}:hover & {
+        visibility: visible;
+    }
 `;
 
 export const PriorityImage = styled.img`
     width: 15%;
     height: 15px;
+`;
+
+export const IconButton = styled(_IconButton)`
+    border-radius: 40%;
+    // padding: 4px;
+    // display: block;
+    
+    ${Dashboard}:hover & {
+        display: none;
+    }
+    ${addTaskContainer}:hover & {
+        display: block;
+    }
+`;
+
+export const Done = styled(_Done)`
+    color: green;
+    // display: block;
+    
+    ${Dashboard}:hover & {
+        display: none;
+    }
+    ${addTaskContainer}:hover & {
+        display: block;
+    }
 `;

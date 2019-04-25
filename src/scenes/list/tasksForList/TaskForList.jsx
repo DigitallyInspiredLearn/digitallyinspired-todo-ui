@@ -245,10 +245,9 @@ class TaskForList extends Component {
 
                     <TableCell align="left" className={classes.duration}>
                         {
-                            (durationTime !== null && durationTime !== undefined)
-                                ? ` ${(moment.duration(durationTime).days())}d
+                            selected ? (` ${(moment.duration(durationTime).days())}d
                                     ${(moment.duration(durationTime).hours())}h
-                                    ${(moment.duration(durationTime).minutes())}m`
+                                    ${(moment.duration(durationTime).minutes())}m`)
                                 : 'in process'
                         }
                     </TableCell>

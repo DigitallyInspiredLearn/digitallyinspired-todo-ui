@@ -15,10 +15,11 @@ class DashboardList extends Component {
         super(props);
         this.state = {
             alignment: 'my',
+            searchValue: '',
         };
     }
 
-    componentWillMount = ({ actions } = this.props) => actions.initialize();
+    componentWillMount = ({ actions } = this.props) => actions.initialize('');
 
     componentWillUnmount = () => {
         const { actions } = this.props;
@@ -44,7 +45,9 @@ class DashboardList extends Component {
 
     handleChange = (newValue) => {
         const { actions } = this.props;
+        this.setState({ searchValue: newValue });
         actions.search(newValue);
+        actions.fetchDashboard();
     };
 
     render() {
@@ -60,7 +63,8 @@ class DashboardList extends Component {
             actionsBasket,
             sort,
         } = this.props;
-        const { alignment } = this.state;
+        const { alignment, searchValue } = this.state;
+        // console.log(this.props);
         return (
             [
                 <styled.App key="app">
@@ -69,7 +73,7 @@ class DashboardList extends Component {
                             <InputLabel htmlFor="select-multiple-chip">Search:</InputLabel>
                             <Search
                                 onChange={this.handleChange}
-                                value={search}
+                                value={searchValue}
                                 style={{
                                     width: '95%',
                                 }}

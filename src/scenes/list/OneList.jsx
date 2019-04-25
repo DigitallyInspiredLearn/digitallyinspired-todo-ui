@@ -309,7 +309,7 @@ class OneList extends Component {
                                                     <CustomTableCell align="left">Created date</CustomTableCell>
                                                     <CustomTableCell align="left">Completed date</CustomTableCell>
                                                     <CustomTableCell align="left">Duration time</CustomTableCell>
-                                                    <CustomTableCell align="center">Tags</CustomTableCell>
+                                                    <CustomTableCell align="left">Tags</CustomTableCell>
                                                     <CustomTableCell align="center" />
                                                 </TableRow>
                                             </TableHead>
