@@ -9,7 +9,7 @@ export const deleteTag = idTag => axios.delete(`/api/tags/${idTag}`);
 export const addTagToTask = (idTag, idTask) => axios.post(`/api/tags/${idTag}?taskId=${idTask}`);
 
 export const getTagTaskKeys = (page, size, sort) => (
-    axios.get(`api/tags/myTagTaskKeys?page=&size=&sort=${sort}&tagId=`)
+    axios.get(`api/tags/myTagTaskKeys?page=&size=&sort=${sort}&tagId=&searchQuery=`)
 );
 
 export const removeTagFromTask = (idTag, idTask) => (

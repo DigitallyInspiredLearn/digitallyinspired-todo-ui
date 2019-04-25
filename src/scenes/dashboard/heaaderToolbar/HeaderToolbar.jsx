@@ -12,12 +12,15 @@ class HeaderToolbar extends Component {
         this.state = {
             alignment: 'my',
             visibleFilters: false,
+            searchValue: '',
         };
     }
 
     handleChange = (newValue) => {
         const { actions } = this.props;
+        this.setState({ searchValue: newValue });
         actions.search(newValue);
+        actions.fetchDashboard();
     };
 
     closeSettings = () => {
@@ -34,7 +37,7 @@ class HeaderToolbar extends Component {
 
 
     render() {
-        const { alignment, visibleFilters } = this.state;
+        const { alignment, visibleFilters, searchValue } = this.state;
         const { actions, search, sort } = this.props;
         return (
             <styled.Head style={{ width: '30%' }}>
@@ -44,7 +47,7 @@ class HeaderToolbar extends Component {
                 >
                     <Search
                         onChange={this.handleChange}
-                        value={search}
+                        value={searchValue}
                         style={{
                             width: '98%',
                         }}

@@ -165,6 +165,7 @@ class OneList extends Component {
 
                     <Tooltip title="Info list">
                         <styled.Info
+                            // style={{ boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)', }}
                             onClick={this.showBlockListDetails}
                             alt="Info"
                         />
@@ -351,56 +352,7 @@ class OneList extends Component {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
-                            <Tooltip title="Comment" placement="top">
-                                <IconButton
-                                    aria-label="Comment"
-                                    onClick={this.toggleComment}
-                                >
-                                    <Comment />
-                                </IconButton>
-                            </Tooltip>
                         </styled.addTaskContainer>
-                        {/*<styled.Expand*/}
-                            {/*visible={stateComment}*/}
-                        {/*>*/}
-                            {/*<React.Fragment>*/}
-                                {/*{ (data.comment !== undefined && data.comment !== null) ? (*/}
-                                    {/*<TextField*/}
-                                        {/*onChange={this.handleUpdateComment}*/}
-                                        {/*defaultValue={data.comment}*/}
-                                        {/*multiline*/}
-                                        {/*autoFocus*/}
-                                        {/*rowsMax="8"*/}
-                                        {/*variant="outlined"*/}
-                                        {/*margin="normal"*/}
-                                        {/*placeholder="Type comment about this list"*/}
-                                        {/*style={{*/}
-                                            {/*width: '100%', fontWeight: 'bold',*/}
-                                        {/*}}*/}
-                                        {/*InputProps={{*/}
-                                            {/*style: {*/}
-                                                {/*height: '200px',*/}
-                                            {/*},*/}
-                                        {/*}}*/}
-                                    {/*/>*/}
-                                {/*) : null*/}
-                                {/*}*/}
-                            {/*</React.Fragment>*/}
-                            {/*<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>*/}
-                                {/*<IconButton*/}
-                                    {/*style={{ padding: '12px' }}*/}
-                                    {/*onClick={this.toggleComment}*/}
-                                {/*>*/}
-                                    {/*<Cancel style={{ color: 'red' }} />*/}
-                                {/*</IconButton>*/}
-                                {/*<IconButton*/}
-                                    {/*style={{ padding: '12px' }}*/}
-                                    {/*onClick={() => this.handleUpdate()}*/}
-                                {/*>*/}
-                                    {/*<Done style={{ color: 'green' }} />*/}
-                                {/*</IconButton>*/}
-                            {/*</div>*/}
-                        {/*</styled.Expand>*/}
                     </styled.blockTask>
                     <styled.DetailsList
                         visibleInfo={visibleInfoList}
@@ -423,9 +375,6 @@ class OneList extends Component {
                             Modified time: {new Date(data.modifiedDate).toLocaleString()}
                         </styled.Create>
                         <styled.BlockComment>
-                            {/*<styled.Create style={{ margin: '0' }}>*/}
-                                {/*Comment:*/}
-                            {/*</styled.Create>*/}
                             <styled.Expand
                                 visible={true}
                             >
