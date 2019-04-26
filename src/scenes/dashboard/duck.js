@@ -154,6 +154,8 @@ export const reducer = handleActions({
 
 export const getDashboard = state => state.dashboard;
 
+
+
 export function* fetchAllLists() {
     const {
         viewList, pageSize, options, currentPage, sort, selectedTags, search,
@@ -296,7 +298,7 @@ export function* removeTagFromTask(action) {
 export function* saga() {
     yield safeTakeLatest([INITIALIZE, REMOVE_TAG_FROM_TASK, ADD_TAG_TO_TASK], initialize);
     yield safeTakeEvery([
-        FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT, GET_SELECTED_TAGS, FETCH_TAGS, GET_SELECTED_TAGS,
+        FETCH_DASHBOARD, UPDATE_VIEW_LIST, CHANGE_SIZE, CHANGE_PAGINATION, CHANGE_SORT, FETCH_TAGS, GET_SELECTED_TAGS,
     ], fetchAllLists);
     yield safeTakeEvery(DELETE_DASHBOARD, deleteDashboard);
     yield safeTakeEvery(ADD_DASHBOARD, addList);
