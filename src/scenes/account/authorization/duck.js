@@ -58,7 +58,7 @@ export function* authorization(action) {
         history.replace('/lists');
     }
     catch (e) {
-        e.response.status === 401 ? (yield put(actions.fetchErrors('You are not authorized!'))) : null;
+        e.response.status === 401 ? (yield put(actions.fetchErrors('Data is not correct!'))) : null;
     }
 
 }

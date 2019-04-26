@@ -12,6 +12,7 @@ import * as styled from '../../components/dialog/AlertDialog.styles';
 import * as styles from './Popup.styles';
 
 export class Popup extends Component {
+
     handleChange = (newValue) => {
         const { actions } = this.props;
         actions.searchUser(newValue);
@@ -19,8 +20,9 @@ export class Popup extends Component {
 
     render() {
         const {
-            statePopup, closePopup, actions, actionsBoard, users, search, idList,
+            statePopup, closePopup, actions, actionsBoard, users, search, idList, errorMessage,
         } = this.props;
+        console.log(errorMessage);
         return (
             <Dialog
                 open={statePopup}
@@ -67,10 +69,9 @@ export class Popup extends Component {
                             const conformity = users.map(i => search !== i);
                             if (users[0] === 'User is not found!' || search === '' || conformity[0] === true) {
                                 alert('Data is not correct!');
-                            } else {
+                            }
+                            else {
                                 actionsBoard.shareList({ idList, userName: search });
-                                closePopup();
-                                actions.searchUser('');
                             }
                         }}
                         color="primary"

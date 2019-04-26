@@ -28,20 +28,19 @@ export class Alert extends Component {
                     { value }
                 </styled.DialogContentText>
                 <DialogActions>
-
-                    <Link to={`/auth`} >
-                        {
-                            !button ? (
-                                <Button
-                                    onClick={() => {
-                                        onClose();
-                                        onConfirm();
-                                    }}
-                                    color="primary"
-                                >
-                                    Ok
-                                </Button>
-                            ) : (
+                    {
+                        !button ? (
+                            <Button
+                                onClick={() => {
+                                    onClose();
+                                    onConfirm();
+                                }}
+                                color="primary"
+                            >
+                                Ok
+                            </Button>
+                        ) : (
+                            <Link to={`/auth`} >
                                 <Button
                                     onClick={() => {
                                         onClose();
@@ -51,9 +50,9 @@ export class Alert extends Component {
                                 >
                                     Back
                                 </Button>
-                            )
-                        }
-                    </Link>
+                            </Link>
+                        )
+                    }
                 </DialogActions>
             </Dialog>
         );
