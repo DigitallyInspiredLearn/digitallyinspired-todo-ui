@@ -13,21 +13,20 @@ import Container from './scenes/container/Container';
 
 const App = () => (
     <WebSocketContainer>
-    <Container>
-
-        <Switch>
-            <Route path="/lists/basket" component={DashboardListBasket} />
-            <Route path="/lists/account" component={Profile} />
-            <Route path="/lists/:id" component={OneList} />
-            <Route path="/lists" component={VisibleTodoList} />
-            <Route path="/auth" component={Authorization} />
-            <Route path="/reg" component={Registration} />
-            <Route path="/error404" component={PageError404} />
-            <Route path="/error500" component={PageError500} />
-            <Redirect to="/auth" />
-        </Switch>
-    </Container><WebSocketContainer/>
-
+        <Container>
+            <Switch>
+                <Route path="/lists/basket" component={DashboardListBasket} />
+                <Route path="/lists/account" component={Profile} />
+                <Route path="/lists/:id" component={OneList} />
+                <Route path="/lists" component={VisibleTodoList} />
+                <Route path="/auth" component={Authorization} />
+                <Route path="/reg" component={Registration} />
+                <Route path="/error404" component={PageError404} />
+                <Route path="/error500" component={PageError500} />
+                <Redirect to="/auth" />
+            </Switch>
+        </Container>
+    </WebSocketContainer>
 );
 
 export default App;

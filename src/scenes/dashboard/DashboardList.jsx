@@ -106,7 +106,6 @@ class DashboardList extends Component {
                 </div>
                 <VisibleSidebar />
             </styled.Footer>,
-                {/*<WebSocketContainer/>,*/}
         ]
         );
     }
