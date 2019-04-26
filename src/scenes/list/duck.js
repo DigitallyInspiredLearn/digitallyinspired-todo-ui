@@ -2,16 +2,12 @@ import { createAction, handleActions } from 'redux-actions';
 import {
     call, put, delay, select,
 } from 'redux-saga/effects';
-import { updateList, deleteList, getOneList } from '../../api/dashboard';
+import history from '../../config/history';
+import {updateList, getOneList, disableTodoList} from '../../api/dashboard';
 import { addTask, deleteTask, updateTask } from '../../api/task';
 import { safeTakeEvery, safeTakeLatest } from '../../helpers/saga';
 import {
-    getTagTaskKeys,
     getTags,
-    addTag as addTagAPI,
-    deleteTag as deleteTagAPI,
-    addTagToTask as addTagToTaskAPI,
-    removeTagFromTask as removeTagFromTaskAPI,
 } from '../../api/tag';
 
 export const FETCH_LIST = 'list/FETCH_LIST';
@@ -146,7 +142,8 @@ export function* addNewTask(action) {
 }
 
 export function* fetchDeleteList(action) {
-    yield call(deleteList, action.payload.idDashboard);
+    yield call(disableTodoList, action.payload.idDashboard);
+    history.push('/lists');
 }
 
 export function* fetchDeleteTask(action) {

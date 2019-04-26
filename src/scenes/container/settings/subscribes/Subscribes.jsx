@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import * as styled from './Subscribes.styles';
 import { InputLabel } from '../../../../components/dropDown/DropDown.styled';
 import Search from '../../../../components/search/Search';
-import { SearchContent } from '../../../dashboard/heaaderToolbar/HeaderToolbar.styled';
+import { SearchContent } from '../../../dashboard/headerToolbar/HeaderToolbar.styled';
 
 const styles = () => ({
     root: {

@@ -60,7 +60,6 @@ class Authorization extends Component {
         const { actions, errorMessage } = this.props;
         const { password, login, visible } = this.state;
         return (
-
             <styled.Content>
                 {
                     errorMessage !== '' ? (
@@ -75,7 +74,7 @@ class Authorization extends Component {
                 }
 
                 <styled.NavigationForm>
-                    <styled.Form action="" method="post">
+                        <styled.Form action="" method="post">
                         <styled.Title>Sign in</styled.Title>
                         <styled.EnterInformation>
                             <styled.Input
@@ -103,7 +102,7 @@ class Authorization extends Component {
                         >ENTER
                         </styled.SuccessButton>
                     </styled.Form>
-                    <styled.HrefButton>
+                        <styled.HrefButton>
                         <Link to="/reg">
                             <Button
                                 value="Registration"
@@ -118,7 +117,7 @@ class Authorization extends Component {
                             />
                         </Link>
                     </styled.HrefButton>
-                </styled.NavigationForm>
+                    </styled.NavigationForm>
             </styled.Content>
         );
     }

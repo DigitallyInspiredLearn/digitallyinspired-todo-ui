@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Keyboard from '@material-ui/icons/KeyboardTab';
 import Comment from '@material-ui/icons/Comment';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -27,11 +28,10 @@ import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
 import * as styledHeaderToolbar
-    from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
+    from '../dashboard/headerToolbar/HeaderToolbar.styled';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import pdf from '../../image/pdf-file.svg';
 
 const CustomTableCell = withStyles(() => ({
     head: {
@@ -100,9 +100,9 @@ class OneList extends Component {
     };
 
     toggleComment = () => {
-        const { stateComment } = this.state;
+        const { visibleButton } = this.state;
         this.setState({
-            stateComment: !stateComment,
+            visibleButton: !visibleButton,
         });
     };
 
@@ -114,7 +114,7 @@ class OneList extends Component {
         const { actions, data } = this.props;
         const { newComment } = this.state;
         actions.updateComment({ id: data.id, newComment });
-        this.showButton();
+        this.toggleComment();
     };
 
     handleChangePriority = (e) => {
@@ -136,12 +136,10 @@ class OneList extends Component {
     };
 
     showButton = () => {
-        const { visibleButton } = this.state;
         this.setState({
-            visibleButton: !visibleButton,
+            visibleButton: true,
         });
     };
-
 
     render() {
         const {
@@ -162,15 +160,22 @@ class OneList extends Component {
                         defaultValue={data.todoListName}
                         onChange={e => actions.updateTitleList({ idDashboard: data.id, newTitle: e.target.value })}
                     />
-
-                    <Tooltip title="Info list">
-                        <styled.Info
-                            // style={{ boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)', }}
-                            onClick={this.showBlockListDetails}
-                            alt="Info"
-                        />
-                    </Tooltip>
-                    <Link to="/lists">
+                    {
+                        visibleInfoList ? (
+                            <Tooltip title="Hide detail information">
+                                <styled.Info
+                                    onClick={this.showBlockListDetails}
+                                    alt="Info"
+                                />
+                            </Tooltip>
+                        ) : (
+                            <Tooltip title="Show detail information">
+                            <styled.InfoOutlined
+                                onClick={this.showBlockListDetails}
+                                alt="Info"
+                            />
+                        </Tooltip>)
+                    }
                         <Tooltip title="Delete list">
                             <DeleteOutline
                                 style={{ height: '50px', width: '35px', color: 'black' }}
@@ -178,67 +183,16 @@ class OneList extends Component {
                                 alt="Delete this list"
                             />
                         </Tooltip>
-                    </Link>
-                    <AlertDialog
-                        visible={visible}
-                        onClose={this.showAlertDialog}
-                        value="Do you want to delete this list?"
-                        onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
-                    />
+                        <AlertDialog
+                            visible={visible}
+                            onClose={this.showAlertDialog}
+                            value="Do you want to delete this list?"
+                            onConfirm={() => actions.deleteList({ idDashboard: match.params.id })}
+                        />
                 </styled.inputBlock>
                 <styled.BlockInfoContent>
                     <styled.blockTask>
-                        <styled.inputDiv>
-                            <styled.searchToDo
-                                type="text"
-                                placeholder="Search to-do"
-                                onChange={e => actions.changeSearch({
-                                    idDashboard: match.params.id,
-                                    search: e.target.value,
-                                })}
-                            />
-                            <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-                            <styledHeaderToolbar.ToggleButtonGroup
-                                style={{
-                                    backgroundColor: 'white',
-                                    boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
-                                    borderBottom: '1px solid grey',
-                                    margin: '6px 0 4px 8px',
-                                    borderRadius: '4px',
-                                }}
-                                value={alignment}
-                                onChange={this.handleFormat}
-                            >
-                                <styledHeaderToolbar.ToggleButton
-                                    style={{
-                                        color: 'black',
-                                        height: '52px',
-                                        display: 'flex',
-                                        alignSelf: 'center',
-                                        borderRight: '1px solid lightgrey',
-                                    }}
-                                    onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
-                                    value="done"
-                                >
-                                    done
-                                </styledHeaderToolbar.ToggleButton>
-                                <styledHeaderToolbar.ToggleButton
-                                    style={{
-                                        color: 'black',
-                                        height: '52px',
-                                        display: 'flex',
-                                        alignSelf: 'center',
-                                    }}
-                                    onClick={() => actions.selectedNotDoneAction({
-                                        notDone,
-                                        idList: match.params.id,
-                                    })}
-                                    value="notDone"
-                                >
-                                    not done
-                                </styledHeaderToolbar.ToggleButton>
-                            </styledHeaderToolbar.ToggleButtonGroup>
-                        </styled.inputDiv>
+
                         {
                             tasks.length === 0
                                 ? (
@@ -407,7 +361,7 @@ class OneList extends Component {
                                     }}>
                                     <IconButton
                                         style={{ padding: '4px' }}
-                                        onClick={this.showButton}
+                                        onClick={this.toggleComment}
                                     >
                                         <Cancel style={{ color: 'red' }} />
                                     </IconButton>
@@ -417,6 +371,21 @@ class OneList extends Component {
                                     >
                                         <Done style={{ color: 'green' }} />
                                     </IconButton>
+                                </div>
+                                <div
+                                    style={{
+                                        display: visibleButton ? 'none' : 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'flex-end'
+                                    }}>
+                                    <Tooltip title="Hide detail information">
+                                        <IconButton
+                                            style={{ padding: '4px' }}
+                                            onClick={this.showBlockListDetails}
+                                        >
+                                            <Keyboard />
+                                        </IconButton>
+                                    </Tooltip>
                                 </div>
                             </styled.Expand>
                         </styled.BlockComment>

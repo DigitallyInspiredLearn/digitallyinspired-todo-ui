@@ -4,7 +4,6 @@ import {
 } from 'redux-saga/effects';
 import {
     getMyList,
-
     addDashboard,
     updateList,
     getSharedLists,
@@ -242,7 +241,7 @@ export function* shareList(action) {
     try {
         yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
         yield call(fetchAllLists);
-        // alert('Successfully shared!');
+        yield put(actions.fetchErrors('Successfully shared!'));
     } catch (e) {
         e.response.status === 409 ?
             (yield put(actions.fetchErrors('This list is already shared with the selected user!'))) : null;
@@ -266,13 +265,8 @@ export function* fetchTags() {
 }
 
 export function* initialize() {
-    try {
         yield call(fetchTags);
         yield call(fetchAllLists);
-    }
-    catch (e) {
-        e.response.status === 401 ? (yield put(actions.fetchErrors('You are not authorized!'))) : null;
-    }
 }
 
 export function* addTag(action) {

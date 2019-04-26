@@ -6,12 +6,14 @@ import _MenuItem from '@material-ui/core/MenuItem';
 export const Select = styled(_Select)`
     color: black;
     border: none;
-    width: 80%;
-    margin: 6px 8px 6px 8px;
+    display: flex;
+    width: 75%;
+    margin: 6px 8px 6px 0;
     background-color: white;
     border-radius: 4px;
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);
     padding: 8px;
+    
 `;
 
 export const MenuItem = styled(_MenuItem)`

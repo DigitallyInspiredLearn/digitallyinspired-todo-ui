@@ -7,6 +7,7 @@ import * as styled from './DashboardList.styles';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import { Alert } from '../../components/dialog/Alert';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
+import WebSocketContainer from '../../WebSocketContainer';
 
 class DashboardList extends Component {
     constructor(props) {
@@ -42,48 +43,55 @@ class DashboardList extends Component {
             actionsBasket,
             errorMessage,
         } = this.props;
-        const { visible } = this.state;
+
         return ([
-            <Alert
-                visible={errorMessage === '' ? visible : this.showAlert}
-                onClose={this.showAlert}
-                value={errorMessage}
-                onConfirm={() => actions.fetchErrors('')}
-                button="back"
-            />,
             <styled.App key="app">
-                <styled.DashboardList>
-                    {
-                        toDoBoard.length === 0
-                            ? (
-                                <styled.NullLenghtDashboards>
-                                        You don't have to-do yet. Plan your tasks with DI To-do! Press to +
-                                </styled.NullLenghtDashboards>
-                            )
-                            : toDoBoard.map(i => (
-                                <Dashboard
-                                    userOwnerId={i.userOwnerId}
-                                    idList={i.id}
-                                    key={i.id}
-                                    title={i.todoListName}
-                                    tasks={i.tasks}
-                                    toDoBoard={toDoBoard}
-                                    actions={actions}
-                                    actionsBasket={actionsBasket}
-                                    shared={i.shared}
-                                    createdBy={i.createdBy}
-                                    modifiedBy={i.modifiedBy}
-                                    createdDate={i.createdDate}
-                                    modifiedDate={i.modifiedDate}
-                                    currentUser={currentUser}
-                                    allTags={tags}
-                                    todoListStatus={i.todoListStatus}
-                                    comment={i.comment}
-                                    tagTaskKeys={tagTaskKeys}
-                                />
-                            ))
-                    }
-                </styled.DashboardList>
+                {
+                    errorMessage === '' ? (
+                        <styled.DashboardList>
+                            {
+                                toDoBoard.length === 0
+                                    ? (
+                                        <styled.NullLenghtDashboards>
+                                            You don't have to-do yet. Plan your tasks with DI To-do! Press to +
+                                        </styled.NullLenghtDashboards>
+                                    )
+                                    : toDoBoard.map(i => (
+                                        <Dashboard
+                                            userOwnerId={i.userOwnerId}
+                                            idList={i.id}
+                                            key={i.id}
+                                            title={i.todoListName}
+                                            tasks={i.tasks}
+                                            toDoBoard={toDoBoard}
+                                            actions={actions}
+                                            actionsBasket={actionsBasket}
+                                            shared={i.shared}
+                                            createdBy={i.createdBy}
+                                            modifiedBy={i.modifiedBy}
+                                            createdDate={i.createdDate}
+                                            modifiedDate={i.modifiedDate}
+                                            currentUser={currentUser}
+                                            allTags={tags}
+                                            todoListStatus={i.todoListStatus}
+                                            comment={i.comment}
+                                            tagTaskKeys={tagTaskKeys}
+                                        />
+                                    ))
+                            }
+                        </styled.DashboardList>
+                    ) : (
+                        <Alert
+                            visible={errorMessage === '' ? visible : this.showAlert}
+                            onClose={this.showAlert}
+                            value={errorMessage}
+                            onConfirm={() => {
+                                actions.fetchErrors('');
+                            }}
+                            button=""
+                        />
+                    )
+                }
             </styled.App>,
             <styled.Footer key="footer">
                 <div style={{ display: 'flex' }}>
@@ -99,7 +107,7 @@ class DashboardList extends Component {
                         />
                     </styled.Pagination>
                     <DropDownMaterial
-                        style={{ width: '150px', height: '41px', marginTop: '8px' }}
+                        style={{ width: '150px', height: '42px', marginTop: '8px' }}
                         styleLabel={{ fontSize: '10px' }}
                         value={[
                             '6/page',

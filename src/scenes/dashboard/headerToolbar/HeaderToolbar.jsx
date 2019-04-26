@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import * as styled from './HeaderToolbar.styled';
 import { InputLabel } from '../../../components/dropDown/DropDown.styled';
 import Search from '../../../components/search/Search';
@@ -67,7 +66,7 @@ class HeaderToolbar extends Component {
                     }}
                 >
                     <DropDownMaterial
-                        label="Sorting: "
+                        label="Sort: "
                         styleLabel={{
                             paddingTop: '16px', color: 'grey', width: '20%', paddingLeft: '8px', fontSize: '15px',
                         }}
@@ -85,6 +84,7 @@ class HeaderToolbar extends Component {
                             height: '40px',
                             marginTop: '12px',
                             marginRight: '12px',
+
                         }}
                         selectSorting={actions.changeSort}
                         defaultValue={sort}
@@ -147,9 +147,5 @@ class HeaderToolbar extends Component {
         );
     }
 }
-
-HeaderToolbar.propTypes = {
-    children: PropTypes.node.isRequired,
-};
 
 export default HeaderToolbar;

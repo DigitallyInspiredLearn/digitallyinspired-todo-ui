@@ -7,32 +7,38 @@ import IconButton from '@material-ui/core/IconButton/index';
 import CloseIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import Snackbar from '@material-ui/core/Snackbar/index';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actions } from './scenes/container/settings/profile/duck';
 
+const socket = new SockJS('http://localhost:8080/ws');
 class WebSocketContainer extends Component {
     constructor(props) {
         super(props);
-        const { currentUser } = props;
+        const { user } = props;
         this.state = {
             message: '',
             open: false,
         };
-
         let stompClient = null;
         const headers = {
             Accept: '*/*',
             'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Origin': true,
         };
-        const socket = new SockJS('http://localhost:8080/ws');
+
+        console.log(user);
         stompClient = Stomp.over(socket);
 
         stompClient.connect(headers, () => {
             const { open } = this.state;
-            stompClient.subscribe(`/${currentUser}`, (notification) => {
+            stompClient.subscribe(`/${user}`, (notification) => {
                 this.setState({ message: notification.body, open: !open });
             });
         });
     }
+
+
+    // componentWillUnmount() {Stomp.over(socket).disconnect(()=>{},{});}
 
     handleClose = () => this.setState({ open: false });
 
@@ -44,7 +50,7 @@ class WebSocketContainer extends Component {
                 { children }
                 <Snackbar
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    style={{ margin: ' 0 -12px -16px 0' }}
+                    style={{ margin: ' 0 -12px -16px 0', zIndex: 100 }}
                     open={open}
                     onClose={this.handleClose}
                     ContentProps={{
@@ -77,16 +83,21 @@ class WebSocketContainer extends Component {
 
 WebSocketContainer.propTypes = {
     // children: PropTypes.object.isRequired,
-    currentUser: PropTypes.string,
+    user: PropTypes.string,
 };
 
 WebSocketContainer.defaultProps = {
-    // children: {},
-    currentUser: '',
+    user: '',
 };
 
 const mapStateToProps = state => ({
-    currentUser: state.auth.user,
+    user: state.auth.user,
 });
 
-export default connect(mapStateToProps)(WebSocketContainer);
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({
+        fetchCurrentUser: actions.fetchCurrentUser,
+    }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WebSocketContainer);

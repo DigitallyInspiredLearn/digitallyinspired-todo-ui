@@ -90,12 +90,14 @@ export const Icon = styled.img`
 
 export const IconInfo = styled.div`
     position: relative;
+     
     p{
         border-radius: 8px;
         display: none;
         padding: 8px;
     }
     &:hover p{
+     z-index: 20;
         display: block;
         position: absolute;
         top: 10px;
