@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => ({
         deleteTag: actions.deleteTag,
         visiblePopap: actions.visiblePopap,
         getSelectedTags: actions.getSelectedTags,
+        initialize: actions.initialize,
     }, dispatch),
 });
 
