@@ -46,38 +46,51 @@ class DashboardList extends Component {
 
         return ([
             <styled.App key="app">
-                <styled.DashboardList>
-                    {
-                        toDoBoard.length === 0
-                            ? (
-                                <styled.NullLenghtDashboards>
-                                        You don't have to-do yet. Plan your tasks with DI To-do! Press to +
-                                </styled.NullLenghtDashboards>
-                            )
-                            : toDoBoard.map(i => (
-                                <Dashboard
-                                    userOwnerId={i.userOwnerId}
-                                    idList={i.id}
-                                    key={i.id}
-                                    title={i.todoListName}
-                                    tasks={i.tasks}
-                                    toDoBoard={toDoBoard}
-                                    actions={actions}
-                                    actionsBasket={actionsBasket}
-                                    shared={i.shared}
-                                    createdBy={i.createdBy}
-                                    modifiedBy={i.modifiedBy}
-                                    createdDate={i.createdDate}
-                                    modifiedDate={i.modifiedDate}
-                                    currentUser={currentUser}
-                                    allTags={tags}
-                                    todoListStatus={i.todoListStatus}
-                                    comment={i.comment}
-                                    tagTaskKeys={tagTaskKeys}
-                                />
-                            ))
-                    }
-                </styled.DashboardList>
+                {
+                    errorMessage === '' ? (
+                        <styled.DashboardList>
+                            {
+                                toDoBoard.length === 0
+                                    ? (
+                                        <styled.NullLenghtDashboards>
+                                            You don't have to-do yet. Plan your tasks with DI To-do! Press to +
+                                        </styled.NullLenghtDashboards>
+                                    )
+                                    : toDoBoard.map(i => (
+                                        <Dashboard
+                                            userOwnerId={i.userOwnerId}
+                                            idList={i.id}
+                                            key={i.id}
+                                            title={i.todoListName}
+                                            tasks={i.tasks}
+                                            toDoBoard={toDoBoard}
+                                            actions={actions}
+                                            actionsBasket={actionsBasket}
+                                            shared={i.shared}
+                                            createdBy={i.createdBy}
+                                            modifiedBy={i.modifiedBy}
+                                            createdDate={i.createdDate}
+                                            modifiedDate={i.modifiedDate}
+                                            currentUser={currentUser}
+                                            allTags={tags}
+                                            todoListStatus={i.todoListStatus}
+                                            comment={i.comment}
+                                            tagTaskKeys={tagTaskKeys}
+                                        />
+                                    ))
+                            }
+                        </styled.DashboardList>
+                    ) : (
+                        <Alert
+                        visible={errorMessage === '' ? visible : this.showAlert }
+                        onClose={this.showAlert}
+                        value={errorMessage}
+                        onConfirm={() => {
+                            actions.fetchErrors('');
+                        }}
+                        button=""
+                    />)
+                }
             </styled.App>,
             <styled.Footer key="footer">
                 <div style={{ display: 'flex' }}>

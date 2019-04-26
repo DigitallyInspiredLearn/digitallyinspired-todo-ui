@@ -23,6 +23,7 @@ const mapStateToProps = state => (
         users: getUsers(state),
         search: state.popup.search,
         currentUserName: state.popup.data.currentUserName,
+        errorMessage: state.dashboard.errorMessage,
     }
 );
 
@@ -32,6 +33,7 @@ const mapDispatchToProps = dispatch => ({
     }, dispatch),
     actionsBoard: bindActionCreators({
         shareList: actionsBoard.shareList,
+        fetchErrors: actionsBoard.fetchErrors,
     }, dispatch),
 
 });

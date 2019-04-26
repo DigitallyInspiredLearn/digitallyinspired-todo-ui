@@ -241,7 +241,7 @@ export function* shareList(action) {
     try {
         yield call(shareTodoListToUser, action.payload.idList, action.payload.userName);
         yield call(fetchAllLists);
-        // alert('Successfully shared!');
+        yield put(actions.fetchErrors('Successfully shared!'));
     } catch (e) {
         e.response.status === 409 ?
             (yield put(actions.fetchErrors('This list is already shared with the selected user!'))) : null;
