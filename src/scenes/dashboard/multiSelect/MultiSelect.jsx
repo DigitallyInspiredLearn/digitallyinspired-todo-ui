@@ -70,7 +70,7 @@ class MultiSelect extends Component {
                                             <NameTag style={{ backgroundColor: tag.color }}>
                                                 {tag.tagName}
                                                 <DeleteTag key={tag.id} onClick={() => actions.deleteTag({ id: tag.id })}>
-                                                x
+                                                    x
                                                 </DeleteTag>
                                             </NameTag>
                                         </Tag>
@@ -82,16 +82,15 @@ class MultiSelect extends Component {
                                     </MenuItem>
                                 )
                         }
+
                     </Select>
                     <Button
                         style={{ height: '30px', background: 'rgba(0, 0, 0, 0.2)', color: 'black' }}
                         key="+ tag"
                         className={classes.addButton}
-                        onClick={() => { actions.visiblePopap(); }}
+                        onClick={() => {actions.visiblePopap()}}
                     >
-
-
-                    add tag
+                        add tag
                     </Button>
                 </div>
             </div>,

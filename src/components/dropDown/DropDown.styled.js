@@ -7,7 +7,7 @@ export const Select = styled(_Select)`
     color: black;
     border: none;
     display: flex;
-    flex: auto;
+    width: 75%;
     margin: 6px 8px 6px 0;
     background-color: white;
     border-radius: 4px;
