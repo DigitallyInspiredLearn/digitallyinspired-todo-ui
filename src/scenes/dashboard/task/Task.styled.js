@@ -74,6 +74,8 @@ export const IconInfo = styled.div`
         border-radius: 8px;
     }
     &:hover div{
+   
+     z-index: 20;
     border-radius: 8px 0 8px 8px;
     max-height: 100px;
     height: auto;

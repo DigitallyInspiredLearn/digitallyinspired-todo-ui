@@ -102,10 +102,10 @@ export const ShowButton = styled.div`
 export const DashboardList = styled('main')`
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-content: flex-start;
     flex: auto;
-    margin: -8px 0px;
+    margin: 8px ;
     padding-bottom: 8px;
     height: 100vh;
     @media (max-width: 600px) {

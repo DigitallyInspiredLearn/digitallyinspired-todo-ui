@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import * as styledHeaderToolbar from '../../dashboard/headerToolbar/HeaderToolbar.styled';
-import * as styled from './HeaderToolbarOL.styled';
 import { InputLabel } from '../../../components/dropDown/DropDown.styled';
 import Search from '../../../components/search/Search';
 
@@ -66,7 +64,7 @@ class HeaderToolbarOL extends Component {
                 >
                     <styledHeaderToolbar.CheckboxDiv
                         style={{
-                            padding: 0, margin: 0, display: 'flex', alignItems: 'center', flexDirection: 'row', padding: '12px',
+                            margin: 0, display: 'flex', alignItems: 'center', flexDirection: 'row', padding: '12px',
                         }}
                     >
                         <InputLabel
