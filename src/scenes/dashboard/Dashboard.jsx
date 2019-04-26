@@ -362,7 +362,7 @@ export class Dashboard extends Component {
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
-                                            }), this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
+                                            }), this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED', newTaskEdited: false })
                                             
                                             ))
                                         }

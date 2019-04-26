@@ -200,6 +200,7 @@ class Task extends Component {
                 >
                     <styled.NameAdnCheckedTask>
                         <Checkbox
+                            style={{ marginLeft: shared ? '8px' : '1px' }}
                             checked={selected}
                             onChange={!shared ? this.handleSelectTask : null}
                         />

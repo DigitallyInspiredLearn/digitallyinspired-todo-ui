@@ -107,7 +107,7 @@ class DashboardList extends Component {
                         />
                     </styled.Pagination>
                     <DropDownMaterial
-                        style={{ width: '150px', height: '42px', marginTop: '8px' }}
+                        style={{ width: '150px', height: '41px', marginTop: '8px' }}
                         styleLabel={{ fontSize: '10px' }}
                         value={[
                             '6/page',
