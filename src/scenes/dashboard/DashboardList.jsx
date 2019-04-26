@@ -7,7 +7,7 @@ import * as styled from './DashboardList.styles';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import { Alert } from '../../components/dialog/Alert';
 import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
-import WebSocketContainer from "../../WebSocketContainer";
+import WebSocketContainer from '../../WebSocketContainer';
 
 class DashboardList extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
-
+            errorMessage,
         } = this.props;
 
         return ([
@@ -82,14 +82,15 @@ class DashboardList extends Component {
                         </styled.DashboardList>
                     ) : (
                         <Alert
-                        visible={errorMessage === '' ? visible : this.showAlert }
-                        onClose={this.showAlert}
-                        value={errorMessage}
-                        onConfirm={() => {
-                            actions.fetchErrors('');
-                        }}
-                        button=""
-                    />)
+                            visible={errorMessage === '' ? visible : this.showAlert}
+                            onClose={this.showAlert}
+                            value={errorMessage}
+                            onConfirm={() => {
+                                actions.fetchErrors('');
+                            }}
+                            button=""
+                        />
+                    )
                 }
             </styled.App>,
             <styled.Footer key="footer">
