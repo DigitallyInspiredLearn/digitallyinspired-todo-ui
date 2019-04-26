@@ -7,6 +7,7 @@ class Checkbox extends Component {
     static propTypes = {
         checked: PropTypes.bool,
         onChange: PropTypes.func,
+
     };
 
     static defaultProps = {
@@ -34,6 +35,7 @@ class Checkbox extends Component {
         return (
             <CheckboxStyle
                 selected={checked}
+                style={this.props.style}
                 onClick={this.handleClick}
             />
         );
