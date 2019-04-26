@@ -82,6 +82,7 @@ class MultiSelect extends Component {
                                     </MenuItem>
                                 )
                         }
+
                     </Select>
                     <Button
                         style={{ height: '30px', background: 'rgba(0, 0, 0, 0.2)', color: 'black' }}
