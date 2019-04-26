@@ -6,7 +6,8 @@ import { Dashboard } from './Dashboard';
 import * as styled from './DashboardList.styles';
 import VisibleSidebar from './sidebar/SidebarContainer';
 import { Alert } from '../../components/dialog/Alert';
-import {DropDownMaterial} from "../../components/dropDown/DropDownMaterial";
+import { DropDownMaterial } from '../../components/dropDown/DropDownMaterial';
+import WebSocketContainer from "../../WebSocketContainer";
 
 class DashboardList extends Component {
     constructor(props) {
@@ -92,7 +93,7 @@ class DashboardList extends Component {
                         />
                     </styled.Pagination>
                     <DropDownMaterial
-                        style={{ width: '150px', height: '42px', marginTop: '4px' }}
+                        style={{ width: '150px', height: '42px', marginTop: '8px' }}
                         styleLabel={{ fontSize: '10px' }}
                         value={[
                             '6/page',
@@ -105,6 +106,7 @@ class DashboardList extends Component {
                 </div>
                 <VisibleSidebar />
             </styled.Footer>,
+                {/*<WebSocketContainer/>,*/}
         ]
         );
     }

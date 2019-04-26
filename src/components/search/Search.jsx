@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
-import * as styled from './Search.styles';
 import Down from '@material-ui/icons/ArrowDropDown';
+import * as styled from './Search.styles';
 
 class Search extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Search extends Component {
         const { style, placeholder, value } = this.props;
 
         return (
-            <styled.SearchCont style={{ backgroundColor: 'whitesmoke'}}>
+            <styled.SearchCont style={{ backgroundColor: 'whitesmoke' }}>
                 <styled.SearchIcon style={{ fontSize: '20px', paddingRight: '4px' }} />
                 <Input
                     value={value}
@@ -29,7 +29,7 @@ class Search extends Component {
                     placeholder={placeholder}
                     style={style}
                 />
-              < Down style={{color: 'grey', paddingTop: '4px', cursor: 'pointer' }}/>
+                <Down style={{ color: 'grey', paddingTop: '4px', cursor: 'pointer' }} />
             </styled.SearchCont>
 
 

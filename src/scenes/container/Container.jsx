@@ -20,7 +20,8 @@ import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
 import settings from '../../image/settings.svg';
 import exit from '../../image/exit.svg';
-import HeaderToolbar from '../dashboard/heaaderToolbar/HeaderToolbarContainer';
+import HeaderToolbar from '../dashboard/headerToolbar/HeaderToolbarContainer';
+import HeaderToolbarOL from '../list/headerToolbar/HeaderToolbarOLContainer';
 
 const styles = () => ({
     typography: {
@@ -132,7 +133,7 @@ class Container extends Component {
                         <b>do</b>
                         <Switch>
                             <Route path="/lists/account" component={null} />
-                            <Route path="/lists/:id" component={null} />
+                            <Route path="/lists/:id" component={HeaderToolbarOL} />
                             <Route path="/lists" component={HeaderToolbar} />
                             <Route path="/lists/basket" component={null} />
                             <Route path="/auth" component={null} />

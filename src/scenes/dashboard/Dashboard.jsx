@@ -209,7 +209,7 @@ export class Dashboard extends Component {
                                                 state: { tags, tagTaskKeys }
                                             }}
                                         >
-                                            <styled.IconInfo>
+                                            <styled.IconInfo style={{zIndex: 4}}>
                                                 <p>
                                                     <b>Information about list "{title}":</b><br />
                                                     Created by: {createdBy}<br />
