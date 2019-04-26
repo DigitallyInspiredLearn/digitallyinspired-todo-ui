@@ -7,34 +7,18 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import { SearchContent } from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
-import { Alert } from '../../components/dialog/Alert';
 import Search from '../../components/search/Search';
 import * as styled from '../../components/dialog/AlertDialog.styles';
 import * as styles from './Popup.styles';
 
 export class Popup extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            visible: false,
-        };
-    }
     handleChange = (newValue) => {
         const { actions } = this.props;
         actions.searchUser(newValue);
     };
 
-    showAlert = () => {
-        const { visible } = this.state;
-        this.setState({
-            visible: !visible,
-        });
-        this.props.actionsBoard.fetchErrors('');
-    };
-
     render() {
-        const { visible } = this.state;
         const {
             statePopup, closePopup, actions, actionsBoard, users, search, idList, errorMessage,
         } = this.props;
@@ -88,30 +72,12 @@ export class Popup extends Component {
                             }
                             else {
                                 actionsBoard.shareList({ idList, userName: search });
-
-                                // if (errorMessage === '') {
-                                    closePopup();
-                                    actions.searchUser('');
-                                // }
-                            //     else {
-                            //         this.showAlert();
-                            //     }
                             }
                         }}
                         color="primary"
                     >
                         Enter
                     </Button>
-                    {/*<Alert*/}
-                        {/*visible={visible}*/}
-                        {/*onClose={this.showAlert}*/}
-                        {/*value={errorMessage}*/}
-                        {/*onConfirm={() => {*/}
-                            {/*actionsBoard.fetchErrors('');*/}
-                            {/*actions.searchUser('');*/}
-                        {/*}}*/}
-                        {/*button=""*/}
-                    {/*/>*/}
                     {
                         users.length === 1 && users[0] === search ? (<styles.users search="" />) : (
                             <styles.users search={search}>
