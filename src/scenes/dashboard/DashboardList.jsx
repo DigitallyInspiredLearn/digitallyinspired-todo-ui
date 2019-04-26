@@ -41,9 +41,9 @@ class DashboardList extends Component {
             tags,
             tagTaskKeys,
             actionsBasket,
-            errorMessage,
+
         } = this.props;
-        const { visible } = this.state;
+
         return ([
             <styled.App key="app">
                 <styled.DashboardList>
