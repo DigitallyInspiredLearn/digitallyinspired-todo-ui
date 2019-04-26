@@ -60,7 +60,6 @@ class Authorization extends Component {
         const { actions, errorMessage} = this.props;
         const { password, login, visible } = this.state;
         return (
-
                 <styled.Content>
                     {
                         errorMessage !== '' ? (
