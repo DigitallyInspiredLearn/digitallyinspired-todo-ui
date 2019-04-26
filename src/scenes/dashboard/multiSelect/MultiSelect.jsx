@@ -8,16 +8,16 @@ import {
     styles, MenuProps, Select, Button, MenuItem, DeleteTag, NameTag, Tag,
 } from './MultiSelect.styled';
 import { InputLabel } from '../../../components/dropDown/DropDown.styled';
+import {initialize} from "../duck";
 
 class MultiSelect extends Component {
     state = { selectTags: [] };
 
     handleChange = (event) => {
         const { actions: { getSelectedTags } } = this.props;
-        const { selectTags } = this.state;
         this.setState(
             { selectTags: event.target.value },
-            () => getSelectedTags(selectTags),
+            () => getSelectedTags(event.target.value),
         );
     };
 
