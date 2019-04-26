@@ -28,10 +28,6 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
 export const CLEAN = 'CLEAN';
 
-export const FETCH_TAGS = 'tags/FETCH_TAGS';
-export const FETCH_TAGS_SUCCESS = 'tags/FETCH_TAGS_SUCCESS';
-export const FETCH_TAG_TAKS_KEYS_SUCCESS = 'dashboard/FETCH_TAG_TAKS_KEYS_SUCCESS';
-
 export const actions = {
     fetchList: createAction(FETCH_LIST),
     fetchListSuccess: createAction(FETCH_LIST_SUCCESS),
@@ -49,9 +45,6 @@ export const actions = {
     mutateSuccess: createAction(MUTATE_SUCCESS),
     updateComment: createAction(UPDATE_COMMENT),
     updateCommentSuccess: createAction(UPDATE_COMMENT_SUCCESS),
-    fetchTags: createAction(FETCH_TAGS),
-    fetchTagsSuccess: createAction(FETCH_TAGS_SUCCESS),
-    fetchTagTaskKeysSuccess: createAction(FETCH_TAG_TAKS_KEYS_SUCCESS),
     clean: createAction(CLEAN),
 };
 
@@ -61,8 +54,6 @@ const initialState = {
     search: '',
     selectedDone: true,
     selectedNotDone: true,
-    tagTaskKeys: [],
-    tags: [],
 };
 
 export const getList = state => state.list;
@@ -103,14 +94,7 @@ export const reducer = handleActions({
     [SELECTED_NOT_DONE]: (state, action) => ({ ...state, selectedNotDone: !action.payload.notDone }),
     [CLEAN]: () => initialState,
 
-    [FETCH_TAG_TAKS_KEYS_SUCCESS]: (state, action) => ({ ...state, tagTaskKeys: action.payload }),
-    [FETCH_TAGS_SUCCESS]: (state, action) => ({ ...state, tags: action.payload }),
 }, initialState);
-
-export function* fetchTags() {
-    const tags = (yield call(getTags)).data;
-    yield put(actions.fetchTagsSuccess(tags));
-}
 
 export function* fetchList(action) {
     const r = yield call(getOneList, action.payload.idList);
@@ -118,7 +102,6 @@ export function* fetchList(action) {
         ...r.data,
         tasks: r.data.tasks,
     }));
-    yield call(fetchTags);
 }
 
 export function* updateTitle(action) {
@@ -191,5 +174,4 @@ export function* saga() {
     yield safeTakeLatest(UPDATE_TASK_LIST, fetchUpdateTask);
     yield safeTakeLatest(UPDATE_TITLE_LIST, updateTitle);
     yield safeTakeLatest(UPDATE_COMMENT_SUCCESS, updateComment);
-    yield safeTakeLatest(FETCH_TAGS, fetchTags);
 }

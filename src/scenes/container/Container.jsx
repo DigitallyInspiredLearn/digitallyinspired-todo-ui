@@ -16,6 +16,7 @@ import * as styledDialog from '../../components/dialog/AlertDialog.styles';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import { actions } from '../account/authorization/duck';
 import list from '../../image/list-menu.svg';
+import menu from '../../image/menu_vertical.svg';
 import account from '../../image/account.svg';
 import basket from '../../image/delete.svg';
 import settings from '../../image/settings.svg';
@@ -142,14 +143,16 @@ class Container extends Component {
                             <Route path="/error500" component={null} />
                             <Redirect to="/auth" />
                         </Switch>
-                        <styled.Icon
-                            src={list}
-                            alt="settings"
-                            onClick={this.handleClick}
-                            style={{
-                                display: iconVisible, width: '35px', height: '37px',
-                            }}
-                        />
+                        <Tooltip title="Menu">
+                            <styled.Icon
+                                src={menu}
+                                alt="settings"
+                                onClick={this.handleClick}
+                                style={{
+                                    display: iconVisible, width: '35px', height: '37px',
+                                }}
+                            />
+                        </Tooltip>
                         <Popover
                             id="simple-popper"
                             open={openPopover}

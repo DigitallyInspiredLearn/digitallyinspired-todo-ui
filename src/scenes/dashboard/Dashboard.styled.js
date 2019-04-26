@@ -3,6 +3,7 @@ import _IconButton from '@material-ui/core/IconButton';
 import _FormControl from '@material-ui/core/FormControl';
 import _Empty from '@material-ui/icons/ArrowUpward';
 import _Done from '@material-ui/icons/CheckCircle';
+import _Comment from '@material-ui/icons/Comment';
 
 export const Empty = styled(_Empty)`
     width: 15px;
@@ -153,10 +154,12 @@ export const TaskList = styled.div`
 
 export const addTaskContainer = styled.div`
     display: ${p => (p.visible ? 'flex' : 'none')};
-    visibility: hidden;
-    ${Dashboard}:hover & {
+    // display: flex;
+    //visibility: visible;
+
+    /* ${Dashboard}:hover & {
         visibility: visible;
-    }
+    } */
 `;
 
 export const InputAddingTask = styled.input`
@@ -170,12 +173,10 @@ export const InputAddingTask = styled.input`
 `;
 
 export const FormControl = styled(_FormControl)`
-    visibility: hidden;
-    ${addTaskContainer}:hover & {
-        visibility: visible;
-        margin-top: -10px;
-        margin-right: 80px;
-    }
+    margin-top: -10px;
+    margin-right: 80px;
+    visibility: visible;
+    // visibility: ${p => (p.visible ? 'visible' : 'hidden')};
 `;
 
 export const NullLenghtTask = styled.p`
@@ -195,10 +196,6 @@ export const Expand = styled.div`
     min-height: 100px;
     padding: 8px 0 0 8px;
     justify-content: space-between;
-    visibility: hidden;
-    ${Dashboard}:hover & {
-        visibility: visible;
-    }
 `;
 
 export const PriorityImage = styled.img`
@@ -206,27 +203,22 @@ export const PriorityImage = styled.img`
     height: 15px;
 `;
 
+export const CommentContainer = styled.div`
+    display: ${p => (p.visible ? 'block' : 'none')};
+`;
+
+export const DoneContainer = styled.div`
+    display: ${p => (p.visible ? 'block' : 'none')};
+`;
+
 export const IconButton = styled(_IconButton)`
     border-radius: 40%;
-    // padding: 4px;
-    // display: block;
-    
-    ${Dashboard}:hover & {
-        display: none;
-    }
-    ${addTaskContainer}:hover & {
-        display: block;
-    }
 `;
 
 export const Done = styled(_Done)`
     color: green;
-    // display: block;
-    
-    ${Dashboard}:hover & {
-        display: none;
-    }
-    ${addTaskContainer}:hover & {
-        display: block;
-    }
+`;
+
+export const Comment = styled(_Comment)`
+    display: ${p => (p.visible ? 'block' : 'none')};  
 `;

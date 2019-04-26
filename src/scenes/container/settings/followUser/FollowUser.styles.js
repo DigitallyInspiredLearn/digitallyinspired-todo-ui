@@ -64,4 +64,6 @@ export const SearchUserBtn = styled.div`
     color: ${p => p.theme.mainText};
     background-color: ${p => p.theme.background};
     box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+    user-select: none;
 `;
