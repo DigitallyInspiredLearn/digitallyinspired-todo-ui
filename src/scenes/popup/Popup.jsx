@@ -48,6 +48,7 @@ export class Popup extends Component {
                             width: '95%',
                         }}
                         placeholder="Enter username ..."
+                        visible
                     />
                 </SearchContent>
                 <DialogActions style={{ margin: '56px 8px 8px 8px' }}>

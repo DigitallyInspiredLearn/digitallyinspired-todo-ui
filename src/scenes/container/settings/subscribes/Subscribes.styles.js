@@ -4,7 +4,7 @@ export const Subscribes = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 50%;
+    height: 100%;
 `;
 
 export const Title = styled.div`
@@ -16,7 +16,7 @@ export const Title = styled.div`
 `;
 
 export const TableSubscribers = styled.table`
-    margin: 8px 12px 8px 8px;
+    margin: 8px 4px 8px 4px;
     border-radius: 5px;
     height: 100px;
     box-shadow: 0 0  4px 0  rgba(0,0,0,0.2);

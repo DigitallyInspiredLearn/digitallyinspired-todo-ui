@@ -68,23 +68,27 @@ export class Dashboard extends Component {
             visibleRestore: false,
             tags: props.allTags,
             tagTaskKeys: props.tagTaskKeys,
-            doneVisible: true,
+            priorityVisible: false,
+            doneVisible: false,
+            commentVisible: true,
+            addVisible: true,
         };
     }
 
     changeValueNewTask = e => this.setState({
         valueNewTask: e.target.value,
+        newTaskEdited: e.target.value !== '',
     });
 
     handlerOnBlur = (e) => {
         e.target.blur();
     };
 
-    toggleComment = (e) => {
-        const { stateComment } = this.state;
+    toggleComment = () => {
+        const { stateComment, addVisible } = this.state;
         this.setState({
             stateComment: !stateComment,
-            // newComment: e.target.value = '',
+            addVisible: !addVisible,
         });
     };
 
@@ -136,12 +140,37 @@ export class Dashboard extends Component {
     handleUpdateCommentSuccess = () => {
         const { actions, idList, title } = this.props;
         const { newComment } = this.state;
-        this.setState({ stateComment: !this.state.stateComment });
+        this.setState({ stateComment: !this.state.stateComment, addVisible: !this.state.addVisible });
         actions.updateComment({ id: idList, title, newComment });
     };
 
     handleChangePriority = (e) => {
         this.setState({ priority: e.target.value });
+    };
+
+    handleFocusAddTaskInput = () => {
+        console.log('focus!!!');
+        this.setState(state => ({
+            newTaskInputFocused: true,
+            priorityVisible: !state.priorityVisible,
+            commentVisible: !state.commentVisible,
+            doneVisible: !state.doneVisible,
+        }));
+    };
+
+    handleBlurAddTaskInput = () => {
+        this.setState({
+            newTaskInputFocused: false,
+        });
+    }
+
+    handleBlurAddTask = () => {
+        console.log('blur!!!');
+        this.setState(state => ({
+            priorityVisible: !state.priorityVisible,
+            commentVisible: !state.commentVisible,
+            doneVisible: !state.doneVisible,
+        }));
     };
 
     render() {
@@ -161,7 +190,8 @@ export class Dashboard extends Component {
             currentUser: { gravatarUrl },
         } = this.props;
         const {
-            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore, tags, tagTaskKeys, doneVisible,
+            valueNewTask, statePopup, stateComment, priority, visibleDelete, visibleRestore, tags,
+            tagTaskKeys, priorityVisible, doneVisible, commentVisible, newTaskEdited, newTaskInputFocused, addVisible,
         } = this.state;
 
         return ([
@@ -318,23 +348,30 @@ export class Dashboard extends Component {
                     todoListStatus === 'ACTIVE' && (
                         shared ? ''
                             : (
-                                <styled.addTaskContainer visible={!stateComment}>
+                                <styled.addTaskContainer
+                                    visible={addVisible}
+                                >
                                     <styled.InputAddingTask
                                         style={{ alignSelf: 'center' }}
                                         placeholder="Add to-do"
                                         value={valueNewTask}
                                         onChange={this.changeValueNewTask}
+                                        // onFocus={this.handleFocusAddTaskInput}
+                                        // onBlur={this.handleBlurAddTaskInput}
                                         onKeyPress={e => valueNewTask
                                         && (e.key === 'Enter'
                                             && (e.target.blur(), actions.addTask({
                                                 idDashboard: idList, nameTask: valueNewTask, priority,
                                             }), this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED' })
-
+                                            
                                             ))
                                         }
-                                        onBlur={e => e.target.blur()}
+                                        
                                     />
-                                    <styled.FormControl>
+                                    <styled.FormControl
+                                        // visible={newTaskEdited || newTaskInputFocused}
+                                        style={{ marginTop: -10, marginRight: 80 }}
+                                    >
                                         <InputLabel htmlFor="age-simple">Priority</InputLabel>
                                         <Select
                                             value={priority}
@@ -343,7 +380,7 @@ export class Dashboard extends Component {
                                                 name: 'age',
                                                 id: 'age-simple',
                                             }}
-                                            style={{ width: '190px' }}
+                                            style={{ maxWidth: '190px', width: '120px' }}
                                         >
                                             <MenuItem
                                                 value="NOT_SPECIFIED"
@@ -394,20 +431,32 @@ export class Dashboard extends Component {
                                             </MenuItem>
                                         </Select>
                                     </styled.FormControl>
-                                    <Tooltip title="Comment" placement="top">
-                                        <IconButton
-                                            href=""
-                                            aria-label="Comment"
-                                            onClick={this.toggleComment}
-                                        >
-                                            <Comment />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <styled.CommentContainer visible={doneVisible}>
-                                        <styled.IconButton>
-                                            <styled.Done />
-                                        </styled.IconButton>
+
+                                    
+                                    <styled.CommentContainer visible={!newTaskEdited && commentVisible}>
+                                        <Tooltip title="Comment" placement="top">
+                                            <IconButton
+                                                href=""
+                                                aria-label="Comment"
+                                                onClick={this.toggleComment}
+                                            >
+                                                <Comment />
+                                            </IconButton>
+                                        </Tooltip>
                                     </styled.CommentContainer>
+                                   
+                                    <styled.DoneContainer visible={newTaskEdited}>
+                                        <IconButton
+                                            onClick={() => {
+                                                actions.addTask({
+                                                    idDashboard: idList, nameTask: valueNewTask, priority,
+                                                });
+                                                this.setState({ valueNewTask: '', priority: 'NOT_SPECIFIED', newTaskEdited: false });
+                                            }}
+                                        >
+                                            <styled.Done />
+                                        </IconButton>
+                                    </styled.DoneContainer>
                                 </styled.addTaskContainer>
                             )
                     )

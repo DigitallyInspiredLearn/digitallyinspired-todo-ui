@@ -31,7 +31,7 @@ export const Window = styled.div`
     border-radius: 8px;
     padding: 8px;
     width: 70%; 
-    height: 70vh;
+    height: 73vh;
     font-family: Helvetica;
     @media (max-width: 500px) {
         width: 100%; 

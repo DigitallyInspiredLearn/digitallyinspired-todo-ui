@@ -142,14 +142,16 @@ class Container extends Component {
                             <Route path="/error500" component={null} />
                             <Redirect to="/auth" />
                         </Switch>
-                        <styled.Icon
-                            src={menu}
-                            alt="settings"
-                            onClick={this.handleClick}
-                            style={{
-                                display: iconVisible, width: '35px', height: '37px',
-                            }}
-                        />
+                        <Tooltip title="Menu">
+                            <styled.Icon
+                                src={menu}
+                                alt="settings"
+                                onClick={this.handleClick}
+                                style={{
+                                    display: iconVisible, width: '35px', height: '37px',
+                                }}
+                            />
+                        </Tooltip>
                         <Popover
                             id="simple-popper"
                             open={openPopover}
