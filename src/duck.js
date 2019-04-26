@@ -24,7 +24,11 @@ export function* errorHandler(gen) {
         } else if (e.response && e.response.status === 404) {
             console.log('Error 404');
             history.push('/error404');
-        } else console.log(e);
+        } else if (e.response && e.response.status === 401) {
+            console.log('Error 401');
+            history.push('/auth');
+        }
+            else console.log(e);
     }
 }
 

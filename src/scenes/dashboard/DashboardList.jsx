@@ -45,15 +45,6 @@ class DashboardList extends Component {
         } = this.props;
         const { visible } = this.state;
         return ([
-            <Alert
-                visible={errorMessage === '' ? visible : this.showAlert}
-                onClose={this.showAlert}
-                value={errorMessage}
-                onConfirm={() => actions.fetchErrors('')}
-                button="back"
-                key="unautorizeAlert"
-            />,
-
             <styled.App key="app">
                 <styled.DashboardList>
                     {
@@ -87,9 +78,7 @@ class DashboardList extends Component {
                             ))
                     }
                 </styled.DashboardList>
-            </styled.App>
-
-                ,
+            </styled.App>,
             <styled.Footer key="footer">
                 <div style={{ display: 'flex' }}>
                     <styled.Pagination>
@@ -117,7 +106,7 @@ class DashboardList extends Component {
                 </div>
                 <VisibleSidebar />
             </styled.Footer>,
-                <WebSocketContainer/>,
+                {/*<WebSocketContainer/>,*/}
         ]
         );
     }

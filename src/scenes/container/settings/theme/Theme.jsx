@@ -7,8 +7,6 @@ import nightImage from '../../../../image/night.png';
 import theme from '../../../../config/theme';
 import Input from '../../../../components/input/Input';
 
-// import Button from '../../../../components/button/Button';
-
 class Theme extends Component {
     constructor(props) {
         super(props);

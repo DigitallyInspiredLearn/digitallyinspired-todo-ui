@@ -12,6 +12,7 @@ import PageError500 from './scenes/errors/pageError500';
 import Container from './scenes/container/Container';
 
 const App = () => (
+    <WebSocketContainer>
     <Container>
 
         <Switch>
@@ -25,7 +26,7 @@ const App = () => (
             <Route path="/error500" component={PageError500} />
             <Redirect to="/auth" />
         </Switch>
-    </Container>
+    </Container><WebSocketContainer/>
 
 );
 

@@ -53,8 +53,8 @@ export const reducer = handleActions({
 
 function* fetchAllDeletedLists() {
     const { pageSize, currentPage, options } = yield select(state => state.basket);
-    const res = yield call(getMyList, currentPage, options[pageSize], 'id,asc', 'INACTIVE', '&tagId=');
-    const r = yield call(getMyList, '', '', 'id,asc', 'INACTIVE', '&tagId=');
+    const res = yield call(getMyList, currentPage, options[pageSize], 'id,asc', 'INACTIVE', '&tagId=', '');
+    const r = yield call(getMyList, '', '', 'id,asc', 'INACTIVE', '&tagId=', '');
     const allDeletedLists = r.data.content;
     const countElements = res.data.totalElements;
     const countPages = res.data.totalPages;
