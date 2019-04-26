@@ -18,7 +18,7 @@ class Search extends Component {
     };
 
     render() {
-        const { style, placeholder, value } = this.props;
+        const { style, placeholder, value, visible } = this.props;
 
         return (
             <styled.SearchCont style={{ backgroundColor: 'whitesmoke' }}>
@@ -29,7 +29,7 @@ class Search extends Component {
                     placeholder={placeholder}
                     style={style}
                 />
-                <Down style={{ color: 'grey', paddingTop: '4px', cursor: 'pointer' }} />
+                { !visible ? (<Down style={{ color: 'grey', paddingTop: '4px', cursor: 'pointer' }} />) : null }
             </styled.SearchCont>
 
 

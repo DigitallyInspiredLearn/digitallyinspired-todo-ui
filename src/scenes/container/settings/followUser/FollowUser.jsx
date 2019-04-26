@@ -35,7 +35,7 @@ class FollowUser extends Component {
                             onClick={() => this.setState({ displayMessage: 'none', display: 'block' })}
                         />
                         <styled.UsernameList>
-                            <ul style={{ display }}>
+                            <ul style={{ display, paddingLeft: 10 }}>
                                 {
                                     usersNames.length === 0
                                         ? (
@@ -51,6 +51,7 @@ class FollowUser extends Component {
                                                 actions.searchUserForFollowing(username);
                                                 this.setState({ display: 'none' });
                                             }}
+                                            style={{ listStyle: 'none' }}
                                         >
                                             {username}
                                         </li>
