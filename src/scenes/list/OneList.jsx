@@ -28,11 +28,10 @@ import TaskForList from './tasksForList/TaskForList';
 import { AlertDialog } from '../../components/dialog/AlertDialog';
 import * as styled from './OneList.styles';
 import * as styledHeaderToolbar
-    from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
+    from '../dashboard/headerToolbar/HeaderToolbar.styled';
 import low from '../../image/low.svg';
 import medium from '../../image/medium.svg';
 import high from '../../image/high.svg';
-import pdf from '../../image/pdf-file.svg';
 
 const CustomTableCell = withStyles(() => ({
     head: {
@@ -193,57 +192,7 @@ class OneList extends Component {
                 </styled.inputBlock>
                 <styled.BlockInfoContent>
                     <styled.blockTask>
-                        <styled.inputDiv>
-                            <styled.searchToDo
-                                type="text"
-                                placeholder="Search to-do"
-                                onChange={e => actions.changeSearch({
-                                    idDashboard: match.params.id,
-                                    search: e.target.value,
-                                })}
-                            />
-                            <Search style={{ paddingTop: '0px', fontSize: '40px', color: 'rgba(0, 0, 0, 0.54)' }} />
-                            <styledHeaderToolbar.ToggleButtonGroup
-                                style={{
-                                    backgroundColor: 'white',
-                                    boxShadow: '0 0  4px 0  rgba(0,0,0,0.2)',
-                                    borderBottom: '1px solid grey',
-                                    margin: '6px 0 4px 8px',
-                                    borderRadius: '4px',
-                                }}
-                                value={alignment}
-                                onChange={this.handleFormat}
-                            >
-                                <styledHeaderToolbar.ToggleButton
-                                    style={{
-                                        color: 'black',
-                                        height: '52px',
-                                        display: 'flex',
-                                        alignSelf: 'center',
-                                        borderRight: '1px solid lightgrey',
-                                    }}
-                                    onClick={() => actions.selectDoneAction({ done, idList: match.params.id })}
-                                    value="done"
-                                >
-                                    done
-                                </styledHeaderToolbar.ToggleButton>
-                                <styledHeaderToolbar.ToggleButton
-                                    style={{
-                                        color: 'black',
-                                        height: '52px',
-                                        display: 'flex',
-                                        alignSelf: 'center',
-                                    }}
-                                    onClick={() => actions.selectedNotDoneAction({
-                                        notDone,
-                                        idList: match.params.id,
-                                    })}
-                                    value="notDone"
-                                >
-                                    not done
-                                </styledHeaderToolbar.ToggleButton>
-                            </styledHeaderToolbar.ToggleButtonGroup>
-                        </styled.inputDiv>
+
                         {
                             tasks.length === 0
                                 ? (

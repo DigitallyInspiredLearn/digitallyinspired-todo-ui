@@ -5,8 +5,8 @@ import _MenuItem from '@material-ui/core/MenuItem';
 export const Select = styled(_Select)`
     color: black;
     border: none;
-    width: 74%;
-    margin: 6px 8px 6px 0;
+    width: 100%;
+    
     height: 40px;
     background-color: white;
     border-radius: 4px;
@@ -24,6 +24,28 @@ export const Button = styled(_Button)`
     display: flex;
     align-self: center;
    
+`;
+export const DeleteTag = styled.span`
+    padding: 0 4px;
+    margin-left: 4px
+    opacity: 0.6;
+    color: black;
+    cursor: pointer;
+`;
+
+export const Tag = styled.div`
+     display: flex;
+     justify-content: space-between !important;
+     flex: auto;
+`;
+
+
+export const NameTag = styled.p`
+    padding: 6px 8px;
+    margin: 4px;
+    border-radius: 20px;
+    opacity: 0.9;
+    color: black;
 `;
 
 export const MenuItem = styled(_MenuItem)`

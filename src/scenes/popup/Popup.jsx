@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
-import { SearchContent } from '../dashboard/heaaderToolbar/HeaderToolbar.styled';
+import { SearchContent } from '../dashboard/headerToolbar/HeaderToolbar.styled';
 import Search from '../../components/search/Search';
 import * as styled from '../../components/dialog/AlertDialog.styles';
 import * as styles from './Popup.styles';
